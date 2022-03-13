@@ -92,10 +92,10 @@ export default {
         return {
             clipped: true,
             drawer: false,
-            fixed: true,
+            fixed: false,
             items: [
                 {
-                    icon: 'mdi-apps',
+                    icon: 'mdi-home',
                     title: 'Accueil',
                     to: '/'
                 },
