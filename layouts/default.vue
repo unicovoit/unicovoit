@@ -28,9 +28,9 @@
                         <v-list-item-title v-text="item.title"/>
                     </v-list-item-content>
                 </v-list-item>
-                <v-divider></v-divider>
+                <v-divider fill-height></v-divider>
                 <v-list-item
-                    @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+                    @click="toggleTheme"
                     exact
                 >
                     <v-list-item-action>
@@ -111,8 +111,26 @@ export default {
     },
     computed: {
         version () {
-            return version || ''
+            return version || '' + (process.env.NODE_ENV !== 'production' ? ' dev' : '')
         }
-    }
+    },
+    beforeMount () {
+        try {
+            if (this.$cookies.get('dark', { parseJSON: false }) === 'true') {
+                this.$vuetify.theme.dark = true;
+            }
+        } catch (e) {console.error(e);}
+    },
+    methods: {
+        toggleTheme() {
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+            try {
+                this.$cookies.set('dark', `${this.$vuetify.theme.dark}`, {
+                    path: '/',
+                    sameSite: 'Strict'
+                })
+            } catch (e) {console.error(e);}
+        }
+    },
 }
 </script>
