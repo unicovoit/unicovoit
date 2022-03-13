@@ -20,6 +20,6 @@
 
 <script>
 export default {
-  name: 'InspirePage'
+  name: 'Trajets'
 }
 </script>

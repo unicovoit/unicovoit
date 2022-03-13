@@ -11,6 +11,9 @@
 </template>
 
 <style scoped lang="css">
+div {
+  width: 100%;
+}
 div svg {
   width: 90%;
 }
