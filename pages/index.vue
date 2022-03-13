@@ -6,48 +6,29 @@
         z-index:0;
       "
         />-->
-        <v-img
+<!--        <v-img
             src="/wave.svg"
             style="
                 position:absolute;
                 z-index:0;
+                width:50%
             "
-        ></v-img>
+        ></v-img>-->
         <v-container>
-            <v-card-title>
+            <div class="text-h2">
                 On va où ?
-            </v-card-title>
-            <v-form>
-                <v-container>
-                    <v-row>
-                        <v-col>
-                            <v-text-field
-                                label="Lieu de départ"
-                                placeholder="Nom de ville"
-                                filled
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col>
-                            <v-text-field
-                                label="Lieu d'arrivée"
-                                placeholder="Nom de ville"
-                                filled
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-form>
+            </div>
+            <TripForm></TripForm>
         </v-container>
     </div>
 </template>
 
 <script>
 import IUCovoitLogo from "../components/IUCovoitLogo";
+import TripForm from "../components/TripForm";
 
 export default {
     name: 'Accueil',
-    components: {IUCovoitLogo}
+    components: {IUCovoitLogo, TripForm}
 }
 </script>

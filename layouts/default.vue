@@ -48,9 +48,14 @@
             app
         >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-
+            <v-img
+                src="/wave.svg"
+                max-height="40"
+                max-width="100"
+                :aspect-ratio="16/9"
+                contain
+            ></v-img>
             <v-toolbar-title v-text="title"/>
-            <v-spacer/>
         </v-app-bar>
 
         <v-main>
@@ -63,20 +68,23 @@
             :absolute="!fixed"
             app
         >
-            <span>&copy; {{ new Date().getFullYear() }}</span>
-            <v-spacer></v-spacer>
-            <a
-                :href="`https://github.com/finxol/iucovoit/commit/${commitSha}`"
-                class="white--text"
-                target="_blank"
-                rel="noopener noreferrer">
-                {{ commitSha }}
-            </a>
+            <span>
+                <v-icon>mdi-copyright</v-icon>
+                <a
+                    class="text--primary"
+                    href="https://github.com/finxol/iucovoit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >finxol</a>
+                v{{ version }}
+            </span>
         </v-footer>
     </v-app>
 </template>
 
 <script>
+const { version } = require('../package.json')
+
 export default {
     name: 'DefaultLayout',
     data() {
@@ -98,7 +106,12 @@ export default {
             ],
             miniVariant: false,
             title: 'IUCovoit',
-            commitSha: process.env.GIT_SHA || "3672c1f"
+            commitSha: process.env.GIT_SHA || "2b4f8dd"
+        }
+    },
+    computed: {
+        version () {
+            return version || ''
         }
     }
 }

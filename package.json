@@ -1,12 +1,12 @@
 {
   "name": "iucovoit",
-  "version": "1.0.0",
+  "version": "0.1.0-alpha",
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "GIT_SHA=\"$(git rev-parse --short HEAD)\" nuxt build",
-    "start": "GIT_SHA=\"$(git rev-parse --short HEAD)\" nuxt start",
-    "generate": "GIT_SHA=\"$(git rev-parse --short HEAD)\" nuxt generate"
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
   },
   "dependencies": {
     "core-js": "^3.19.3",
