@@ -85,7 +85,7 @@ export default {
             policies: {
                 'default-src': ["'self'"],
                 'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com', 'cdn.jsdelivr.net'],
-                'font-src': ['fonts.googleapis.com', 'fonts.gstatic.com'],
+                'font-src': ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.jsdelivr.net'],
                 'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
                 'connect-src': ["'self'", PLAUSIBLE_DOMAIN]
             }
