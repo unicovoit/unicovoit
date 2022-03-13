@@ -26,7 +26,7 @@
         </v-container>
         <v-img
             src="/car-illustration.svg"
-            max-height="300"
+            max-width="600"
             aspect-ratio="1"
             contain
         ></v-img>
