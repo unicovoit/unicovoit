@@ -53,8 +53,12 @@
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
       <v-spacer></v-spacer>
-      <a :href="`https://github.com/finxol/iucovoit/commit/${commitSha}`" class="white--text">
-        {{ commitSha }}
+      <a
+        :href="`https://github.com/finxol/iucovoit/commit/${commitSha}`"
+        class="white--text"
+        target="_blank"
+        rel="noopener noreferrer">
+          {{ commitSha }}
       </a>
     </v-footer>
   </v-app>
@@ -82,7 +86,7 @@ export default {
       ],
       miniVariant: false,
       title: 'IUCovoit',
-      commitSha: process.env.GIT_SHA || "1f61267"
+      commitSha: process.env.GIT_SHA || "512ea95"
     }
   }
 }
