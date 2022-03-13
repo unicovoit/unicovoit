@@ -22,6 +22,6 @@
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/vuetify": "^1.12.3",
     "sass": "^1.49.9",
-    "sass-loader": "^12.6.0"
+    "sass-loader": "^10.1.1"
   }
 }
