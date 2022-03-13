@@ -1,0 +1,23 @@
+# Ignore everything, except...
+*
+
+# Modules
+!package.json
+!yarn.lock
+
+# UI files
+!nuxt.config.js
+!pages/
+!assets/
+!components/
+!config/
+!layouts/
+!middleware/
+!plugins/
+!static/
+
+# Server files
+!server/
+!jobs/
+
+!tsconfig.json
