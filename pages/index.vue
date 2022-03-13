@@ -15,11 +15,21 @@
             "
         ></v-img>-->
         <v-container>
-            <div class="text-h2">
+            <div
+                class="text-h2"
+                style="margin-bottom:2rem"
+                color="primary"
+            >
                 On va où ?
             </div>
             <TripForm></TripForm>
         </v-container>
+        <v-img
+            src="/car-illustration.svg"
+            max-height="300"
+            aspect-ratio="1"
+            contain
+        ></v-img>
     </div>
 </template>
 

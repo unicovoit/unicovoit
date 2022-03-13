@@ -5,28 +5,59 @@
         lazy-validation
     >
         <v-row>
-            <v-col>
-                <v-text-field
-                    label="Lieu de départ"
-                    placeholder="Nom de ville"
-                    filled
-                ></v-text-field>
-            </v-col>
+            <v-text-field
+                v-model="from"
+                label="Lieu de départ"
+                placeholder="Nom de ville"
+                filled
+            ></v-text-field>
         </v-row>
         <v-row>
-            <v-col>
-                <v-text-field
-                    label="Lieu d'arrivée"
-                    placeholder="Nom de ville"
-                    filled
-                ></v-text-field>
-            </v-col>
+            <v-text-field
+                v-model="to"
+                label="Lieu d'arrivée"
+                placeholder="Nom de ville"
+                filled
+            ></v-text-field>
+        </v-row>
+        <v-row>
+            <v-menu
+                ref="menu1"
+                v-model="menu1"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="auto"
+            >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="dateFormatted"
+                        label="Date"
+                        hint="MM/DD/YYYY format"
+                        persistent-hint
+                        prepend-icon="mdi-calendar"
+                        v-bind="attrs"
+                        @blur="date = parseDate(dateFormatted)"
+                        v-on="on"
+                        filled
+                    ></v-text-field>
+                </template>
+                <v-date-picker
+                    v-model="date"
+                    no-title
+                    @input="menu1 = false"
+                ></v-date-picker>
+            </v-menu>
         </v-row>
         <v-btn
             :disabled="!valid"
-            color="success"
+            color="info"
             class="mr-4"
             @click="validate"
+            block
+            x-large
+            style="margin-top:1.5rem"
         >
             Validate
         </v-btn>
@@ -39,8 +70,36 @@ export default {
     data(){
         return {
             valid: false,
+            from: '',
+            to: '',
+            date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            dateFormatted: this.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10)),
+            menu1: false,
+            menu2: false,
         }
     },
+    watch: {
+        date (val) {
+            this.dateFormatted = this.formatDate(this.date);
+        },
+    },
+    methods: {
+        validate() {
+            this.$router.push(`trips?from=${this.from}&to=${this.to}&on=${this.date}`);
+        },
+        formatDate (date) {
+            if (!date) return null;
+
+            const [year, month, day] = date.split('-');
+            return `${month}/${day}/${year}`
+        },
+        parseDate (date) {
+            if (!date) return null;
+
+            const [month, day, year] = date.split('/');
+            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+        },
+    }
 }
 </script>
 

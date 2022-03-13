@@ -71,13 +71,14 @@
             <span>
                 <v-icon>mdi-copyright</v-icon>
                 <a
-                    class="text--primary"
+                    class="text--secondary"
                     href="https://github.com/finxol/iucovoit"
                     target="_blank"
                     rel="noopener noreferrer"
                 >finxol</a>
-                v{{ version }}
             </span>
+            <v-spacer></v-spacer>
+            <span class="text--secondary">v{{ version }}</span>
         </v-footer>
     </v-app>
 </template>
@@ -101,12 +102,11 @@ export default {
                 {
                     icon: 'mdi-car-outline',
                     title: 'Trajets disponibles',
-                    to: '/trajets'
+                    to: '/trips'
                 }
             ],
             miniVariant: false,
             title: 'IUCovoit',
-            commitSha: process.env.GIT_SHA || "2b4f8dd"
         }
     },
     computed: {
