@@ -1,5 +1,7 @@
 # IUCovoit
 
+Palette de couleurs: [Canva Go and Proceed](https://www.canva.com/colors/color-palettes/go-and-proceed/)
+
 ## Build Setup
 
 ```bash
