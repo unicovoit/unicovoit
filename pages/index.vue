@@ -1,20 +1,18 @@
 <template>
     <div>
-        <IUCovoitLogo
+<!--        <IUCovoitLogo
             style="
         position:absolute;
         z-index:0;
       "
-        />
-        <v-sparkline
-            :value="value"
-            color="rgba(255, 255, 255, .7)"
-            height="100"
-            padding="24"
-            stroke-linecap="round"
-            smooth
-        >
-        </v-sparkline>
+        />-->
+        <v-img
+            src="/wave.svg"
+            style="
+                position:absolute;
+                z-index:0;
+            "
+        ></v-img>
         <v-container>
             <v-card-title>
                 On va où ?

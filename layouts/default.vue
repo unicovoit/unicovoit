@@ -28,14 +28,19 @@
                         <v-list-item-title v-text="item.title"/>
                     </v-list-item-content>
                 </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item
+                    @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+                    exact
+                >
+                    <v-list-item-action>
+                        <v-icon>mdi-theme-light-dark</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Changer le thème</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
-            <v-btn
-                @click="$vuetify.theme.dark = !$vuetify.theme.dark"
-
-                icon
-            >
-                <v-icon>mdi-theme-light-dark</v-icon>
-            </v-btn>
         </v-navigation-drawer>
         <v-app-bar
             :clipped-left="clipped"
@@ -93,7 +98,7 @@ export default {
             ],
             miniVariant: false,
             title: 'IUCovoit',
-            commitSha: process.env.GIT_SHA || "512ea95"
+            commitSha: process.env.GIT_SHA || "3672c1f"
         }
     }
 }
