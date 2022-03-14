@@ -9,7 +9,9 @@
         "generate": "nuxt generate",
         "docker": "yarn docker:build && yarn docker:run",
         "docker:build": "sudo docker build -t iucovoit .",
-        "docker:run": "sudo docker run -d -p 3000:3000 iucovoit"
+        "docker:rebuild": "yarn docker:kill && yarn docker",
+        "docker:run": "sudo docker run -d --name=\"iucovoit\" -p 3000:3000 iucovoit",
+        "docker:kill": "sudo docker kill iucovoit"
     },
     "dependencies": {
         "core-js": "^3.19.3",
