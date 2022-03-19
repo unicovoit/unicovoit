@@ -39,7 +39,7 @@ jobs:
       - id: string
         uses: ASzc/change-string-case-action@v2
         with:
-          string: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}
+          string: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
