@@ -31,6 +31,8 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
+          username: finxol
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWD }}
           registry: ${{ env.REGISTRY }}
 
       # Uppercase to lowercase image name
