@@ -19,4 +19,4 @@ EXPOSE 3000
 ENV NUXT_HOST=0.0.0.0
 ENV NODE_ENV="production"
 
-CMD [ "yarn", "start" ]
+CMD [ "nuxt", "start" ]
