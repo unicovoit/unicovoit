@@ -5,14 +5,50 @@ on:
         branches: [ main ]
     pull_request:
         branches: [ main ]
+        
+env:
+  REGISTRY: registry.ozna.me
+  IMAGE_NAME: iucovoit        
+
 
 jobs:
-
+    
     build:
 
-        runs-on: ubuntu-latest
+        runs-on: alpine-latest
+        permissions:
+          contents: read
+          packages: write
 
         steps:
-            - uses: actions/checkout@v2
-            - name: Build the Docker image
-              run: docker build . --file Dockerfile --tag iucovoit:$(git rev-parse --short HEAD)
+          - name: Checkout repository
+            uses: actions/checkout@v2
+
+          - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v1
+
+          # Uppercase to lowercase image name
+          - id: string
+            uses: ASzc/change-string-case-action@v2
+            with:
+              string: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}
+
+          # Extract metadata (tags, labels) for Docker
+          # https://github.com/docker/metadata-action
+          - name: Extract Docker metadata
+            id: meta
+            uses: docker/metadata-action@v3
+            with:
+              images: ${{ steps.string.outputs.lowercase }}
+
+          # Build and push Docker image with Buildx (don't push on PR)
+          # https://github.com/docker/build-push-action
+          - name: Build and push Docker image
+            uses: docker/build-push-action@v2
+            with:
+              context: .
+              push: ${{ github.event_name != 'pull_request' }}
+              tags: ${{ steps.meta.outputs.tags }}
+              labels: ${{ steps.meta.outputs.labels }}
+              cache-from: type=gha
+              cache-to: type=gha,mode=max
