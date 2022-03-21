@@ -15,13 +15,13 @@
             "
         ></v-img>-->
         <v-container>
-            <div
+            <v-main
                 class="text-h2"
-                style="margin-bottom:2rem"
                 color="primary"
+                style="margin-top:-3rem"
             >
                 On va où ?
-            </div>
+            </v-main>
             <TripForm></TripForm>
         </v-container>
         <v-img
