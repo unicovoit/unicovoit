@@ -2,7 +2,7 @@
     <v-form
         ref="form"
         v-model="valid"
-        @keyup.native.enter="valid && validate($event)"
+        @keyup.native.enter="!valid && validate($event)"
         lazy-validation
     >
         <v-row>
@@ -34,6 +34,7 @@
                 offset-y
                 max-width="290px"
                 min-width="auto"
+                required
             >
                 <template v-slot:activator="{ on, attrs }">
                     <v-text-field
@@ -47,6 +48,7 @@
                         v-on="on"
                         filled
                         :rules="rules"
+                        required
                     ></v-text-field>
                 </template>
                 <v-date-picker
@@ -66,7 +68,7 @@
             x-large
             style="margin-top:1.5rem"
         >
-            Validate
+            Rechercher
         </v-btn>
     </v-form>
 </template>
