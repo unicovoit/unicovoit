@@ -1,6 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
-const PLAUSIBLE_DOMAIN = ''
+const PLAUSIBLE_DOMAIN = 'plausible.finxol.io'
 const DESCRIPTION = 'Plateforme de covoiturage entre étudiants'
 const TITLE = 'UICovoit'
 const META_TITLE = `${TITLE} | IUCovoit`
@@ -59,6 +59,8 @@ export default {
         '@nuxtjs/vuetify',
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
+        // https://github.com/moritzsternemann/vue-plausible
+        'vue-plausible',
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
@@ -111,6 +113,20 @@ export default {
         },
         workbox: {
             cleanupOutdatedCaches: true
+        }
+    },
+
+    plausible: { // Use as fallback if no runtime config is available at runtime
+        domain: DOMAIN,
+        enableAutoPageviews: true,
+        enableAutoOutboundTracking: true
+    },
+    publicRuntimeConfig: {
+        plausible: {
+            domain: DOMAIN,
+            apiHost: 'https://' + PLAUSIBLE_DOMAIN,
+            enableAutoPageviews: true,
+            enableAutoOutboundTracking: true
         }
     },
 
