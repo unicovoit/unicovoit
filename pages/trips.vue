@@ -28,9 +28,9 @@
 <script>
 export default {
     name: 'Trajets',
-    data () {
+    data() {
         return {
-            trips:[
+            trips: [
                 {from: "Rennes", to: "Vannes", price: 0}
             ],
         }

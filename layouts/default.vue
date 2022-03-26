@@ -68,14 +68,16 @@
             :absolute="!fixed"
             app
         >
-            <span>
-                <v-icon>mdi-copyright</v-icon>
+            <span
+                style="font-size:90%"
+            >
                 <a
                     class="text--secondary"
-                    href="https://github.com/finxol/iucovoit"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >finxol</a>
+                    href="/about"
+                >
+                    <v-icon>mdi-information</v-icon>
+                    A Propos d'IUCovoit
+                </a>
             </span>
             <v-spacer></v-spacer>
             <span class="text--secondary">v{{ version }}</span>
@@ -84,7 +86,7 @@
 </template>
 
 <script>
-const { version } = require('../package.json')
+const {version} = require('../package.json')
 
 export default {
     name: 'DefaultLayout',
@@ -110,16 +112,18 @@ export default {
         }
     },
     computed: {
-        version () {
+        version() {
             return version || '' + (process.env.NODE_ENV !== 'production' ? ' dev' : '')
         }
     },
-    beforeMount () {
+    beforeMount() {
         try {
-            if (this.$cookies.get('dark', { parseJSON: false }) === 'true') {
+            if (this.$cookies.get('dark', {parseJSON: false}) === 'true') {
                 this.$vuetify.theme.dark = true;
             }
-        } catch (e) {console.error(e);}
+        } catch (e) {
+            console.error(e);
+        }
     },
     methods: {
         toggleTheme() {
@@ -129,7 +133,9 @@ export default {
                     path: '/',
                     sameSite: 'Strict'
                 })
-            } catch (e) {console.error(e);}
+            } catch (e) {
+                console.error(e);
+            }
         }
     },
 }
