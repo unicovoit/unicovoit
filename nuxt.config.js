@@ -4,7 +4,7 @@ const PLAUSIBLE_DOMAIN = 'plausible.finxol.io'
 const DESCRIPTION = 'Plateforme de covoiturage entre étudiants'
 const TITLE = 'UICovoit'
 const META_TITLE = `${TITLE} | IUCovoit`
-const DOMAIN = 'iucovoit.com'
+const DOMAIN = 'covoit.ozna.me'
 const URL = 'https://' + DOMAIN
 const BANNER = `${URL}/wave.svg`
 
