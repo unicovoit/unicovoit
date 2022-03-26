@@ -39,6 +39,7 @@ import TripForm from "../components/TripForm";
 
 export default {
     name: 'Accueil',
-    components: {IUCovoitLogo, TripForm}
+    components: {IUCovoitLogo, TripForm},
+    auth: false
 }
 </script>

@@ -10,7 +10,7 @@ const BANNER = `${URL}/wave.svg`
 
 export default {
     telemetry: false,
-    // Disable middleware-side rendering: https://go.nuxtjs.dev/ssr-mode
+    // Enable middleware-side rendering: https://go.nuxtjs.dev/ssr-mode
     ssr: true,
 
     // Global page headers: https://go.nuxtjs.dev/config-head
@@ -48,7 +48,7 @@ export default {
 
     // Server Middleware
     router: {
-        middleware: 'auth'
+        middleware: ['auth']
     },
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -78,8 +78,16 @@ export default {
                 referrer: 'same-origin',
                 additionalHeaders: true
             }
-        ]
+        ],
+        // https://www.npmjs.com/package/@nuxtjs/axios
+        '@nuxtjs/axios',
+        // https://www.npmjs.com/package/@nuxtjs/auth-next
+        '@nuxtjs/auth-next'
     ],
+
+    auth: {
+        // Options
+    },
 
     render: {
         csp: {
