@@ -76,7 +76,7 @@
 <script>
 export default {
     name: "TripForm",
-    data(){
+    data() {
         return {
             valid: false,
             from: '',
@@ -91,7 +91,7 @@ export default {
         }
     },
     watch: {
-        date (val) {
+        date(val) {
             this.dateFormatted = this.formatDate(this.date);
         },
     },
@@ -99,13 +99,13 @@ export default {
         validate() {
             this.$router.push(`trips?from=${this.from}&to=${this.to}&on=${this.date}`);
         },
-        formatDate (date) {
+        formatDate(date) {
             if (!date) return null;
 
             const [year, month, day] = date.split('-');
             return `${day}/${month}/${year}`
         },
-        parseDate (date) {
+        parseDate(date) {
             if (!date) return null;
 
             const [day, month, year] = date.split('/');

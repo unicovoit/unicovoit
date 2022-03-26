@@ -86,7 +86,21 @@ export default {
     ],
 
     auth: {
-        // Options
+        strategies: {
+            discord: {
+                clientId: '957274939398975499',
+                clientSecret: process.env.DISCORD_SECRET || 'no secrets here :)'
+            },
+            local: {
+                token: {
+                    required: false,
+                    type: false
+                },
+                endpoints: {
+                    login: { url: '/api/auth/login', method: 'post' },
+                }
+            }
+        }
     },
 
     render: {
@@ -148,20 +162,20 @@ export default {
             },
             themes: {
                 dark: {
-                    primary: "#D1E2F4",
+                    primary: "#F2F2F2",
                     accent: colors.grey.darken3,
                     secondary: colors.amber.darken3,
-                    info: "#87B0E2",
-                    warning: colors.amber.base,
+                    info: "#4A6DD9",
+                    warning: "#F2B544",
                     error: colors.deepOrange.accent4,
                     success: colors.green.darken2,
                 },
                 light: {
-                    primary: "#2A2D32",
+                    primary: "#0D0D0D",
                     accent: colors.grey.base,
                     secondary: colors.amber.base,
-                    info: "#87B0E2",
-                    warning: colors.amber.base,
+                    info: "#4A6DD9",
+                    warning: "#F2B544",
                     error: colors.deepOrange.base,
                     success: colors.green.base
                 }

@@ -15,7 +15,7 @@
         >
             <v-row>
                 <v-text-field
-                    v-model="id"
+                    v-model="login.username"
                     label="Identifiant"
                     placeholder="john"
                     :rules="rules"
@@ -25,10 +25,11 @@
             </v-row>
             <v-row>
                 <v-text-field
-                    v-model="passwd"
+                    v-model="login.password"
                     label="Mot de passe"
                     placeholder="************"
                     :rules="rules"
+                    type="password"
                     filled
                     required
                 ></v-text-field>
@@ -36,15 +37,27 @@
 
             <v-btn
                 :disabled="!valid"
+                @click="validate"
                 color="info"
                 class="mr-4"
-                @click="validate"
                 block
                 x-large
                 style="margin-top:1.5rem"
             >
                 Se connecter
             </v-btn>
+            <v-row>
+                <v-spacer></v-spacer>
+                <v-btn
+                    @click="discordLogin"
+                    color="info"
+                    style="margin-top:2rem;background-color:#5865f2"
+                >
+                    <v-icon>mdi-discord</v-icon>
+                    &nbsp;avec Discord
+                </v-btn>
+                <v-spacer></v-spacer>
+            </v-row>
         </v-form>
     </v-container>
 </template>
@@ -52,19 +65,34 @@
 <script>
 export default {
     name: "login",
-    data(){
+    data() {
         return {
             valid: false,
-            id: '',
-            passwd: '',
+            login: {
+                username: '',
+                password: '',
+            },
             rules: [
                 v => !!v || 'Merci de renseigner ce champ',
             ],
         }
     },
     methods: {
-        validate() {
-            this.$router.push(`auth`)
+        async validate() {
+            try {
+                let response = await this.$auth.loginWith('local', { data: this.login })
+                console.log(response)
+            } catch (err) {
+                console.error(err)
+            }
+        },
+        async discordLogin() {
+            try {
+                let response = await this.$auth.loginWith('discord')
+                console.log(response)
+            } catch (err) {
+                console.error(err)
+            }
         }
     }
 }
