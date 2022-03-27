@@ -106,6 +106,7 @@ export default {
                 'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com', 'cdn.jsdelivr.net'],
                 'font-src': ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.jsdelivr.net'],
                 'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+                'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com"],
                 'connect-src': ["'self'", PLAUSIBLE_DOMAIN]
             }
         }

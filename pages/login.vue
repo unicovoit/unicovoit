@@ -17,11 +17,11 @@
         </v-content>
 
         <v-btn
-            @click="auth0Login"
-            color="info"
-            class="mr-4"
             block
+            class="mr-4"
+            color="info"
             x-large
+            @click="auth0Login"
         >
             connexion
         </v-btn>

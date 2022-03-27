@@ -7,7 +7,7 @@
         >
             A Propos
         </v-main>
-        <v-content>
+        <v-main>
             IUCovoit est une initiative étudiante pour encourager le covoiturage à l'IUT.
             <br>
             <br>
@@ -34,10 +34,10 @@
             Made by <a
             class="text--secondary"
             href="https://github.com/finxol/iucovoit"
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
         >finxol</a>
-        </v-content>
+        </v-main>
     </v-container>
 </template>
 

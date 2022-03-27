@@ -2,10 +2,10 @@
     <v-app>
         <v-navigation-drawer
             v-model="drawer"
-            :mini-variant="miniVariant"
             :clipped="clipped"
-            fixed
+            :mini-variant="miniVariant"
             app
+            fixed
         >
             <v-list>
                 <v-btn
@@ -18,8 +18,8 @@
                     v-for="(item, i) in items"
                     :key="i"
                     :to="item.to"
-                    router
                     exact
+                    router
                 >
                     <v-list-item-action>
                         <v-icon>{{ item.icon }}</v-icon>
@@ -30,8 +30,8 @@
                 </v-list-item>
                 <v-divider fill-height></v-divider>
                 <v-list-item
-                    @click="toggleTheme"
                     exact
+                    @click="toggleTheme"
                 >
                     <v-list-item-action>
                         <v-icon>mdi-theme-light-dark</v-icon>
@@ -44,30 +44,31 @@
         </v-navigation-drawer>
         <v-app-bar
             :clipped-left="clipped"
-            fixed
             app
+            fixed
         >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-img
-                src="/wave.svg"
-                max-height="40"
-                max-width="100"
                 :aspect-ratio="16/9"
                 contain
+                max-height="40"
+                max-width="100"
+                src="/wave.svg"
             ></v-img>
             <v-toolbar-title v-text="title"/>
             <v-spacer></v-spacer>
             <v-icon
                 v-if="!isLoggedIn"
-                @click="goToProfile"
                 large
-            >mdi-account-circle</v-icon>
+                @click="goToLogin"
+            >mdi-account-circle
+            </v-icon>
             <v-img
                 v-else
-                @click="goToLogin"
-                :src="getProfilePicture"
-                style="max-height: 75%;margin-right: -3.5rem"
+                :src="getProfilePicture()"
                 contain
+                style="max-height: 75%;margin-right: -3.5rem"
+                @click="goToProfile"
             ></v-img>
         </v-app-bar>
 
@@ -93,7 +94,7 @@
                 </a>
             </span>
             <v-spacer></v-spacer>
-            <span class="text--secondary">v{{ version }}</span>
+            <span class="text--secondary">v{{ getVersion }}</span>
         </v-footer>
     </v-app>
 </template>
@@ -125,8 +126,8 @@ export default {
         }
     },
     computed: {
-        version() {
-            return version || '' + (process.env.NODE_ENV !== 'production' ? ' dev' : '')
+        getVersion() {
+            return version || '' + (process.env.NODE_ENV !== 'production' ? '-dev' : '')
         }
     },
     beforeMount() {
@@ -151,7 +152,7 @@ export default {
             }
         },
         isLoggedIn() {
-            return !!this.$store.state.auth.loggedIn
+            return this.$store.state.auth.loggedIn
         },
         goToProfile() {
             this.$router.push("account")

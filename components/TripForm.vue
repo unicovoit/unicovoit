@@ -2,26 +2,26 @@
     <v-form
         ref="form"
         v-model="valid"
-        @keyup.native.enter="!valid && validate($event)"
         lazy-validation
+        @keyup.native.enter="!valid && validate($event)"
     >
         <v-row>
             <v-text-field
                 v-model="from"
-                label="Lieu de départ"
-                placeholder="Nom de ville"
                 :rules="rules"
                 filled
+                label="Lieu de départ"
+                placeholder="Nom de ville"
                 required
             ></v-text-field>
         </v-row>
         <v-row>
             <v-text-field
                 v-model="to"
-                label="Lieu d'arrivée"
-                placeholder="Nom de ville"
                 :rules="rules"
                 filled
+                label="Lieu d'arrivée"
+                placeholder="Nom de ville"
                 required
             ></v-text-field>
         </v-row>
@@ -30,43 +30,43 @@
                 ref="menu1"
                 v-model="menu1"
                 :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
                 max-width="290px"
                 min-width="auto"
+                offset-y
                 required
+                transition="scale-transition"
             >
                 <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                         v-model="dateFormatted"
-                        label="Date de départ"
+                        :rules="rules"
+                        filled
                         hint="Au format JJ/MM/AAAA"
+                        label="Date de départ"
                         persistent-hint
                         prepend-icon="mdi-calendar"
+                        required
                         v-bind="attrs"
                         @blur="date = parseDate(dateFormatted)"
                         v-on="on"
-                        filled
-                        :rules="rules"
-                        required
                     ></v-text-field>
                 </template>
                 <v-date-picker
                     v-model="date"
                     no-title
-                    @input="menu1 = false"
                     required
+                    @input="menu1 = false"
                 ></v-date-picker>
             </v-menu>
         </v-row>
         <v-btn
             :disabled="!valid"
-            color="info"
-            class="mr-4"
-            @click="validate"
             block
-            x-large
+            class="mr-4"
+            color="info"
             style="margin-top:1.5rem"
+            x-large
+            @click="validate"
         >
             Rechercher
         </v-btn>

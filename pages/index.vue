@@ -25,10 +25,10 @@
             <TripForm></TripForm>
         </v-container>
         <v-img
-            src="/car-illustration.svg"
-            max-width="600"
             aspect-ratio="1"
             contain
+            max-width="600"
+            src="/car-illustration.svg"
         ></v-img>
     </div>
 </template>
