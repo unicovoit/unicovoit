@@ -12,7 +12,9 @@ RUN apk add git
 # copy the app, note .dockerignore
 COPY . /usr/src/nuxt-app/
 RUN yarn install
-RUN yarn build
+RUN --mount=type=secret,id=AUTH0_CLIENTID \
+    export AUTH0_CLIENTID=$(cat /run/secrets/AUTH0_CLIENTID) && \
+    yarn build
 
 EXPOSE 3000
 

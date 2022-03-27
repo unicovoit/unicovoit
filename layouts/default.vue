@@ -83,15 +83,12 @@
             app
         >
             <span
-                style="font-size:90%"
+                class="text--secondary"
+                @click="goToAbout"
+                style="font-size:90%;text-decoration: underline;cursor: pointer"
             >
-                <a
-                    class="text--secondary"
-                    href="/about"
-                >
-                    <v-icon>mdi-information</v-icon>
-                    A Propos d'IUCovoit
-                </a>
+                <v-icon>mdi-information</v-icon>
+                A Propos d'IUCovoit
             </span>
             <v-spacer></v-spacer>
             <span class="text--secondary">v{{ getVersion }}</span>
@@ -160,6 +157,9 @@ export default {
         goToLogin() {
             this.$router.push("login")
         },
+		goToAbout() {
+			this.$router.push("about")
+		},
         getProfilePicture() {
             try {
                 return this.$store.state.auth.user.picture

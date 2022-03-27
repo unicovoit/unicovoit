@@ -7,14 +7,14 @@
         >
             Connexion
         </v-main>
-        <v-content
+        <v-main
             style="margin-top:-1.5rem;text-align: justify"
         >
             Vous pouvez vous connecter à IUCovoit avec Auth0, Google ou Discord.
             <br>
             <br>
             Cliquez sur le bouton ci-dessous pour accéder à la page de connexion.
-        </v-content>
+        </v-main>
 
         <v-btn
             block
