@@ -8,7 +8,7 @@
         >
             <v-card-title>
                 {{ trip.from }}
-                <v-icon color="text--primary">mdi-arrow-right-bold-circle-outline</v-icon>
+                <v-icon color="text--primary">mdi-arrow-right-bold</v-icon>
                 {{ trip.to }}
             </v-card-title>
             <v-card-subtitle>
