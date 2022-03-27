@@ -1,5 +1,5 @@
 <template>
-    <v-app dark>
+    <v-app>
         <v-navigation-drawer
             v-model="drawer"
             :mini-variant="miniVariant"
@@ -56,6 +56,19 @@
                 contain
             ></v-img>
             <v-toolbar-title v-text="title"/>
+            <v-spacer></v-spacer>
+            <v-icon
+                v-if="!isLoggedIn"
+                @click="goToProfile"
+                large
+            >mdi-account-circle</v-icon>
+            <v-img
+                v-else
+                @click="goToLogin"
+                :src="$store.state.auth.user.picture"
+                style="max-height: 75%;margin-right: -3.5rem"
+                contain
+            ></v-img>
         </v-app-bar>
 
         <v-main>
@@ -136,7 +149,16 @@ export default {
             } catch (e) {
                 console.error(e);
             }
+        },
+        isLoggedIn() {
+            return !!this.$store.state.auth.loggedIn
+        },
+        goToProfile() {
+            this.$router.push("account")
+        },
+        goToLogin() {
+            this.$router.push("login")
         }
-    },
+    }
 }
 </script>

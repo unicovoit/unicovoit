@@ -1,9 +1,9 @@
-export const state = () => ({
-    authenticated: true
+export const state: () => { counter: number } = () => ({
+    counter: 10
 })
 
 export const mutations = {
-    set(state: any, auth: boolean) {
-        state.authenticated = auth
+    increment(state: any) {
+        state.counter++
     }
 }

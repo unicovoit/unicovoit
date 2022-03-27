@@ -7,58 +7,24 @@
         >
             Connexion
         </v-main>
-        <v-form
-            ref="form"
-            v-model="valid"
-            @keyup.native.enter="!valid && validate($event)"
-            lazy-validation
+        <v-content
+            style="margin-top:-1.5rem;text-align: justify"
         >
-            <v-row>
-                <v-text-field
-                    v-model="login.username"
-                    label="Identifiant"
-                    placeholder="john"
-                    :rules="rules"
-                    filled
-                    required
-                ></v-text-field>
-            </v-row>
-            <v-row>
-                <v-text-field
-                    v-model="login.password"
-                    label="Mot de passe"
-                    placeholder="************"
-                    :rules="rules"
-                    type="password"
-                    filled
-                    required
-                ></v-text-field>
-            </v-row>
+            Vous pouvez vous connecter à IUCovoit avec Auth0, Google ou Discord.
+            <br>
+            <br>
+            Cliquez sur le bouton ci-dessous pour accéder à la page de connexion.
+        </v-content>
 
-            <v-btn
-                :disabled="!valid"
-                @click="validate"
-                color="info"
-                class="mr-4"
-                block
-                x-large
-                style="margin-top:1.5rem"
-            >
-                Se connecter
-            </v-btn>
-            <v-row>
-                <v-spacer></v-spacer>
-                <v-btn
-                    @click="discordLogin"
-                    color="info"
-                    style="margin-top:2rem;background-color:#5865f2"
-                >
-                    <v-icon>mdi-discord</v-icon>
-                    &nbsp;avec Discord
-                </v-btn>
-                <v-spacer></v-spacer>
-            </v-row>
-        </v-form>
+        <v-btn
+            @click="auth0Login"
+            color="info"
+            class="mr-4"
+            block
+            x-large
+        >
+            connexion
+        </v-btn>
     </v-container>
 </template>
 
@@ -80,7 +46,7 @@ export default {
     methods: {
         async validate() {
             try {
-                let response = await this.$auth.loginWith('local', { data: this.login })
+                let response = await this.$auth.loginWith('local', {data: this.login})
                 console.log(response)
             } catch (err) {
                 console.error(err)
@@ -89,6 +55,14 @@ export default {
         async discordLogin() {
             try {
                 let response = await this.$auth.loginWith('discord')
+                console.log(response)
+            } catch (err) {
+                console.error(err)
+            }
+        },
+        async auth0Login() {
+            try {
+                let response = await this.$auth.loginWith('auth0')
                 console.log(response)
             } catch (err) {
                 console.error(err)

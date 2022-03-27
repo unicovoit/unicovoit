@@ -87,18 +87,13 @@ export default {
 
     auth: {
         strategies: {
+            auth0: {
+                domain: 'iucovoit.eu.auth0.com',
+                clientId: process.env.AUTH0_CLIENTID || 'no token here :)',
+            },
             discord: {
                 clientId: '957274939398975499',
                 clientSecret: process.env.DISCORD_SECRET || 'no secrets here :)'
-            },
-            local: {
-                token: {
-                    required: false,
-                    type: false
-                },
-                endpoints: {
-                    login: { url: '/api/auth/login', method: 'post' },
-                }
             }
         }
     },
