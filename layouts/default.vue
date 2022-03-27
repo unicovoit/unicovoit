@@ -65,7 +65,7 @@
             <v-img
                 v-else
                 @click="goToLogin"
-                :src="$store.state.auth.user.picture || ''"
+                :src="getProfilePicture"
                 style="max-height: 75%;margin-right: -3.5rem"
                 contain
             ></v-img>
@@ -158,6 +158,13 @@ export default {
         },
         goToLogin() {
             this.$router.push("login")
+        },
+        getProfilePicture() {
+            try {
+                return this.$store.state.auth.user.picture
+            } catch (e) {
+                return ""
+            }
         }
     }
 }
