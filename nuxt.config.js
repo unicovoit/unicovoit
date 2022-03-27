@@ -140,13 +140,16 @@ export default {
         enableAutoPageviews: true,
         enableAutoOutboundTracking: true
     },
+
+    // Define runtime config
     publicRuntimeConfig: {
         plausible: {
             domain: DOMAIN,
             apiHost: 'https://' + PLAUSIBLE_DOMAIN,
             enableAutoPageviews: true,
             enableAutoOutboundTracking: true
-        }
+        },
+        isProd: process.env.NODE_ENV === 'production'
     },
 
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

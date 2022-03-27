@@ -57,19 +57,24 @@
             ></v-img>
             <v-toolbar-title v-text="title"/>
             <v-spacer></v-spacer>
-            <v-icon
-                v-if="!isLoggedIn"
-                large
-                @click="goToLogin"
-            >mdi-account-circle
-            </v-icon>
-            <v-img
-                v-else
-                :src="getProfilePicture()"
-                contain
-                style="max-height: 75%;margin-right: -3.5rem"
-                @click="goToProfile"
-            ></v-img>
+            <v-avatar
+                size="40"
+                style="cursor: pointer"
+            >
+                <v-icon
+                    v-if="!isLoggedIn"
+                    large
+                    @click="goToLogin"
+                >mdi-account-circle
+                </v-icon>
+                <v-img
+                    v-else
+                    :src="getProfilePicture"
+                    lazy-src="/account-circle.svg"
+                    :alt="getProfileName"
+                    @click="goToProfile"
+                ></v-img>
+            </v-avatar>
         </v-app-bar>
 
         <v-main>
@@ -124,7 +129,24 @@ export default {
     },
     computed: {
         getVersion() {
-            return version || '' + (process.env.NODE_ENV !== 'production' ? '-dev' : '')
+            return (version || '') + (this.$config.isProd ? '' : '-dev')
+        },
+        isLoggedIn() {
+            return this.$store.state.auth.loggedIn
+        },
+        getProfilePicture() {
+            try {
+                return this.$store.state.auth.user.picture
+            } catch (e) {
+                return ""
+            }
+        },
+        getProfileName() {
+            try {
+                return this.$store.state.auth.user.nickname
+            } catch (e) {
+                return "Account"
+            }
         }
     },
     beforeMount() {
@@ -148,9 +170,6 @@ export default {
                 console.error(e);
             }
         },
-        isLoggedIn() {
-            return this.$store.state.auth.loggedIn
-        },
         goToProfile() {
             this.$router.push("account")
         },
@@ -160,13 +179,6 @@ export default {
 		goToAbout() {
 			this.$router.push("about")
 		},
-        getProfilePicture() {
-            try {
-                return this.$store.state.auth.user.picture
-            } catch (e) {
-                return ""
-            }
-        }
     }
 }
 </script>
