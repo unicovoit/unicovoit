@@ -1,63 +1,64 @@
 name: Docker
 
 on:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+    push:
+        tags:
+            - 'v[0-9]+.[0-9]+.[0-9]+'
 
 env:
-  REGISTRY: registry.ozna.me
-  IMAGE_NAME: iucovoit
+    REGISTRY: registry.ozna.me
+    IMAGE_NAME: iucovoit
 
 jobs:
-  build:
+    build:
 
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+            -   name: Set up Docker Buildx
+                uses: docker/setup-buildx-action@v1
 
-      # Login against a Docker registry except on PR
-      # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1
-        with:
-          username: finxol
-          password: ${{ secrets.DOCKER_REGISTRY_PASSWD }}
-          registry: ${{ env.REGISTRY }}
+            # Login against a Docker registry except on PR
+            # https://github.com/docker/login-action
+            -   name: Log into registry ${{ env.REGISTRY }}
+                if: github.event_name != 'pull_request'
+                uses: docker/login-action@v1
+                with:
+                    username: finxol
+                    password: ${{ secrets.DOCKER_REGISTRY_PASSWD }}
+                    registry: ${{ env.REGISTRY }}
 
-      # Uppercase to lowercase image name
-      - id: string
-        uses: ASzc/change-string-case-action@v2
-        with:
-          string: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            # Uppercase to lowercase image name
+            -   id: string
+                uses: ASzc/change-string-case-action@v2
+                with:
+                    string: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      # Extract metadata (tags, labels) for Docker
-      # https://github.com/docker/metadata-action
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ steps.string.outputs.lowercase }}
+            # Extract metadata (tags, labels) for Docker
+            # https://github.com/docker/metadata-action
+            -   name: Extract Docker metadata
+                id: meta
+                uses: docker/metadata-action@v3
+                with:
+                    images: ${{ steps.string.outputs.lowercase }}
 
-      # Build and push Docker image with Buildx
-      # https://github.com/docker/build-push-action
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          secrets: |
-            "AUTH0_CLIENTID=${{ secrets.AUTH0_CLIENTID }}"
+            # Build and push Docker image with Buildx
+            # https://github.com/docker/build-push-action
+            -   name: Build and push Docker image
+                uses: docker/build-push-action@v2
+                with:
+                    context: .
+                    push: ${{ github.event_name != 'pull_request' }}
+                    tags: ${{ steps.meta.outputs.tags }}
+                    labels: ${{ steps.meta.outputs.labels }}
+                    cache-from: type=gha
+                    cache-to: type=gha,mode=max
+                    secrets: |
+                        "AUTH0_CLIENTID=${{ secrets.AUTH0_CLIENTID }}"
+                        "AUTH0_DOMAIN=${{ secrets.AUTH0_DOMAIN }}"

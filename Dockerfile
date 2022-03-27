@@ -13,7 +13,9 @@ RUN apk add git
 COPY . /usr/src/nuxt-app/
 RUN yarn install
 RUN --mount=type=secret,id=AUTH0_CLIENTID \
+    --mount=type=secret,id=AUTH0_DOMAIN \
     export AUTH0_CLIENTID=$(cat /run/secrets/AUTH0_CLIENTID) && \
+    export AUTH0_DOMAIN=$(cat /run/secrets/AUTH0_DOMAIN) && \
     yarn build
 
 EXPOSE 3000
