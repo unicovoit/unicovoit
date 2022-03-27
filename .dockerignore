@@ -15,6 +15,7 @@
 !middleware/
 !plugins/
 !static/
+!store/
 
 # Server files
 !server/
