@@ -21,6 +21,18 @@ $ yarn generate
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
+To build the Docker container locally, 
+you need to create a `.dockersecrets` directory which contains:
+- a `auth0_clientid.txt` file containing the Auth0 client ID
+- a `auth0_domain.txt` file containing the Auth0 domain
+
+You can then run the following command to build:
+```bash
+$ podman build -t iucovoit --secret id=AUTH0_CLIENTID,src=.dockersecrets/auth0_clientid.txt --secret id=AUTH0_DOMAIN,src=.dockersecrets/auth0_domain.txt .
+```
+
+Then you can run the container using `$ podman-compose up -d`.
+
 ## Special Directories
 
 You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
