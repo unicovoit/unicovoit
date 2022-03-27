@@ -65,7 +65,7 @@
             <v-img
                 v-else
                 @click="goToLogin"
-                :src="$store.state.auth.user.picture"
+                :src="$store.state.auth.user.picture || ''"
                 style="max-height: 75%;margin-right: -3.5rem"
                 contain
             ></v-img>
