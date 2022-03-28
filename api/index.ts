@@ -9,6 +9,8 @@ import logger from './util/signale'
 import cookieParser from 'cookie-parser'
 import mongoose from "mongoose"
 const {version} = require('../package.json')
+// @ts-ignore
+import rateLimit from 'express-rate-limit'
 
 const mongoUrl: string = process.env.MONGO_URL || 'mongodb://localhost:27017/'
 
@@ -27,6 +29,15 @@ if (process.env.NODE_ENV !== 'test') {
 
 const app = express()
 
+// @ts-ignore
+let limiter: any = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+app.use(limiter);
 app.use(cors())
 app.use(bodyParser.json())
 app.use(cookieParser())
