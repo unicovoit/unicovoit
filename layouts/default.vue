@@ -92,6 +92,7 @@
             <NuxtLink
                 to="/about"
                 class="text--secondary"
+                justify="center"
             >
                 <v-icon>mdi-information</v-icon>
                 A Propos d'IUCovoit
@@ -180,3 +181,9 @@ export default {
     }
 }
 </script>
+
+<style>
+a[href="/about"] {
+    text-decoration: none;
+}
+</style>
