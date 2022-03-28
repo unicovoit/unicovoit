@@ -24,7 +24,7 @@ RUN --mount=type=secret,id=AUTH0_CLIENTID \
     export AUTH0_DOMAIN=$(cat /run/secrets/AUTH0_DOMAIN) && \
     yarn build
 
-RUN clean-modules --yes --exclude "**/*.mustache"
+RUN clean-modules --yes --exclude "**/*.mustache" --exclude "**/.cache/pwa/**"
 
 # Don't run container as root
 USER node
