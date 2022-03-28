@@ -15,9 +15,7 @@
             <v-card-subtitle>
                 {{ trip.price }} €
             </v-card-subtitle>
-            <v-card-actions
-                class="accent lighten-2"
-            >
+            <v-card-actions>
                 <v-avatar
                     size="40"
                 >
@@ -81,7 +79,13 @@ export default {
     },
     methods: {
         getTrips() {
-            this.$axios.get('/api/v1/trips')
+            // Get filters from query params
+            const filters = {
+                from: this.$route.query.from,
+                to: this.$route.query.to,
+            };
+
+            this.$axios.get('/api/v1/trips', {params: filters})
                 .then(response => {
                     this.trips = response.data;
                 })
