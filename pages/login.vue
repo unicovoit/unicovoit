@@ -10,7 +10,7 @@
         <v-main
             style="margin-top:-1.5rem;text-align: justify"
         >
-            Vous pouvez vous connecter à IUCovoit avec Auth0, Google ou Discord.
+            Vous pouvez vous connecter à IUCovoit avec Auth0, Microsoft ou Discord.
             <br>
             <br>
             Cliquez sur le bouton ci-dessous pour accéder à la page de connexion.
@@ -44,28 +44,11 @@ export default {
         }
     },
     methods: {
-        async validate() {
-            try {
-                let response = await this.$auth.loginWith('local', {data: this.login})
-                console.log(response)
-            } catch (err) {
-                console.error(err)
-            }
-        },
-        async discordLogin() {
-            try {
-                let response = await this.$auth.loginWith('discord')
-                console.log(response)
-            } catch (err) {
-                console.error(err)
-            }
-        },
         async auth0Login() {
             try {
-                let response = await this.$auth.loginWith('auth0')
-                console.log(response)
+                await this.$auth.loginWith('auth0')
             } catch (err) {
-                console.error(err)
+
             }
         }
     }

@@ -1,7 +1,15 @@
 version: '3'
 
 services:
-    moodisc:
+    mongodb:
+        image: docker.io/bitnami/mongodb:5.0.6
+        restart: always
+        volumes:
+            - '/opt/iucovoit/mongodb:/bitnami/mongodb'
+        networks:
+            - iucovoit
+
+    iucovoit:
         image: iucovoit:latest
         container_name: iucovoit
         restart: always
@@ -9,3 +17,11 @@ services:
             - "3000:3000"
         env_file:
             - .env
+        networks:
+            - iucovoit
+        depends_on:
+            - mongodb
+
+networks:
+    iucovoit:
+        driver: bridge

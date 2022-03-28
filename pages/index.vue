@@ -1,19 +1,5 @@
 <template>
     <div>
-        <!--        <IUCovoitLogo
-                    style="
-                position:absolute;
-                z-index:0;
-              "
-                />-->
-        <!--        <v-img
-                    src="/wave.svg"
-                    style="
-                        position:absolute;
-                        z-index:0;
-                        width:50%
-                    "
-                ></v-img>-->
         <v-container>
             <v-main
                 class="text-h2"

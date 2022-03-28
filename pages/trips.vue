@@ -5,6 +5,7 @@
         <v-card
             v-for='(trip, index) in trips'
             :key='index'
+            elevation="4"
         >
             <v-card-title>
                 {{ trip.from }}
@@ -17,7 +18,9 @@
         </v-card>
     </v-container>
     <v-container v-else>
-        <v-card>
+        <v-card
+            elevation="4"
+        >
             <v-card-title>
                 Aucun trajet disponible
             </v-card-title>
@@ -27,18 +30,28 @@
 
 <script>
 export default {
-    name: 'Trajets',
+    name: 'Trips',
     data() {
         return {
-            trips: [
-                {from: "Rennes", to: "Vannes", price: 0}
-            ],
+            trips: [],
         }
+    },
+    created() {
+        /*this.getTrips();*/
     },
     methods: {
+        /*getTrips() {
+            axios.get('/api/trips')
+                .then(response => {
+                    this.trips = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },*/
         isEmpty() {
-            return this.trips.length > 0
+            return this.trips.length > 0;
         }
-    },
+    }
 }
 </script>

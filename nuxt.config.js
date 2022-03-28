@@ -3,7 +3,6 @@ import colors from 'vuetify/es5/util/colors'
 const PLAUSIBLE_DOMAIN = 'plausible.finxol.io'
 const DESCRIPTION = 'Plateforme de covoiturage entre étudiants'
 const TITLE = 'UICovoit'
-const META_TITLE = `${TITLE} | IUCovoit`
 const DOMAIN = 'covoit.ozna.me'
 const URL = 'https://' + DOMAIN
 const BANNER = `${URL}/wave.svg`
@@ -11,17 +10,14 @@ const BANNER = `${URL}/wave.svg`
 const AUTH0_ID = process.env.AUTH0_CLIENTID || 'no token here :)'
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'example.org'
 
-console.log(AUTH0_ID)
-
 export default {
     telemetry: false,
-    // Enable middleware-side rendering: https://go.nuxtjs.dev/ssr-mode
+    // Enable scripts-side rendering: https://go.nuxtjs.dev/ssr-mode
     ssr: true,
 
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        titleTemplate: '%s | UICovoit',
-        title: 'UICovoit',
+        title: TITLE,
         htmlAttrs: {
             lang: 'fr'
         },
@@ -36,6 +32,23 @@ export default {
             },
             {name: 'author', content: 'finxol'},
             {name: 'language', content: 'French'},
+            {name: 'robots', content: 'noindex,nofollow'},
+            {name: 'category', content: 'internet'},
+            {hid: 'title', name: 'title', content: TITLE},
+
+            // Facebook
+            {property: 'og:type', content: 'website'},
+            {property: 'og:url', content: URL + '/'},
+            {hid: 'og:title', property: 'og:title', content: TITLE},
+            {hid: 'og:description', property: 'og:description', content: DESCRIPTION},
+            {property: 'og:image', content: BANNER},
+
+            // Twitter
+            {property: 'twitter:card', content: 'summary_large_image'},
+            {property: 'twitter:url', content: URL + '/'},
+            {hid: 'twitter:title', property: 'twitter:title', content: TITLE},
+            {hid: 'twitter:description', property: 'twitter:description', content: DESCRIPTION},
+            {property: 'twitter:image', content: BANNER}
         ],
         link: [
             {rel: 'icon', type: 'image/svg', href: '/wave.svg'}
@@ -181,6 +194,10 @@ export default {
                 }
             }
         }
+    },
+
+    serverMiddleware: {
+        '/api/v1': '~/api'
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
