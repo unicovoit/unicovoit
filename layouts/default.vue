@@ -48,13 +48,15 @@
             fixed
         >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-            <v-img
-                :aspect-ratio="16/9"
-                contain
-                max-height="40"
-                max-width="100"
-                src="/wave.svg"
-            ></v-img>
+            <NuxtLink to="/">
+                <v-img
+                    :aspect-ratio="16/9"
+                    contain
+                    max-height="40"
+                    max-width="100"
+                    src="/wave.svg"
+                ></v-img>
+            </NuxtLink>
             <v-toolbar-title v-text="title"/>
             <v-spacer></v-spacer>
             <v-avatar
@@ -70,7 +72,7 @@
                 <v-img
                     v-else
                     :src="getProfilePicture"
-                    lazy-src="/account-circle.svg"
+                    lazy-src="/account_circle.svg"
                     :alt="getProfileName"
                     @click="goToProfile"
                 ></v-img>
@@ -87,14 +89,13 @@
             :absolute="!fixed"
             app
         >
-            <span
+            <NuxtLink
+                to="/about"
                 class="text--secondary"
-                @click="goToAbout"
-                style="font-size:90%;text-decoration: underline;cursor: pointer"
             >
                 <v-icon>mdi-information</v-icon>
                 A Propos d'IUCovoit
-            </span>
+            </NuxtLink>
             <v-spacer></v-spacer>
             <span class="text--secondary">v{{ getVersion }}</span>
         </v-footer>
@@ -171,14 +172,11 @@ export default {
             }
         },
         goToProfile() {
-            this.$router.push("account")
+            this.$router.push("profile")
         },
         goToLogin() {
             this.$router.push("login")
         },
-		goToAbout() {
-			this.$router.push("about")
-		},
     }
 }
 </script>
