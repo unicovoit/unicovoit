@@ -83,6 +83,10 @@ export default {
 
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
+        // https://axios.nuxtjs.org/
+        '@nuxtjs/axios',
+        // https://www.npmjs.com/package/@nuxtjs/auth-next
+        '@nuxtjs/auth-next',
         // https://www.npmjs.com/package/cookie-universal-nuxt
         'cookie-universal-nuxt',
         [
@@ -97,10 +101,6 @@ export default {
                 additionalHeaders: true
             }
         ],
-        // https://www.npmjs.com/package/@nuxtjs/axios
-        '@nuxtjs/axios',
-        // https://www.npmjs.com/package/@nuxtjs/auth-next
-        '@nuxtjs/auth-next'
     ],
 
     auth: {
@@ -110,6 +110,10 @@ export default {
                 clientId: AUTH0_ID,
             },
         }
+    },
+
+    axios: {
+        proxy: true
     },
 
     render: {
