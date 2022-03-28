@@ -18,7 +18,7 @@
 !store/
 
 # Server files
-!server/
+!api/
 !jobs/
 
 !tsconfig.json
