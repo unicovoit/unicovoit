@@ -9,7 +9,6 @@ const Trip = require('../models/Trip')
 // @access  Public
 // @ts-ignore
 router.get('/', (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
-    console.log(Trip)
     try {
         Trip.find()
             .sort({date: -1})
@@ -19,6 +18,7 @@ router.get('/', (req: Request<RouteParameters<string>, any, any, ParsedQs, Recor
                 res.status(404).json({ nopostsfound: 'No trips found' })
                 logger.error(err)
             })
+        console.log(Trip)
     } catch (e) {
         logger.error(e)
         res.status(500).json({ error: 'Internal server error' })

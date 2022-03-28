@@ -33,9 +33,9 @@ const tripSchema: typeof Schema = new Schema({
 
 let Trip
 try {
-    Trip = connection.model('User')
+    Trip = connection.model('Trip')
 } catch (e) {
-    Trip = model('User', tripSchema)
+    Trip = model('Trip', tripSchema)
 }
 
 module.exports = Trip
