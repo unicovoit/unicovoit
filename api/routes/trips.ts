@@ -1,9 +1,11 @@
 import {Router} from 'express'
 import logger from '../util/signale'
+import {addTrip} from '../util/db'
 
 const router: Router = Router()
 
 const Trip = require('../models/Trip')
+
 
 // @route   GET /api/v1/trips
 // @desc    Get all trips
@@ -14,7 +16,7 @@ router.get('/', (req: Request<RouteParameters<string>, any, any, ParsedQs, Recor
         id: 1,
         driver: {
             id: 0,
-            name: "du7iuw5f",
+            name: "",
             picture: "https://s.gravatar.com/avatar/371bf211f9b892f400479cb44bb6f1cf?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdu.png"
         },
         from: 'Paris',
@@ -44,49 +46,62 @@ router.get('/', (req: Request<RouteParameters<string>, any, any, ParsedQs, Recor
             price: '300',
             description: 'Accompagnez-moi sur la route de Bordeaux. J\'aime beaucoup discuter et écouter de la musique. Voyage non fumeur.',
             show: false,
-        }])
+        }]);
+    return
     try {
         Trip.find()
             .sort({date: -1})
-            .then((trip: object) => res.json(trip))
+            .then((trip: object) => {
+                res.json(trip)
+                logger.success(trip)
+            })
             .catch((err: Error) => {
-                // @ts-ignore
                 res.status(404).json({nopostsfound: 'No trips found'})
                 logger.error(err)
             })
-        console.log(Trip)
+        logger.info(Trip)
     } catch (e) {
         logger.error(e)
         res.status(500).json({error: 'Internal server error'})
     }
 })
 
+
 // @route   GET /api/v1/trips/:id
 // @desc    Get trip by id
 // @access  Public
 // @ts-ignore
-router.get('/:id', (req: Request, res: Response) => {
-    // @ts-ignore
+router.get('/:id', (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
     Trip.findById(req.params.id)
-        // @ts-ignore
-        .then(trip => res.send(JSON.stringify(trip)))
+        .then((trip: object) => res.json(trip))
 })
+
 
 // @route   POST /api/v1/trips
 // @desc    Create a trip
 // @access  Public
 // @ts-ignore
 router.post('/', (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
-    const newTrip = new Trip({
-        name: req.body.name || '',
-        date: req.body.date,
-        location: req.body.location,
+    // save a trip to the database
+    addTrip({
+        driver: {
+            id: req.body.driver.id,
+            name: req.body.driver.name,
+            picture: req.body.driver.picture
+        },
+        from: req.body.from,
+        to: req.body.to,
+        price: req.body.price,
         description: req.body.description,
-        image: req.body.image,
-        user: req.body.user
+        show: req.body.show,
+    }).then((r: object) => {
+        res.json(r)
+        logger.success(r)
+    }).catch((e: Error) => {
+        logger.error(e)
+        res.status(500).json({error: 'Internal server error'})
     })
-
-    newTrip.save().then((trip: any) => res.send(JSON.stringify(trip)))
 })
+
 
 module.exports = {router}
