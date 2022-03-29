@@ -12,7 +12,7 @@
                     color="info"
                     text
                     v-bind="attrs"
-                    @click="snackbar = false"
+                    @click="hideSnackbar"
                 >
                     OK
                 </v-btn>
@@ -48,5 +48,16 @@ export default {
     data: () => ({
         snackbar: true,
     }),
+    beforeMount() {
+        if (sessionStorage.getItem('snackbar')) {
+            this.snackbar = false;
+        }
+    },
+    methods: {
+        hideSnackbar() {
+            this.snackbar = false
+            sessionStorage.setItem('snackbar', 'false')
+        },
+    },
 }
 </script>
