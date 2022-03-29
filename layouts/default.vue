@@ -60,23 +60,70 @@
             <v-toolbar-title v-text="title"/>
             <v-spacer></v-spacer>
             <v-avatar
+                v-if="!isLoggedIn"
                 size="40"
                 style="cursor: pointer"
             >
                 <v-icon
-                    v-if="!isLoggedIn"
                     large
                     @click="goToLogin"
                 >mdi-account-circle
                 </v-icon>
-                <v-img
-                    v-else
-                    :src="getProfilePicture"
-                    lazy-src="/account_circle.svg"
-                    :alt="getProfileName"
-                    @click="goToProfile"
-                ></v-img>
             </v-avatar>
+            <v-menu
+                v-else
+                bottom
+                min-width="200px"
+                offset-y
+                rounded
+            >
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                        icon
+                        x-large
+                        v-on="on"
+                    >
+                        <v-avatar
+                            color="brown"
+                            size="48"
+                        >
+                            <v-img
+                                :alt="getProfileName"
+                                :src="getProfilePicture"
+                                lazy-src="/account_circle.svg"
+                            ></v-img>
+                        </v-avatar>
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-list-item-content class="justify-center">
+                        <div class="mx-auto text-center">
+                            <v-avatar
+                                color="secondary"
+                            >
+                                <span class="white--text text-h5">{{ getProfileInitials }}</span>
+                            </v-avatar>
+                            <h3>{{ getProfileName }}</h3>
+                            <v-divider class="my-3"></v-divider>
+                            <v-btn
+                                depressed
+                                text
+                                @click="goToProfile"
+                            >
+                                Voir mon profil
+                            </v-btn>
+                            <v-divider class="my-3"></v-divider>
+                            <v-btn
+                                plain
+                                text
+                                @click="logout"
+                            >
+                                Me déconnecter
+                            </v-btn>
+                        </div>
+                    </v-list-item-content>
+                </v-card>
+            </v-menu>
         </v-app-bar>
 
         <v-main>
@@ -87,12 +134,14 @@
 
         <v-footer
             :absolute="!fixed"
+            align-items="center"
             app
+            justify-content="center"
         >
             <NuxtLink
-                to="/about"
                 class="text--secondary"
                 justify="center"
+                to="/about"
             >
                 <v-icon>mdi-information</v-icon>
                 A Propos d'IUCovoit
@@ -140,14 +189,21 @@ export default {
             try {
                 return this.$store.state.auth.user.picture
             } catch (e) {
-                return ""
+                return "/account_circle.svg"
             }
         },
         getProfileName() {
             try {
                 return this.$store.state.auth.user.nickname
             } catch (e) {
-                return "Account"
+                return "Utilisateur"
+            }
+        },
+        getProfileInitials() {
+            try {
+                return this.$store.state.auth.user.nickname.split(' ').map(name => name[0].toUpperCase()).join('').substring(0, 2)
+            } catch (e) {
+                return "U"
             }
         }
     },
@@ -178,6 +234,9 @@ export default {
         goToLogin() {
             this.$router.push("login")
         },
+        logout() {
+            this.$auth.logout()
+        }
     }
 }
 </script>
