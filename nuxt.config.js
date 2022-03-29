@@ -7,7 +7,7 @@ const DOMAIN = 'covoit.ozna.me'
 const URL = 'https://' + DOMAIN
 const BANNER = `${URL}/wave.svg`
 
-const AUTH0_ID = process.env.AUTH0_CLIENTID || 'no token here :)'
+const AUTH0_ID = process.env.AUTH0_CLIENTID || 'no id'
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'example.org'
 
 export default {
@@ -120,7 +120,7 @@ export default {
         csp: {
             hashAlgorithm: 'sha256',
             policies: {
-                'default-src': ["'self'"],
+                'default-src': ["'self'", "localhost"],
                 'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com', 'cdn.jsdelivr.net'],
                 'font-src': ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.jsdelivr.net'],
                 'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
@@ -201,7 +201,7 @@ export default {
     },
 
     serverMiddleware: {
-        '/api/v1': '~/api'
+        '/api': '~/api'
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
