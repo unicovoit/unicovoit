@@ -41,7 +41,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-app.use('/trips', require('./routes/trips').router)
+app.use('/v1/trips', require('./routes/trips').router)
 
 
 export default app
