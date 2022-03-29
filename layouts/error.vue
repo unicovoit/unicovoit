@@ -1,14 +1,31 @@
 <template>
     <v-app dark>
-        <h1 v-if="error.statusCode === 404">
-            {{ pageNotFound }}
+        <h1>
+            <v-main
+                class="text-h2"
+                color="primary"
+                style="margin-top:-3rem"
+            >
+                <span v-if="error.statusCode === 404">
+                    {{pageNotFound}}
+                </span>
+                <span v-else>
+                    {{otherError}}
+                </span>
+            </v-main>
+            <v-img
+                :src="illustration"
+                aspect-ratio="1"
+                max-width="500"
+            >
+            </v-img>
         </h1>
-        <h1 v-else>
-            {{ otherError }}
-        </h1>
-        <NuxtLink to="/">
-            Retour à l'accueil
-        </NuxtLink>
+        <v-btn
+            text
+            @click="$router.go(-1)"
+        >
+            Retour à la page précédente
+        </v-btn>
     </v-app>
 </template>
 
@@ -22,17 +39,20 @@ export default {
             default: null
         }
     },
+    computed: {
+        illustration() {
+            return this.error.statusCode === 404 ? '/lost.svg' : '/loading.svg'
+        }
+    },
     data() {
         return {
-            pageNotFound: '404 Page non trouvée',
+            pageNotFound: 'Page introuvable',
             otherError: 'Une erreur est survenue'
         }
     },
     head() {
-        const title =
-            this.error.statusCode === 404 ? this.pageNotFound : this.otherError
         return {
-            title
+            title: this.error.statusCode === 404 ? this.pageNotFound : this.otherError
         }
     }
 }
