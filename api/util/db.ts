@@ -1,22 +1,19 @@
 import logger from './signale'
 
-export default {
-    addTrip: async (trips: Array<object>) => {
-        const {Trip} = require('../models/Trip')
+export const addTrip: Function = async (t: object) => {
+    const {Trip} = require('../models/Trip')
 
-        let countAdd = 0
-        for (const t of trips) {
-            try {
-                const tmp = new Trip(t)
-                await tmp.save()
-                logger.log('Added : ' + tmp.fullId)
-                countAdd++
-            } catch (err) {
-                logger.error('Error : ' + err)
-            }
-        }
+    let countAdd = 0
 
-        logger.info('------------------')
-        logger.info(countAdd + ' added elements')
-    },
+    try {
+        const tmp = new Trip(t)
+        await tmp.save()
+        logger.log('Added : ' + tmp.fullId)
+        countAdd++
+    } catch (err) {
+        throw err
+    }
+
+    logger.info('------------------')
+    logger.info(countAdd + ' added elements')
 }
