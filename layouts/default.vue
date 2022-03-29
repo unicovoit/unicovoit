@@ -30,14 +30,15 @@
                 </v-list-item>
                 <v-divider fill-height></v-divider>
                 <v-list-item
+                    v-if="isLoggedIn"
                     exact
-                    @click="toggleTheme"
+                    @click="logout"
                 >
                     <v-list-item-action>
-                        <v-icon>mdi-theme-light-dark</v-icon>
+                        <v-icon>mdi-account-lock-outline</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title>Changer le thème</v-list-item-title>
+                        <v-list-item-title>Déconnexion</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -70,60 +71,18 @@
                 >mdi-account-circle
                 </v-icon>
             </v-avatar>
-            <v-menu
+            <v-avatar
                 v-else
-                bottom
-                min-width="200px"
-                offset-y
-                rounded
+                color="brown"
+                size="40"
+                @click="goToProfile"
             >
-                <template v-slot:activator="{ on }">
-                    <v-btn
-                        icon
-                        x-large
-                        v-on="on"
-                    >
-                        <v-avatar
-                            color="brown"
-                            size="48"
-                        >
-                            <v-img
-                                :alt="getProfileName"
-                                :src="getProfilePicture"
-                                lazy-src="/account_circle.svg"
-                            ></v-img>
-                        </v-avatar>
-                    </v-btn>
-                </template>
-                <v-card>
-                    <v-list-item-content class="justify-center">
-                        <div class="mx-auto text-center">
-                            <v-avatar
-                                color="secondary"
-                            >
-                                <span class="white--text text-h5">{{ getProfileInitials }}</span>
-                            </v-avatar>
-                            <h3>{{ getProfileName }}</h3>
-                            <v-divider class="my-3"></v-divider>
-                            <v-btn
-                                depressed
-                                text
-                                @click="goToProfile"
-                            >
-                                Voir mon profil
-                            </v-btn>
-                            <v-divider class="my-3"></v-divider>
-                            <v-btn
-                                plain
-                                text
-                                @click="logout"
-                            >
-                                Me déconnecter
-                            </v-btn>
-                        </div>
-                    </v-list-item-content>
-                </v-card>
-            </v-menu>
+                <v-img
+                    :alt="getProfileName"
+                    :src="getProfilePicture"
+                    lazy-src="/account_circle.svg"
+                ></v-img>
+            </v-avatar>
         </v-app-bar>
 
         <v-main>
@@ -172,6 +131,11 @@ export default {
                     icon: 'mdi-car-outline',
                     title: 'Trajets disponibles',
                     to: '/trips'
+                },
+                {
+                    icon: 'mdi-cog',
+                    title: 'Paramètres',
+                    to: '/settings'
                 }
             ],
             miniVariant: false,
@@ -198,13 +162,6 @@ export default {
             } catch (e) {
                 return "Utilisateur"
             }
-        },
-        getProfileInitials() {
-            try {
-                return this.$store.state.auth.user.nickname.split(' ').map(name => name[0].toUpperCase()).join('').substring(0, 2)
-            } catch (e) {
-                return "U"
-            }
         }
     },
     beforeMount() {
@@ -217,17 +174,6 @@ export default {
         }
     },
     methods: {
-        toggleTheme() {
-            this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-            try {
-                this.$cookies.set('dark', `${this.$vuetify.theme.dark}`, {
-                    path: '/',
-                    sameSite: 'Strict'
-                })
-            } catch (e) {
-                console.error(e);
-            }
-        },
         goToProfile() {
             this.$router.push("profile")
         },
@@ -241,8 +187,10 @@ export default {
 }
 </script>
 
-<style>
-a[href="/about"] {
-    text-decoration: none;
-}
+<style lang="sass">
+a[href="/about"]
+    text-decoration: none
+
+.v-avatar
+    cursor: pointer
 </style>
