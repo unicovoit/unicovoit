@@ -7,10 +7,10 @@
                 style="margin-top:-3rem"
             >
                 <span v-if="error.statusCode === 404">
-                    {{pageNotFound}}
+                    {{ pageNotFound }}
                 </span>
                 <span v-else>
-                    {{otherError}}
+                    {{ otherError }}
                 </span>
             </v-main>
             <v-img
