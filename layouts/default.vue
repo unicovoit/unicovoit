@@ -28,18 +28,9 @@
                         <v-list-item-title v-text="item.title"/>
                     </v-list-item-content>
                 </v-list-item>
+
                 <v-divider fill-height></v-divider>
-                <v-list-item
-                    exact
-                    @click="goToSettings"
-                >
-                    <v-list-item-action>
-                        <v-icon>mdi-cog</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>Paramètres</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                <Settings></Settings>
 
                 <v-list-item
                     v-if="isLoggedIn"
@@ -113,12 +104,12 @@
             justify-content="center"
         >
             <NuxtLink
-                class="text--secondary"
+                class="text--secondary text-decoration-none"
                 justify="center"
                 to="/about"
             >
                 <v-icon>mdi-information</v-icon>
-                A Propos d'IUCovoit
+                A Propos d'UniCovoit
             </NuxtLink>
             <v-spacer></v-spacer>
             <span class="text--secondary">v{{ getVersion }}</span>
@@ -128,9 +119,13 @@
 
 <script>
 const {version} = require('../package.json')
+import Settings from "../components/Settings";
 
 export default {
     name: 'DefaultLayout',
+    components: {
+        Settings
+    },
     data() {
         return {
             clipped: true,
@@ -163,7 +158,7 @@ export default {
                 }
             ],
             miniVariant: false,
-            title: 'IUCovoit',
+            title: 'UniCovoit',
         }
     },
     computed: {
@@ -188,9 +183,9 @@ export default {
             }
         }
     },
-    beforeMount() {
+    beforeCreate() {
         try {
-            if (this.$cookies.get('dark', {parseJSON: false}) === 'true') {
+            if (this.$cookies.get('dark', {parseJSON: false}) === 'true' /*|| window.matchMedia("(prefers-color-scheme: dark)").matches*/) {
                 this.$vuetify.theme.dark = true;
             }
         } catch (e) {
@@ -203,18 +198,12 @@ export default {
         },
         goToLogin() {
             this.$router.push({path: '/login'})
-        },
-        goToSettings() {
-            this.$router.push({path: '/settings'})
         }
     }
 }
 </script>
 
 <style lang="sass">
-a[href="/about"]
-    text-decoration: none
-
 .v-avatar
     cursor: pointer
 </style>
