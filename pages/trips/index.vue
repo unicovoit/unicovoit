@@ -4,9 +4,11 @@
             v-if="!isEmpty"
         >
             <v-card
-                v-for='(trip, index) in trips'
-                :key='index'
+                v-for='trip in trips'
+                :key='trip.id'
+                class="mb-5"
                 outlined
+                lazy
             >
                 <v-row
                     align="center"
@@ -14,9 +16,9 @@
                     <v-col
                     >
                         <v-card-title>
-                            {{ trip.from }}&nbsp;
-                            <v-icon color="text--primary">mdi-arrow-right-bold</v-icon>
-                            &nbsp;{{ trip.to }}
+                            {{ trip.from }}
+                            <v-icon color="text--primary" class="mx-2">mdi-arrow-right-bold</v-icon>
+                            {{ trip.to }}
                         </v-card-title>
                     </v-col>
                     <v-col
@@ -24,8 +26,8 @@
                     >
                         <v-btn
                             id="book-trip"
-                            icon
                             color="info"
+                            icon
                             @click="$router.push(`/trips/${trip.id}`)"
                         >
                             <v-icon size="35">mdi-car-arrow-right</v-icon>
@@ -38,20 +40,20 @@
                 <v-card-actions>
                     <v-avatar
                         size="40"
+                        class="mr-3"
                     >
                         <v-img
-                            :src="trip.driver.picture || '/account_circle.svg'"
                             :alt="trip.driver.name || 'Utilisateur'"
+                            :src="trip.driver.picture || '/account_circle.svg'"
                             @click="$router.push(`/profile/${trip.driver.id}`)"
                         ></v-img>
                     </v-avatar>
-                    &nbsp;
-                    {{ trip.driver.name  || 'Utilisateur' }}
+                    {{ trip.driver.name || 'Utilisateur' }}
                     <v-spacer></v-spacer>
                     <v-btn
+                        v-if="!!trip.description"
                         icon
                         @click="trip.show = !trip.show"
-                        v-if="!!trip.description"
                     >
                         <v-icon>mdi-chevron-{{ trip.show ? 'up' : 'down' }}</v-icon>
                     </v-btn>
@@ -85,10 +87,10 @@
         <v-snackbar
             :timeout="4000"
             :value="error"
-            tile
             color="error"
+            tile
         >
-        Une erreur est survenue. Merci de réessayer plus tard.
+            Une erreur est survenue. Merci de réessayer plus tard.
         </v-snackbar>
     </div>
 </template>
@@ -96,6 +98,7 @@
 <script>
 export default {
     name: 'Trips',
+    auth: false,
     data() {
         return {
             trips: [],
@@ -111,31 +114,34 @@ export default {
         },
     },
     methods: {
-        getTrips() {
+        async getTrips() {
             // Get filters from query params
             const filters = {
                 from: this.$route.query.from,
                 to: this.$route.query.to,
-            };
-            this.error = false;
+            }
+            this.error = false
 
-            this.$axios.get('/api/v1/trips', {params: filters})
-                .then(response => {
-                    this.trips = response.data;
-                })
-                .catch(error => {
-                    this.error = true;
-                    console.error(error);
-                });
+            const token = localStorage.getItem('token')
+            this.$axios.get('/api/v1/trips', {
+                params: filters,
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }).then(response => {
+                this.trips = response.data
+            })
+            .catch(error => {
+                this.error = true
+                console.error(error)
+            });
         },
-    }
+    },
 }
 </script>
 
 <style lang="sass">
 .v-card
-    margin: 0 auto 1.5rem
-
     #book-trip
         margin-right: .5rem
         cursor: pointer
