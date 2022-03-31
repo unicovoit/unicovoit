@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser'
 import mongoose from "mongoose"
 const {version} = require('../package.json')
 import rateLimit from 'express-rate-limit'
+import helmet from "helmet"
 
 const mongoUrl: string = process.env.MONGO_URL || 'mongodb://localhost:27017'
 
@@ -26,20 +27,21 @@ if (process.env.NODE_ENV !== 'test') {
 
 const app = express()
 
-// @ts-ignore
 let limiter: any = rateLimit({
     windowMs: 10 * 60 * 1000, // 10 minutes
     max: 100, // Limit each IP to 100 requests per `window` (here, per 10 minutes)
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-});
+})
 
-app.disable('x-powered-by')
 
-app.use(limiter);
-app.use(cors())
+app.disable('x-powered-by') // Disable Express header
+
 app.use(bodyParser.json())
 app.use(cookieParser())
+app.use(helmet()) // Add security headers
+app.use(cors()) // Set cross-origin requests headers
+app.use(limiter) // Set the rate limit
 
 app.use('/v1/trips', require('./routes/trips').router)
 
@@ -47,6 +49,8 @@ app.use('/v1/trips', require('./routes/trips').router)
 export default app
 
 
+
+// Start the server if standalone mode
 if (require.main === module) {
     const port: string | number = process.env.PORT || 3001
     app.listen(port, () => {
