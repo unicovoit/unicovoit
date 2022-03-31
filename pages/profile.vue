@@ -8,12 +8,11 @@
         </v-main>
         <v-alert
             v-if="!this.$store.state.auth.user.email_verified"
+            icon="mdi-alert-circle"
+            type="error"
             border="left"
-            color="warning"
-            colored-border
-            elevation="4"
+            text
         >
-            <v-icon>mdi-alert-circle-outline</v-icon>
             Cliquez sur le lien reçu pour vérifier votre adresse mail
         </v-alert>
 
