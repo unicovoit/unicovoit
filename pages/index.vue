@@ -6,7 +6,7 @@
             timeout="-1"
         >
             IUCovoit est encore en développement.
-            Faites remonter les bugs sur <a class="grey--text lighten-1" href="https://github.com/finxol/iucovoit">github</a>.
+            Faites remonter les bugs sur <a class="grey--text lighten-1" href="https://github.com/finxol/iucovoit" target="_blank" rel="noreferrer noopener">github</a>.
             <template v-slot:action="{ attrs }">
                 <v-btn
                     color="info"
@@ -20,9 +20,8 @@
         </v-snackbar>
         <v-container>
             <v-main
-                class="text-h2"
+                class="text-h2 mt-n10"
                 color="primary"
-                style="margin-top:-3rem"
             >
                 On va où ?
             </v-main>
