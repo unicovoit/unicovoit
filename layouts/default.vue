@@ -15,8 +15,8 @@
                     <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
                 </v-btn>
                 <v-list-item
-                    v-for="(item, i) in items"
-                    :key="i"
+                    v-for="item in menu1"
+                    :key="item.id"
                     :to="item.to"
                     exact
                     router
@@ -30,15 +30,30 @@
                 </v-list-item>
                 <v-divider fill-height></v-divider>
                 <v-list-item
-                    v-if="isLoggedIn"
                     exact
-                    @click="logout"
+                    @click="goToSettings"
                 >
                     <v-list-item-action>
-                        <v-icon>mdi-account-lock-outline</v-icon>
+                        <v-icon>mdi-cog</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title>Déconnexion</v-list-item-title>
+                        <v-list-item-title>Paramètres</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item
+                    v-if="isLoggedIn"
+                    v-for="item in menu2"
+                    :key="item.id"
+                    :to="item.to"
+                    exact
+                    router
+                >
+                    <v-list-item-action>
+                        <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title v-text="item.title"/>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -121,21 +136,30 @@ export default {
             clipped: true,
             drawer: false,
             fixed: false,
-            items: [
+            menu1: [
                 {
                     icon: 'mdi-home',
                     title: 'Accueil',
-                    to: '/'
-                },
-                {
+                    to: '/',
+                    id: '0'
+                }, {
                     icon: 'mdi-car-outline',
                     title: 'Trajets disponibles',
-                    to: '/trips'
-                },
+                    to: '/trips',
+                    id: '1'
+                }
+            ],
+            menu2: [
                 {
-                    icon: 'mdi-cog',
-                    title: 'Paramètres',
-                    to: '/settings'
+                    icon: 'mdi-car-2-plus',
+                    title: 'Proposer un trajet',
+                    to: '/trips/add',
+                    id: '2'
+                }, {
+                    icon: 'mdi-logout',
+                    title: 'Déconnexion',
+                    to: '/logout',
+                    id: '3'
                 }
             ],
             miniVariant: false,
@@ -175,13 +199,13 @@ export default {
     },
     methods: {
         goToProfile() {
-            this.$router.push("profile")
+            this.$router.push({path: '/profile'})
         },
         goToLogin() {
-            this.$router.push("login")
+            this.$router.push({path: '/login'})
         },
-        logout() {
-            this.$auth.logout()
+        goToSettings() {
+            this.$router.push({path: '/settings'})
         }
     }
 }
