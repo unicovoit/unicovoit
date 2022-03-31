@@ -3,7 +3,7 @@
         ref="form"
         v-model="valid"
         lazy-validation
-        @keyup.native.enter="!valid && validate($event)"
+        @keyup.native.enter="valid && validate($event)"
     >
         <v-row>
             <v-text-field
@@ -95,9 +95,19 @@ export default {
             this.dateFormatted = this.formatDate(this.date);
         },
     },
+    mounted() {
+        this.valid = false
+    },
     methods: {
         validate() {
-            this.$router.push(`trips?from=${this.from}&to=${this.to}&on=${this.date}`);
+            this.$router.push({
+                path: '/trips',
+                query: {
+                    from: this.from,
+                    to: this.to,
+                    date: this.date,
+                },
+            });
         },
         formatDate(date) {
             if (!date) return null;
