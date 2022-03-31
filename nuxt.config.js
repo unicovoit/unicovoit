@@ -129,7 +129,7 @@ export default {
                 'font-src': ["'self'", 'fonts.googleapis.com', 'fonts.gstatic.com'],
                 'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
                 'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com"],
-                'connect-src': ["'self'", PLAUSIBLE_DOMAIN]
+                'connect-src': ["'self'", PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
             }
         }
     },
