@@ -7,7 +7,7 @@
             A Propos
         </v-main>
         <v-main>
-            IUCovoit est une initiative étudiante pour encourager le covoiturage à l'IUT.
+            UniCovoit est une initiative étudiante pour encourager le covoiturage à l'IUT.
             <br>
             <br>
             <br>
@@ -31,11 +31,11 @@
             <br>
             <br>
             Made by <a
-            class="text--secondary"
-            href="https://github.com/finxol/iucovoit"
-            rel="noopener noreferrer"
-            target="_blank"
-        >finxol</a>
+                class="text--secondary"
+                href="https://github.com/finxol/unicovoit"
+                rel="noopener noreferrer"
+                target="_blank"
+            >finxol</a>
         </v-main>
     </v-container>
 </template>
