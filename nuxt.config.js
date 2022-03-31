@@ -76,7 +76,6 @@ export default {
         // https://go.nuxtjs.dev/typescript
         '@nuxt/typescript-build',
         // https://go.nuxtjs.dev/vuetify
-        '@nuxtjs/vuetify',
         ['@nuxtjs/vuetify', { iconfont: 'mdi' }],
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
@@ -138,7 +137,7 @@ export default {
     pwa: {
         meta: {
             title: TITLE,
-            author: 'kernoeb',
+            author: 'finxol',
             description: DESCRIPTION,
             lang: 'fr',
             ogSiteName: TITLE,
