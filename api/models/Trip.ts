@@ -1,41 +1,43 @@
-const { Schema, model, connection } = require('mongoose')
+import { Schema, model, models } from 'mongoose'
+import logger from '../util/signale'
 
-const tripSchema: typeof Schema = new Schema({
+const tripSchema: Schema = new Schema(
+    {
         id: {
             type: String,
             required: true,
             unique: true
         },
-        description: {
-            type: String,
-            required: true
-        },
-        startDate: {
-            type: Date,
-            required: true
-        },
-        endDate: {
-            type: Date,
-            required: true
-        },
-        user: {
+        driver: {
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
-        places: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Place'
-        }],
+        from: {
+            type: String,
+            required: true
+        },
+        to: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: String,
+            required: true
+        },
+        description: {
+            type: String,
+            required: false
+        },
     },
     {
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
     })
 
-let Trip
+let Trip: any
 try {
-    Trip = connection.model('Trip')
-} catch (e) {
     Trip = model('Trip', tripSchema)
+} catch (e) {
+    Trip = models.Trip
 }
-
+logger.info(Trip)
 module.exports = Trip
