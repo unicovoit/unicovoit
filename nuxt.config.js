@@ -10,6 +10,8 @@ const BANNER = `${URL}/wave.svg`
 const AUTH0_ID = process.env.AUTH0_CLIENTID || 'no id'
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'example.org'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 export default {
     telemetry: false,
     // Enable scripts-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -56,7 +58,7 @@ export default {
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: [],
+    css: ['@mdi/font/css/materialdesignicons.min.css'],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [],
@@ -75,6 +77,7 @@ export default {
         '@nuxt/typescript-build',
         // https://go.nuxtjs.dev/vuetify
         '@nuxtjs/vuetify',
+        ['@nuxtjs/vuetify', { iconfont: 'mdi' }],
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
         // https://github.com/moritzsternemann/vue-plausible
@@ -108,11 +111,13 @@ export default {
             auth0: {
                 domain: AUTH0_DOMAIN,
                 clientId: AUTH0_ID,
+                audience: 'https://' + AUTH0_DOMAIN + '/api/v2/',
             },
         }
     },
 
     axios: {
+        https: isProd,
         proxy: true
     },
 
@@ -120,9 +125,9 @@ export default {
         csp: {
             hashAlgorithm: 'sha256',
             policies: {
-                'default-src': ["'self'", "localhost"],
-                'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com', 'cdn.jsdelivr.net'],
-                'font-src': ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.jsdelivr.net'],
+                'default-src': ["'self'"],
+                'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+                'font-src': ["'self'", 'fonts.googleapis.com', 'fonts.gstatic.com'],
                 'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
                 'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com"],
                 'connect-src': ["'self'", PLAUSIBLE_DOMAIN]
@@ -166,7 +171,7 @@ export default {
             enableAutoPageviews: true,
             enableAutoOutboundTracking: true
         },
-        isProd: process.env.NODE_ENV === 'production'
+        isProd
     },
 
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
