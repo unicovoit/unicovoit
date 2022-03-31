@@ -1,9 +1,8 @@
 <template>
     <v-container>
         <v-main
-            class="text-h2"
+            class="text-h2 mt-n10"
             color="primary"
-            style="margin-top:-3rem"
         >
             A Propos
         </v-main>

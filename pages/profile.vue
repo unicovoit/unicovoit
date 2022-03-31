@@ -1,17 +1,16 @@
 <template>
     <v-container>
         <v-main
-            class="text-h2"
+            class="text-h2 mt-n10"
             color="primary"
-            style="margin-top:-3rem"
         >
-            Compte
+            Profile
         </v-main>
         <v-alert
             v-if="!this.$store.state.auth.user.email_verified"
             border="left"
-            colored-border
             color="warning"
+            colored-border
             elevation="4"
         >
             <v-icon>mdi-alert-circle-outline</v-icon>
@@ -20,14 +19,16 @@
 
         <v-card
             v-if="!$config.isProd"
+            outlined
         >
-            {{ this.$store.state.auth.user }}
+            <v-container>
+                {{ this.$store.state.auth.user }}
+            </v-container>
         </v-card>
 
         <v-card
             class="mx-auto"
             outlined
-            elevation="4"
             style="margin:2rem 0;padding:1rem"
         >
             <v-row
@@ -37,8 +38,8 @@
                 <v-col>
                     <v-avatar>
                         <v-img
-                            class="rounded-lg"
                             :src="this.$store.state.auth.user.picture"
+                            class="rounded-lg"
                             contain
                         ></v-img>
                     </v-avatar>
