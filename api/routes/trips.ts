@@ -3,6 +3,7 @@ import logger from '../util/signale'
 import {addTrip, bookTrip} from '../util/db'
 import {auth} from "express-oauth2-jwt-bearer"
 import axios from 'axios'
+const {version} = require("../../package.json")
 
 const router: Router = Router()
 
@@ -59,7 +60,7 @@ const testData = [{
  */
 // @ts-ignore
 router.get('/', (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
-    if (isDev) {
+    if (isDev || +version.split('.')[0] < 1) { // Only for development or version < 1.0.0
         res.json(testData)
     } else {
         try {
@@ -164,7 +165,7 @@ router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQ
  */
 // @ts-ignore
 router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
-    if (isDev) {
+    if (isDev || +version.split('.')[0] < 1) { // Only for development or version < 1.0.0
         let trip = testData.find(trip => trip.id === parseInt(req.params.id))
         if (trip) {
             res.json(trip)
