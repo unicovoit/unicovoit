@@ -57,8 +57,10 @@ export default {
         ]
     },
 
+    loading: { color: '#fff' },
+
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: ['@mdi/font/css/materialdesignicons.min.css'],
+    css: ['@mdi/font/css/materialdesignicons.min.css', '@fontsource/roboto/index.css'],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [],
@@ -125,8 +127,8 @@ export default {
             hashAlgorithm: 'sha256',
             policies: {
                 'default-src': ["'self'"],
-                'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
-                'font-src': ["'self'", 'fonts.googleapis.com', 'fonts.gstatic.com'],
+                'style-src': ["'self'", "'unsafe-inline'"],
+                'font-src': ["'self'"],
                 'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
                 'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com"],
                 'connect-src': ["'self'", PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
@@ -176,6 +178,7 @@ export default {
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
     vuetify: {
         customVariables: ['~/assets/variables.scss'],
+        defaultAssets: false,
         theme: {
             dark: false,
             lang: {
