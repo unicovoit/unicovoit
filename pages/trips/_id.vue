@@ -55,12 +55,12 @@
                     size="40"
                 >
                     <v-img
-                        :alt="trip.driver.name || 'Utilisateur'"
-                        :src="trip.driver.picture || '/account_circle.svg'"
-                        @click="$router.push(`/profile/${trip.driver.id}`)"
+                        :alt="trip.driver_name || 'Utilisateur'"
+                        :src="trip.driver_picture || '/account_circle.svg'"
+                        @click="$router.push(`/profile/${trip.driver_id}`)"
                     ></v-img>
                 </v-avatar>
-                &nbsp;{{ trip.driver.name || 'Utilisateur' }}
+                &nbsp;{{ trip.driver_name || 'Utilisateur' }}
                 <v-spacer></v-spacer>
             </v-card-text>
         </v-card>
@@ -109,9 +109,9 @@ export default {
     },
     computed: {
         parseDate() {
-            const date = new Date(this.trip.date);
-            let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-            return date.toLocaleDateString('fr-FR', options);
+            const date = new Date(this.trip.departure_time)
+            let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
+            return date.toLocaleDateString('fr-FR', options)
         },
     },
     async asyncData({error, params, $axios}) {
@@ -131,7 +131,6 @@ export default {
                     to: this.trip.to
                 }
             }).then(response => {
-                console.log(response)
                 return response.distance
             })
             .catch(error => {
