@@ -1,7 +1,19 @@
 <template>
     <div>
+        <!-- Show no trips are available -->
+        <v-container v-if="isEmpty">
+            <v-card
+                outlined
+            >
+                <v-card-title>
+                    Aucun trajet disponible
+                </v-card-title>
+            </v-card>
+        </v-container>
+
+        <!-- Show trips -->
         <v-container
-            v-if="!isEmpty"
+            v-else
         >
             <v-card
                 v-for='trip in trips'
@@ -28,7 +40,7 @@
                             id="book-trip"
                             color="info"
                             icon
-                            @click="$router.push(`/trips/${trip.id}`)"
+                            @click="$router.push(`/trips/${trip._id}`)"
                         >
                             <v-icon size="35">mdi-car-arrow-right</v-icon>
                         </v-btn>
@@ -43,12 +55,12 @@
                         class="mr-3"
                     >
                         <v-img
-                            :alt="trip.driver.name || 'Utilisateur'"
-                            :src="trip.driver.picture || '/account_circle.svg'"
-                            @click="$router.push(`/profile/${trip.driver.id}`)"
+                            :alt="trip.driver_name || 'Utilisateur'"
+                            :src="trip.driver_picture || '/account_circle.svg'"
+                            @click="$router.push(`/profile/${trip.driver_id}`)"
                         ></v-img>
                     </v-avatar>
-                    {{ trip.driver.name || 'Utilisateur' }}
+                    {{ trip.driver_name || 'Utilisateur' }}
                     <v-spacer></v-spacer>
                     <v-btn
                         v-if="!!trip.description"
@@ -69,17 +81,6 @@
                         </v-card-text>
                     </div>
                 </v-expand-transition>
-            </v-card>
-        </v-container>
-
-        <!-- Show no trips are available -->
-        <v-container v-else>
-            <v-card
-                outlined
-            >
-                <v-card-title>
-                    Aucun trajet disponible
-                </v-card-title>
             </v-card>
         </v-container>
 
@@ -129,6 +130,9 @@ export default {
                     Authorization: 'Bearer ' + token
                 }
             }).then(response => {
+                for (let i = 0; i < response.data.length; i++) {
+                    response.data[i].show = false
+                }
                 this.trips = response.data
             })
             .catch(error => {
