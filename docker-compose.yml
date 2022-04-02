@@ -8,15 +8,19 @@ services:
             - './mongodb:/data/db'
         networks:
             - unicovoit
+        ports:
+            - "27017:27017"
 
     unicovoit:
         image: registry.ozna.me/iucovoit:latest
-        container_name: iucovoit
+        container_name: unicovoit
         restart: always
         ports:
             - "3000:3000"
         env_file:
             - .env
+        environment:
+            - MONGO_URL=mongodb
         networks:
             - unicovoit
         depends_on:
