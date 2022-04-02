@@ -1,24 +1,36 @@
-import { Schema, model, models } from 'mongoose'
-import logger from '../util/signale'
+import mongoose from "mongoose"
 
-const tripSchema: Schema = new Schema(
-    {
+const TripSchema = new mongoose.Schema({
         id: {
             type: String,
             required: true,
             unique: true
         },
-        driver: {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
+        driver_id: {
+            type: String,
+            required: true,
+            index: true
+        },
+        driver_name: {
+            type: String,
+        },
+        driver_picture: {
+            type: String,
         },
         from: {
             type: String,
-            required: true
+            required: true,
+            index: true
         },
         to: {
             type: String,
-            required: true
+            required: true,
+            index: true
+        },
+        departure_time: {
+            type: Date,
+            required: true,
+            index: true
         },
         price: {
             type: String,
@@ -30,14 +42,7 @@ const tripSchema: Schema = new Schema(
         },
     },
     {
-        timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+        timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
     })
 
-let Trip: any
-try {
-    Trip = model('Trip', tripSchema)
-} catch (e) {
-    Trip = models.Trip
-}
-logger.info(Trip)
-module.exports = Trip
+export const Trip = mongoose.model("Trip", TripSchema)
