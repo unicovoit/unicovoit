@@ -7,10 +7,10 @@ services:
         volumes:
             - './mongodb:/data/db'
         networks:
-            - iucovoit
+            - unicovoit
 
-    iucovoit:
-        image: iucovoit:latest
+    unicovoit:
+        image: registry.ozna.me/iucovoit:latest
         container_name: iucovoit
         restart: always
         ports:
@@ -18,10 +18,10 @@ services:
         env_file:
             - .env
         networks:
-            - iucovoit
+            - unicovoit
         depends_on:
             - mongodb
 
 networks:
-    iucovoit:
+    unicovoit:
         driver: bridge
