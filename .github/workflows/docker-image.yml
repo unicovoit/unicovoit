@@ -7,7 +7,7 @@ on:
 
 env:
     REGISTRY: registry.ozna.me
-    IMAGE_NAME: iucovoit
+    IMAGE_NAME: unicovoit
 
 jobs:
     build:
