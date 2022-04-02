@@ -1,29 +1,32 @@
-import express from 'express'
-// @ts-ignore
-import cors from 'cors'
-import bodyParser from 'body-parser'
-import logger from './util/signale'
-// @ts-ignore
-import cookieParser from 'cookie-parser'
-import mongoose from "mongoose"
+import {initDB} from "./util/db";
+
 const {version} = require('../package.json')
+import express from 'express'
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
+
+import mongoose from "mongoose"
+import logger from './util/signale'
+
+import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 import helmet from "helmet"
 
-const mongoUrl: string = process.env.MONGO_URL || 'mongodb://localhost:27017'
+const mongoUrl: string = process.env.MONGO_URL || 'localhost:27017'
 
 logger.info('Starting...')
 logger.info('Version : ' + version)
 logger.info('MongoDB Url : ' + mongoUrl)
 
 // Connect to MongoDB first
-if (process.env.NODE_ENV !== 'test') {
-    mongoose.connect(`${mongoUrl}/trips`).then(() => {
-        logger.info('Mongo initialized !')
-    }).catch((err) => {
-        logger.error('Error while initializing mongo', err)
-    })
-}
+mongoose.connect(`mongodb://${mongoUrl}/unicovoit`)
+mongoose.connection.once('open',function(){
+    logger.info('Mongo connected Successfully')
+}).on('error',function(err){
+    logger.error('Error', err)
+})
+initDB()
+
 
 const app = express()
 
