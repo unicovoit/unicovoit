@@ -27,7 +27,8 @@
             "@nuxt/types",
             "@types/node",
             "@nuxtjs/auth-next"
-        ]
+        ],
+        "noImplicitAny": false,
     },
     "exclude": [
         "node_modules",
