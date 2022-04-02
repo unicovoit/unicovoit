@@ -12,14 +12,14 @@ import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 import helmet from "helmet"
 
-const mongoUrl: string = process.env.MONGO_URL || 'localhost:27017'
+const mongoUrl: string = process.env.MONGO_URL || 'localhost'
 
 logger.info('Starting...')
 logger.info('Version : ' + version)
 logger.info('MongoDB Url : ' + mongoUrl)
 
 // Connect to MongoDB first
-mongoose.connect(`mongodb://${mongoUrl}/unicovoit`)
+mongoose.connect(`mongodb://${mongoUrl}:27017/unicovoit`)
 mongoose.connection.once('open',function(){
     logger.info('Mongo connected Successfully')
 }).on('error',function(err){
