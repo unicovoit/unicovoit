@@ -12,7 +12,7 @@ services:
             - "27017:27017"
 
     unicovoit:
-        image: registry.ozna.me/iucovoit:latest
+        image: registry.ozna.me/unicovoit:latest
         container_name: unicovoit
         restart: always
         ports:

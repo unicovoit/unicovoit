@@ -74,6 +74,9 @@ typings/
 # Nuxt generate
 dist
 
+# MongoDB data
+mongodb
+
 # vuepress build output
 .vuepress/dist
 
