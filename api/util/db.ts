@@ -5,35 +5,43 @@ import mongoose, {MongooseDocument} from 'mongoose'
 
 
 export const testData = [{
-    id: 1,
     driver_id: 0,
     driver_name: "",
     driver_picture: "https://s.gravatar.com/avatar/371bf211f9b892f400479cb44bb6f1cf?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdu.png",
     from: 'Paris',
     to: 'Marseille',
     price: '100',
+    places: 2,
     departure_time: new Date('2019-01-01'),
     description: 'Accompagnez-moi sur la route de Marseille. J\'ai un petit coffre donc petit bagages svp.',
 }, {
-    id: 2,
     driver_id: 1,
     driver_name: "finxol",
     driver_picture: "https://cdn.discordapp.com/avatars/688822573970096165/b9480f354ea3fbaf05abb964265a1cc8.png",
     from: 'Gare Montparnasse, Paris',
     to: 'Lyon',
     price: '200',
+    places: 4,
     departure_time: new Date('2019-01-01'),
     description: 'Accompagnez-moi sur la route de Lyon. J\'ai un petit coffre donc petit bagages svp.',
 }, {
-    id: 3,
     driver_id: 2,
     driver_name: "Elouann",
     driver_picture: "",
     from: 'Paris',
     to: 'Bordeaux',
     price: '300',
+    places: 1,
     departure_time: new Date('2019-01-01'),
     description: 'Accompagnez-moi sur la route de Bordeaux. J\'aime beaucoup discuter et écouter de la musique. Voyage non fumeur.',
+}, {
+    from: 'Le Mans',
+    to: 'Rennes',
+    price: '15',
+    description: "accompagnez-moi svp je me sens seul j'ai pas d'amis :(",
+    departure_time: '2022-04-14T18:02:31.900Z',
+    driver_id: 'auth0|623f93c6c665610070aa3d75',
+    places: '5'
 }]
 
 
