@@ -8,10 +8,10 @@
         "start": "nuxt start",
         "generate": "nuxt generate",
         "docker": "yarn docker:build && yarn docker:run",
-        "docker:build": "podman build -t iucovoit .",
+        "docker:build": "podman build -t unicovoit .",
         "docker:rebuild": "yarn docker:kill && yarn docker",
-        "docker:run": "podman run -d --name=\"iucovoit\" -p 3000:3000 iucovoit",
-        "docker:kill": "podman kill iucovoit"
+        "docker:run": "podman run -d --name=\"unicovoit\" -p 3000:3000 unicovoit",
+        "docker:kill": "podman kill unicovoit"
     },
     "dependencies": {
         "@auth0/auth0-vue": "^1.0.0",
@@ -19,6 +19,7 @@
         "@fontsource/roboto": "^4.5.5",
         "@nuxtjs/auth-next": "5.0.0-1647967358.de1bb0f",
         "@nuxtjs/axios": "^5.13.6",
+        "@nuxtjs/device": "^2.1.0",
         "@nuxtjs/pwa": "^3.3.5",
         "axios": "^0.26.1",
         "cookie-parser": "^1.4.6",
@@ -38,7 +39,8 @@
         "vue-template-compiler": "^2.6.14",
         "vuetify": "^2.6.1",
         "vuetify-loader": "^1.7.3",
-        "webpack": "^4.46.0"
+        "webpack": "^4.46.0",
+        "xss": "^1.0.11"
     },
     "devDependencies": {
         "@mdi/font": "^6.6.96",
