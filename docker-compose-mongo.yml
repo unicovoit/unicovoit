@@ -5,6 +5,6 @@ services:
         image: mongo:5.0.6
         restart: always
         volumes:
-            - '/opt/iucovoit/mongodb:/bitnami/mongodb'
+            - './mongo-data:/data/db'
         ports:
             - "27017:27017"
