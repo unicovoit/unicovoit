@@ -8,12 +8,12 @@
         </v-main>
 
         <v-alert
-            v-if="$nuxt.isOffline"
+            v-if="isOffline"
             border="left"
             class="mx-2 my-4"
             type="warning"
         >
-            Vous n'êtes pas connecté à internet. Vous ne pouvez pas proposer de trajet.
+            Vous n'êtes pas connecté à internet. Vous ne pouvez pas enregistrer de nouveaux trajet.
         </v-alert>
 
         <v-alert
@@ -258,6 +258,11 @@ export default {
                 v => /^[1-9]$/.test(v) || "Merci d'entrer un nombre entier entre 1 et 9",
             ],
         }
+    },
+    computed: {
+        isOffline() {
+            return this.$nuxt.isOffline
+        },
     },
     methods: {
         nextStep() {

@@ -2,7 +2,7 @@
     <div>
         <!-- Show no connectivity -->
         <v-alert
-            v-if="$nuxt.isOffline"
+            v-if="isOffline"
             class="mx-2 my-4"
             border="left"
             type="warning"
@@ -142,13 +142,16 @@ export default {
         isEmpty() {
             return this.trips.length === 0;
         },
+        isOffline() {
+            return this.$nuxt.isOffline
+        },
     },
     methods: {
         parseDateTime(dep) {
             const date = new Date(dep)
             let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
             let time = date.toLocaleTimeString('fr-FR').split(':')
-            return `${date.toLocaleDateString('fr-FR', options)}, ${time[0]} h ${time[1]}`
+            return `${date.toLocaleDateString('fr-FR', options)}, ${time[0]}h${time[1]}`
         },
         async getTrips() {
             // Get filters from query params
