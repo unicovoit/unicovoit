@@ -1,10 +1,9 @@
 import {Router} from 'express'
 import logger from '../util/signale'
 import * as db from '../util/db'
+import {verifyTrip} from "../util/verifier"
 import {auth} from "express-oauth2-jwt-bearer"
 import axios from 'axios'
-
-const {version} = require("../../package.json")
 
 const router: Router = Router()
 
@@ -54,20 +53,20 @@ async function getDistance(from: string, to: string): Promise<{ distance: number
             format: 'json',
         }
     }).then((response: any) => {
-        const start = `${response.data[0].lat},${response.data[0].lon}`
+        const start = `${response.data[0].lon},${response.data[0].lat}`
         return axios.get('https://nominatim.openstreetmap.org/search', {
             params: {
                 q: to,
                 format: 'json',
             }
         }).then((response: any) => {
-            const end = `${response.data[0].lat},${response.data[0].lon}`
+            const end = `${response.data[0].lon},${response.data[0].lat}`
             // Get distance between two points
-            return axios.get(`https://router.project-osrm.org/route/v1/driving/${start};${end}?overview=false`
+            return axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${start};${end}?access_token=${process.env.MAPBOX_TOKEN}`
             ).then((r: any) => {
                 return {
                     distance: parseInt(String(r.data.routes[0].distance / 1000)),
-                    duration: r.data.routes[0].duration,
+                    duration: parseInt(String(r.data.routes[0].duration / 60))
                 }
             }).catch((e: Error) => {
                 logger.error(e)
@@ -121,7 +120,7 @@ router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQ
 // @ts-ignore
 router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
     if (isDev && false /*|| +version.split('.')[0] < 1*/) { // Only for development or version < 1.0.0
-        let trip = db.testData.find(trip => trip.id === parseInt(req.params.id))
+        let trip = db.testData.find(trip => trip.places === parseInt(req.params.id))
         if (trip) {
             res.json(trip)
         } else {
@@ -157,7 +156,11 @@ router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, a
 // @ts-ignore
 router.post('/add', checkJwt, (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
     try {
-        db.addTrip(db.testData[0]).then((r: object) => {
+        let trip = verifyTrip(req.body)
+        logger.info(trip)
+        db.addTrip(
+            trip
+        ).then((r: object) => {
             res.json(r)
             logger.success(r)
         }).catch((e: Error) => {
