@@ -19,6 +19,7 @@
                 label="Date de départ"
                 persistent-hint
                 prepend-icon="mdi-calendar"
+                readonly
                 required
                 v-bind="attrs"
                 @blur="date = parseDate(dateFormatted)"
@@ -28,8 +29,8 @@
         <v-date-picker
             v-model="date"
             :first-day-of-week="1"
-            :min="minDate"
             :max="maxDate"
+            :min="minDate"
             color="primary"
             locale="fr-fr"
             no-title
