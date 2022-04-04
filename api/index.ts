@@ -25,8 +25,10 @@ mongoose.connection.once('open',function(){
 }).on('error',function(err){
     logger.error('Error', err)
 })
-initDB()
-
+// reset db if not in prod
+if(process.env.NODE_ENV !== 'production'){
+    initDB()
+}
 
 const app = express()
 
