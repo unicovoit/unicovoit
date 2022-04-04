@@ -91,6 +91,8 @@ export default {
         '@nuxtjs/axios',
         // https://www.npmjs.com/package/@nuxtjs/auth-next
         '@nuxtjs/auth-next',
+        // https://www.npmjs.com/package/@nuxtjs/device
+        '@nuxtjs/device',
         // https://www.npmjs.com/package/cookie-universal-nuxt
         'cookie-universal-nuxt',
         [
@@ -186,19 +188,19 @@ export default {
             },
             themes: {
                 dark: {
-                    primary: "#F2F2F2",
+                    primary: "#4A6DD9",
                     accent: colors.grey.darken3,
                     secondary: colors.amber.darken3,
-                    info: "#4A6DD9",
+                    info: "#03A9F4",
                     warning: "#F2B544",
                     error: colors.deepOrange.accent4,
                     success: colors.green.darken2,
                 },
                 light: {
-                    primary: "#0D0D0D",
+                    primary: "#4A6DD9",
                     accent: colors.grey.base,
                     secondary: colors.amber.base,
-                    info: "#4A6DD9",
+                    info: "#03A9F4",
                     warning: "#F2B544",
                     error: colors.deepOrange.base,
                     success: colors.green.base
