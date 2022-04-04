@@ -5,7 +5,7 @@
             elevation="20"
             timeout="-1"
         >
-            IUCovoit est encore en développement.
+            UniCovoit est encore en développement.
             Faites remonter les bugs sur <a class="grey--text lighten-1" href="https://github.com/finxol/iucovoit" target="_blank" rel="noreferrer noopener">github</a>.
             <template v-slot:action="{ attrs }">
                 <v-btn
@@ -20,7 +20,7 @@
         </v-snackbar>
         <v-container>
             <v-main
-                class="text-h2 mt-n10"
+                class="text-h2 mt-n10 font-weight-regular"
                 color="primary"
             >
                 On va où ?
@@ -37,19 +37,20 @@
 </template>
 
 <script>
-import IUCovoitLogo from "../components/IUCovoitLogo";
 import TripForm from "../components/TripForm";
 
 export default {
     name: 'Accueil',
-    components: {IUCovoitLogo, TripForm},
+    components: {TripForm},
     auth: false,
     data: () => ({
-        snackbar: true,
+        snackbar: false,
     }),
-    beforeMount() {
-        if (sessionStorage.getItem('snackbar')) {
-            this.snackbar = false;
+    mounted() {
+        if (!sessionStorage.getItem('snackbar')) {
+            this.snackbar = this.$device.isMobile
+        } else {
+            this.snackbar = false
         }
     },
     methods: {

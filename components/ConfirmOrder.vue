@@ -11,7 +11,7 @@
                 v-on="on"
                 block
                 class="mt-4"
-                color="info"
+                color="primary"
                 x-large
             >
                 Réserver
@@ -20,7 +20,7 @@
         <v-card>
             <v-toolbar
                 dark
-                color="info"
+                color="primary"
             >
                 <v-btn
                     icon
@@ -78,7 +78,7 @@
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
-                        <v-list-item-title>{{ parseDate }}</v-list-item-title>
+                        <v-list-item-title>{{ date }}</v-list-item-title>
                         <v-list-item-subtitle>Date</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
@@ -99,7 +99,7 @@
 
             <v-container class="mt-5 px-8">
                 <v-btn
-                    color="info"
+                    color="primary"
                     justify="center"
                     block
                     x-large
@@ -120,6 +120,10 @@ export default {
             type: Object,
             required: true
         },
+        date: {
+            type: String,
+            required: true
+        },
     },
     data() {
         return {
@@ -128,13 +132,6 @@ export default {
             error: false,
             success: false,
         };
-    },
-    computed: {
-        parseDate() {
-            const date = new Date(this.trip.date);
-            let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-            return date.toLocaleDateString('fr-FR', options);
-        }
     },
     methods: {
         confirm() {

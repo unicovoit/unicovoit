@@ -1,5 +1,27 @@
 <template>
     <v-app>
+        <v-snackbar
+            v-model="desktopWarning"
+            elevation="20"
+            timeout="-1"
+        >
+            <v-row>
+                <v-col>
+                    UniCovoit est optimisé pour les appareils mobiles.
+                    En utilisant un ordinateur, vous pouvez avoir des problèmes de performances.
+                </v-col>
+                <v-col cols="2">
+                    <v-btn
+                        color="info"
+                        text
+                        @click="hideDesktopWarning"
+                    >
+                        OK
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-snackbar>
+
         <v-navigation-drawer
             v-model="drawer"
             :clipped="clipped"
@@ -33,8 +55,8 @@
                 <Settings></Settings>
 
                 <v-list-item
-                    v-if="isLoggedIn"
                     v-for="item in menu2"
+                    v-if="isLoggedIn"
                     :key="item.id"
                     :to="item.to"
                     exact
@@ -112,7 +134,14 @@
                 A Propos d'UniCovoit
             </NuxtLink>
             <v-spacer></v-spacer>
-            <span class="text--secondary">v{{ getVersion }}</span>
+            <a
+                :href="'https://github.com/finxol/unicovoit/tree/v' + version"
+                class="text--secondary text-decoration-none"
+                rel="noreferrer noopener"
+                target="_blank"
+            >
+                v{{ getVersion }}
+            </a>
         </v-footer>
     </v-app>
 </template>
@@ -129,8 +158,9 @@ export default {
     data() {
         return {
             clipped: true,
-            drawer: false,
+            drawer: !this.$device.isMobile,
             fixed: false,
+            desktopWarning: false,
             menu1: [
                 {
                     icon: 'mdi-home',
@@ -159,6 +189,7 @@ export default {
             ],
             miniVariant: false,
             title: 'UniCovoit',
+            version
         }
     },
     computed: {
@@ -186,10 +217,17 @@ export default {
     beforeCreate() {
         try {
             if (this.$cookies.get('dark', {parseJSON: false}) === 'true' /*|| window.matchMedia("(prefers-color-scheme: dark)").matches*/) {
-                this.$vuetify.theme.dark = true;
+                this.$vuetify.theme.dark = true
             }
         } catch (e) {
-            console.error(e);
+            console.error(e)
+        }
+    },
+    mounted() {
+        try {
+            this.desktopWarning = !this.$device.isMobile && !this.$cookies.get('desktopWarning', {parseJSON: false})
+        } catch (e) {
+            console.error(e)
         }
     },
     methods: {
@@ -198,7 +236,15 @@ export default {
         },
         goToLogin() {
             this.$router.push({path: '/login'})
-        }
+        },
+        hideDesktopWarning() {
+            this.$cookies.set('desktopWarning', 'hide', {
+                maxAge: 60 * 60 * 24 * 7, // 1 week
+                sameSite: 'lax',
+                path: '/'
+            })
+            this.desktopWarning = false
+        },
     }
 }
 </script>

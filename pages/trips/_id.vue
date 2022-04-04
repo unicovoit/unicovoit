@@ -15,7 +15,7 @@
             large
         >
             <v-timeline-item
-                color="info"
+                color="primary"
                 fill-dot
                 icon="mdi-map-marker"
                 large
@@ -27,7 +27,7 @@
                 </v-card>
             </v-timeline-item>
             <v-timeline-item
-                color="info"
+                color="primary"
                 fill-dot
                 icon="mdi-map-marker"
                 large
@@ -47,6 +47,7 @@
         >
             <v-card-text
                 class="text--primary"
+                v-if="trip.description"
             >
                 {{ trip.description }}
             </v-card-text>
@@ -93,9 +94,17 @@
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-title>
+                        <v-icon class="mr-3">mdi-clock-outline</v-icon>
+                        {{ Math.floor(trip.duration / 60) }}h{{ trip.duration % 60 }}
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
         </v-card>
 
-        <ConfirmOrder :trip="trip"></ConfirmOrder>
+        <ConfirmOrder :trip="trip" :date="parseDate"></ConfirmOrder>
     </v-container>
 </template>
 
@@ -118,20 +127,21 @@ export default {
         try {
             const trip = await $axios.$get(`/api/v1/trips/${params.id}`)
             trip.distance = 0
+            trip.duration = 0
             return {trip}
         } catch (e) {
             console.error(e)
-            error({statusCode: 404, message: 'Trip not found'})
+            error({statusCode: e.code, message: 'Trip not found'})
         }
     },
     async mounted() {
-        this.trip.distance = await this.$axios.$get('/api/v1/trips/distance', {
+        [ this.trip.distance, this.trip.duration ] = await this.$axios.$get('/api/v1/trips/distance', {
                 params: {
                     from: this.trip.from,
                     to: this.trip.to
                 }
             }).then(response => {
-                return response.distance
+                return [ response.distance, response.duration ]
             })
             .catch(error => {
                 console.error(error)

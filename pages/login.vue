@@ -18,7 +18,7 @@
         <v-btn
             block
             class="mr-4"
-            color="info"
+            color="primary"
             x-large
             @click="auth0Login"
         >

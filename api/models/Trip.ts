@@ -1,11 +1,6 @@
 import mongoose from "mongoose"
 
 const TripSchema = new mongoose.Schema({
-        id: {
-            type: String,
-            required: true,
-            unique: true
-        },
         driver_id: {
             type: String,
             required: true,
@@ -39,6 +34,10 @@ const TripSchema = new mongoose.Schema({
         description: {
             type: String,
             required: false
+        },
+        places: {
+            type: Number,
+            required: true
         },
     },
     {

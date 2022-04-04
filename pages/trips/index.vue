@@ -1,5 +1,15 @@
 <template>
     <div>
+        <!-- Show no connectivity -->
+        <v-alert
+            v-if="$nuxt.isOffline"
+            class="mx-2 my-4"
+            border="left"
+            type="warning"
+        >
+            Vous n'êtes pas connecté à internet. Les trajets affichés ne sont peut-être pas à jour.
+        </v-alert>
+
         <!-- Show no trips are available -->
         <v-container v-if="isEmpty">
             <v-card
@@ -38,7 +48,7 @@
                     >
                         <v-btn
                             id="book-trip"
-                            color="info"
+                            color="primary"
                             icon
                             @click="$router.push(`/trips/${trip._id}`)"
                         >
@@ -46,21 +56,40 @@
                         </v-btn>
                     </v-col>
                 </v-row>
-                <v-card-subtitle>
-                    {{ trip.price }} €
-                </v-card-subtitle>
-                <v-card-actions>
-                    <v-avatar
-                        size="40"
-                        class="mr-3"
-                    >
-                        <v-img
-                            :alt="trip.driver_name || 'Utilisateur'"
-                            :src="trip.driver_picture || '/account_circle.svg'"
-                            @click="$router.push(`/profile/${trip.driver_id}`)"
-                        ></v-img>
-                    </v-avatar>
-                    {{ trip.driver_name || 'Utilisateur' }}
+
+                <v-list-item justify="center">
+                    <v-list-item-content>
+                        <v-list-item-title class="text-body-2">
+                            <v-icon class="mr-3">mdi-calendar-clock</v-icon>
+                            {{ parseDateTime(trip.departure_time) }}
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item justify="center">
+                    <v-list-item-content>
+                        <v-list-item-title class="text-body-2">
+                            <v-icon class="mr-3">mdi-currency-eur</v-icon>
+                            {{ trip.price }} €
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item justify="center">
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            <v-avatar
+                                size="40"
+                                class="mr-3"
+                            >
+                                <v-img
+                                    :alt="trip.driver_name || 'Utilisateur'"
+                                    :src="trip.driver_picture || '/account_circle.svg'"
+                                    @click="$router.push(`/profile/${trip.driver_id}`)"
+                                ></v-img>
+                            </v-avatar>
+                            {{ trip.driver_name || 'Utilisateur' }}
+                        </v-list-item-title>
+                    </v-list-item-content>
                     <v-spacer></v-spacer>
                     <v-btn
                         v-if="!!trip.description"
@@ -69,7 +98,7 @@
                     >
                         <v-icon>mdi-chevron-{{ trip.show ? 'up' : 'down' }}</v-icon>
                     </v-btn>
-                </v-card-actions>
+                </v-list-item>
 
                 <v-expand-transition>
                     <div
@@ -115,6 +144,12 @@ export default {
         },
     },
     methods: {
+        parseDateTime(dep) {
+            const date = new Date(dep)
+            let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
+            let time = date.toLocaleTimeString('fr-FR').split(':')
+            return `${date.toLocaleDateString('fr-FR', options)}, ${time[0]} h ${time[1]}`
+        },
         async getTrips() {
             // Get filters from query params
             const filters = {
