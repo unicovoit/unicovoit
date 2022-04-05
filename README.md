@@ -1,83 +1,156 @@
-# IUCovoit
+# UniCovoit
 
-Palette de couleurs: [Canva Go and Proceed](https://www.canva.com/colors/color-palettes/go-and-proceed/)
+Carpool platform for students
 
-## Build Setup
+![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&label=unicovoit&up_color=green&up_message=online&url=https%3A%2F%2Fcovoit.ozna.me)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/finxol/unicovoit)
 
-```bash
-# install dependencies
-$ yarn install
+![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fcovoit.ozna.me)
+[![GitHub license](https://img.shields.io/github/license/finxol/unicovoit)](https://github.com/finxol/unicovoit/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/finxol/unicovoit)](https://github.com/finxol/unicovoit/issues)
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+Official deployment: [unicovoit.com](https://covoit.ozna.me)
 
-# build for production and launch scripts
-$ yarn build
-$ yarn start
+## Summary
 
-# generate static project
-$ yarn generate
+- [Features](#features)
+- [Feedback](#feedback)
+- [Tech Stack](#tech-stack)
+- [Environment Variables](#environment-variables)
+- [Run Locally](#run-locally)
+- [Deployment](#deployment)
+- [Authors](#authors)
+- [Acknowledgements](#acknowledgements)
+- [License](#license)
+- [Public API Reference](#api-reference)
+
+## Features
+
+- All accounts are verified as belonging to a student
+- Add and book trips between students
+- Mark your trip as recurring so you don't have to add the one every week
+- Add and book trips up to 3 weeks in advance
+- Light/dark mode toggle
+
+*UniCovoit doesn't handle payments*
+
+## Feedback
+
+If you have any feedback, please open an issue, contact me on Discord (finxol#8918), Twitter or via email on
+contact@finxol.io
+
+## Tech Stack
+
+**Framework:** Vuetify, Nuxt + Typescript
+
+**Server:** Node (Typescript), Express
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+```env
+AUTH0_CLIENTID=<your auth0 client ID>
+AUTH0_DOMAIN=<your auth0 tenant domain>
+MAPBOX_TOKEN=<your mapbox token>
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+## Run Locally
 
-To build the Docker container locally, 
-you need to create a `.dockersecrets` directory which contains:
-- a `auth0_clientid.txt` file containing the Auth0 client ID
-- a `auth0_domain.txt` file containing the Auth0 domain
+Clone the project
 
-You can then run the following command to build:
 ```bash
-$ podman build -t iucovoit --secret id=AUTH0_CLIENTID,src=.dockersecrets/auth0_clientid.txt --secret id=AUTH0_DOMAIN,src=.dockersecrets/auth0_domain.txt .
+  git clone https://github.com/finxol/unicovoit
 ```
 
-Then you can run the container using `$ podman-compose up -d`.
+Go to the project directory
 
-## Special Directories
+```bash
+  cd unicovoit
+```
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+Install dependencies
 
-### `assets`
+```bash
+  yarn install
+```
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+Start the server
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+```bash
+  yarn dev
+```
 
-### `components`
+## Deployment
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+Before building, your need a `.dockersecrets` directory
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+```files
+.dockersecrets
+├── auth0_clientid.txt
+└── auth0_domain.txt
+```
 
-### `layouts`
+The files respectively contain the Auth0 Client ID and the Auth0 tenant domain.
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+To build and run with podman, run:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+```bash
+  yarn podman
+```
 
+If you prefer using Docker, just replace podman with docker in the commands above.
 
-### `pages`
+## Authors
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+- [@finxol](https://www.github.com/finxol)
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+## Acknowledgements
 
-### `plugins`
+*UniCovoit is still under development. Not all features might be implemented yet*
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+- [Vuetify frontend framework](https://vuetifyjs.com)
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+## License
 
-### `static`
+| Can            | Cannot                       | Must      |
+|:---------------|:-----------------------------|:----------|
+| Commercial Use | Disclose Source              | Liability |
+| Distribution   | License and Copyright Notice | Warranty  |
+| Modification   | Same License                 |           |
+| Patent Use     | State Changes                |           |
+| Private Use    |                              |           |
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+For more information, please read the `LICENSE` file, or go to
+[Choose A License](https://choosealicense.com/licenses/agpl-3.0/).
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+## API Reference
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+#### Get all published trips
 
-### `store`
+```http
+  GET /api/v1/trips
+```
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
+#### Get distance between two cities
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+```http
+  GET /api/v1/trips/distance
+```
+
+| Parameter | Type     | Description                           |
+|:----------|:---------|:--------------------------------------|
+| `from`    | `string` | **Required**. Name of the first city  |
+| `to`      | `string` | **Required**. Name of the second city |
+
+Returns a json object containing the distace in kilometers and duration in minutes
+
+```json
+{
+    "distance": 0,
+    "duration": 0
+}
+```
+
+**All other API routes are only accessible by authenticated users**
+
