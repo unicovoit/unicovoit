@@ -17,6 +17,8 @@ services:
         restart: always
         ports:
             - "3000:3000"
+        volumes:
+            -   './static/img:/usr/src/unicovoit/static/img'
         env_file:
             - .env
         environment:
