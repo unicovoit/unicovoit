@@ -72,6 +72,11 @@ export default {
                     sameSite: 'Strict',
                     httpOnly: false,
                 })
+                this.$plausible.trackEvent('darkTheme', {
+                    props: {
+                        variation: this.$vuetify.theme.dark
+                    },
+                });
             } catch (e) {
                 console.error(e)
             }
