@@ -110,6 +110,10 @@ If you prefer using Docker, just replace podman with docker in the commands abov
 *UniCovoit is still under development. Not all features might be implemented yet*
 
 - [Vuetify frontend framework](https://vuetifyjs.com)
+- [Nuxt.js](https://nuxtjs.org)
+- Authentication by [Auth0](https://auth0.com)
+- Distance and duration calculated by [Mapbox](https://www.mapbox.com)
+- Illustrations from [Icons8](https://icons8.com/)
 
 ## License
 
