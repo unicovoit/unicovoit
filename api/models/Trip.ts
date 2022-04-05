@@ -1,11 +1,6 @@
 import mongoose from "mongoose"
 
 const TripSchema = new mongoose.Schema({
-        driver_id: {
-            type: String,
-            required: true,
-            index: true
-        },
         driver_name: {
             type: String,
         },
