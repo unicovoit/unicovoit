@@ -1,17 +1,23 @@
 {
     "name": "unicovoit",
-    "version": "0.11.2",
+    "version": "0.11.3",
     "private": true,
+    "license": "AGPL-3.0",
     "scripts": {
         "dev": "nuxt",
         "build": "nuxt build",
         "start": "nuxt start",
         "generate": "nuxt generate",
+        "podman": "yarn podman:build && yarn podman:run",
+        "podman:build": "podman build -t unicovoit --secret id=AUTH0_CLIENTID,src=.dockersecrets/auth0_clientid.txt --secret id=AUTH0_DOMAIN,src=.dockersecrets/auth0_domain.txt .",
+        "podman:rebuild": "yarn podman:kill && yarn podman",
+        "podman:run": "podman-compose -f docker-compose.yml up -d",
+        "podman:kill": "podman kill unicovoit",
         "docker": "yarn docker:build && yarn docker:run",
-        "docker:build": "podman build -t unicovoit .",
+        "docker:build": "sudo docker build -t --secret id=AUTH0_CLIENTID,src=.dockersecrets/auth0_clientid.txt --secret id=AUTH0_DOMAIN,src=.dockersecrets/auth0_domain.txt unicovoit .",
         "docker:rebuild": "yarn docker:kill && yarn docker",
-        "docker:run": "podman run -d --name=\"unicovoit\" -p 3000:3000 unicovoit",
-        "docker:kill": "podman kill unicovoit"
+        "docker:run": "sudo docker-compose -f docker-compose.yml up -d",
+        "docker:kill": "sudo docker kill unicovoit"
     },
     "dependencies": {
         "@auth0/auth0-vue": "^1.0.0",
@@ -27,6 +33,7 @@
         "core-js": "^3.19.3",
         "cors": "^2.8.5",
         "express": "^4.17.3",
+        "express-fileupload-validator": "^2.0.1",
         "express-oauth2-jwt-bearer": "^1.1.0",
         "express-rate-limit": "^6.3.0",
         "helmet": "^5.0.2",
