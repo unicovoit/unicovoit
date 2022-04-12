@@ -37,10 +37,10 @@
                 >
                     <v-col
                     >
-                        <v-card-title>
-                            {{ trip.from }}
+                        <v-card-title id="trip-cities">
+                            {{ trip.from.toLowerCase() }}
                             <v-icon color="text--primary" class="mx-2">mdi-arrow-right-bold</v-icon>
-                            {{ trip.to }}
+                            {{ trip.to.toLowerCase() }}
                         </v-card-title>
                     </v-col>
                     <v-col
@@ -184,6 +184,9 @@ export default {
 
 <style lang="sass">
 .v-card
+    #trip-cities
+        text-transform: capitalize
+
     #book-trip
         margin-right: .5rem
         cursor: pointer
