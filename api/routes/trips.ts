@@ -20,15 +20,33 @@ const checkJwt = auth({
  * @desc    Get all trips
  * @access  Public
  */
-// @ts-ignore
-router.get('/', (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
-    if (isDev && false /*|| +version.split('.')[0] < 1*/) { // Only for development or version < 1.0.0
+router.get('/', (req, res) => {
+    if (isDev && false) { // Only for development
         res.json(db.testData)
     } else {
         try {
-            db.getAllTrips().then((trips: any) => {
-                res.json(trips)
-            })
+            let from = req.query.from
+            let to = req.query.to
+            let date = new Date()
+            if (req.query.date) {
+                let [year, month, day] = String(req.query.date).split('-')
+                date.setFullYear(parseInt(year))
+                date.setMonth(parseInt(month) - 1)
+                date.setDate(parseInt(day))
+            }
+
+            if (from && to) {
+                db.getTrips(String(from), String(to), date).then(trips => {
+                    res.json(trips)
+                }).catch(err => {
+                    logger.error(err)
+                    res.status(500).json({error: err})
+                })
+            } else {
+                db.getAllTrips().then((trips: any) => {
+                    res.json(trips)
+                })
+            }
         } catch (e) {
             logger.error(e)
             res.status(500).json({
@@ -40,9 +58,9 @@ router.get('/', (req: Request<RouteParameters<string>, any, any, ParsedQs, Recor
 
 
 /**
- * Get the distance between two cities
- * @param {string} from - The city where the trip starts
- * @param {string} to - The city where the trip ends
+ * @desc    Get the distance between two cities
+ * @param   {string} from - The city where the trip starts
+ * @param   {string} to - The city where the trip ends
  * @returns {Promise<{ distance: number, duration: number } | Error>} - The distance and duration between the two cities
  * @private
  */
@@ -87,8 +105,8 @@ async function getDistance(from: string, to: string): Promise<{ distance: number
  * @route   GET /api/v1/trips/distance
  * @desc    Get the distance between two cities
  * @access  Public
- * @param {string} from - The city where the trip starts
- * @param {string} to - The city where the trip ends
+ * @param   {string} from - The city where the trip starts
+ * @param   {string} to - The city where the trip ends
  */
 // @ts-ignore
 router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
@@ -119,8 +137,8 @@ router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQ
  */
 // @ts-ignore
 router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
-    if (isDev && false /*|| +version.split('.')[0] < 1*/) { // Only for development or version < 1.0.0
-        let trip = db.testData.find(trip => trip.places === parseInt(req.params.id))
+    try {
+        const trip = await db.getTripById(req.params.id)
         if (trip) {
             res.json(trip)
         } else {
@@ -128,22 +146,11 @@ router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, a
                 error: 'Trip not found'
             })
         }
-    } else {
-        try {
-            const trip = await db.getTripById(req.params.id)
-            if (trip) {
-                res.json(trip)
-            } else {
-                res.status(404).json({
-                    error: 'Trip not found'
-                })
-            }
-        } catch (e) {
-            logger.error(e)
-            res.status(500).json({
-                error: e
-            })
-        }
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: e
+        })
     }
 })
 
@@ -183,6 +190,7 @@ router.post('/add', checkJwt, (req: Request<RouteParameters<string>, any, any, P
 router.post('/book', checkJwt, (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
     try {
         res.sendStatus(200)
+        logger.info(req.body)
         return
         db.bookTrip({
             trip: req.body.trip_id,
