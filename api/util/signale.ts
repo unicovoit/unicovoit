@@ -1,9 +1,9 @@
-// @ts-ignore
 import signale from 'signale'
 
 signale.config({
     displayFilename: true,
-    displayTimestamp: true
+    displayTimestamp: true,
+    displayDate: true
 })
 
 export default signale
