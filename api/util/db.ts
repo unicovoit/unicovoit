@@ -6,6 +6,7 @@ import {User} from '../models/User'
 export const testData = [{
     driver_name: "",
     driver_picture: "https://s.gravatar.com/avatar/371bf211f9b892f400479cb44bb6f1cf?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdu.png",
+    driver_id: '688822573970096165',
     from: 'Paris',
     to: 'Marseille',
     price: '100',
@@ -15,6 +16,7 @@ export const testData = [{
 }, {
     driver_name: "finxol",
     driver_picture: "https://cdn.discordapp.com/avatars/688822573970096165/b9480f354ea3fbaf05abb964265a1cc8.png",
+    driver_id: '688822573970096165',
     from: 'Gare Montparnasse, Paris',
     to: 'Lyon',
     price: '200',
@@ -24,6 +26,7 @@ export const testData = [{
 }, {
     driver_name: "Elouann",
     driver_picture: "",
+    driver_id: '688822573970096165',
     from: 'Paris',
     to: 'Bordeaux',
     price: '300',
@@ -38,6 +41,14 @@ export const testData = [{
     departure_time: '2022-04-14T18:02:31.900Z',
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     places: '5'
+}, {
+    from: 'Vannes',
+    to: 'Rennes',
+    price: '8',
+    description: "Salut à toutes et tous, j'espère que vous allez bien. Je suis un peu déçu par ce voyage, mais je suis sûr que vous allez bien. Je vous invite à venir me voir à la gare de Vannes, je vous attend ici. (wtf copilot)",
+    departure_time: '2022-04-14T18:02:31.900Z',
+    driver_id: 'auth0|623f93c6c665610070aa3d75',
+    places: '5'
 }]
 
 //------------------------------------------------------
@@ -48,13 +59,12 @@ export const testData = [{
  * @param t the trip to add
  */
 export const addTrip: Function = async (t: any) => {
-    logger.info(t)
     try {
         t.from = t.from.toUpperCase()
         t.to = t.to.toUpperCase()
         const tmp = new Trip(t)
-        logger.info(tmp)
         await tmp.save()
+        logger.success(`Trip from ${t.from} to ${t.to} on ${t.departure_time} added`)
     } catch (err) {
         throw err
     }
@@ -125,7 +135,22 @@ export const initDB = async () => {
         for (let trip of testData) {
             await addTrip(trip)
         }
-        logger.info('DB initialized')
+        logger.info('DB initialised')
+    } catch (err) {
+        logger.error(err)
+    }
+}
+
+
+/**
+ * Remove old trips
+ */
+export const removeOldTrips: Function = async () => {
+    try {
+        const now: Date = new Date()
+        const oldTrips: Array<object> = await Trip.find({departure_time: {$lt: now}})
+        await Trip.deleteMany({departure_time: {$lt: now}})
+        logger.complete({message: `Removed ${oldTrips.length} old trips`})
     } catch (err) {
         logger.error(err)
     }
