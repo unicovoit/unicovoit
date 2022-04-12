@@ -22,7 +22,7 @@
             >
                 <v-card flat>
                     <v-card-title class="text-h5">
-                        {{ trip.from }}
+                        {{ trip.from.toLowerCase() }}
                     </v-card-title>
                 </v-card>
             </v-timeline-item>
@@ -34,7 +34,7 @@
             >
                 <v-card flat>
                     <v-card-title class="text-h5">
-                        {{ trip.to }}
+                        {{ trip.to.toLowerCase() }}
                     </v-card-title>
                 </v-card>
             </v-timeline-item>
@@ -150,6 +150,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
+.text-h5
+    text-transform: capitalize
+    word-break: break-word
 </style>

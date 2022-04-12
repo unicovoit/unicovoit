@@ -66,13 +66,13 @@
                 <v-subheader>Trajet</v-subheader>
                 <v-list-item>
                     <v-list-item-content>
-                        <v-list-item-title>{{ trip.from }}</v-list-item-title>
+                        <v-list-item-title>{{ trip.from.toLowerCase() }}</v-list-item-title>
                         <v-list-item-subtitle>Départ</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
-                        <v-list-item-title>{{ trip.to }}</v-list-item-title>
+                        <v-list-item-title>{{ trip.to.toLowerCase() }}</v-list-item-title>
                         <v-list-item-subtitle>Arrivée</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
