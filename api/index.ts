@@ -1,16 +1,17 @@
-import {initDB} from "./util/db";
-
-const {version} = require('../package.json')
+import {initDB, removeOldTrips} from "./util/db";
 import express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 
 import mongoose from "mongoose"
 import logger from './util/signale'
+import scheduler from "./util/scheduler"
 
 import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 import helmet from "helmet"
+
+const {version} = require('../package.json')
 
 const mongoUrl: string = process.env.MONGO_URL || 'localhost'
 
@@ -20,15 +21,11 @@ logger.info('MongoDB Url : ' + mongoUrl)
 
 // Connect to MongoDB first
 mongoose.connect(`mongodb://${mongoUrl}:27017/unicovoit`)
-mongoose.connection.once('open',function(){
+mongoose.connection.once('open', function () {
     logger.info('Mongo connected Successfully')
-}).on('error',function(err){
+}).on('error', function (err) {
     logger.error('Error', err)
 })
-// reset db if not in prod
-if(process.env.NODE_ENV !== 'production'){
-    initDB()
-}
 
 const app = express()
 
@@ -49,10 +46,31 @@ app.use(cors()) // Set cross-origin requests headers
 app.use(limiter) // Set the rate limit
 
 app.use('/v1/trips', require('./routes/trips').router)
+app.use('/v1/users', require('./routes/users').router)
+
+
+// reset db if not in prod
+if (process.env.NODE_ENV !== 'production') {
+    logger.time('initialisation')
+    initDB().then(() => {
+        logger.timeEnd('initialisation')
+    })
+}
+
+// remove old trips every hour
+scheduler.scheduleTask(
+    () => {
+        logger.await('Removing old trips')
+        logger.time('remove old trips')
+        removeOldTrips().then(() => {
+            logger.timeEnd('remove old trips')
+        })
+    },
+    process.env.NODE_ENV !== 'production' ? 30 : 3600 // 1 hour in seconds
+)
 
 
 export default app
-
 
 
 // Start the server if standalone mode
