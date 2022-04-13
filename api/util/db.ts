@@ -109,7 +109,17 @@ export const getAllTrips = async () => {
  * @returns the array of trips
  */
 export const getTrips = async (from: string, to: string, date: Date) => {
-    return await Trip.find({from: from.toUpperCase(), to: to.toUpperCase(), departure_time: {$gte: date}})
+    const min = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    const max = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
+
+    return await Trip.find({
+        from: from.toUpperCase(),
+        to: to.toUpperCase(),
+        departure_time: {
+            $gte: min,
+            $lt: max
+        }
+    })
 }
 
 

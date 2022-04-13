@@ -158,6 +158,7 @@ export default {
             const filters = {
                 from: this.$route.query.from,
                 to: this.$route.query.to,
+                date: this.$route.query.date,
             }
             this.error = false
 
