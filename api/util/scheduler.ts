@@ -3,6 +3,7 @@ import logger from "./signale"
 
 /**
  * Wrapper for the toad-scheduler library
+ * @see taod-scheduler
  */
 class Scheduler {
     private scheduler: ToadScheduler
@@ -25,8 +26,9 @@ class Scheduler {
 
     /**
      * Schedules a job
-     * @param func Function to execute
-     * @param sec Interval in milliseconds
+     * @param   {Function} func Function to execute
+     * @param   {number} sec Interval in milliseconds
+     * @return  {number} Job index in list
      */
     public scheduleTask(func: () => void, sec: number): number {
         // convert seconds to days, hours, minutes, seconds
@@ -54,7 +56,7 @@ class Scheduler {
 
     /**
      * Starts all or specific job
-     * @param i Optional index of job to start
+     * @param {number} i Optional index of job to start
      */
     public start(i?: number): void {
         if (i) {
@@ -69,7 +71,7 @@ class Scheduler {
 
     /**
      * Stops all or specific job
-     * @param i Optional index of job to start
+     * @param {number} i Optional index of job to start
      */
     public stop(i?: number): void {
         if (i) {
@@ -84,7 +86,8 @@ class Scheduler {
 
     /**
      * Get status of specific job
-     * @param i Index of job to start
+     * @param {number} i Index of job to start
+     * @returns {string} Status of job
      */
     public status(i: number): string {
         return this.jobs[i].getStatus()
