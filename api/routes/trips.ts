@@ -169,7 +169,6 @@ router.post('/add', checkJwt, (req: Request<RouteParameters<string>, any, any, P
             trip
         ).then((r: object) => {
             res.json(r)
-            logger.success(r)
         }).catch((e: Error) => {
             logger.error(e)
             res.status(500).json({error: 'Internal server error'})
