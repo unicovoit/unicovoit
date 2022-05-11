@@ -3,7 +3,7 @@ import logger from '../util/signale'
 import * as db from '../util/db'
 import {verifyTrip} from "../util/verifier"
 import {auth} from "express-oauth2-jwt-bearer"
-import axios from 'axios'
+import {getDistance, search} from "../util/map";
 
 const router: Router = Router()
 
@@ -58,50 +58,6 @@ router.get('/', (req, res) => {
 
 
 /**
- * @desc    Get the distance between two cities
- * @param   {string} from - The city where the trip starts
- * @param   {string} to - The city where the trip ends
- * @returns {Promise<{ distance: number, duration: number } | Error>} - The distance and duration between the two cities
- * @private
- */
-async function getDistance(from: string, to: string): Promise<{ distance: number, duration: number } | Error> {
-    return await axios.get('https://nominatim.openstreetmap.org/search', {
-        params: {
-            q: from,
-            format: 'json',
-        }
-    }).then((response: any) => {
-        const start = `${response.data[0].lon},${response.data[0].lat}`
-        return axios.get('https://nominatim.openstreetmap.org/search', {
-            params: {
-                q: to,
-                format: 'json',
-            }
-        }).then((response: any) => {
-            const end = `${response.data[0].lon},${response.data[0].lat}`
-            // Get distance between two points
-            return axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${start};${end}?access_token=${process.env.MAPBOX_TOKEN}`
-            ).then((r: any) => {
-                return {
-                    distance: parseInt(String(r.data.routes[0].distance / 1000)),
-                    duration: parseInt(String(r.data.routes[0].duration / 60))
-                }
-            }).catch((e: Error) => {
-                logger.error(e)
-                return e
-            })
-        }).catch((e: Error) => {
-            logger.error(e)
-            return e
-        })
-    }).catch((e: Error) => {
-        logger.error(e)
-        return e
-    })
-}
-
-
-/**
  * @route   GET /api/v1/trips/distance
  * @desc    Get the distance between two cities
  * @access  Public
@@ -126,6 +82,28 @@ router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQ
         res.status(400).json({
             error: 'Missing parameters'
         })
+    }
+})
+
+
+/**
+ * @route   GET /api/v1/trips/search
+ * @desc    Search for a place
+ * @access  Private
+ */
+router.get('/search', checkJwt, (req, res) => {
+    const query: string | undefined = String(req.query.q)
+    if (query) {
+        try {
+            search(query).then((results: any) => {
+                res.json(results)
+            })
+        } catch (e) {
+            logger.error(e)
+            res.status(500).json({
+                error: e
+            })
+        }
     }
 })
 
