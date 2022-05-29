@@ -1,5 +1,6 @@
 import axios from "axios";
 import logger from "../util/signale";
+import xss from "xss";
 
 /**
  * @desc    Get the distance between two cities
@@ -51,7 +52,9 @@ export async function getDistance(from: string, to: string): Promise<{ distance:
  * @returns {Promise<Object | Error>} The point found or an error
  */
 export async function search(query: string): Promise<any> {
-    return await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${prepare(query)}.json`, {
+    let prepared: string = xss(query)
+    logger.info(`Searching for ${prepared}`)
+    return await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${prepared}.json`, {
         params: {
             access_token: process.env.MAPBOX_TOKEN,
             autocomplete: true,
@@ -63,13 +66,4 @@ export async function search(query: string): Promise<any> {
     }).then((response: any) => {
         return response.data.features
     })
-}
-
-
-/**
- * Prepare a string to be used in url
- * @param str the string to be prepared
- */
-function prepare(str: string): string {
-    return str.replace(/\s/g, '+')
 }
