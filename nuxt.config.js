@@ -32,7 +32,7 @@ export default {
                 name: 'keywords',
                 content: 'covoiturage,blablacar,étudiant,dut informatique,dut,iutvannes,iut de vannes,iut vannes'
             },
-            {name: 'author', content: 'finxol'},
+            {name: 'author', content: 'finxol <contact@finxol.io>'},
             {name: 'language', content: 'French'},
             {name: 'robots', content: 'noindex,nofollow'},
             {name: 'category', content: 'internet'},
@@ -57,7 +57,7 @@ export default {
         ]
     },
 
-    loading: { color: '#fff' },
+    loading: {color: '#fff'},
 
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: ['@mdi/font/css/materialdesignicons.min.css', '@fontsource/roboto/index.css'],
@@ -78,7 +78,7 @@ export default {
         // https://go.nuxtjs.dev/typescript
         '@nuxt/typescript-build',
         // https://go.nuxtjs.dev/vuetify
-        ['@nuxtjs/vuetify', { iconfont: 'mdi' }],
+        ['@nuxtjs/vuetify', {iconfont: 'mdi'}],
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
         // https://github.com/moritzsternemann/vue-plausible
@@ -106,7 +106,7 @@ export default {
                 referrer: 'same-origin',
                 additionalHeaders: true
             }
-        ],
+        ]
     ],
 
     auth: {
@@ -115,7 +115,7 @@ export default {
                 domain: AUTH0_DOMAIN,
                 clientId: AUTH0_ID,
                 audience: 'https://' + AUTH0_DOMAIN + '/api/v2/',
-            },
+            }
         }
     },
 
