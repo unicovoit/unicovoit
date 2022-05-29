@@ -14,7 +14,7 @@
                 v-model="dateFormatted"
                 :rules="rules"
                 color="primary"
-                filled
+                outlined
                 hint="Au format JJ/MM/AAAA"
                 label="Date de départ"
                 persistent-hint
@@ -46,19 +46,22 @@ export default {
     name: "DateSelector",
     data() {
         return {
-            date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10),
             dateFormatted: this.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10)),
-            minDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            minDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10),
             maxDate: (() => {
                 let d = new Date()
                 d.setDate(d.getDate() + 21) // 3 weeks later
-                return d.toISOString().substr(0, 10)
+                return d.toISOString().substring(0, 10)
             })(),
             dateMenu: false,
             rules: [
                 v => !!v || 'Merci de renseigner ce champ',
             ],
         }
+    },
+    mounted() {
+        this.changeDate(this.date)
     },
     watch: {
         date() {
