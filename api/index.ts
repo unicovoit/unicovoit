@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser'
 
 import mongoose from "mongoose"
 import logger from './util/signale'
-import scheduler from "./util/scheduler"
 
 import cors from 'cors'
 import rateLimit from 'express-rate-limit'
@@ -58,15 +57,14 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // remove old trips every hour
-scheduler.scheduleTask(
+setInterval(
     () => {
-        logger.await('Removing old trips')
         logger.time('remove old trips')
         removeOldTrips().then(() => {
             logger.timeEnd('remove old trips')
         })
     },
-    process.env.NODE_ENV !== 'production' ? 30 : 3600 // 1 hour in seconds
+    3600000 // 1 hour in milliseconds
 )
 
 
