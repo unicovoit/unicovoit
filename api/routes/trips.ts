@@ -89,9 +89,9 @@ router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQ
 /**
  * @route   GET /api/v1/trips/search
  * @desc    Search for a place
- * @access  Private
+ * @access  Public
  */
-router.get('/search', checkJwt, (req, res) => {
+router.get('/search', (req, res) => {
     const query: string | undefined = String(req.query.q)
     if (query) {
         try {
