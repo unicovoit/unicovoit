@@ -13,6 +13,31 @@
                     {{ otherError }}
                 </span>
             </v-main>
+            <v-card
+                flat
+            >
+                <v-card-actions
+                    class="text-subtitle-1"
+                    @click="details = !details"
+                >
+                    <v-btn
+                        icon
+                    >
+                        <v-icon>mdi-chevron-{{ details ? 'down' : 'right' }}</v-icon>
+                    </v-btn>
+                    Voir plus de détails
+                </v-card-actions>
+                <v-expand-transition>
+                    <div
+                        v-show="details"
+                        :class="`accent ${$vuetify.theme.dark ? 'darken-1' : 'lighten-3'}`"
+                    >
+                        <v-card-text>
+                            {{ error.message }}
+                        </v-card-text>
+                    </div>
+                </v-expand-transition>
+            </v-card>
             <v-img
                 :src="illustration"
                 aspect-ratio="1"
@@ -31,7 +56,7 @@
 
 <script>
 export default {
-    name: 'EmptyLayout',
+    name: 'Error',
     layout: 'empty',
     props: {
         error: {
@@ -47,7 +72,8 @@ export default {
     data() {
         return {
             pageNotFound: 'Page introuvable',
-            otherError: 'Une erreur est survenue'
+            otherError: 'Une erreur est survenue',
+            details: false
         }
     },
     head() {
