@@ -21,7 +21,7 @@ export const testData = [{
     to: 'Lyon',
     price: '200',
     places: 4,
-    departure_time: new Date('2019-01-01'),
+    departure_time: new Date(Date.now() + (24 * 60 * 60 * 1000)),
     description: 'Accompagnez-moi sur la route de Lyon. J\'ai un petit coffre donc petit bagages svp.',
 }, {
     driver_name: "Elouann",
@@ -31,14 +31,14 @@ export const testData = [{
     to: 'Bordeaux',
     price: '300',
     places: 1,
-    departure_time: new Date('2019-01-01'),
+    departure_time: new Date(Date.now() + (2 * 24 * 60 * 60 * 1000)),
     description: 'Accompagnez-moi sur la route de Bordeaux. J\'aime beaucoup discuter et écouter de la musique. Voyage non fumeur.',
 }, {
     from: 'Le Mans',
     to: 'Rennes',
     price: '15',
     description: "accompagnez-moi svp je me sens seul j'ai pas d'amis :(",
-    departure_time: '2022-04-14T18:02:31.900Z',
+    departure_time: new Date(Date.now() + (3 * 24 * 60 * 60 * 1000)),
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     places: '5'
 }, {
@@ -46,7 +46,7 @@ export const testData = [{
     to: 'Rennes',
     price: '8',
     description: "Salut à toutes et tous, j'espère que vous allez bien. Je suis un peu déçu par ce voyage, mais je suis sûr que vous allez bien. Je vous invite à venir me voir à la gare de Vannes, je vous attend ici. (wtf copilot)",
-    departure_time: '2022-04-14T18:02:31.900Z',
+    departure_time: new Date(Date.now() + (14 * 24 * 60 * 60 * 1000)),
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     places: '5'
 }]
