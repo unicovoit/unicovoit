@@ -17,7 +17,7 @@
                 hide-no-data
                 hide-spin-buttons
                 label="Lieu de départ"
-                placeholder="Nom de ville"
+                placeholder="Adresse précise"
                 prepend-inner-icon="mdi-map-marker"
                 required
             ></v-autocomplete>
@@ -32,7 +32,7 @@
                 no-filter
                 outlined
                 label="Lieu d'arrivée"
-                placeholder="Nom de ville"
+                placeholder="Adresse précise"
                 hide-no-data
                 hide-selected
                 prepend-inner-icon="mdi-map-marker"
@@ -86,7 +86,8 @@ export default {
             rules: [
                 v => !!v || 'Merci de renseigner ce champ',
             ],
-            call: setTimeout(() => {}, 0),
+            call: setTimeout(() => {
+            }, 0),
             suggestions: [],
         }
     },
@@ -107,18 +108,20 @@ export default {
         refreshSuggestions(query, suggestions) {
             clearTimeout(this.getSuggestions)
             this.getSuggestions = setTimeout(() => {
-                let notResult = this.suggestions.filter(s => s.place_name.toLowerCase().indexOf(query.toLowerCase()) !== -1).length === 0
-
-                if (query !== '' && notResult) {
-                    this.$axios.get('/api/v1/trips/search', {
+                if (query !== '' && query !== null) {
+                    console.log(query)
+                    let req = this.$axios.create()
+                    delete req.defaults.headers.common['Authorization']
+                    req.get('https:////api.covoit.ozna.me/search', {
                         params: {
                             q: query
                         }
                     }).then(res => {
-                        this.suggestions = res.data
+                        this.suggestions = res.data.features
+                        console.log(this.suggestions)
                         this[suggestions] = []
                         for(const suggestion of this.suggestions) {
-                            this[suggestions].push(suggestion.place_name)
+                            this[suggestions].push(suggestion.properties.label)
                         }
                     })
                 }
@@ -133,10 +136,13 @@ export default {
             this.refreshSuggestions(val, "toSuggestions")
         },
         fromQuery(val) {
-            this.search.from = this.suggestions.find(s => s.place_name === val).id
+            console.log(val)
+            let [lon, lat] = this.suggestions.find(s => s.properties.label === val).geometry.coordinates
+            this.search.from = btoa(`${lon},${lat}`)
         },
         toQuery(val) {
-            this.search.to = this.suggestions.find(s => s.place_name === val).id
+            let [lon, lat] = this.suggestions.find(s => s.properties.label === val).geometry.coordinates
+            this.search.to = btoa(`${lon},${lat}`)
         },
     }
 }
