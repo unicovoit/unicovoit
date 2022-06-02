@@ -82,7 +82,7 @@ export default {
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
         // https://github.com/moritzsternemann/vue-plausible
-        'vue-plausible',
+        'vue-plausible'
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
@@ -106,7 +106,9 @@ export default {
                 referrer: 'same-origin',
                 additionalHeaders: true
             }
-        ]
+        ],
+        // https://www.npmjs.com/package/@nuxt/content
+        "@nuxt/content"
     ],
 
     auth: {
@@ -114,7 +116,7 @@ export default {
             auth0: {
                 domain: AUTH0_DOMAIN,
                 clientId: AUTH0_ID,
-                audience: 'https://' + AUTH0_DOMAIN + '/api/v2/',
+                audience: 'https://' + AUTH0_DOMAIN + '/api/v2/'
             }
         }
     },
@@ -131,9 +133,9 @@ export default {
                 'default-src': ["'self'"],
                 'style-src': ["'self'", "'unsafe-inline'"],
                 'font-src': ["'self'"],
-                'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+                'script-src': ["'self'", "'unsafe-inline'"],
                 'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com"],
-                'connect-src': ["'self'", PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
+                'connect-src': ["'self'", "api.covoit.ozna.me", "bano.addok.xyz", PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
             }
         }
     },
@@ -194,7 +196,7 @@ export default {
                     info: "#03A9F4",
                     warning: "#F2B544",
                     error: colors.deepOrange.accent4,
-                    success: colors.green.darken2,
+                    success: colors.green.darken2
                 },
                 light: {
                     primary: "#4A6DD9",
