@@ -27,7 +27,10 @@
                 Prenestr hep lagad anezhañ, diwezhat.
             </p>
             <p>
-                Créer par <a
+                Les <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'utilisation</NuxtLink> sont disponibles sur le site.
+            </p>
+            <p>
+                Créé par <a
                     class="text--secondary"
                     href="https://github.com/finxol/unicovoit"
                     rel="noopener noreferrer"
