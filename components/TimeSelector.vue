@@ -14,7 +14,7 @@
             <v-text-field
                 v-model="time"
                 :rules="rules"
-                filled
+                outlined
                 label="Heure de départ"
                 prepend-icon="mdi-clock-outline"
                 readonly
