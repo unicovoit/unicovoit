@@ -8,7 +8,11 @@ if __name__ == '__main__':
         reader = csv.DictReader(csvfile)
         data = []
         for row in reader:
-            data.append(dict(row))
+            tmp = dict(row)
+            tmp['name'] = tmp['nom_lieu'] + ', ' + tmp['ad_lieu']
+            tmp['lat'] = tmp.pop('Ylat')
+            tmp['lon'] = tmp.pop('Xlong')
+            data.append(tmp)
 
     with open('bnlc.json', 'w') as jsonfile:
         for row in data:
