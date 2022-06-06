@@ -7,6 +7,8 @@ const DOMAIN = 'covoit.ozna.me'
 const URL = 'https://' + DOMAIN
 const BANNER = `${URL}/wave.svg`
 
+const API_DOMAIN = "api.covoit.ozna.me"
+
 const AUTH0_ID = process.env.AUTH0_CLIENTID || 'no id'
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'example.org'
 
@@ -135,7 +137,7 @@ export default {
                 'font-src': ["'self'"],
                 'script-src': ["'self'", "'unsafe-inline'"],
                 'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com"],
-                'connect-src': ["'self'", "api.covoit.ozna.me", "bano.addok.xyz", PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
+                'connect-src': ["'self'", "bano.addok.xyz", API_DOMAIN, PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
             }
         }
     },
@@ -176,7 +178,8 @@ export default {
             enableAutoPageviews: true,
             enableAutoOutboundTracking: true
         },
-        isProd
+        isProd,
+        API_DOMAIN
     },
 
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
