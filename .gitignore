@@ -1,5 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
-### Node template
 # Logs
 /logs
 *.log
@@ -9,6 +7,9 @@ yarn-error.log*
 
 # Docker secret
 .dockersecrets
+
+# Addok Redis backup data
+/addok-data/dump.rdb
 
 # Runtime data
 pids
