@@ -7,13 +7,12 @@
 
 # UI files
 !nuxt.config.js
-!pages/
 !assets/
 !components/
-!config/
+!content/
 !layouts/
 !middleware/
-!plugins/
+!pages/
 !static/
 !store/
 
