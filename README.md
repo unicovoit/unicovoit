@@ -2,14 +2,14 @@
 
 Carpool platform for students
 
-![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&label=unicovoit&up_color=green&up_message=online&url=https%3A%2F%2Fcovoit.ozna.me)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/finxol/unicovoit)
+[![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&label=unicovoit&up_color=green&up_message=online&url=https%3A%2F%2Fcovoit.ozna.me)](https://unicovoit.com)
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/finxol/unicovoit)](https://github.com/finxol/unicovoit/releases/)
 
 ![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fcovoit.ozna.me)
 [![GitHub license](https://img.shields.io/github/license/finxol/unicovoit)](https://github.com/finxol/unicovoit/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/finxol/unicovoit)](https://github.com/finxol/unicovoit/issues)
 
-Official deployment: [unicovoit.com](https://covoit.ozna.me)
+Official deployment: [unicovoit.com](https://unicovoit.com)
 
 ## Summary
 
@@ -26,11 +26,11 @@ Official deployment: [unicovoit.com](https://covoit.ozna.me)
 
 ## Features
 
-- All accounts are verified as belonging to a student
-- Add and book trips between students
-- Mark your trip as recurring so you don't have to add the one every week
-- Add and book trips up to 3 weeks in advance
-- Light/dark mode toggle
+- [ ] All accounts are verified as belonging to a student
+- [ ] Add and book trips between students
+- [ ] Mark your trip as recurring so that you don't have to add the same one every week
+- [x] Add and book trips up to 3 weeks in advance
+- [x] Light/dark mode toggle
 
 *UniCovoit doesn't handle payments*
 
