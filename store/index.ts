@@ -57,6 +57,7 @@ export const getters = {
             "Saint-Malo",
             "Vannes",
             "Saint-Herblain",
+            "Acigné"
         ]
         return cities.sort()
     },
