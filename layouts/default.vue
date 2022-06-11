@@ -29,7 +29,7 @@
             app
             fixed
         >
-            <v-list>
+            <v-list nav>
                 <v-btn
                     icon
                     @click.stop="miniVariant = !miniVariant"
@@ -42,6 +42,7 @@
                     :to="item.to"
                     exact
                     router
+                    color="primary"
                 >
                     <v-list-item-action>
                         <v-icon>{{ item.icon }}</v-icon>
@@ -61,6 +62,7 @@
                     :to="item.to"
                     exact
                     router
+                    color="primary"
                 >
                     <v-list-item-action>
                         <v-icon>{{ item.icon }}</v-icon>
@@ -189,7 +191,7 @@ export default {
             ],
             miniVariant: false,
             title: 'UniCovoit',
-            version
+            version,
         }
     },
     computed: {
