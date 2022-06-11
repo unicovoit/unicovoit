@@ -3,8 +3,8 @@ import colors from 'vuetify/es5/util/colors'
 const PLAUSIBLE_DOMAIN = 'plausible.finxol.io'
 const DESCRIPTION = 'Plateforme de covoiturage entre étudiants'
 const TITLE = 'UniCovoit'
-const DOMAIN = 'covoit.ozna.me'
-const URL = 'https://' + DOMAIN
+const DOMAIN = 'unicovoit.com'
+const URL = `https://${DOMAIN}`
 const BANNER = `${URL}/wave.svg`
 
 const API_DOMAIN = "api.covoit.ozna.me"
