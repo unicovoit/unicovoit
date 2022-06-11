@@ -13,7 +13,7 @@ En vertu du Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 
 loi "Informatique et Libertés", du 6 janvier 1978, les données à caractère personnel recueillies auprès des utilisateurs
 sont destinées à UniCovoit et ne sauraient être transmises à des tiers pour un usage à des fins commerciales.
 UniCovoit s'engage à ne pas céder, à titre gratuit ou onéreux, les informations recueillies via son site. Toutefois,
-compte tenu des caractéristiques du réseau Internet, certaines informations à savoir le nom, la photo de profil ainsi
+compte tenu des caractéristiques du réseau Internet, certaines informations, à savoir le nom, la photo de profil ainsi
 que le numéro de téléphones sont accessibles à tous les autres étudiants inscrits.
 
 ## Responsabilité des utilisateurs
@@ -35,7 +35,7 @@ propriétaire, et dans tous les cas, que vous êtes autorisés à utiliser à de
 cas, le véhicule doit se trouver en parfait état de fonctionnement dont le contrôle technique est à jour.
 
 Vous vous engagez à vous rendre au point de rendez-vous défini au préalable avec le passager et le déposer au point
-d’arrivé convenu entre vous. En cas d’incapacité à se rendre au point de rendez-vous à l’heure prévue, vous devez
+d’arrivée convenu entre vous. En cas d’incapacité à se rendre au point de rendez-vous à l’heure prévue, vous devez
 informer les passagers immédiatement du retard prévu ou de l’annulation du trajet. Vous devez ne pas réaliser de
 bénéfices sur les trajets réalisés, sous peine de sanctions prévues à l’article L.132-2 du Code de la consommation.
 
@@ -65,7 +65,7 @@ direct ou indirect pouvant survenir de l'utilisation ou au contraire de l'imposs
 
 ## Conditions d’inscription à la Plateforme
 
-L’utilisation de UniCovoit est réservée à tous les étudiants. Lors de l’inscription vous déclarez et garantissez être
+L’utilisation de UniCovoit est réservée à tous les étudiants. Lors de l’inscription, vous déclarez et garantissez être
 scolarisée dans un établissement de l’enseignement supérieur pour l’année en cours. Une vérification nécessitant votre
 adresse mail étudiante sera réalisé systématiquement. C’est seulement après cette vérification que votre compte sera
 réellement créé et que vous pourrez utiliser le service proposé par le site.
@@ -82,17 +82,17 @@ compte.
 
 Pour vous inscrire sur la Plateforme, vous devez avoir lu et accepter les présentes CGU.
 
-A l’occasion de la création de votre compte, et ce quelle que soit la méthode choisie pour ce faire, vous vous engagez à
+À l’occasion de la création de votre compte, et ce quelle que soit la méthode choisie pour ce faire, vous vous engagez à
 fournir des informations personnelles exactes et conformes à la réalité et à les mettre à jour, par l’intermédiaire de
 votre profil afin d’en garantir la pertinence et l’exactitude tout au long de votre utilisation de cette plateforme.
 
-Vous vous engagez à ne pas créer ou utiliser, sous votre propre identité ou celle d’un tiers, d’autres compte que celui
+Vous vous engagez à ne pas créer ou utiliser, sous votre propre identité ou celle d’un tiers, d’autre compte que celui
 initialement créé.
 
 ## Prix du trajet
 
 Dans le cadre d’un trajet en covoiturage, le montant de la participation aux frais est déterminé par le conducteur, sous
-votre seule responsabilité. Le prix du trajet est à mentionner lors de la publication d’une offre de co-voiturage Il est
+votre seule responsabilité. Le prix du trajet est à mentionner lors de la publication d’une offre de covoiturage Il est
 strictement interdit de tirer le moindre bénéfice du fait de l’utilisation d’UniCovoit. Par conséquent, vous vous
 engagez à limiter le montant de la participation aux frais que vous demandez à vos passagers aux frais que vous
 supportez réellement pour effectuer le trajet en covoiturage.
@@ -100,7 +100,7 @@ supportez réellement pour effectuer le trajet en covoiturage.
 UniCovoit ne prend pas en charge le paiement des trajets. L’étudiant passager s’engage à respecter le montant mentionné
 lorsqu’il a confirmé sa réservation. La méthode de paiement est à conclure entre les utilisateurs. UniCovoit ne s’aurait
 être tenu responsable en cas d’un manquement de paiement. Cependant, si une infraction venait être signalé à plusieurs
-reprise, UniCovoit pourrait être en mesure de limiter l’accès d’un utilisateur au service pendant une durée déterminée
+reprises, UniCovoit pourrait être en mesure de limiter l’accès d’un utilisateur au service pendant une durée déterminée
 ou bien de supprimer un compte.
 
 ## Frais de Service
@@ -109,7 +109,7 @@ UniCovoit ne prendra aucun frais.
 
 ## Modification des CGU
 
-UniCovoit peut modifier, à tout moment et sans préavis, modifier les CGU afin de les adapter aux évolutions du site.
+UniCovoit peut, à tout moment et sans préavis, modifier les CGU afin de les adapter aux évolutions du site.
 
 ## Droit applicable
 
