@@ -1,4 +1,3 @@
-import {SimpleIntervalJob, Task, ToadScheduler} from "toad-scheduler"
 import logger from "./signale"
 
 /**
@@ -6,82 +5,22 @@ import logger from "./signale"
  * @see taod-scheduler
  */
 class Scheduler {
-    private scheduler: ToadScheduler
-    private jobs: SimpleIntervalJob[] = []
+    private jobs: NodeJS.Timer[]
 
     /**
      * Constructor
      */
     constructor() {
-        this.scheduler = new ToadScheduler()
+        this.jobs = []
     }
 
     /**
      * Schedules a job
-     * @param job Job to schedule
+     * @param {Function} handler The function to call
+     * @param {number} interval The interval in ms
      */
-    public schedule(job: SimpleIntervalJob): void {
-        this.scheduler.addSimpleIntervalJob(job)
-    }
-
-    /**
-     * Schedules a job
-     * @param   {Function} func Function to execute
-     * @param   {number} sec Interval in milliseconds
-     * @return  {number} Job index in list
-     */
-    public scheduleTask(func: () => void, sec: number): number {
-        // convert seconds to days, hours, minutes, seconds
-        let seconds = Math.floor(sec % 60)
-        let minutes = Math.floor((sec % 3600) / 60)
-        let hours = Math.floor((sec % (3600 * 24)) / 3600)
-        let days = Math.floor(sec / (3600 * 24))
-
-        let int: Object = {
-            days,
-            hours,
-            minutes,
-            seconds,
-            runImmediately: true
-        }
-
-        let task: Task = new Task(`task_${this.jobs.length}`, func)
-        let job = new SimpleIntervalJob(int, task)
-        this.schedule(job)
-        this.jobs.push(job)
-
-        logger.success(`Task scheduled`)
-        return this.jobs.length - 1
-    }
-
-    /**
-     * Starts all or specific job
-     * @param {number} i Optional index of job to start
-     */
-    public start(i?: number): void {
-        if (i) {
-            this.jobs[i].start()
-        } else {
-            for (const job of this.jobs) {
-                job.start()
-            }
-            logger.success("All jobs started or restarted")
-        }
-    }
-
-    /**
-     * Stops all or specific job
-     * @param {number} i Optional index of job to start
-     */
-    public stop(i?: number): void {
-        if (i) {
-            this.jobs[i].start()
-        } else {
-            for (const job of this.jobs) {
-                job.start()
-            }
-            logger.success("All jobs stopped")
-        }
+    public schedule(handler: () => void, interval: number): void {
+        this.jobs.push(setInterval(handler, interval))
     }
 
     /**
@@ -89,10 +28,7 @@ class Scheduler {
      * @param {number} i Index of job to start
      * @returns {string} Status of job
      */
-    public status(i: number): string {
-        return this.jobs[i].getStatus()
+    public status(i: number): any {
+        return this.jobs[i].refresh()
     }
 }
-
-
-export default new Scheduler()
