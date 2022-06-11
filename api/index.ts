@@ -26,7 +26,7 @@ mongoose.connection.once('open', function () {
     logger.error('Error', err)
 })
 
-const app = express()
+const app: express.Express = express()
 
 let limiter: any = rateLimit({
     windowMs: 10 * 60 * 1000, // 10 minutes
@@ -57,8 +57,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // remove old trips every hour
-setInterval(
-    () => {
+setInterval(() => {
         logger.time('remove old trips')
         removeOldTrips().then(() => {
             logger.timeEnd('remove old trips')
