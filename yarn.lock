@@ -7074,6 +7074,26 @@ num2fraction@^1.2.2:
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
   integrity sha512-Y1wZESM7VUThYY+4W+X4ySH2maqcA+p7UR+w8VWNWVAd6lwuXXWz/w/Cz43J/dI2I+PS6wD5N+bJUF+gjWvIqg==
 
+nuxt-start@^2.15.8:
+  version "2.15.8"
+  resolved "https://registry.yarnpkg.com/nuxt-start/-/nuxt-start-2.15.8.tgz#beb87d01ac792a8ae7edd734b86294f139d2044d"
+  integrity sha512-K5jk++/fscWoiZQ2bRKyY9Vz3gWoPAf6oYZbFtjUgjQs3/dqagmynBYsvqV3x/GR7fJHqzXnQ6Vm5G5LWJcPlg==
+  dependencies:
+    "@nuxt/cli" "2.15.8"
+    "@nuxt/config" "2.15.8"
+    "@nuxt/core" "2.15.8"
+    "@nuxt/server" "2.15.8"
+    "@nuxt/telemetry" "^1.3.3"
+    "@nuxt/utils" "2.15.8"
+    "@nuxt/vue-renderer" "2.15.8"
+    node-fetch "^2.6.1"
+    vue "^2.6.12"
+    vue-client-only "^2.0.0"
+    vue-meta "^2.4.0"
+    vue-no-ssr "^1.1.1"
+    vue-router "^3.5.1"
+    vuex "^3.6.2"
+
 nuxt@^2.15.8:
   version "2.15.8"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.15.8.tgz#946cba46bdaaf0e3918aa27fd9ea0fed8ed303b0"
