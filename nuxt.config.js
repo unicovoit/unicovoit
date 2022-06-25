@@ -1,4 +1,4 @@
-import colors from 'vuetify/es5/util/colors'
+import colors from 'vuetify/lib/util/colors'
 
 const PLAUSIBLE_DOMAIN = 'plausible.finxol.io'
 const DESCRIPTION = 'Plateforme de covoiturage entre étudiants'
@@ -184,8 +184,9 @@ export default {
 
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
     vuetify: {
-        customVariables: ['~/assets/variables.scss'],
+        customVariables: ['~assets/variables.sass'],
         defaultAssets: false,
+        treeShake: true,
         theme: {
             dark: false,
             lang: {

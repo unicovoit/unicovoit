@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'GrammatikaRegular';
+    src: url('/GrammatikaRegular.woff2') format('woff2'),
+    url('/GrammatikaRegular.woff') format('woff'),
+    url('/GrammatikaRegular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
