@@ -62,7 +62,7 @@ export default {
     loading: {color: '#fff'},
 
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: ['@mdi/font/css/materialdesignicons.min.css', '@fontsource/roboto/index.css'],
+    css: ['@mdi/font/css/materialdesignicons.min.css'],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [],
