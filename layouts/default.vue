@@ -127,23 +127,48 @@
             app
             justify-content="center"
         >
-            <NuxtLink
-                class="text--secondary text-decoration-none"
-                justify="center"
-                to="/about"
-            >
-                <v-icon>mdi-information</v-icon>
-                A Propos d'UniCovoit
-            </NuxtLink>
-            <v-spacer></v-spacer>
-            <a
-                :href="'https://github.com/finxol/unicovoit/tree/v' + version"
-                class="text--secondary text-decoration-none"
-                rel="noreferrer noopener"
-                target="_blank"
-            >
-                v{{ getVersion }}
-            </a>
+            <v-row>
+                <v-col
+                    cols="8"
+                >
+                    <NuxtLink
+                        class="text--secondary text-decoration-none text-left"
+                        to="/about"
+                    >
+                        <v-icon>mdi-information</v-icon>
+                        A propos d'UniCovoit
+                    </NuxtLink>
+                </v-col>
+                <v-col
+                    cols="4"
+                    class="text-right"
+                >
+                    <a
+                        :href="'https://github.com/finxol/unicovoit/tree/v' + version"
+                        class="text--secondary text-decoration-none"
+                        rel="noreferrer noopener"
+                        target="_blank"
+                    >
+                        v{{ getVersion }}
+                    </a>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col
+                    cols="12"
+                    class="text-left mt-0 text--secondary pt-0"
+                >
+                    <v-icon>mdi-image-outline</v-icon>
+                    Illustration by
+                    <a class="text--secondary" target="_blank" rel="noreferrer noopener"
+                       href="https://icons8.com/illustrations/author/TQQ1qAnr9rn5">
+                        Oleg Shcherba</a>
+                    from
+                    <a class="text--secondary" target="_blank" rel="noreferrer noopener"
+                       href="https://icons8.com/illustrations">
+                        Ouch!</a>
+                </v-col>
+            </v-row>
         </v-footer>
     </v-app>
 </template>
@@ -187,6 +212,17 @@ export default {
                     title: 'Déconnexion',
                     to: '/logout',
                     id: '3'
+                }
+            ],
+            footer: [
+                {
+                    icon: "mdi-github-circle",
+                    text: "Github",
+                    to: "https://github.com/finxol/unicovoit",
+                }, {
+                    icon: "mdi-information",
+                    text: "A Propos d'UniCovoit",
+                    to: "https://twitter.com/_finxol",
                 }
             ],
             miniVariant: false,
