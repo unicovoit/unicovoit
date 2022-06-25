@@ -70,6 +70,9 @@
 export default {
     name: "about",
     auth: false,
+    head: {
+        title: "A Propos - UniCovoit",
+    },
     data() {
         return {
             faq: [
@@ -99,6 +102,5 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
 </style>
