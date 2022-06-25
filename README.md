@@ -10,12 +10,14 @@ Carpool platform for students
 [![GitHub license](https://img.shields.io/github/license/finxol/unicovoit)](https://github.com/finxol/unicovoit/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/finxol/unicovoit)](https://github.com/finxol/unicovoit/issues)
 
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/finxol)](https://github.com/sponsors/finxol)
+
 Official deployment: [unicovoit.com](https://unicovoit.com)
 
 ## Summary
 
 - [Features](#features)
-- [Feedback](#feedback)
+- [Contribute and Support](#contribute-and-support)
 - [Tech Stack](#tech-stack)
 - [Environment Variables](#environment-variables)
 - [Run Locally](#run-locally)
@@ -35,10 +37,13 @@ Official deployment: [unicovoit.com](https://unicovoit.com)
 
 *UniCovoit doesn't handle payments*
 
-## Feedback
+## Contribute and Support
 
-If you have any feedback, please open an issue, contact me on Discord (finxol#8918), Twitter or via email on
-contact@finxol.io
+If you want to contribute to the project, feel free to open an issue or create a pull request.
+
+If you have any feedback, you can reach me on Discord (finxol#8918), Twitter or via email on contact@finxol.io
+
+You can also support the project by donating to the [GitHub Sponsorship Program](https://github.com/sponsors/finxol).
 
 ## Tech Stack
 
@@ -115,10 +120,11 @@ If you prefer using Docker, just replace podman with docker in the commands abov
 - Authentication by [Auth0](https://auth0.com)
 - Distance and duration calculated by [Mapbox](https://www.mapbox.com)
 - Illustrations from [Icons8](https://icons8.com/)
+- Font Grammatika from [Font Library](https://fontlibrary.org/en/font/grammatika)
 
 ## License
 
-| Can            | Cannot                       | Must      |
+| Can            | Must                         | Cannot    |
 |:---------------|:-----------------------------|:----------|
 | Commercial Use | Disclose Source              | Liability |
 | Distribution   | License and Copyright Notice | Warranty  |
