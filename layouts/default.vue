@@ -81,14 +81,12 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <NuxtLink to="/">
                 <v-img
-                    :aspect-ratio="16/9"
                     contain
                     max-height="40"
-                    max-width="100"
-                    src="/wave.svg"
+                    max-width="150"
+                    src="/icon.png"
                 ></v-img>
             </NuxtLink>
-            <v-toolbar-title v-text="title"/>
             <v-spacer></v-spacer>
             <v-avatar
                 v-if="!isLoggedIn"
