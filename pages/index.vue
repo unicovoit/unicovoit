@@ -31,7 +31,7 @@
             aspect-ratio="1"
             contain
             max-width="600"
-            src="/car-illustration.svg"
+            src="/car-rental.svg"
         ></v-img>
     </div>
 </template>
