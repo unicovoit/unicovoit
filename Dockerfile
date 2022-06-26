@@ -54,8 +54,8 @@ COPY --chown=node:node --from=builder /home/node/build/.nuxt ./.nuxt
 COPY --chown=node:node --from=builder /home/node/build/static/ ./static/
 
 # The planning never falls, but you never know
-HEALTHCHECK --interval=15s --timeout=5s --retries=5 \
-  CMD ["curl", "-H", "ignore-statistics: true", "http://localhost:3000"]
+#HEALTHCHECK --interval=15s --timeout=5s --retries=5 \
+#  CMD ["curl", "-H", "ignore-statistics: true", "http://localhost:3000"]
 
 EXPOSE 3000
 
