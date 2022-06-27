@@ -198,7 +198,6 @@
             <v-stepper-content step="6">
                 <v-textarea
                     v-model="trip.description"
-                    filled
                     label="Facultatif"
                     name="description"
                     placeholder="Points de rencontre et horaires flexibles ou non, taille des bagages, etc."
@@ -295,8 +294,6 @@ export default {
                 })
                 return valid
             }
-
-            console.log(this.rules.city)
 
             switch (this.steps) {
                 case 1:
