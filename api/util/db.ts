@@ -4,51 +4,23 @@ import {User} from '../models/User'
 
 
 export const testData = [{
-    driver_name: "",
-    driver_picture: "https://s.gravatar.com/avatar/371bf211f9b892f400479cb44bb6f1cf?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdu.png",
-    driver_id: '688822573970096165',
-    from: 'Paris',
-    to: 'Marseille',
-    price: '100',
-    places: 2,
-    departure_time: new Date('2019-01-01'),
-    description: 'Accompagnez-moi sur la route de Marseille. J\'ai un petit coffre donc petit bagages svp.',
-}, {
-    driver_name: "finxol",
-    driver_picture: "https://cdn.discordapp.com/avatars/688822573970096165/b9480f354ea3fbaf05abb964265a1cc8.png",
-    driver_id: '688822573970096165',
-    from: 'Gare Montparnasse, Paris',
-    to: 'Lyon',
-    price: '200',
-    places: 4,
-    departure_time: new Date(Date.now() + (24 * 60 * 60 * 1000)),
-    description: 'Accompagnez-moi sur la route de Lyon. J\'ai un petit coffre donc petit bagages svp.',
-}, {
-    driver_name: "Elouann",
-    driver_picture: "",
-    driver_id: '688822573970096165',
-    from: 'Paris',
-    to: 'Bordeaux',
-    price: '300',
-    places: 1,
-    departure_time: new Date(Date.now() + (2 * 24 * 60 * 60 * 1000)),
-    description: 'Accompagnez-moi sur la route de Bordeaux. J\'aime beaucoup discuter et écouter de la musique. Voyage non fumeur.',
-}, {
-    from: 'Le Mans',
-    to: 'Rennes',
-    price: '15',
-    description: "accompagnez-moi svp je me sens seul j'ai pas d'amis :(",
-    departure_time: new Date(Date.now() + (3 * 24 * 60 * 60 * 1000)),
-    driver_id: 'auth0|623f93c6c665610070aa3d75',
-    places: '5'
-}, {
-    from: 'Vannes',
-    to: 'Rennes',
+    from: [47.63908, -2.774734],
+    to: [48.107745, -1.715911],
     price: '8',
-    description: "Salut à toutes et tous, j'espère que vous allez bien. Je suis un peu déçu par ce voyage, mais je suis sûr que vous allez bien. Je vous invite à venir me voir à la gare de Vannes, je vous attend ici. (wtf copilot)",
-    departure_time: new Date(Date.now() + (14 * 24 * 60 * 60 * 1000)),
+    description: 'venez svp',
+    departure_time: '2022-06-30T06:30:54.000Z',
     driver_id: 'auth0|623f93c6c665610070aa3d75',
-    places: '5'
+    places: '3',
+    id: 'c672477d-bc26-496f-aa73-18b109ae2fd9'
+}, {
+    from: [48.51282, -4.07294],
+    to: [48.138922, -1.535824],
+    price: '9',
+    description: 'Yo la miff ;)',
+    departure_time: '2022-06-28T15:30:46.200Z',
+    driver_id: 'auth0|623f93c6c665610070aa3d75',
+    places: '3',
+    id: '93d41f1a-7bcb-46cf-907d-57bf7acc4542'
 }]
 
 //------------------------------------------------------
@@ -60,8 +32,6 @@ export const testData = [{
  */
 export const addTrip: Function = async (t: any) => {
     try {
-        t.from = t.from.toUpperCase()
-        t.to = t.to.toUpperCase()
         const tmp = new Trip(t)
         await tmp.save()
         logger.success(`Trip from ${t.from} to ${t.to} on ${t.departure_time} added`)
@@ -97,7 +67,10 @@ export const bookTrip: Function = async (t: object) => {
  * @returns {Promise<Trip[]>} the array of trips
  */
 export const getAllTrips = async () => {
-    return await Trip.find({})
+    return Trip.find({}, {
+        _id: 0,
+        __v: 0
+    });
 }
 
 
@@ -108,18 +81,21 @@ export const getAllTrips = async () => {
  * @param date the date of the trip
  * @returns the array of trips
  */
-export const getTrips = async (from: string, to: string, date: Date) => {
+export const getTrips = async (from: { lat: number, lon: number }, to: { lat: number, lon: number }, date: Date) => {
     const min = new Date(date.getFullYear(), date.getMonth(), date.getDate())
     const max = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
 
-    return await Trip.find({
-        from: from.toUpperCase(),
-        to: to.toUpperCase(),
+    return Trip.find({
+        from: [from.lat, from.lon],
+        to: [to.lat, to.lon],
         departure_time: {
             $gte: min,
             $lt: max
         }
-    })
+    },{
+        _id: 0,
+        __v: 0
+    });
 }
 
 
@@ -129,7 +105,10 @@ export const getTrips = async (from: string, to: string, date: Date) => {
  * @return the trip
  */
 export const getTripById = async (id: string) => {
-    return Trip.findById(id)
+    return Trip.find({id: id}, {
+        _id: 0,
+        __v: 0
+    });
 }
 
 
