@@ -115,4 +115,11 @@ UniCovoit peut, à tout moment et sans préavis, modifier les CGU afin de les ad
 
 Ce site internet et les CGU sont régis par le droit français, quel que soit le lieu d’utilisation. En cas de
 contestation, les parties sont tenues de rechercher une solution amiable avant de saisir les tribunaux français
-compétents. 
+compétents.
+
+## Droits d'auteur
+
+Le code source de ce site est librement disponible sur GitHub.
+Il est cependant obligatoire de respecter les termes de la licence AGPL-v3 utilisée.
+
+Les illustrations utilisées sur ce site appartiennent à leur propriétaire, trouvable sur [Icons8](https://icons8.com).
