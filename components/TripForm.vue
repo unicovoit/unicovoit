@@ -86,8 +86,6 @@ export default {
             rules: [
                 v => !!v || 'Merci de renseigner ce champ',
             ],
-            call: setTimeout(() => {
-            }, 0),
             suggestions: [],
         }
     },
