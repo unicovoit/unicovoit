@@ -42,7 +42,7 @@ RUN rm -rf /usr/local/lib/node_modules/npm/ /usr/local/bin/npm
 WORKDIR /usr/src/unicovoit
 RUN chown -R node:node /usr/src/unicovoit
 
-RUN apk --no-cache add dumb-init ncdu
+RUN apk --no-cache add dumb-init
 
 # Don't run container as root
 USER node
