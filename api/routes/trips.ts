@@ -1,8 +1,9 @@
 import {Router} from 'express'
+import {auth} from "express-oauth2-jwt-bearer"
+import {v4} from "uuid"
 import logger from '../util/signale'
 import * as db from '../util/db'
 import {verifyTrip} from "../util/verifier"
-import {auth} from "express-oauth2-jwt-bearer"
 import {getDistance, search} from "../util/map";
 
 const router: Router = Router()
@@ -25,8 +26,6 @@ router.get('/', (req, res) => {
         res.json(db.testData)
     } else {
         try {
-            let from = req.query.from
-            let to = req.query.to
             let date = new Date()
             if (req.query.date) {
                 let [year, month, day] = String(req.query.date).split('-')
@@ -35,8 +34,11 @@ router.get('/', (req, res) => {
                 date.setDate(parseInt(day))
             }
 
-            if (from && to) {
-                db.getTrips(String(from), String(to), date).then(trips => {
+            if (req.query.from && req.query.to) {
+                let from = String(Buffer.from(String(req.query.from), 'base64')).split(',').map(co => parseFloat(co))
+                let to = String(Buffer.from(String(req.query.to), 'base64')).split(',').map(co => parseFloat(co))
+
+                db.getTrips({lat: from[0], lon: from[1]}, {lat: to[0], lon: to[1]}, date).then(trips => {
                     res.json(trips)
                 }).catch(err => {
                     logger.error(err)
@@ -142,6 +144,8 @@ router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, a
 router.post('/add', checkJwt, (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
     try {
         let trip = verifyTrip(req.body)
+        trip.id = v4()
+
         logger.info(trip)
         db.addTrip(
             trip
