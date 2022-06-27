@@ -193,7 +193,6 @@ export default {
 
                     this.trips.push(response.data[i])
                 }
-                console.log(this.trips)
             })
             .catch(error => {
                 this.error = true
