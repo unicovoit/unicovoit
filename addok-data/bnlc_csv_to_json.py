@@ -14,7 +14,7 @@ if __name__ == '__main__':
             tmp['lon'] = tmp.pop('Xlong')
             data.append(tmp)
 
-    with open('bnlc.json', 'w') as jsonfile:
+    with open('bnlc.sjson', 'w') as jsonfile:
         for row in data:
             json.dump(row, jsonfile)
             jsonfile.write('\n')
