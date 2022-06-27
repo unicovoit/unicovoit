@@ -9,6 +9,7 @@
             <v-btn
                 v-bind="attrs"
                 v-on="on"
+                rounded
                 block
                 class="mt-4"
                 color="primary"
@@ -66,20 +67,20 @@
                 <v-subheader>Trajet</v-subheader>
                 <v-list-item>
                     <v-list-item-content>
-                        <v-list-item-title>{{ trip.from.toLowerCase() }}</v-list-item-title>
+                        <v-list-item-title>{{ trip.fromName.toLowerCase() }}</v-list-item-title>
                         <v-list-item-subtitle>Départ</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
-                        <v-list-item-title>{{ trip.to.toLowerCase() }}</v-list-item-title>
+                        <v-list-item-title>{{ trip.toName.toLowerCase() }}</v-list-item-title>
                         <v-list-item-subtitle>Arrivée</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title>{{ date }}</v-list-item-title>
-                        <v-list-item-subtitle>Date</v-list-item-subtitle>
+                        <v-list-item-subtitle>Date et Heure</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -101,6 +102,7 @@
                 <v-btn
                     color="primary"
                     justify="center"
+                    rounded
                     block
                     x-large
                     @click="confirm"
