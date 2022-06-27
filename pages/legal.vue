@@ -18,6 +18,9 @@
 export default {
     name: "legal",
     auth: false,
+    head: {
+        title: "Conditions Générales d'utilisation - UniCovoit",
+    },
     async asyncData({$content, error}) {
         const page = await $content("legal")
             .fetch()
@@ -39,4 +42,7 @@ export default {
         margin-bottom: .5rem
     p
         text-align: justify !important
+
+    a
+        color: inherit
 </style>
