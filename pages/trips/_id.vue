@@ -1,5 +1,15 @@
 <template>
     <v-container>
+        <v-btn
+            text
+            class="text-caption align-content-start ml-n4"
+            x-small
+            @click="$router.go(-1)"
+        >
+            <v-icon>mdi-chevron-left</v-icon>
+            Retour aux résultats
+        </v-btn>
+
         <v-main
             class="text-h2 mt-n10 mb-n3"
             color="primary"
@@ -22,7 +32,7 @@
             >
                 <v-card flat>
                     <v-card-title class="text-h5">
-                        {{ trip.from.toLowerCase() }}
+                        {{ trip.fromName.toLowerCase() }}
                     </v-card-title>
                 </v-card>
             </v-timeline-item>
@@ -34,7 +44,7 @@
             >
                 <v-card flat>
                     <v-card-title class="text-h5">
-                        {{ trip.to.toLowerCase() }}
+                        {{ trip.toName.toLowerCase() }}
                     </v-card-title>
                 </v-card>
             </v-timeline-item>
@@ -74,7 +84,7 @@
                 <v-list-item-content>
                     <v-list-item-title>
                         <v-icon class="mr-3">mdi-calendar-clock</v-icon>
-                        {{ parseDate }}
+                        {{ parseDateTime }}
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
@@ -104,7 +114,7 @@
             </v-list-item>
         </v-card>
 
-        <ConfirmOrder :trip="trip" :date="parseDate"></ConfirmOrder>
+        <ConfirmOrder :trip="trip" :date="parseDateTime"></ConfirmOrder>
     </v-container>
 </template>
 
@@ -122,26 +132,53 @@ export default {
             let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
             return date.toLocaleDateString('fr-FR', options)
         },
+        parseDateTime() {
+            const date = new Date(this.trip.departure_time)
+            let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
+            let time = date.toLocaleTimeString('fr-FR').split(':')
+            return `${date.toLocaleDateString('fr-FR', options)}, ${time[0]}h${time[1]}`
+        }
     },
-    async asyncData({error, params, $axios}) {
+    async asyncData({error, params, $axios, $config}) {
         try {
             const trip = await $axios.$get(`/api/v1/trips/${params.id}`)
             trip.distance = 0
             trip.duration = 0
+
+            let req = $axios.create()
+            delete req.defaults.headers.common['Authorization']
+            let from = await req.get(`https://${$config.API_DOMAIN}/reverse`, {
+                params: {
+                    lat: trip.from[0],
+                    lon: trip.from[1],
+                }
+            })
+            let tmp = from.data.features[0].properties
+            trip.fromName = `${tmp.name}, ${tmp.city}`
+
+            let to = await req.get(`https://${$config.API_DOMAIN}/reverse`, {
+                params: {
+                    lat: trip.to[0],
+                    lon: trip.to[1],
+                }
+            })
+            tmp = to.data.features[0].properties
+            trip.toName = `${tmp.name}, ${tmp.city}`
+
             return {trip}
         } catch (e) {
             console.error(e)
-            error({statusCode: e.code, message: 'Trip not found'})
+            error({statusCode: e.code, message: e.message})
         }
     },
     async mounted() {
         [ this.trip.distance, this.trip.duration ] = await this.$axios.$get('/api/v1/trips/distance', {
                 params: {
-                    from: this.trip.from,
-                    to: this.trip.to
+                    from: this.trip.from.join(','),
+                    to: this.trip.to.join(','),
                 }
             }).then(response => {
-                return [ response.distance, response.duration ]
+                return [response.distance, response.duration]
             })
             .catch(error => {
                 console.error(error)
