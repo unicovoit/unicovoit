@@ -50,7 +50,6 @@
             </v-stepper-step>
             <v-stepper-content step="1">
                 <CitySelector
-                    :cityProp="trip.from"
                     :req="true"
                     :disabled="steps > 1"
                     :error="errorMessage"
@@ -136,7 +135,7 @@
             <v-stepper-content step="4">
                 <v-text-field
                     v-model="trip.price"
-                    :rules="priceRules"
+                    :rules="rules.price"
                     label="Prix"
                     placeholder="10"
                     suffix="€"
@@ -167,7 +166,7 @@
             <v-stepper-content step="5">
                 <v-text-field
                     v-model="trip.places"
-                    :rules="placesRules"
+                    :rules="rules.places"
                     label="Places"
                     placeholder="2"
                     @keyup.native.enter="nextStep"
@@ -249,14 +248,33 @@ export default {
                 places: "",
             },
             steps: 1,
-            priceRules: [
-                v => v >= 0 || "Prix trop bas",
-                v => v <= 100 || "Prix trop élevé",
-                v => /^[0-9]{1,3}$/.test(v) || "Prix invalide",
-            ],
-            placesRules: [
-                v => /^[1-9]$/.test(v) || "Merci d'entrer un nombre entier entre 1 et 9",
-            ],
+            rules: {
+                price: [
+                    v => !!v || "Merci de renseigner le prix",
+                    v => v >= 0 || "Prix trop bas",
+                    v => v <= 100 || "Prix trop élevé",
+                    v => /^\d{1,3}$/.test(v) || "Prix invalide",
+                ],
+                places: [
+                    v => !!v || "Merci de renseigner le nombre de places",
+                    v => /^[1-5]$/.test(v) || "Merci d'entrer un nombre entier entre 1 et 5",
+                ],
+                city: [
+                    v => !!v || "Merci de renseigner un lieu",
+                    v => {
+                        let coord = atob(v).split(",")
+                        if (coord.length !== 2) {
+                            return "Merci de renseigner un lieu valide"
+                        } else {
+                            if (/\d+(.\d+)?/.test(coord[0]) || /\d+(.\d+)?/.test(coord[1])) {
+                                return true
+                            } else {
+                                return "Merci de renseigner un lieu valide"
+                            }
+                        }
+                    },
+                ]
+            },
         }
     },
     computed: {
@@ -267,6 +285,7 @@ export default {
     methods: {
         nextStep() {
             const verifyRules = (rules, value) => {
+                console.log(rules)
                 let valid = true
                 rules.forEach(rule => {
                     let v = rule(value)
@@ -277,19 +296,20 @@ export default {
                 return valid
             }
 
-            let cities = this.$store.getters.getCities
+            console.log(this.rules.city)
+
             switch (this.steps) {
                 case 1:
-                    if (this.trip.from && cities.includes(this.trip.from)) this.steps++
+                    if (this.trip.from && verifyRules(this.rules.city, this.trip.from)) this.steps++
                     break
                 case 2:
-                    if (this.trip.to && cities.includes(this.trip.from)) this.steps++
+                    if (this.trip.to && verifyRules(this.rules.city, this.trip.to)) this.steps++
                     break
                 case 4:
-                    if (this.trip.price && verifyRules(this.priceRules, this.trip.price)) this.steps++
+                    if (this.trip.price && verifyRules(this.rules.price, this.trip.price)) this.steps++
                     break
                 case 5:
-                    if (this.trip.places && verifyRules(this.placesRules, this.trip.places)) this.steps++
+                    if (this.trip.places && verifyRules(this.rules.places, this.trip.places)) this.steps++
                     break
                 default:
                     this.steps++
@@ -322,10 +342,7 @@ export default {
                     .then(r => {
                         this.success = true
                         this.error = false
-
-                        setTimeout(() => {
-                            this.$router.push("/profile")
-                        }, 3000)
+                        window.scrollTo(0, 0)
                     }).catch(error => {
                     this.error = true
                     this.success = false
