@@ -4,7 +4,7 @@ import {v4} from "uuid"
 import logger from '../util/signale'
 import * as db from '../util/db'
 import {verifyTrip} from "../util/verifier"
-import {getDistance, search} from "../util/map";
+import {getDistance, decodeCoords} from "../util/map";
 
 const router: Router = Router()
 
@@ -22,39 +22,35 @@ const checkJwt = auth({
  * @access  Public
  */
 router.get('/', (req, res) => {
-    if (isDev && false) { // Only for development
-        res.json(db.testData)
-    } else {
-        try {
-            let date = new Date()
-            if (req.query.date) {
-                let [year, month, day] = String(req.query.date).split('-')
-                date.setFullYear(parseInt(year))
-                date.setMonth(parseInt(month) - 1)
-                date.setDate(parseInt(day))
-            }
+    try {
+        let date = new Date()
+        if (req.query.date) {
+            let [year, month, day] = String(req.query.date).split('-')
+            date.setFullYear(parseInt(year))
+            date.setMonth(parseInt(month) - 1)
+            date.setDate(parseInt(day))
+        }
 
-            if (req.query.from && req.query.to) {
-                let from = String(Buffer.from(String(req.query.from), 'base64')).split(',').map(co => parseFloat(co))
-                let to = String(Buffer.from(String(req.query.to), 'base64')).split(',').map(co => parseFloat(co))
+        if (req.query.from && req.query.to) {
+            let from = decodeCoords(String(req.query.from))
+            let to = decodeCoords(String(req.query.to))
 
-                db.getTrips({lat: from[0], lon: from[1]}, {lat: to[0], lon: to[1]}, date).then(trips => {
-                    res.json(trips)
-                }).catch(err => {
-                    logger.error(err)
-                    res.status(500).json({error: err})
-                })
-            } else {
-                db.getAllTrips().then((trips: any) => {
-                    res.json(trips)
-                })
-            }
-        } catch (e) {
-            logger.error(e)
-            res.status(500).json({
-                error: e
+            db.getTrips({lat: from[0], lon: from[1]}, {lat: to[0], lon: to[1]}, date).then(trips => {
+                res.json(trips)
+            }).catch(err => {
+                logger.error(err)
+                res.status(500).json({error: err})
+            })
+        } else {
+            db.getAllTrips().then((trips: any) => {
+                res.json(trips)
             })
         }
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: e
+        })
     }
 })
 
@@ -89,28 +85,6 @@ router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQ
 
 
 /**
- * @route   GET /api/v1/trips/search
- * @desc    Search for a place
- * @access  Public
- */
-router.get('/search', (req, res) => {
-    const query: string | undefined = String(req.query.q)
-    if (query) {
-        try {
-            search(query).then((results: any) => {
-                res.json(results)
-            })
-        } catch (e) {
-            logger.error(e)
-            res.status(500).json({
-                error: e
-            })
-        }
-    }
-})
-
-
-/**
  * @route   GET /api/v1/trips/:id
  * @desc    Get trip by id
  * @access  Private
@@ -120,7 +94,7 @@ router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, a
     try {
         const trip = await db.getTripById(req.params.id)
         if (trip) {
-            res.json(trip)
+            res.json(trip[0])
         } else {
             res.status(404).json({
                 error: 'Trip not found'

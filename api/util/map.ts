@@ -10,39 +10,33 @@ import xss from "xss";
  * @private
  */
 export async function getDistance(from: string, to: string): Promise<{ distance: number, duration: number } | Error> {
-    return await axios.get('https://nominatim.openstreetmap.org/search', {
-        params: {
-            q: from,
-            format: 'json',
+    // invert latitudes and longitudes
+    let fromCoord: string[] = from.split(",");
+    let toCoord: string[] = to.split(",");
+    const start = `${fromCoord[1]},${fromCoord[0]}`
+    const end = `${toCoord[1]},${toCoord[0]}`
+    
+    // Get distance between two points
+    return axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${start};${end}?access_token=${process.env.MAPBOX_TOKEN}`
+    ).then((r: any) => {
+        return {
+            distance: parseInt(String(r.data.routes[0].distance / 1000)),
+            duration: parseInt(String(r.data.routes[0].duration / 60))
         }
-    }).then((response: any) => {
-        const start = `${response.data[0].lon},${response.data[0].lat}`
-        return axios.get('https://nominatim.openstreetmap.org/search', {
-            params: {
-                q: to,
-                format: 'json',
-            }
-        }).then((response: any) => {
-            const end = `${response.data[0].lon},${response.data[0].lat}`
-            // Get distance between two points
-            return axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${start};${end}?access_token=${process.env.MAPBOX_TOKEN}`
-            ).then((r: any) => {
-                return {
-                    distance: parseInt(String(r.data.routes[0].distance / 1000)),
-                    duration: parseInt(String(r.data.routes[0].duration / 60))
-                }
-            }).catch((e: Error) => {
-                logger.error(e)
-                return e
-            })
-        }).catch((e: Error) => {
-            logger.error(e)
-            return e
-        })
     }).catch((e: Error) => {
         logger.error(e)
         return e
     })
+}
+
+
+/**
+ * @desc    Decode coordinates from base64
+ * @param   {string} coords - The coordinates in base64
+ * @returns {number[]} - The coordinates in array
+ */
+export function decodeCoords(coords: string): number[] {
+    return String(Buffer.from(String(coords), 'base64')).split(',').map(co => parseFloat(co))
 }
 
 
