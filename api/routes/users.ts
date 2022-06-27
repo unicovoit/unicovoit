@@ -62,6 +62,32 @@ router.get('/:id', checkJwt, async (req, res) => {
 
 
 /**
+ * @route   GET /api/v1/users/login
+ * @desc    Login user and save to db
+ * @access  Private
+ */
+router.post('/login', checkJwt, async (req, res) => {
+    try {
+        logger.info(req.auth)
+        // @ts-ignore
+        const user = await db.getUserById(req.auth.sub)
+        if (user) {
+            res.status(200).json(user)
+        } else {
+            res.status(404).json({
+                error: 'User not found'
+            })
+        }
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: 'Server error'
+        })
+    }
+})
+
+
+/**
  * @route   POST /api/v1/users/add
  * @desc    Add user
  * @access  Private
