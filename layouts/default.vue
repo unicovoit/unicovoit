@@ -154,7 +154,7 @@
             <v-row>
                 <v-col
                     cols="12"
-                    class="text-left mt-0 text--secondary pt-0"
+                    class="text-left mt-0 text--secondary pt-0 text-body-2"
                 >
                     <v-icon>mdi-image-outline</v-icon>
                     Illustration by
@@ -210,17 +210,6 @@ export default {
                     title: 'Déconnexion',
                     to: '/logout',
                     id: '3'
-                }
-            ],
-            footer: [
-                {
-                    icon: "mdi-github-circle",
-                    text: "Github",
-                    to: "https://github.com/finxol/unicovoit",
-                }, {
-                    icon: "mdi-information",
-                    text: "A Propos d'UniCovoit",
-                    to: "https://twitter.com/_finxol",
                 }
             ],
             miniVariant: false,
