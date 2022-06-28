@@ -107,6 +107,12 @@ To build and run with podman, run:
 
 If you prefer using Docker, just replace podman with docker in the commands above.
 
+### Addok
+
+For address auto-completion, an [addok](https://github.com/BaseAdresseNationale/addok-docker) instance is used.
+
+To setup your own, follow the steps detailed in [this issue](https://github.com/finxol/unicovoit/issues/3#issuecomment-1168000850).
+
 ## Authors
 
 - [@finxol](https://www.github.com/finxol)
