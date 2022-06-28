@@ -118,6 +118,8 @@ router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, a
 router.post('/add', checkJwt, (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
     try {
         let trip = verifyTrip(req.body)
+        trip.from = decodeCoords(trip.from)
+        trip.to = decodeCoords(trip.to)
         trip.id = v4()
 
         logger.info(trip)
