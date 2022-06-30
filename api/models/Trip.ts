@@ -21,6 +21,14 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
                 index: true
             }
         ],
+        fromName: {
+            type: String,
+            required: true
+        },
+        fromCity: {
+            type: String,
+            required: true
+        },
         to: [
             {
                 type: String,
@@ -32,6 +40,14 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
                 index: true
             }
         ],
+        toName: {
+            type: String,
+            required: true
+        },
+        toCity: {
+            type: String,
+            required: true
+        },
         departure_time: {
             type: Date,
             required: true,
@@ -49,6 +65,14 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
             type: Number,
             required: true
         },
+        distance: {
+            type: Number,
+            required: true
+        },
+        duration: {
+            type: Number,
+            required: true
+        }
     }, {
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
     }

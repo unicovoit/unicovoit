@@ -171,28 +171,11 @@ export default {
             }).then(async response => {
                 this.trips = []
 
-                let req = this.$axios.create()
-                delete req.defaults.headers.common['Authorization']
                 for (let i = 0; i < response.data.length; i++) {
                     response.data[i].show = false
-                    let from = await req.get(`https://${this.$config.API_DOMAIN}/reverse`, {
-                        params: {
-                            lat: response.data[i].from[0],
-                            lon: response.data[i].from[1],
-                        }
-                    })
-                    response.data[i].fromCity = from.data.features[0].properties.city
-
-                    let to = await req.get(`https://${this.$config.API_DOMAIN}/reverse`, {
-                        params: {
-                            lat: response.data[i].to[0],
-                            lon: response.data[i].to[1],
-                        }
-                    })
-                    response.data[i].toCity = to.data.features[0].properties.city
-
                     this.trips.push(response.data[i])
                 }
+                console.log(this.trips)
             })
             .catch(error => {
                 this.error = true

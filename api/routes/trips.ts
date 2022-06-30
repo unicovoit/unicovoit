@@ -4,7 +4,7 @@ import {v4} from "uuid"
 import logger from '../util/signale'
 import * as db from '../util/db'
 import {verifyTrip} from "../util/verifier"
-import {getDistance, decodeCoords} from "../util/map";
+import {getDistance, decodeCoords, prepareTrip} from "../util/map";
 
 const router: Router = Router()
 
@@ -115,12 +115,11 @@ router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, a
  * @access  Private
  */
 // @ts-ignore
-router.post('/add', checkJwt, (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
+router.post('/add', checkJwt, async (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
     try {
+        console.log(req.body)
         let trip = verifyTrip(req.body)
-        trip.from = decodeCoords(trip.from)
-        trip.to = decodeCoords(trip.to)
-        trip.id = v4()
+        trip = await prepareTrip(trip)
 
         logger.info(trip)
         db.addTrip(
