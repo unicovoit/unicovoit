@@ -110,7 +110,7 @@ export default {
                     console.log(query)
                     let req = this.$axios.create()
                     delete req.defaults.headers.common['Authorization']
-                    req.get(`https://${this.$config.API_DOMAIN}/search`, {
+                    req.get(`https://${this.$config.ADDOK_DOMAIN}/search`, {
                         params: {
                             q: query
                         }
