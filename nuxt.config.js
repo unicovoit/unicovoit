@@ -5,9 +5,9 @@ const DESCRIPTION = 'Plateforme de covoiturage entre étudiants'
 const TITLE = 'UniCovoit'
 const DOMAIN = 'unicovoit.com'
 const URL = `https://${DOMAIN}`
-const BANNER = `${URL}/wave.svg`
+const BANNER = `${URL}/icon_long.png`
 
-const API_DOMAIN = "api.covoit.ozna.me"
+const ADDOK_DOMAIN = "api.covoit.ozna.me"
 
 const AUTH0_ID = process.env.AUTH0_CLIENTID || 'no id'
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'example.org'
@@ -28,7 +28,7 @@ export default {
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-            {hid: 'description', name: 'description', content: 'Plateforme de covoiturage pour IUT'},
+            {hid: 'description', name: 'description', content: 'Plateforme de covoiturage entre étudiants'},
             {name: 'format-detection', content: 'telephone=no'},
             {
                 name: 'keywords',
@@ -55,11 +55,11 @@ export default {
             {property: 'twitter:image', content: BANNER}
         ],
         link: [
-            {rel: 'icon', type: 'image/svg', href: '/wave.svg'}
+            {rel: 'icon', type: 'image/png', href: '/icon.png'}
         ]
     },
 
-    loading: {color: '#fff'},
+    loading: {color: "#4A6DD9"},
 
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: ['@mdi/font/css/materialdesignicons.min.css'],
@@ -137,7 +137,7 @@ export default {
                 'font-src': ["'self'"],
                 'script-src': ["'self'", "'unsafe-inline'"],
                 'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com"],
-                'connect-src': ["'self'", "bano.addok.xyz", API_DOMAIN, PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
+                'connect-src': ["'self'", "bano.addok.xyz", ADDOK_DOMAIN, PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
             }
         }
     },
@@ -150,7 +150,8 @@ export default {
             lang: 'fr',
             ogSiteName: TITLE,
             ogTitle: TITLE,
-            ogDescription: DESCRIPTION
+            ogDescription: DESCRIPTION,
+            theme_color: '#ffffff'
         },
         manifest: {
             name: TITLE,
@@ -179,7 +180,7 @@ export default {
             enableAutoOutboundTracking: true
         },
         isProd,
-        API_DOMAIN
+        ADDOK_DOMAIN
     },
 
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
