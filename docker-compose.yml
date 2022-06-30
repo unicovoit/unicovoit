@@ -21,6 +21,7 @@ services:
             - .env
         environment:
             - MONGO_URL=mongodb
+            - ADDOK_DOMAIN=api.covoit.ozna.me
         networks:
             - unicovoit
         depends_on:
