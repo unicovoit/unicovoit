@@ -142,30 +142,8 @@ export default {
     async asyncData({error, params, $axios, $config}) {
         try {
             const trip = await $axios.$get(`/api/v1/trips/${params.id}`)
-            trip.distance = 0
-            trip.duration = 0
+            return { trip }
 
-            let req = $axios.create()
-            delete req.defaults.headers.common['Authorization']
-            let from = await req.get(`https://${$config.API_DOMAIN}/reverse`, {
-                params: {
-                    lat: trip.from[0],
-                    lon: trip.from[1],
-                }
-            })
-            let tmp = from.data.features[0].properties
-            trip.fromName = `${tmp.name}, ${tmp.city}`
-
-            let to = await req.get(`https://${$config.API_DOMAIN}/reverse`, {
-                params: {
-                    lat: trip.to[0],
-                    lon: trip.to[1],
-                }
-            })
-            tmp = to.data.features[0].properties
-            trip.toName = `${tmp.name}, ${tmp.city}`
-
-            return {trip}
         } catch (e) {
             console.error(e)
             error({statusCode: e.code, message: e.message})

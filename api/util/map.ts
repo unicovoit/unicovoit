@@ -1,6 +1,9 @@
-import axios from "axios";
-import logger from "../util/signale";
-import xss from "xss";
+import axios from "axios"
+import logger from "../util/signale"
+import xss from "xss"
+import {v4} from "uuid";
+
+const addokDomain: string = process.env.ADDOK_DOMAIN || 'api.covoit.ozna.me'
 
 /**
  * @desc    Get the distance between two cities
@@ -15,7 +18,7 @@ export async function getDistance(from: string, to: string): Promise<{ distance:
     let toCoord: string[] = to.split(",");
     const start = `${fromCoord[1]},${fromCoord[0]}`
     const end = `${toCoord[1]},${toCoord[0]}`
-    
+
     // Get distance between two points
     return axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${start};${end}?access_token=${process.env.MAPBOX_TOKEN}`
     ).then((r: any) => {
@@ -40,24 +43,39 @@ export function decodeCoords(coords: string): number[] {
 }
 
 
-/**
- * Search for a point on the map
- * @param query the search query
- * @returns {Promise<Object | Error>} The point found or an error
- */
-export async function search(query: string): Promise<any> {
-    let prepared: string = xss(query)
-    logger.info(`Searching for ${prepared}`)
-    return await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${prepared}.json`, {
+export async function prepareTrip(trip: any): Promise<any> {
+    trip.from = decodeCoords(trip.from)
+    trip.to = decodeCoords(trip.to)
+    trip.id = v4()
+
+    let dist: {distance: number, duration: number} | Error = await getDistance(trip.from.join(','), trip.to.join(','))
+    if (dist instanceof Error) {
+        return new Error('Error while getting distance')
+    }
+    trip.distance = dist.distance
+    trip.duration = dist.duration
+
+    let req = axios.create()
+    delete req.defaults.headers.common['Authorization']
+    let from = await req.get(`https://${addokDomain}/reverse`, {
         params: {
-            access_token: process.env.MAPBOX_TOKEN,
-            autocomplete: true,
-            limit: 5,
-            language: 'fr',
-            country: 'fr',
-            types: 'address,poi'
+            lat: trip.from[0],
+            lon: trip.from[1],
         }
-    }).then((response: any) => {
-        return response.data.features
     })
+    let tmp = from.data.features[0].properties
+    trip.fromName = `${tmp.name}, ${tmp.city}`
+    trip.fromCity = tmp.city
+
+    let to = await req.get(`https://${addokDomain}/reverse`, {
+        params: {
+            lat: trip.to[0],
+            lon: trip.to[1],
+        }
+    })
+    tmp = to.data.features[0].properties
+    trip.toName = `${tmp.name}, ${tmp.city}`
+    trip.toCity = tmp.city
+
+    return trip
 }
