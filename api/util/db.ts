@@ -4,23 +4,35 @@ import {User} from '../models/User'
 
 
 export const testData = [{
-    from: [47.63908, -2.774734],
-    to: [48.107745, -1.715911],
-    price: '8',
-    description: 'venez svp',
-    departure_time: '2022-06-30T06:30:54.000Z',
+    from: [47.972292, -2.737387],
+    to: [48.1110706956896, -1.52818191449501],
+    price: '2',
+    description: 'ok',
+    departure_time: '2022-07-07T20:30:38.700Z',
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     places: '3',
-    id: 'c672477d-bc26-496f-aa73-18b109ae2fd9'
+    distance: 0,
+    duration: 0,
+    id: 'db6a8265-4244-4f1d-809a-e616b1f7ad53',
+    fromName: 'Bel Air, Réguiny',
+    fromCity: 'Réguiny',
+    toName: 'Espace Nominoë, Rue Julien Neveu, undefined',
+    toCity: 'undefined'
 }, {
-    from: [48.51282, -4.07294],
-    to: [48.138922, -1.535824],
-    price: '9',
-    description: 'Yo la miff ;)',
-    departure_time: '2022-06-28T15:30:46.200Z',
+    from: [48.138244, -1.53536],
+    to: [47.655162, -2.788994],
+    price: '7',
+    description: 'venez avec moi svp je me sens seul sinon :snif:',
+    departure_time: '2022-07-20T19:35:56.400Z',
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     places: '3',
-    id: '93d41f1a-7bcb-46cf-907d-57bf7acc4542'
+    id: '1d866cb1-342f-4492-b679-c3be592544cf',
+    distance: 128,
+    duration: 90,
+    fromName: '10 Rue de la Montagne des Oliviers, Acigné',
+    fromCity: 'Acigné',
+    toName: '5 Rue de la Fenaison, Vannes',
+    toCity: 'Vannes'
 }]
 
 //------------------------------------------------------
@@ -92,7 +104,7 @@ export const getTrips = async (from: { lat: number, lon: number }, to: { lat: nu
             $gte: min,
             $lt: max
         }
-    },{
+    }, {
         _id: 0,
         __v: 0
     });
