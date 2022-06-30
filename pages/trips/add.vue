@@ -336,11 +336,11 @@ export default {
         submit() {
             if (!(this.success || this.error)) {
                 this.$axios.post("/api/v1/trips/add", this.trip)
-                    .then(r => {
-                        this.success = true
-                        this.error = false
-                        window.scrollTo(0, 0)
-                    }).catch(error => {
+                .then(r => {
+                    this.success = true
+                    this.error = false
+                    window.scrollTo(0, 0)
+                }).catch(error => {
                     this.error = true
                     this.success = false
                     console.error(error)
