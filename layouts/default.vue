@@ -84,7 +84,7 @@
                     contain
                     max-height="40"
                     max-width="150"
-                    src="/icon.png"
+                    src="/icon_long.png"
                 ></v-img>
             </NuxtLink>
             <v-spacer></v-spacer>
