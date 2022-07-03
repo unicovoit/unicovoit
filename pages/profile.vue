@@ -1,11 +1,10 @@
 <template>
     <v-container>
-        <v-main
-            class="text-h2 mt-n10"
-            color="primary"
+        <h2
+            class="text-h2"
         >
             Profile
-        </v-main>
+        </h2>
         <v-alert
             v-if="!this.$store.state.auth.user.email_verified"
             icon="mdi-alert-circle"

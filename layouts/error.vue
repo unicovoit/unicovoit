@@ -1,10 +1,8 @@
 <template>
     <v-app dark>
-        <h1>
-            <v-main
+        <v-container>
+            <h2
                 class="text-h2"
-                color="primary"
-                style="margin-top:-3rem"
             >
                 <span v-if="error.statusCode === 404">
                     {{ pageNotFound }}
@@ -12,7 +10,7 @@
                 <span v-else>
                     {{ otherError }}
                 </span>
-            </v-main>
+            </h2>
             <v-card
                 flat
             >
@@ -44,13 +42,27 @@
                 max-width="500"
             >
             </v-img>
-        </h1>
+        </v-container>
         <v-btn
             text
             @click="$router.go(-1)"
         >
             Retour à la page précédente
         </v-btn>
+
+        <v-container
+            class="text--secondary text-body-2 ma-0 pa-0"
+        >
+            <v-icon>mdi-image-outline</v-icon>
+            Illustrations par
+            <a class="text--secondary" target="_blank" rel="noreferrer noopener"
+               href="https://icons8.com/illustrations/author/TQQ1qAnr9rn5">
+                Oleg Shcherba</a>
+            de
+            <a class="text--secondary" target="_blank" rel="noreferrer noopener"
+               href="https://icons8.com/illustrations">
+                Ouch!</a>
+        </v-container>
     </v-app>
 </template>
 

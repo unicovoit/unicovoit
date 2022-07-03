@@ -1,11 +1,10 @@
 <template>
-    <div>
-        <v-main
-            class="text-h2 mt-n10"
-            color="primary"
+    <v-container>
+        <h2
+            class="text-h2"
         >
             Proposer un trajet
-        </v-main>
+        </h2>
 
         <v-alert
             v-if="isOffline"
@@ -73,7 +72,9 @@
                 Lieu d'arrivée
                 <small>Sélectionnez le lieu précis dans la ville</small>
             </v-stepper-step>
-            <v-stepper-content step="2">
+            <v-stepper-content
+                step="2"
+            >
                 <CitySelector
                     :cityProp="trip.to"
                     :req="true"
@@ -217,7 +218,7 @@
                 </v-btn>
             </v-stepper-content>
         </v-stepper>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -324,14 +325,15 @@ export default {
         },
         changeDate(date) {
             let [year, month, day] = date.split("-")
-            this.trip.departure_time.setUTCFullYear(year)
-            this.trip.departure_time.setUTCMonth(month - 1)
-            this.trip.departure_time.setUTCDate(day)
+            this.trip.departure_time.setFullYear(year)
+            this.trip.departure_time.setMonth(month - 1)
+            this.trip.departure_time.setDate(day)
         },
         changeTime(time) {
             let [hour, minute] = time.split(":")
-            this.trip.departure_time.setUTCHours(hour)
-            this.trip.departure_time.setUTCMinutes(minute)
+            let d = new Date()
+            this.trip.departure_time.setHours((parseInt(hour) + d.getTimezoneOffset()) % 24)
+            this.trip.departure_time.setMinutes(minute)
         },
         submit() {
             if (!(this.success || this.error)) {
@@ -351,7 +353,11 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 small
     margin-top: 4px
+
+.v-autocomplete.v-input--is-focused,
+.v-input.v-input--is-label-active.v-input--is-readonly
+    padding-top: .4rem !important
 </style>
