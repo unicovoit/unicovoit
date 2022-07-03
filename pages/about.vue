@@ -20,12 +20,13 @@
                 sont disponibles sur le site.
             </p>
             <p>
-                Créé par <a
-                class="text--secondary"
-                href="https://github.com/finxol/unicovoit"
-                rel="noopener noreferrer"
-                target="_blank"
-            >finxol</a>
+                Créé par
+                <a
+                    class="text--secondary"
+                    href="https://github.com/finxol/unicovoit"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >finxol</a>.
             </p>
 
             <div class="text-h4">
