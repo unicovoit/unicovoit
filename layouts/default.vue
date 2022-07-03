@@ -22,64 +22,11 @@
             </v-row>
         </v-snackbar>
 
-        <v-navigation-drawer
-            v-model="drawer"
-            :clipped="clipped"
-            :mini-variant="miniVariant"
-            app
-            fixed
-        >
-            <v-list nav>
-                <v-btn
-                    icon
-                    @click.stop="miniVariant = !miniVariant"
-                >
-                    <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-                </v-btn>
-                <v-list-item
-                    v-for="item in menu1"
-                    :key="item.id"
-                    :to="item.to"
-                    exact
-                    router
-                    color="primary"
-                >
-                    <v-list-item-action>
-                        <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title v-text="item.title"/>
-                    </v-list-item-content>
-                </v-list-item>
-
-                <v-divider fill-height></v-divider>
-                <Settings></Settings>
-
-                <v-list-item
-                    v-for="item in menu2"
-                    v-if="isLoggedIn"
-                    :key="item.id"
-                    :to="item.to"
-                    exact
-                    router
-                    color="primary"
-                >
-                    <v-list-item-action>
-                        <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title v-text="item.title"/>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
-        </v-navigation-drawer>
         <v-app-bar
-            :clipped-left="clipped"
-            app
-            fixed
+            absolute
+            flat
         >
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-            <NuxtLink to="/">
+            <NuxtLink to="/about">
                 <v-img
                     contain
                     max-height="40"
@@ -88,92 +35,78 @@
                 ></v-img>
             </NuxtLink>
             <v-spacer></v-spacer>
-            <v-avatar
-                v-if="!isLoggedIn"
-                size="40"
-                style="cursor: pointer"
+            <a
+                :href="'https://github.com/finxol/unicovoit/tree/v' + version"
+                class="text--secondary text-decoration-none"
+                rel="noreferrer noopener"
+                target="_blank"
             >
-                <v-icon
-                    large
-                    @click="goToLogin"
-                >mdi-account-circle
-                </v-icon>
-            </v-avatar>
-            <v-avatar
-                v-else
-                color="brown"
-                size="40"
-                @click="goToProfile"
+                v{{ getVersion }}
+            </a>
+            <v-btn
+                icon
+                @click="changeTheme"
             >
-                <v-img
-                    :alt="getProfileName"
-                    :src="getProfilePicture"
-                    lazy-src="/account_circle.svg"
-                ></v-img>
-            </v-avatar>
+                <v-icon>mdi-theme-light-dark</v-icon>
+            </v-btn>
         </v-app-bar>
 
-        <v-main>
+        <v-main
+            class="mt-15"
+        >
             <v-container>
                 <Nuxt/>
             </v-container>
         </v-main>
 
-        <v-footer
-            :absolute="!fixed"
-            align-items="center"
+        <v-bottom-navigation
+            v-model="activeBtn"
+            color="primary"
+            :dark="$vuetify.theme.dark"
             app
-            justify-content="center"
+            grow
+            shift
         >
-            <v-row>
-                <v-col
-                    cols="8"
-                >
-                    <NuxtLink
-                        class="text--secondary text-decoration-none text-left"
-                        to="/about"
-                    >
-                        <v-icon>mdi-information</v-icon>
-                        A propos d'UniCovoit
-                    </NuxtLink>
-                </v-col>
-                <v-col
-                    cols="4"
-                    class="text-right"
-                >
-                    <a
-                        :href="'https://github.com/finxol/unicovoit/tree/v' + version"
-                        class="text--secondary text-decoration-none"
-                        rel="noreferrer noopener"
-                        target="_blank"
-                    >
-                        v{{ getVersion }}
-                    </a>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col
-                    cols="12"
-                    class="text-left mt-0 text--secondary pt-0 text-body-2"
-                >
-                    <v-icon>mdi-image-outline</v-icon>
-                    Illustration by
-                    <a class="text--secondary" target="_blank" rel="noreferrer noopener"
-                       href="https://icons8.com/illustrations/author/TQQ1qAnr9rn5">
-                        Oleg Shcherba</a>
-                    from
-                    <a class="text--secondary" target="_blank" rel="noreferrer noopener"
-                       href="https://icons8.com/illustrations">
-                        Ouch!</a>
-                </v-col>
-            </v-row>
-        </v-footer>
+            <v-btn
+                v-for="item in menu1"
+                :key="item.id"
+                :to="item.to"
+                exact
+                router
+            >
+                <span>{{ item.title }}</span>
+
+                <v-icon>{{ item.icon }}</v-icon>
+            </v-btn>
+            <v-btn
+                v-if="!isLoggedIn"
+                to="/login"
+                exact
+                router
+            >
+                <span>Login</span>
+
+                <v-icon>mdi-account-circle</v-icon>
+            </v-btn>
+            <v-btn
+                v-else
+                v-for="item in menu2"
+                :key="item.id"
+                :to="item.to"
+                exact
+                router
+            >
+                <span>{{ item.title }}</span>
+
+                <v-icon>{{ item.icon }}</v-icon>
+            </v-btn>
+        </v-bottom-navigation>
     </v-app>
 </template>
 
 <script>
 const {version} = require('../package.json')
-import Settings from "../components/Settings";
+import Settings from "../components/Settings"
 
 export default {
     name: 'DefaultLayout',
@@ -184,8 +117,8 @@ export default {
         return {
             clipped: true,
             drawer: !this.$device.isMobile,
-            fixed: false,
             desktopWarning: false,
+            activeBtn: undefined,
             menu1: [
                 {
                     icon: 'mdi-home',
@@ -194,21 +127,21 @@ export default {
                     id: '0'
                 }, {
                     icon: 'mdi-car-outline',
-                    title: 'Trajets disponibles',
+                    title: 'Trajets',
                     to: '/trips',
                     id: '1'
                 }
             ],
             menu2: [
                 {
-                    icon: 'mdi-car-2-plus',
-                    title: 'Proposer un trajet',
+                    icon: 'mdi-plus-circle-outline',
+                    title: 'Ajouter',
                     to: '/trips/add',
                     id: '2'
                 }, {
-                    icon: 'mdi-logout',
-                    title: 'Déconnexion',
-                    to: '/logout',
+                    icon: 'mdi-account-circle',
+                    title: 'Profile',
+                    to: '/profile',
                     id: '3'
                 }
             ],
@@ -224,24 +157,20 @@ export default {
         isLoggedIn() {
             return this.$store.state.auth.loggedIn
         },
-        getProfilePicture() {
-            try {
-                return this.$store.state.auth.user.picture
-            } catch (e) {
-                return "/account_circle.svg"
-            }
+        pages() {
+            let p = []
+            this.menu1.forEach(item => {
+                p.push(item.to)
+            })
+            this.menu2.forEach(item => {
+                p.push(item.to)
+            })
+            return p
         },
-        getProfileName() {
-            try {
-                return this.$store.state.auth.user.nickname
-            } catch (e) {
-                return "Utilisateur"
-            }
-        }
     },
     beforeCreate() {
         try {
-            if (this.$cookies.get('dark', {parseJSON: false}) === 'true' /*|| window.matchMedia("(prefers-color-scheme: dark)").matches*/) {
+            if (this.$cookies.get('dark', {parseJSON: false}) === 'true') {
                 this.$vuetify.theme.dark = true
             }
         } catch (e) {
@@ -256,12 +185,6 @@ export default {
         }
     },
     methods: {
-        goToProfile() {
-            this.$router.push({path: '/profile'})
-        },
-        goToLogin() {
-            this.$router.push({path: '/login'})
-        },
         hideDesktopWarning() {
             this.$cookies.set('desktopWarning', 'hide', {
                 maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -270,6 +193,14 @@ export default {
             })
             this.desktopWarning = false
         },
+        changeTheme() {
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+            this.$cookies.set('dark', this.$vuetify.theme.dark, {
+                maxAge: 60 * 60 * 24 * 7, // 1 week
+                sameSite: 'lax',
+                path: '/'
+            })
+        }
     }
 }
 </script>
