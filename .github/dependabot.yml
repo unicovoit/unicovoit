@@ -10,8 +10,8 @@ updates:
     schedule:
       interval: "daily"
     assignee:
-      - finxol
+      - "finxol"
     commit-message:
-      - prefix: "yarn prod"
-      - prefix-development: "yarn dev"
-      - include: "scope"
+      prefix: "yarn prod"
+      prefix-development: "yarn dev"
+      include: "scope"
