@@ -185,6 +185,18 @@ export const getUserById = async (id: string) => {
     return User.findById(id)
 }
 
+/**
+ * Get a user by subscription id
+ * @param   id the id of the subscription
+ * @returns the user
+ */
+export const getUserBySub = async (id: string) => {
+    return User.findOne({sub: id}, {
+        _id: 0,
+        __v: 0
+    })
+}
+
 
 /**
  * Get user's picture url and name by id
