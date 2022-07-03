@@ -9,7 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-    assignee:
+    assignees:
       - "finxol"
     commit-message:
       prefix: "yarn prod"
