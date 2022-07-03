@@ -59,12 +59,29 @@
                 </v-card-subtitle>
             </v-row>
         </v-card>
+
+        <v-card
+            outlined
+        >
+            <v-btn
+                plain
+                @click="logout"
+            >
+                <v-icon>mdi-logout</v-icon>
+                Déconnexion
+            </v-btn>
+        </v-card>
     </v-container>
 </template>
 
 <script>
 export default {
-    name: "account"
+    name: "account",
+    methods: {
+        logout() {
+            this.$auth.logout()
+        }
+    }
 }
 </script>
 
