@@ -1,11 +1,10 @@
 <template>
     <v-container>
-        <v-main
-            class="text-h2 mt-n10"
-            color="primary"
+        <h2
+            class="text-h2"
         >
             Politique de confidentialité
-        </v-main>
+        </h2>
 
         <nuxt-content
             :document="page"

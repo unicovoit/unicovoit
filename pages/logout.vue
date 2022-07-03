@@ -1,11 +1,10 @@
 <template>
 <v-container>
-    <v-main
-        class="text-h2 mt-n10"
-        color="primary"
+    <h2
+        class="text-h2"
     >
         Déconnexion...
-    </v-main>
+    </h2>
 </v-container>
 </template>
 

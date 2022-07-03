@@ -2,7 +2,7 @@
     <v-container>
         <v-btn
             text
-            class="text-caption align-content-start ml-n4"
+            class="text-caption align-content-start ml-n4 mb-3 mt-n2"
             x-small
             @click="$router.go(-1)"
         >
@@ -10,16 +10,15 @@
             Retour aux résultats
         </v-btn>
 
-        <v-main
-            class="text-h2 mt-n10 mb-n3"
-            color="primary"
+        <h2
+            class="text-h2"
         >
             Trajet
-        </v-main>
+        </h2>
 
         <v-timeline
             appear="slide-y-transition"
-            class="mb-8"
+            class="mb-8 mt-3"
             dense
             justify="center"
             large
@@ -139,7 +138,7 @@ export default {
             return `${date.toLocaleDateString('fr-FR', options)}, ${time[0]}h${time[1]}`
         }
     },
-    async asyncData({error, params, $axios, $config}) {
+    async asyncData({error, params, $axios}) {
         try {
             const trip = await $axios.$get(`/api/v1/trips/${params.id}`)
             return { trip }

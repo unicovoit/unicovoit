@@ -1,11 +1,10 @@
 <template>
     <v-container>
-        <v-card-title
-            class="text-h2 ma-0 px-0"
-            color="primary"
+        <h2
+            class="text-h2"
         >
             A Propos
-        </v-card-title>
+        </h2>
 
         <div>
             <p>

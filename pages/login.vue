@@ -1,13 +1,12 @@
 <template>
     <v-container>
-        <v-main
-            class="text-h2 mt-n10"
-            color="primary"
+        <h2
+            class="text-h2"
         >
             Connexion
-        </v-main>
+        </h2>
         <v-main
-            style="margin-top:-1.5rem;text-align: justify"
+            style="text-align: justify"
         >
             Vous pouvez vous connecter à UniCovoit avec Auth0, Microsoft ou Discord.
             <br>
@@ -20,6 +19,7 @@
             class="mr-4"
             color="primary"
             x-large
+            rounded
             @click="auth0Login"
         >
             connexion
@@ -47,7 +47,7 @@ export default {
             try {
                 await this.$auth.loginWith('auth0')
             } catch (err) {
-
+                console.error(err)
             }
         }
     }
