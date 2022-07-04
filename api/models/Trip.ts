@@ -7,7 +7,15 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
             unique: true,
             index: true
         },
+        driver_id: {
+            type: String,
+            required: true,
+            index: true
+        },
         driver_name: {
+            type: String,
+        },
+        driver_picture: {
             type: String,
         },
         from: [
