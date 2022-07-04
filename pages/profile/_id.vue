@@ -1,5 +1,9 @@
 <template>
-    <v-container>
+    <v-container
+        v-touch="{
+            right: () => $router.go(-1),
+        }"
+    >
         <h2
             class="text-h2"
         >
