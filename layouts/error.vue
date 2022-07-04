@@ -51,10 +51,12 @@
         </v-btn>
 
         <v-container
-            class="text--secondary text-body-2 ma-0 pa-0"
+            class="text--secondary text-caption ma-0 pa-0 mt-5"
         >
-            <v-icon>mdi-image-outline</v-icon>
-            Illustrations par
+            <v-icon
+                size="18"
+            >mdi-image-outline</v-icon>
+            Illustration par
             <a class="text--secondary" target="_blank" rel="noreferrer noopener"
                href="https://icons8.com/illustrations/author/TQQ1qAnr9rn5">
                 Oleg Shcherba</a>
