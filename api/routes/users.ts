@@ -66,11 +66,10 @@ router.get('/:id', checkJwt, async (req, res) => {
  * @desc    Login user and save to db
  * @access  Private
  */
-router.post('/login', checkJwt, async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
-        logger.info(req.auth)
-        // @ts-ignore
-        const user = await db.getUserById(req.auth.sub)
+        logger.info(req.body)
+        const user = await db.getUserBySub(req.body.sub)
         if (user) {
             res.status(200).json(user)
         } else {
@@ -94,7 +93,7 @@ router.post('/login', checkJwt, async (req, res) => {
  */
 router.post('/add', checkJwt, async (req, res) => {
     try {
-
+        logger.info(req.body)
         const user = await db.addUser(req.body)
         if (user) {
             res.status(200).json(user)
