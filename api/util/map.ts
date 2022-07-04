@@ -16,6 +16,8 @@ export async function getDistance(from: string, to: string): Promise<{ distance:
     // invert latitudes and longitudes
     let fromCoord: string[] = from.split(",");
     let toCoord: string[] = to.split(",");
+    validateCoordinates(fromCoord)
+    validateCoordinates(toCoord)
     const start = `${fromCoord[1]},${fromCoord[0]}`
     const end = `${toCoord[1]},${toCoord[0]}`
 
@@ -30,6 +32,17 @@ export async function getDistance(from: string, to: string): Promise<{ distance:
         logger.error(e)
         return e
     })
+}
+
+
+function validateCoordinates(coord: string[]) {
+    console.log(coord)
+    if (coord.length !== 2)
+        throw new Error("Invalid coordinates")
+    if (isNaN(parseFloat(coord[0])) || isNaN(parseFloat(coord[1])))
+        throw new Error("Invalid coordinates")
+    if (!(/\d+(\.\d+)?/.test(coord[0]) && /\d+(\.\d+)?/.test(coord[1])))
+        throw new Error("Invalid coordinates")
 }
 
 
@@ -64,8 +77,8 @@ export async function prepareTrip(trip: any): Promise<any> {
         }
     })
     let tmp = from.data.features[0].properties
-    trip.fromName = `${tmp.name}, ${tmp.city}`
-    trip.fromCity = tmp.city
+    trip.fromName = String(tmp.name)
+    trip.fromCity = String(tmp.city)
 
     let to = await req.get(`https://${addokDomain}/reverse`, {
         params: {
@@ -74,8 +87,8 @@ export async function prepareTrip(trip: any): Promise<any> {
         }
     })
     tmp = to.data.features[0].properties
-    trip.toName = `${tmp.name}, ${tmp.city}`
-    trip.toCity = tmp.city
+    trip.toName = String(tmp.name)
+    trip.toCity = String(tmp.city)
 
     return trip
 }
