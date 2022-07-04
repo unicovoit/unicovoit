@@ -26,14 +26,12 @@
             absolute
             flat
         >
-            <NuxtLink to="/about">
-                <v-img
-                    contain
-                    max-height="40"
-                    max-width="150"
-                    src="/icon_long.png"
-                ></v-img>
-            </NuxtLink>
+            <v-img
+                contain
+                max-height="40"
+                max-width="150"
+                src="/icon_long.png"
+            ></v-img>
             <v-spacer></v-spacer>
             <a
                 :href="'https://github.com/finxol/unicovoit/tree/v' + version"
@@ -43,12 +41,6 @@
             >
                 v{{ getVersion }}
             </a>
-            <v-btn
-                icon
-                @click="changeTheme"
-            >
-                <v-icon>mdi-theme-light-dark</v-icon>
-            </v-btn>
         </v-app-bar>
 
         <v-main
@@ -100,6 +92,26 @@
 
                 <v-icon>{{ item.icon }}</v-icon>
             </v-btn>
+            <v-btn
+                v-if="isLoggedIn"
+                to="/profile"
+                exact
+                router
+            >
+                <span>Profil</span>
+
+<!--                <v-icon
+                    v-if="getUserAvatar"
+                >
+                    <v-img
+                        :src="getUserAvatar"
+                        width="30"
+                        height="30"
+                    ></v-img>
+                </v-icon>-->
+                <v-icon
+                >mdi-account-circle</v-icon>
+            </v-btn>
         </v-bottom-navigation>
     </v-app>
 </template>
@@ -138,12 +150,7 @@ export default {
                     title: 'Ajouter',
                     to: '/trips/add',
                     id: '2'
-                }, {
-                    icon: 'mdi-account-circle',
-                    title: 'Profile',
-                    to: '/profile',
-                    id: '3'
-                }
+                },
             ],
             miniVariant: false,
             title: 'UniCovoit',
@@ -157,16 +164,9 @@ export default {
         isLoggedIn() {
             return this.$store.state.auth.loggedIn
         },
-        pages() {
-            let p = []
-            this.menu1.forEach(item => {
-                p.push(item.to)
-            })
-            this.menu2.forEach(item => {
-                p.push(item.to)
-            })
-            return p
-        },
+        getUserAvatar() {
+            return this.$store.state.auth.user.picture
+        }
     },
     beforeCreate() {
         try {
@@ -193,14 +193,6 @@ export default {
             })
             this.desktopWarning = false
         },
-        changeTheme() {
-            this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-            this.$cookies.set('dark', this.$vuetify.theme.dark, {
-                maxAge: 60 * 60 * 24 * 7, // 1 week
-                sameSite: 'lax',
-                path: '/'
-            })
-        }
     }
 }
 </script>
@@ -208,4 +200,7 @@ export default {
 <style lang="sass">
 .v-avatar
     cursor: pointer
+
+.v-bottom-navigation .v-btn--active
+    background-color: transparent
 </style>
