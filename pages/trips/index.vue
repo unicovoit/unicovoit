@@ -31,6 +31,7 @@
                 class="mb-5"
                 outlined
                 lazy
+                :to="`/trips/${trip.id}`"
             >
                 <v-row
                     align="center"
@@ -50,7 +51,6 @@
                             id="book-trip"
                             color="primary"
                             icon
-                            @click="$router.push(`/trips/${trip.id}`)"
                         >
                             <v-icon size="35">mdi-car-arrow-right</v-icon>
                         </v-btn>
@@ -75,7 +75,9 @@
                 </v-list-item>
 
                 <v-list-item justify="center">
-                    <v-list-item-content>
+                    <v-list-item-content
+                        @click.prevent="$router.push(`/profile/${trip.driver_id}`)"
+                    >
                         <v-list-item-title>
                             <v-avatar
                                 size="40"
@@ -84,7 +86,6 @@
                                 <v-img
                                     :alt="trip.driver_name || 'Utilisateur'"
                                     :src="trip.driver_picture || '/account_circle.svg'"
-                                    @click="$router.push(`/profile/${trip.driver_id}`)"
                                 ></v-img>
                             </v-avatar>
                             {{ trip.driver_name || 'Utilisateur' }}
@@ -94,7 +95,7 @@
                     <v-btn
                         v-if="!!trip.description"
                         icon
-                        @click="trip.show = !trip.show"
+                        @click.prevent="trip.show = !trip.show"
                     >
                         <v-icon>mdi-chevron-{{ trip.show ? 'up' : 'down' }}</v-icon>
                     </v-btn>
