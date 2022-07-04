@@ -37,7 +37,7 @@
         ></v-img>
 
         <v-card
-            color="primary lighten-5"
+            :color="`primary ${$vuetify.theme.dark ? 'darken-4' : 'lighten-5'}`"
             flat
             rounded="20"
         >
