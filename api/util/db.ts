@@ -3,35 +3,37 @@ import {Trip} from '../models/Trip'
 import {User} from '../models/User'
 
 
-export const testData = [{
-    from: [47.972292, -2.737387],
-    to: [48.1110706956896, -1.52818191449501],
-    price: '2',
-    description: 'ok',
-    departure_time: '2022-07-07T20:30:38.700Z',
+export const testTrips = [{
+    from: [ 47.972292, -2.737387 ],
+    to: [ 48.1110706956896, -1.52818191449501 ],
+    price: '6',
+    description: "on a fait de l'escalade à réguiny",
+    departure_time: '2022-07-14T18:30:51.400Z',
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     places: '3',
-    distance: 0,
-    duration: 0,
-    id: 'db6a8265-4244-4f1d-809a-e616b1f7ad53',
-    fromName: 'Bel Air, Réguiny',
+    id: '4a8c12f3-48e9-4b14-9522-69f0bbb067fb',
+    distance: 114,
+    duration: 80,
+    fromName: 'Bel Air',
     fromCity: 'Réguiny',
-    toName: 'Espace Nominoë, Rue Julien Neveu, undefined',
+    toName: 'Espace Nominoë, Rue Julien Neveu',
     toCity: 'undefined'
 }, {
     from: [48.138244, -1.53536],
     to: [47.655162, -2.788994],
     price: '7',
-    description: 'venez avec moi svp je me sens seul sinon :snif:',
+    description: 'Geronimooooo!!!!!!!!!',
     departure_time: '2022-07-20T19:35:56.400Z',
     driver_id: 'auth0|623f93c6c665610070aa3d75',
+    driver_picture: 'https://pm1.narvii.com/7423/0e9230dce862b4ad9c54955d679b9935bc8f7e98r1-1153-1153v2_uhq.jpg',
+    driver_name: 'Eleventh Doctor',
     places: '3',
     id: '1d866cb1-342f-4492-b679-c3be592544cf',
     distance: 128,
     duration: 90,
-    fromName: '10 Rue de la Montagne des Oliviers, Acigné',
+    fromName: '10 Rue de la Montagne des Oliviers',
     fromCity: 'Acigné',
-    toName: '5 Rue de la Fenaison, Vannes',
+    toName: '5 Rue de la Fenaison',
     toCity: 'Vannes'
 }]
 
@@ -133,7 +135,7 @@ export const initDB = async () => {
         await Trip.deleteMany({})
         logger.info('DB cleared')
         // insert test values
-        for (let trip of testData) {
+        for (let trip of testTrips) {
             await addTrip(trip)
         }
         logger.info('DB initialised')
