@@ -11,7 +11,7 @@
             Vous pouvez vous connecter à UniCovoit avec Auth0, Microsoft ou Discord.
             <br>
             <br>
-            Cliquez sur le bouton ci-dessous pour accéder à la page de connexion.
+            En vous inscrivant, vous acceptez les <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'Utilisation</NuxtLink>.
         </v-main>
 
         <v-btn
@@ -30,18 +30,6 @@
 <script>
 export default {
     name: "login",
-    data() {
-        return {
-            valid: false,
-            login: {
-                username: '',
-                password: '',
-            },
-            rules: [
-                v => !!v || 'Merci de renseigner ce champ',
-            ],
-        }
-    },
     methods: {
         async auth0Login() {
             try {
