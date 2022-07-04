@@ -6,7 +6,8 @@
             timeout="-1"
         >
             UniCovoit est encore en développement.
-            Faites remonter les bugs sur <a class="grey--text lighten-1" href="https://github.com/finxol/iucovoit" target="_blank" rel="noreferrer noopener">github</a>.
+            Faites remonter les bugs sur <a class="grey--text lighten-1" href="https://github.com/finxol/iucovoit"
+                                            target="_blank" rel="noreferrer noopener">github</a>.
             <template v-slot:action="{ attrs }">
                 <v-btn
                     color="info"
@@ -27,17 +28,46 @@
             </h2>
             <TripForm></TripForm>
         </v-container>
+
         <v-img
             aspect-ratio="1"
             contain
             max-width="600"
             src="/car-rental.svg"
         ></v-img>
-        <v-container
-            class="text--secondary text-body-2 ma-0 pa-0"
+
+        <v-card
+            color="primary lighten-5"
+            flat
+            rounded="20"
         >
-            <v-icon>mdi-image-outline</v-icon>
-            Illustrations par
+            <v-card-title
+                class="text-h4 mb-5"
+            >
+                Qui sommes-nous ?
+            </v-card-title>
+            <v-card-text
+                class="text-body-1"
+            >
+                <p>
+                    UniCovoit est une plateforme de covoiturage pour les étudiants.
+                </p>
+                <p>
+                    L'objectif est d'encourager le covoiturage entre étudiants, sans prendre de commission sur le prix du trajet.
+                </p>
+                <p>
+                    Plus d'informations disponibles sur <NuxtLink alt="About" class="text--secondary" to="/about">cette page</NuxtLink>.
+                </p>
+            </v-card-text>
+        </v-card>
+
+        <v-container
+            class="text--secondary text-caption ma-0 pa-0 mt-10"
+        >
+            <v-icon
+                size="18"
+            >mdi-image-outline</v-icon>
+            Illustration par
             <a class="text--secondary" target="_blank" rel="noreferrer noopener"
                href="https://icons8.com/illustrations/author/TQQ1qAnr9rn5">
                 Oleg Shcherba</a>
@@ -63,20 +93,6 @@ export default {
         isLoggedIn() {
             return this.$store.state.auth.loggedIn
         },
-        getProfilePicture() {
-            try {
-                return this.$store.state.auth.user.picture
-            } catch (e) {
-                return "/account_circle.svg"
-            }
-        },
-        getProfileName() {
-            try {
-                return this.$store.state.auth.user.nickname
-            } catch (e) {
-                return "Utilisateur"
-            }
-        }
     },
     mounted() {
         if (!sessionStorage.getItem('snackbar')) {
