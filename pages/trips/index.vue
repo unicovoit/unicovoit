@@ -150,9 +150,15 @@ export default {
     methods: {
         parseDateTime(dep) {
             const date = new Date(dep)
-            let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-            let time = date.toLocaleTimeString('fr-FR').split(':')
-            return `${date.toLocaleDateString('fr-FR', options)}, ${time[0]}h${time[1]}`
+            let options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit'
+            }
+            return date.toLocaleDateString('fr-FR', options)
         },
         async getTrips() {
             // Get filters from query params
@@ -171,12 +177,10 @@ export default {
                 }
             }).then(async response => {
                 this.trips = []
-
                 for (let i = 0; i < response.data.length; i++) {
                     response.data[i].show = false
                     this.trips.push(response.data[i])
                 }
-                console.log(this.trips)
             })
             .catch(error => {
                 this.error = true
