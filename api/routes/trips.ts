@@ -1,10 +1,11 @@
 import {Router} from 'express'
 import {auth} from "express-oauth2-jwt-bearer"
-import {v4} from "uuid"
+import axios from "axios"
+import {XMLParser} from "fast-xml-parser"
 import logger from '../util/signale'
 import * as db from '../util/db'
 import {verifyTrip} from "../util/verifier"
-import {getDistance, decodeCoords, prepareTrip} from "../util/map";
+import {getDistance, decodeCoords, prepareTrip} from "../util/map"
 
 const router: Router = Router()
 
@@ -64,8 +65,8 @@ router.get('/', (req, res) => {
  */
 // @ts-ignore
 router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
-    const from = req.query.from
-    const to = req.query.to
+    const from = decodeCoords(String(req.query.from)).join(',')
+    const to = decodeCoords(String(req.query.to)).join(',')
     if (from && to) {
         getDistance(from, to).then((distance: { distance: number, duration: number } | Error) => {
             if (distance instanceof Error) {
@@ -85,12 +86,36 @@ router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQ
 
 
 /**
- * @route   GET /api/v1/trips/:id
+ * @route   POST /api/v1/trips/petrol
+ * @desc    Get petrol prices
+ * @access  Public
+ */
+router.get('/petrol', (req, res) => {
+    try {
+        axios.get('https://api.zagaz.com/prix-moyen.php')
+        .then(response => {
+            let data = new XMLParser().parse(response.data)
+            res.json(data['zagaz-data'].prix_moyen.e10)
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: e
+        })
+    }
+})
+
+
+/**
+ * @route   GET /api/v1/trips/id/:id
  * @desc    Get trip by id
  * @access  Private
  */
 // @ts-ignore
-router.get('/:id', checkJwt, async (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
+router.get('/id/:id', checkJwt, async (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
     try {
         const trip = await db.getTripById(req.params.id)
         if (trip) {
