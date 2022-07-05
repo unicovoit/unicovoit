@@ -44,6 +44,7 @@
             >
                 v{{ getVersion }}
             </a>
+            <Settings/>
         </v-app-bar>
 
         <v-main
