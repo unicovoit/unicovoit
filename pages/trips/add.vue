@@ -45,7 +45,7 @@
                 step="1"
             >
                 Lieu de départ
-                <small>Sélectionnez le lieu précis dans la ville</small>
+                <small>Sélectionnez une adresse</small>
             </v-stepper-step>
             <v-stepper-content step="1">
                 <CitySelector
@@ -70,7 +70,7 @@
                 step="2"
             >
                 Lieu d'arrivée
-                <small>Sélectionnez le lieu précis dans la ville</small>
+                <small>Sélectionnez une adresse</small>
             </v-stepper-step>
             <v-stepper-content
                 step="2"
@@ -102,7 +102,6 @@
                 step="3"
             >
                 Date et heure de départ
-                <small>Donnez une heure précise</small>
             </v-stepper-step>
             <v-stepper-content step="3">
                 <DateSelector
@@ -131,9 +130,24 @@
                 step="4"
             >
                 Prix
-                <small>Vous fixez le prix par passager vous-même. Attention à ne pas le mettre trop élevé !</small>
+                <small>Fixez le prix par passager.</small>
             </v-stepper-step>
             <v-stepper-content step="4">
+                <v-alert
+                    class="text-body-2"
+                    color="primary"
+                    border="left"
+                    elevation="2"
+                    colored-border
+                    icon="mdi-information"
+                >
+                    Nous estimons que ce trajet vous coutera environ {{ estimatedPrice }}€
+                    <v-icon
+                        dense
+                        @click="priceExplanation = true"
+                    >mdi-help-circle-outline
+                    </v-icon>
+                </v-alert>
                 <v-text-field
                     v-model="trip.price"
                     :rules="rules.price"
@@ -155,6 +169,34 @@
                     Retour
                 </v-btn>
             </v-stepper-content>
+            <!-- Explain the price suggestion -->
+            <v-dialog
+                v-model="priceExplanation"
+                max-width="500px"
+            >
+                <v-card>
+                    <v-card-title>
+                        Comment le prix est-il estimé ?
+                    </v-card-title>
+                    <v-card-text>
+                        Pour calculer le prix du trajet, nous utilisons le prix moyen instantané du SP95-E10 en France.
+                        Nous le multiplions ensuite par la consommation moyenne d'une voiture, ici 5.5 L/100km,
+                        et par la distance du trajet.
+                        Le tout est arrondi à l'entier.<br>
+                        Les péages ne sont pas pris en compte.
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="primary"
+                            text
+                            @click="priceExplanation = false"
+                        >
+                            OK
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
 
             <!-- Select the number of available spaces -->
             <v-stepper-step
@@ -199,10 +241,14 @@
             <v-stepper-content step="6">
                 <v-textarea
                     v-model="trip.description"
+                    auto-grow
+                    counter
                     label="Facultatif"
                     name="description"
                     placeholder="Points de rencontre et horaires flexibles ou non, taille des bagages, etc."
                     value=""
+                    outlined
+                    :rules="rules.description"
                 ></v-textarea>
                 <v-btn
                     color="primary"
@@ -238,6 +284,8 @@ export default {
             success: false,
             error: false,
             errorMessage: "",
+            estimatedPrice: 0,
+            priceExplanation: false,
             trip: {
                 from: "",
                 to: "",
@@ -273,7 +321,10 @@ export default {
                             }
                         }
                     },
-                ]
+                ],
+                description: [
+                    v => v.length <= 80 || 'La description ne doit pas dépasser 80 caractères',
+                ],
             },
         }
     },
@@ -285,7 +336,6 @@ export default {
     methods: {
         nextStep() {
             const verifyRules = (rules, value) => {
-                console.log(rules)
                 let valid = true
                 rules.forEach(rule => {
                     let v = rule(value)
@@ -302,6 +352,10 @@ export default {
                     break
                 case 2:
                     if (this.trip.to && verifyRules(this.rules.city, this.trip.to)) this.steps++
+                    break
+                case 3:
+                    this.estimatePrice()
+                    this.steps++
                     break
                 case 4:
                     if (this.trip.price && verifyRules(this.rules.price, this.trip.price)) this.steps++
@@ -335,14 +389,33 @@ export default {
             this.trip.departure_time.setHours((parseInt(hour) + d.getTimezoneOffset()) % 24)
             this.trip.departure_time.setMinutes(minute)
         },
+        async getPetrolPrice() {
+            let req = await this.$axios.get("/api/v1/trips/petrol")
+            return req.data
+        },
+        async getDistance() {
+            let req = await this.$axios.get('/api/v1/trips/distance', {
+                params: {
+                    from: this.trip.from,
+                    to: this.trip.to,
+                }
+            })
+            return req.data.distance
+        },
+        async estimatePrice() {
+            const litrePerKm = 5.5 / 100
+            let price = await this.getPetrolPrice()
+            let distance = await this.getDistance()
+            this.estimatedPrice = Math.round(distance * litrePerKm * price)
+        },
         submit() {
             if (!(this.success || this.error)) {
                 this.$axios.post("/api/v1/trips/add", this.trip)
-                .then(r => {
-                    this.success = true
-                    this.error = false
-                    window.scrollTo(0, 0)
-                }).catch(error => {
+                    .then(r => {
+                        this.success = true
+                        this.error = false
+                        window.scrollTo(0, 0)
+                    }).catch(error => {
                     this.error = true
                     this.success = false
                     console.error(error)
