@@ -80,6 +80,10 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
         duration: {
             type: Number,
             required: true
+        },
+        show: {
+            type: Boolean,
+            default: false
         }
     }, {
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
