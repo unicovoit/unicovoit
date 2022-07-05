@@ -5,26 +5,21 @@
         class="rounded-lg"
     >
         <template v-slot:activator="{ on, attrs }">
-            <v-list-item
-                exact
+            <v-btn
+                icon
                 v-bind="attrs"
                 v-on="on"
             >
-                <v-list-item-action>
-                    <v-icon>mdi-cog</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                    <v-list-item-title>Paramètres</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
+                <v-icon>mdi-cog</v-icon>
+            </v-btn>
         </template>
 
         <v-card>
-            <v-card-title :class="`text-h5 grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3`">
+            <v-card-title class="text-h5">
                 Paramètres
             </v-card-title>
 
-            <v-card-text class="mt-4">
+            <v-card-text class="mt-4 px-0">
                 <v-list-item>
                     <v-list-item-action>
                         <v-switch
@@ -39,9 +34,22 @@
                         Passer en mode {{ $vuetify.theme.dark ? 'clair' : 'sombre' }}
                     </v-list-item-action-text>
                 </v-list-item>
+                <v-list-item>
+                    <v-list-item-action>
+                        <v-btn
+                            icon
+                            @click="logout"
+                        >
+                            <v-icon>mdi-logout</v-icon>
+                        </v-btn>
+                    </v-list-item-action>
+                    <v-list-item-action-text
+                        class="text-body-1"
+                    >
+                        Déconnexion
+                    </v-list-item-action-text>
+                </v-list-item>
             </v-card-text>
-
-            <v-divider></v-divider>
 
             <v-card-actions>
                 <v-spacer></v-spacer>
@@ -65,6 +73,9 @@ export default {
         };
     },
     methods: {
+        logout() {
+            this.$auth.logout()
+        },
         toggleTheme() {
             try {
                 this.$cookies.set('dark', `${this.$vuetify.theme.dark}`, {
