@@ -1,15 +1,9 @@
 <template>
-    <v-container>
-        <v-btn
-            text
-            class="text-caption align-content-start ml-n4 mb-3 mt-n2"
-            x-small
-            @click="$router.go(-1)"
-        >
-            <v-icon>mdi-chevron-left</v-icon>
-            Retour aux résultats
-        </v-btn>
-
+    <v-container
+        v-touch="{
+            right: () => $router.go(-1),
+        }"
+    >
         <h2
             class="text-h2"
         >
@@ -27,25 +21,35 @@
                 color="primary"
                 fill-dot
                 icon="mdi-map-marker"
-                large
             >
-                <v-card flat>
-                    <v-card-title class="text-h5">
-                        {{ trip.fromName.toLowerCase() }}
-                    </v-card-title>
-                </v-card>
+                <v-row class="pt-1">
+                    <v-col cols="3">
+                        <span class="font-weight-bold">{{ startTime }}</span>
+                    </v-col>
+                    <v-col class="font-weight-medium">
+                        {{ trip.fromName }}
+                        <div class="text-caption font-weight-regular">
+                            {{ trip.fromCity }}
+                        </div>
+                    </v-col>
+                </v-row>
             </v-timeline-item>
             <v-timeline-item
                 color="primary"
                 fill-dot
-                icon="mdi-map-marker"
-                large
+                icon="mdi-flag-checkered"
             >
-                <v-card flat>
-                    <v-card-title class="text-h5">
-                        {{ trip.toName.toLowerCase() }}
-                    </v-card-title>
-                </v-card>
+                <v-row class="pt-1">
+                    <v-col cols="3">
+                        <span class="font-weight-bold">{{ endTime }}</span>
+                    </v-col>
+                    <v-col class="font-weight-medium">
+                        {{ trip.toName }}
+                        <div class="text-caption font-weight-regular">
+                            {{ trip.toCity }}
+                        </div>
+                    </v-col>
+                </v-row>
             </v-timeline-item>
         </v-timeline>
 
@@ -126,41 +130,46 @@ export default {
         ConfirmOrder,
     },
     computed: {
-        parseDate() {
-            const date = new Date(this.trip.departure_time)
-            let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-            return date.toLocaleDateString('fr-FR', options)
-        },
         parseDateTime() {
             const date = new Date(this.trip.departure_time)
-            let options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-            let time = date.toLocaleTimeString('fr-FR').split(':')
-            return `${date.toLocaleDateString('fr-FR', options)}, ${time[0]}h${time[1]}`
-        }
+            let options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit'
+            }
+            return date.toLocaleDateString('fr-FR', options)
+        },
+        startTime() {
+            return this.parseTime(this.trip.departure_time)
+        },
+        endTime() {
+            let d = new Date(this.trip.departure_time)
+            d.setMinutes(d.getMinutes() + this.trip.duration)
+            return this.parseTime(d)
+        },
     },
     async asyncData({error, params, $axios}) {
         try {
-            const trip = await $axios.$get(`/api/v1/trips/${params.id}`)
-            return { trip }
-
+            const trip = await $axios.$get(`/api/v1/trips/id/${params.id}`)
+            return {trip}
         } catch (e) {
             console.error(e)
             error({statusCode: e.code, message: e.message})
         }
     },
-    async mounted() {
-        [ this.trip.distance, this.trip.duration ] = await this.$axios.$get('/api/v1/trips/distance', {
-                params: {
-                    from: this.trip.from.join(','),
-                    to: this.trip.to.join(','),
-                }
-            }).then(response => {
-                return [response.distance, response.duration]
-            })
-            .catch(error => {
-                console.error(error)
-            })
-    }
+    methods: {
+        parseTime(time) {
+            const date = new Date(time)
+            let options = {
+                hour: 'numeric',
+                minute: '2-digit'
+            }
+            return date.toLocaleTimeString('fr-FR', options)
+        },
+    },
 }
 </script>
 
@@ -168,4 +177,7 @@ export default {
 .text-h5
     text-transform: capitalize
     word-break: break-word
+
+.v-timeline-item
+    align-items: start
 </style>
