@@ -138,10 +138,8 @@ export default {
     methods: {
         confirm() {
             this.$axios.post('/api/v1/trips/book', {
-                body: {
-                    trip_id: this.trip.id,
-                    user_id: this.$store.state.auth.user.sub
-                }
+                trip_id: this.trip.id,
+                user_id: this.$store.state.auth.user.sub
             }).then(response => {
                 this.success = true
                 this.error = false
