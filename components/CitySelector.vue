@@ -76,7 +76,8 @@ export default {
         },
         query(val) {
             let [lon, lat] = this.searchSuggestions.find(s => s.properties.label === val).geometry.coordinates
-            this.$emit("changeCity", btoa(`${lat},${lon}`))
+            let cityBase64 = Buffer.from(`${lat},${lon}`).toString('base64')
+            this.$emit("changeCity", cityBase64)
         },
     }
 }
