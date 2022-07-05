@@ -9,6 +9,8 @@
         >
             User Profile
         </h2>
+
+        {{user}}
     </v-container>
 </template>
 
@@ -16,6 +18,18 @@
 export default {
     name: "account",
     auth: false,
+    async asyncData({ $axios, route }) {
+        try {
+            const { data } = await $axios.get(`/api/v1/users/profile/${route.params.id}`);
+            return {
+                user: data,
+            };
+        } catch (error) {
+            return {
+                error: true,
+            };
+        }
+    },
 }
 </script>
 
