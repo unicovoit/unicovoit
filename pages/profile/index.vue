@@ -41,21 +41,10 @@
                         <v-list-item>
                             <v-list-item-content>
                                 <v-list-item-subtitle>
-                                    Pseudo
+                                    Nom
                                 </v-list-item-subtitle>
                                 <v-list-item-title>
                                     {{ this.$store.state.auth.user.nickname }}
-                                </v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
-
-                        <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-subtitle>
-                                    Email
-                                </v-list-item-subtitle>
-                                <v-list-item-title>
-                                    {{ this.$store.state.auth.user.email }}
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
@@ -121,29 +110,95 @@
                 key="2"
             >
                 <v-container fluid>
-                    content
+                    <v-list>
+                        <v-list-item>
+                            <v-list-item-content>
+                                <v-list-item-subtitle>
+                                    Email
+                                </v-list-item-subtitle>
+                                <v-list-item-title>
+                                    {{ this.$store.state.auth.user.email }}
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item>
+                            <v-btn
+                                class="mx-0 px-0"
+                                plain
+                                @click="logout"
+                            >
+                                <v-icon>mdi-logout</v-icon>
+                                Déconnexion
+                            </v-btn>
+                        </v-list-item>
+                    </v-list>
                 </v-container>
             </v-tab-item>
         </v-tabs>
 
+        <v-divider></v-divider>
 
-        <v-container
-            outlined
+        <v-tabs
+            grow
         >
-            <v-btn
-                plain
-                @click="logout"
+            <v-tab>Réservations</v-tab>
+            <v-tab>Trajets</v-tab>
+
+            <v-tab-item
+                key="0"
             >
-                <v-icon>mdi-logout</v-icon>
-                Déconnexion
-            </v-btn>
-        </v-container>
+                <v-container
+                    class="ma-0 pa-0"
+                    fluid
+                >
+                    <DisplayBookedTrips
+                        :bookings="bookings"
+                        @refresh="$fetch"
+                    ></DisplayBookedTrips>
+                </v-container>
+            </v-tab-item>
+
+            <v-tab-item
+                key="1"
+            >
+                <v-container
+                    class="ma-0 pa-0"
+                    fluid
+                >
+                    <DisplayTrips
+                        :trips="trips"
+                    ></DisplayTrips>
+                </v-container>
+            </v-tab-item>
+        </v-tabs>
+
     </v-container>
 </template>
 
 <script>
+import DisplayBookedTrips from "../../components/DisplayBookedTrips"
+import DisplayTrips from "../../components/DisplayTrips"
+
 export default {
     name: "account",
+    components: {
+        DisplayBookedTrips,
+        DisplayTrips,
+    },
+    data() {
+        return {
+            bookings: [],
+            trips: [],
+        }
+    },
+    async fetch() {
+        try {
+            this.bookings = await this.$axios.$get('/api/v1/users/bookings')
+            this.trips = await this.$axios.$get('/api/v1/users/trips')
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
     methods: {
         logout() {
             this.$auth.logout()
@@ -159,7 +214,7 @@ export default {
             const file = e.target.files[0]
             const reader = new FileReader()
             reader.onload = (e) => {
-                this.$store.dispatch("updateUser", {
+                this.$axios.put("/api/v1/users/picture", {
                     picture: e.target.result
                 })
             }
