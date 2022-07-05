@@ -170,18 +170,13 @@ router.post('/add', checkJwt, async (req: Request<RouteParameters<string>, any, 
 // @ts-ignore
 router.post('/book', checkJwt, (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
     try {
-        res.sendStatus(200)
         logger.info(req.body)
-        return
-        db.bookTrip({
-            trip: req.body.trip_id,
-            user: req.body.user_id,
-        }).then((r: object) => {
+        db.bookTrip(req.body)
+        .then((r: object) => {
             res.sendStatus(200)
-            logger.success(r)
         }).catch((e: Error) => {
             logger.error(e)
-            res.status(500).json(isDev ? e : {error: 'Internal server error'})
+            res.status(500).json({error: 'Internal server error'})
         })
     } catch (e) {
         logger.error(e)
