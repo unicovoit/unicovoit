@@ -94,6 +94,11 @@ export default {
         return {
             title: this.error.statusCode === 404 ? this.pageNotFound : this.otherError
         }
+    },
+    mounted() {
+        if(!this.$config.isProd) {
+            console.error(this.error)
+        }
     }
 }
 </script>
