@@ -26,12 +26,15 @@
             absolute
             flat
         >
-            <v-img
-                contain
-                max-height="40"
-                max-width="150"
-                src="/icon_long.png"
-            ></v-img>
+            <NuxtLink to="/">
+                <v-img
+                    contain
+                    alt="UniCovoit"
+                    max-height="40"
+                    max-width="150"
+                    src="/icon_long.png"
+                ></v-img>
+            </NuxtLink>
             <v-spacer></v-spacer>
             <a
                 :href="'https://github.com/finxol/unicovoit/tree/v' + version"
