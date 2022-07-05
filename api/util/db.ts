@@ -1,6 +1,8 @@
 import logger from './signale'
 import {Trip} from '../models/Trip'
 import {User} from '../models/User'
+import {Booking} from "../models/Booking";
+import {v4} from "uuid";
 
 
 export const testTrips = [{
@@ -35,6 +37,23 @@ export const testTrips = [{
     fromCity: 'Acigné',
     toName: '5 Rue de la Fenaison',
     toCity: 'Vannes'
+}, {
+    from: [ 49.648772, -1.586798 ],
+    to: [ 43.69076, 7.306975 ],
+    price: '75',
+    description: 'Long trajet avec de nombreuses pauses. Musique la plupart du temps.\n' +
+        "Je ne passerai pas par l'autoroute",
+    departure_time: '2022-07-20T04:45:29.623Z',
+    driver_id: 'auth0|623f93c6c665610070aa3d75',
+    driver_name: 'Brice de nice',
+    places: '2',
+    id: '6d4126ff-e472-44b5-a891-2927d17f7e1a',
+    distance: 1338,
+    duration: 755,
+    fromName: '61 Rue de l’Ancienne Gare',
+    fromCity: 'Cherbourg-en-Cotentin',
+    toName: '35 Boulevard Princesse Grace de Monaco',
+    toCity: 'Nice'
 }]
 
 //------------------------------------------------------
@@ -52,27 +71,6 @@ export const addTrip: Function = async (t: any) => {
     } catch (err) {
         throw err
     }
-}
-
-
-/**
- * Book a trip
- * @param t the trip to book
- */
-export const bookTrip: Function = async (t: object) => {
-    let countBook = 0
-
-    try {
-        const tmp = new Trip(t)
-        await tmp.save()
-        logger.log('Booked : ' + tmp.fullId)
-        countBook++
-    } catch (err) {
-        throw err
-    }
-
-    logger.info('------------------')
-    logger.info(countBook + ' booked elements')
 }
 
 
@@ -201,12 +199,97 @@ export const getUserBySub = async (id: string) => {
 
 
 /**
+ * Get a user's public profile
+ * @param   id the id of the user
+ * @returns the user
+ */
+export const getPublicProfile = async (id: string) => {
+    return User.find({id: {$eq: id}}, {
+        musicPref: 1,
+        petsPref: 1,
+        smokingPref: 1,
+        picture: 1,
+        name: 1,
+    })
+}
+
+
+/**
+ * Book a trip
+ * @param t the trip to book
+ */
+export const bookTrip: Function = async (t: any) => {
+    try {
+        t.id = v4()
+        const tmp = new Booking(t)
+        await tmp.save()
+        logger.success('Booked : ' + tmp.fullId)
+    } catch (err) {
+        throw err
+    }
+}
+
+
+/**
+ * Delete a booking
+ * @param id the id of the booking
+ * @param user the id of the user
+ * @returns the booking
+ */
+export const deleteBooking = async (id: string, user: string | undefined) => {
+    return Booking.deleteOne({trip_id: {$eq: id}, user_id: {$eq: user}})
+}
+
+
+/**
+ * Get user's bookings
+ * @param   id the id of the user
+ * @returns the user's trips
+ */
+export const getUserBookings = async (id: string) => {
+    let bookings = Booking.find({user_id: {$eq: id}}, {
+        _id: 0,
+        __v: 0
+    })
+    let list: any[] = []
+    for await (let booking of bookings) {
+        let trip = await Trip.findOne({id: {$eq: booking.trip_id}}, {
+            _id: 0,
+            __v: 0,
+            updated_at: 0,
+            created_at: 0
+        })
+        if (trip) {
+            trip.booking = booking.id
+            list.push(trip)
+        }
+    }
+    return list
+}
+
+
+/**
+ * Get a user's published trips
+ * @param   id the id of the user
+ * @returns the user's trips
+ */
+export const getUserTrips = async (id: string | undefined) => {
+    return Trip.find({driver_id: {$eq: id}}, {
+        _id: 0,
+        __v: 0,
+        updated_at: 0,
+        created_at: 0
+    })
+}
+
+
+/**
  * Get user's picture url and name by id
  * @param   id the id of the user
  * @returns the picture url and name
  */
 export const getUserAvatarAndNameById: Function = async (id: string) => {
-    return User.findById(id).then(user => {
+    return User.find({id}).then((user: any) => {
         return user ? {
             picture: user.picture,
             name: user.name
