@@ -14,6 +14,8 @@
                 v-for='trip in trips'
                 :key='trip.id'
                 :trip='trip'
+                type="edit"
+                @refresh="$emit('refresh')"
             ></TripCard>
         </v-list>
     </v-container>
@@ -38,28 +40,6 @@ export default {
             return this.trips === undefined || this.trips.length === 0
         }
     },
-    mounted() {
-        console.log(this.trips)
-    },
-    watch: {
-        trips() {
-            console.log(this.trips)
-        }
-    },
-    methods: {
-        parseDateTime(dep) {
-            const date = new Date(dep)
-            let options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit'
-            }
-            return date.toLocaleDateString('fr-FR', options)
-        },
-    }
 }
 </script>
 
