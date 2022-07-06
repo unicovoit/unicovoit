@@ -61,4 +61,4 @@ const UserSchema = new mongoose.Schema({
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
     })
 
-export const User = mongoose.model("User", UserSchema)
+export const User = mongoose.connection.models.User || mongoose.model("User", UserSchema)
