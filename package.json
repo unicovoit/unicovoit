@@ -1,6 +1,6 @@
 {
     "name": "unicovoit",
-    "version": "0.15.3",
+    "version": "0.15.4",
     "private": true,
     "license": "AGPL-3.0",
     "scripts": {
@@ -39,6 +39,7 @@
         "fast-xml-parser": "^4.0.8",
         "helmet": "^5.1.0",
         "mongoose": "^6.4.3",
+        "nodemailer": "^6.7.7",
         "nuxt": "^2.15.8",
         "nuxt-start": "^2.15.8",
         "signale": "^1.4.0",
