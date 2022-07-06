@@ -3,224 +3,137 @@
         <h2
             class="text-h2"
         >
-            Profil
+            Mon compte
         </h2>
         <v-alert
-            v-if="!this.$store.state.auth.user.email_verified"
+            v-if="!user.email_verified"
             icon="mdi-alert-circle"
             type="error"
             border="left"
             text
         >
             Cliquez sur le lien reçu pour vérifier votre adresse mail
+            <v-icon
+                dense
+                color="error"
+                @click="emailExplanation = true"
+            >mdi-help-circle-outline
+            </v-icon>
         </v-alert>
+        <!-- Explain why user needs to verify email -->
+        <v-dialog
+            v-model="emailExplanation"
+            max-width="500px"
+        >
+            <v-card>
+                <v-card-title>
+                    Pourquoi vérifier son adresse mail ?
+                </v-card-title>
+                <v-card-text>
+                    Vérifier votre adresse mail permet de nous assurer que vous êtes bien le propriétaire du compte,
+                    et que l'adresse ne contient pas d'erreur.<br>
+                    Si l'adresse est incorrecte, vous ne recevrez pas nos mails de confirmation et de notification.
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="primary"
+                        text
+                        @click="emailExplanation = false"
+                    >
+                        OK
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
         <v-card
             v-if="!$config.isProd"
+            class="overflow-auto"
             outlined
+            max-height="100px"
         >
             <v-container>
-                {{ this.$store.state.auth.user }}
+                {{ user }}
             </v-container>
         </v-card>
 
+        <v-list>
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-subtitle>
+                        Nom
+                    </v-list-item-subtitle>
+                    <v-list-item-title>
+                        {{ getName }}
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
 
-        <v-tabs
-            color="primary accent-4"
-            grow
-        >
-            <v-tab>Profil</v-tab>
-            <v-tab>Paramètres</v-tab>
-            <v-tab>Compte</v-tab>
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-subtitle>
+                        Avatar
+                    </v-list-item-subtitle>
 
-            <v-tab-item
-                key="0"
-            >
-                <v-container fluid>
-                    <v-list>
-                        <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-subtitle>
-                                    Nom
-                                </v-list-item-subtitle>
-                                <v-list-item-title>
-                                    {{ this.$store.state.auth.user.nickname }}
-                                </v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
+                    <v-list-item-group>
+                        <v-avatar>
+                            <v-img
+                                :src="user.picture"
+                            ></v-img>
+                        </v-avatar>
+                    </v-list-item-group>
+                </v-list-item-content>
+            </v-list-item>
 
-                        <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-subtitle>
-                                    Avatar
-                                </v-list-item-subtitle>
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-subtitle>
+                        Email
+                    </v-list-item-subtitle>
+                    <v-list-item-title>
+                        {{ user.email }}
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+        </v-list>
 
-                                <v-list-item-group class="d-flex justify-space-between">
-                                    <v-avatar>
-                                        <v-img
-                                            :src="this.$store.state.auth.user.picture"
-                                        ></v-img>
-                                    </v-avatar>
-                                    <v-btn
-                                        color="primary"
-                                        icon
-                                        @click="$refs.avatar.click()"
-                                    >
-                                        <v-icon>mdi-square-edit-outline</v-icon>
-                                    </v-btn>
-                                </v-list-item-group>
-                                <input
-                                    hidden
-                                    ref="avatar"
-                                    type="file"
-                                    accept="image/jpeg,image/png,image/jpg"
-                                    @change="onAvatarChange"
-                                />
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list>
-                </v-container>
-            </v-tab-item>
-
-            <v-tab-item
-                key="1"
-            >
-                <v-container fluid>
-                    <v-list>
-                        <v-list-item>
-                            <v-list-item-action-text
-                                class="text-body-1"
-                            >
-                                Passer en mode {{ $vuetify.theme.dark ? 'clair' : 'sombre' }}
-                            </v-list-item-action-text>
-                            <v-spacer></v-spacer>
-                            <v-list-item-action>
-                                <v-switch
-                                    v-model="$vuetify.theme.dark"
-                                    color="primary"
-                                    @click="changeTheme"
-                                ></v-switch>
-                            </v-list-item-action>
-                        </v-list-item>
-                    </v-list>
-                </v-container>
-            </v-tab-item>
-
-            <v-tab-item
-                key="2"
-            >
-                <v-container fluid>
-                    <v-list>
-                        <v-list-item>
-                            <v-list-item-content>
-                                <v-list-item-subtitle>
-                                    Email
-                                </v-list-item-subtitle>
-                                <v-list-item-title>
-                                    {{ this.$store.state.auth.user.email }}
-                                </v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-btn
-                                class="mx-0 px-0"
-                                plain
-                                @click="logout"
-                            >
-                                <v-icon>mdi-logout</v-icon>
-                                Déconnexion
-                            </v-btn>
-                        </v-list-item>
-                    </v-list>
-                </v-container>
-            </v-tab-item>
-        </v-tabs>
-
-        <v-divider></v-divider>
-
-        <v-tabs
-            grow
-        >
-            <v-tab>Réservations</v-tab>
-            <v-tab>Trajets</v-tab>
-
-            <v-tab-item
-                key="0"
-            >
-                <v-container
-                    class="ma-0 pa-0"
-                    fluid
-                >
-                    <DisplayBookedTrips
-                        :bookings="bookings"
-                        @refresh="$fetch"
-                    ></DisplayBookedTrips>
-                </v-container>
-            </v-tab-item>
-
-            <v-tab-item
-                key="1"
-            >
-                <v-container
-                    class="ma-0 pa-0"
-                    fluid
-                >
-                    <DisplayTrips
-                        :trips="trips"
-                    ></DisplayTrips>
-                </v-container>
-            </v-tab-item>
-        </v-tabs>
-
+        <LazyModifyProfile :user="user"/>
+        <LazyDisplayBookingsAndTrips/>
+        <DeleteAccount/>
     </v-container>
 </template>
 
 <script>
-import DisplayBookedTrips from "../../components/DisplayBookedTrips"
-import DisplayTrips from "../../components/DisplayTrips"
-
 export default {
     name: "account",
-    components: {
-        DisplayBookedTrips,
-        DisplayTrips,
-    },
     data() {
         return {
-            bookings: [],
-            trips: [],
+            user: {
+                ...this.$store.state.auth.user,
+            },
+            emailExplanation: false,
         }
+    },
+    computed: {
+        getName() {
+            let method = this.user.sub.split("|")[0]
+            if (method === "auth0") {
+                return this.user.nickname
+            } else {
+                return this.user.name
+            }
+        },
     },
     async fetch() {
         try {
-            this.bookings = await this.$axios.$get('/api/v1/users/bookings')
-            this.trips = await this.$axios.$get('/api/v1/users/trips')
+            this.user = await this.$axios.$get("/api/v1/users")
         } catch (error) {
             console.log(error.message);
         }
     },
     methods: {
-        logout() {
-            this.$auth.logout()
-        },
-        changeTheme() {
-            this.$cookies.set('dark', this.$vuetify.theme.dark, {
-                maxAge: 60 * 60 * 24 * 7, // 1 week
-                sameSite: 'lax',
-                path: '/'
-            })
-        },
-        onAvatarChange(e) {
-            const file = e.target.files[0]
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                this.$axios.put("/api/v1/users/picture", {
-                    picture: e.target.result
-                })
-            }
-            reader.readAsDataURL(file)
-            console.log(file)
-        }
+
     }
 }
 </script>
