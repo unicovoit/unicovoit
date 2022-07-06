@@ -3,7 +3,8 @@ import {Trip} from '../models/Trip'
 import {User} from '../models/User'
 import {Booking} from "../models/Booking";
 import {v4} from "uuid";
-
+import {Error} from "mongoose"
+import {BookingError} from "../errors/BookingError"
 
 export const testTrips = [{
     from: [ 47.972292, -2.737387 ],
@@ -216,16 +217,29 @@ export const getPublicProfile = async (id: string) => {
 
 /**
  * Book a trip
- * @param t the trip to book
+ * @param b the booking to add
  */
-export const bookTrip: Function = async (t: any) => {
-    try {
-        t.id = v4()
-        const tmp = new Booking(t)
-        await tmp.save()
-        logger.success('Booked : ' + tmp.fullId)
-    } catch (err) {
-        throw err
+export const bookTrip: Function = async (b: any) => {
+    b.id = v4()
+    const booking = new Booking(b)
+    let trip = await Trip.findOne({id: {$eq: b.trip_id}})
+    let bookingExists = await Booking.findOne({trip_id: {$eq: b.trip_id}, user_id: {$eq: b.user_id}})
+    if (!trip) {
+        throw new BookingError('Ce trajet n\'existe pas')
+    }
+    if (bookingExists) {
+        throw new BookingError('Vous avez déjà réservé ce trajet')
+    }
+    if (trip.driver_id === booking.user_id) {
+        throw new BookingError('Vous ne pouvez pas réserver votre propre trajet')
+    }
+    if (trip.places > 0) {
+        trip.places--
+        await trip.save()
+        await booking.save()
+        logger.success(`Trip ${b.trip_id} booked`)
+    } else {
+        throw new BookingError('Ce trajet est complet')
     }
 }
 
