@@ -102,7 +102,7 @@
                 exact
                 router
             >
-                <span>Profil</span>
+                <span>Mon Compte</span>
 
 <!--                <v-icon
                     v-if="getUserAvatar"
