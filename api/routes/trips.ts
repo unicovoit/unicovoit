@@ -7,6 +7,9 @@ import * as db from '../util/db'
 import {verifyTrip} from "../util/verifier"
 import {getDistance, decodeCoords, prepareTrip} from "../util/map"
 
+import {Error} from "mongoose"
+import {BookingError} from "../errors/BookingError"
+
 const router: Router = Router()
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -135,6 +138,18 @@ router.get('/id/:id', checkJwt, async (req: Request<RouteParameters<string>, any
 
 
 /**
+ * @route   DELETE /api/v1/trips/id/:id
+ * @desc    Delete trip by id
+ * @access  Private
+ */
+router.delete('/id/:id', checkJwt, async (req, res) => {
+    logger.info(`Deleting trip ${req.params.id}`)
+    // TODO verify if user is the owner of the trip before deleting
+    res.sendStatus(202)
+})
+
+
+/**
  * @route   POST /api/v1/trips/add
  * @desc    Create a trip
  * @access  Private
@@ -167,16 +182,14 @@ router.post('/add', checkJwt, async (req: Request<RouteParameters<string>, any, 
  * @desc    Book a trip
  * @access  Private
  */
-// @ts-ignore
-router.post('/book', checkJwt, (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
+router.post('/book', checkJwt, (req, res) => {
     try {
-        logger.info(req.body)
         db.bookTrip(req.body)
         .then((r: object) => {
             res.sendStatus(200)
-        }).catch((e: Error) => {
-            logger.error(e)
-            res.status(500).json({error: 'Internal server error'})
+        }).catch((e: BookingError) => {
+            logger.error('Booking error: ' + e.message)
+            res.status(400).json({message: e.message})
         })
     } catch (e) {
         logger.error(e)
