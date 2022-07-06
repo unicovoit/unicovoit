@@ -32,6 +32,7 @@
                 <Delete
                     v-else-if="type === 'delete'"
                     :trip="trip"
+                    :id="id"
                     @refresh="$emit('refresh')"
                 />
             </v-col>
@@ -55,22 +56,20 @@
         </v-list-item>
 
         <v-list-item justify="center">
-            <v-list-item-content
+            <v-list-item-title
                 @click.prevent="$router.push(`/profile/${trip.driver_id}`)"
             >
-                <v-list-item-title>
-                    <v-avatar
-                        size="40"
-                        class="mr-3"
-                    >
-                        <v-img
-                            :alt="trip.driver_name || 'Utilisateur'"
-                            :src="trip.driver_picture || '/account_circle.svg'"
-                        ></v-img>
-                    </v-avatar>
-                    {{ trip.driver_name || 'Utilisateur' }}
-                </v-list-item-title>
-            </v-list-item-content>
+                <v-avatar
+                    size="40"
+                    class="mr-3"
+                >
+                    <v-img
+                        :alt="trip.driver_name || 'Utilisateur'"
+                        :src="trip.driver_picture || '/account_circle.svg'"
+                    ></v-img>
+                </v-avatar>
+                {{ trip.driver_name || 'Utilisateur' }}
+            </v-list-item-title>
             <v-spacer></v-spacer>
             <v-btn
                 v-if="!!trip.description"
@@ -115,6 +114,7 @@ export default {
             type: String,
             default: "view"
         },
+        id: String
     },
     methods: {
         parseDateTime(dep) {
