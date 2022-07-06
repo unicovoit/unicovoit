@@ -202,9 +202,6 @@ export default {
 </script>
 
 <style lang="sass">
-.v-avatar
-    cursor: pointer
-
 .v-bottom-navigation .v-btn--active
     background-color: transparent
 </style>

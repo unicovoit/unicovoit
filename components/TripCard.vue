@@ -133,6 +133,7 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
+.v-avatar
+    cursor: pointer
 </style>
