@@ -72,7 +72,7 @@ export default {
             })
             this.trips = data
         } catch (e) {
-            console.error(e)
+            console.error(e.response.data.message)
         }
     },
     computed: {
