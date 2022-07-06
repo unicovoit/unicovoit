@@ -145,6 +145,7 @@ router.get('/profile/:id', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         logger.info(req.body)
+        // TODO perform validity check on the id
         const user = await db.getUserBySub(req.body.sub)
         if (user) {
             res.status(200).json(user)
