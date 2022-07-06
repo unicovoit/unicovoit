@@ -6,6 +6,7 @@ import logger from '../util/signale'
 import * as db from '../util/db'
 import {verifyTrip} from "../util/verifier"
 import {getDistance, decodeCoords, prepareTrip} from "../util/map"
+import {Mail} from "../util/mail"
 
 import {Error} from "mongoose"
 import {BookingError} from "../errors/BookingError"
@@ -39,7 +40,7 @@ router.get('/', (req, res) => {
             let from = decodeCoords(String(req.query.from))
             let to = decodeCoords(String(req.query.to))
 
-            db.getTrips({lat: from[0], lon: from[1]}, {lat: to[0], lon: to[1]}, date).then(trips => {
+            db.getTrips(from, to, date).then(trips => {
                 res.json(trips)
             }).catch(err => {
                 logger.error(err)
@@ -187,6 +188,13 @@ router.post('/book', checkJwt, (req, res) => {
         db.bookTrip(req.body)
         .then((r: object) => {
             res.sendStatus(200)
+            let mail = new Mail()
+            mail.sendRequest('test@finxol.io', {
+                driver_name: 'Jules',
+                fromCity: 'Paris',
+                toCity: 'Lyon',
+                dateString: '12/12/2020',
+            })
         }).catch((e: BookingError) => {
             logger.error('Booking error: ' + e.message)
             res.status(400).json({message: e.message})
