@@ -17,15 +17,23 @@
                 </v-card-title>
             </v-col>
             <v-col
+                class="mr-4"
                 cols="auto"
             >
-                <v-btn
-                    id="book-trip"
-                    color="primary"
-                    icon
-                >
-                    <v-icon size="35">mdi-car-arrow-right</v-icon>
-                </v-btn>
+                <ViewTrip
+                    v-if="type === 'view'"
+                    @refresh="$emit('refresh')"
+                />
+                <EditOrDelete
+                    v-else-if="type === 'edit'"
+                    :trip="trip"
+                    @refresh="$emit('refresh')"
+                />
+                <Delete
+                    v-else-if="type === 'delete'"
+                    :trip="trip"
+                    @refresh="$emit('refresh')"
+                />
             </v-col>
         </v-row>
 
@@ -87,12 +95,25 @@
 </template>
 
 <script>
+import Delete from "./controls/Delete"
+import EditOrDelete from "./controls/EditOrDelete"
+import ViewTrip from "./controls/ViewTrip"
+
 export default {
     name: "TripCard",
+    components: {
+        Delete,
+        EditOrDelete,
+        ViewTrip
+    },
     props: {
         trip: {
             type: Object,
             required: true,
+        },
+        type: {
+            type: String,
+            default: "view"
         },
     },
     methods: {
