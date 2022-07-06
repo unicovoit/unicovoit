@@ -5,10 +5,17 @@ import {Booking} from "../models/Booking";
 import {v4} from "uuid";
 import {Error} from "mongoose"
 import {BookingError} from "../errors/BookingError"
+import axios from "axios"
 
 export const testTrips = [{
-    from: [ 47.972292, -2.737387 ],
-    to: [ 48.1110706956896, -1.52818191449501 ],
+    from: {
+        type: "Point",
+        coordinates: [-2.737387, 47.972292]
+    },
+    to: {
+        type: "Point",
+        coordinates: [-1.52818191449501, 48.1110706956896]
+    },
     price: '6',
     description: "on a fait de l'escalade à réguiny",
     departure_time: '2022-07-14T18:30:51.400Z',
@@ -22,8 +29,14 @@ export const testTrips = [{
     toName: 'Espace Nominoë, Rue Julien Neveu',
     toCity: 'undefined'
 }, {
-    from: [48.138244, -1.53536],
-    to: [47.655162, -2.788994],
+    from: {
+        type: "Point",
+        coordinates: [-1.53536, 48.138244]
+    },
+    to: {
+        type: "Point",
+        coordinates: [-2.788994, 47.655162]
+    },
     price: '7',
     description: 'Geronimooooo!!!!!!!!!',
     departure_time: '2022-07-20T19:35:56.400Z',
@@ -39,14 +52,21 @@ export const testTrips = [{
     toName: '5 Rue de la Fenaison',
     toCity: 'Vannes'
 }, {
-    from: [ 49.648772, -1.586798 ],
-    to: [ 43.69076, 7.306975 ],
+    from: {
+        type: "Point",
+        coordinates: [-1.586798, 49.648772]
+    },
+    to: {
+        type: "Point",
+        coordinates: [7.306975, 43.69076]
+    },
     price: '75',
     description: 'Long trajet avec de nombreuses pauses. Musique la plupart du temps.\n' +
         "Je ne passerai pas par l'autoroute",
-    departure_time: '2022-07-20T04:45:29.623Z',
+    departure_time: '2022-07-20T07:45:29.623Z',
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     driver_name: 'Brice de nice',
+    driver_picture: 'https://content4.coedcherry.com/met-art/215409/w_6A55BECA986273C41D23C7F7FCB46CB6.jpg',
     places: '2',
     id: '6d4126ff-e472-44b5-a891-2927d17f7e1a',
     distance: 1338,
@@ -55,7 +75,35 @@ export const testTrips = [{
     fromCity: 'Cherbourg-en-Cotentin',
     toName: '35 Boulevard Princesse Grace de Monaco',
     toCity: 'Nice'
+},  {
+    from: {
+        type: "Point",
+        coordinates: [ 42.712716, 2.889324 ]
+    },
+    to: {
+        type: "Point",
+        coordinates: [ 43.604836, 1.457352 ]
+    },
+    price: '10',
+    description: '',
+    departure_time: '2022-07-13T19:00:30.660Z',
+    driver_id: 'oauth2|discord|688822573970096165',
+    places: '2',
+    id: '9c2b8635-f45f-4e43-8064-111708f23400',
+    distance: 206,
+    duration: 126,
+    fromName: 'Avenue Marechal Joffre',
+    fromCity: 'Perpignan',
+    toName: '25bis Boulevard de la Gare',
+    toCity: 'Toulouse'
 }]
+
+axios.get(`https://randomuser.me/api/?results=${testTrips.length}`).then(res => {
+    for (let i = 0; i < res.data.results.length; i++) {
+        testTrips[i].driver_name = res.data.results[i].name.first + " " + res.data.results[i].name.last
+        testTrips[i].driver_picture = res.data.results[i].picture.medium
+    }
+})
 
 //------------------------------------------------------
 // Trip-related functions
@@ -94,13 +142,24 @@ export const getAllTrips = async () => {
  * @param date the date of the trip
  * @returns the array of trips
  */
-export const getTrips = async (from: { lat: number, lon: number }, to: { lat: number, lon: number }, date: Date) => {
+export const getTrips = async (from: number[], to: number[], date: Date) => {
     const min = new Date(date.getFullYear(), date.getMonth(), date.getDate())
     const max = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
 
+    console.log(min, max)
+    console.log(from)
+    console.log(to)
+
     return Trip.find({
-        from: [from.lat, from.lon],
-        to: [to.lat, to.lon],
+        from: {
+            $nearSphere: {
+                $geometry: {
+                    type: 'Point',
+                    coordinates: from
+                },
+                $maxDistance: 20 * 1000
+            }
+        },
         departure_time: {
             $gte: min,
             $lt: max
@@ -108,7 +167,7 @@ export const getTrips = async (from: { lat: number, lon: number }, to: { lat: nu
     }, {
         _id: 0,
         __v: 0
-    });
+    })
 }
 
 
@@ -118,7 +177,7 @@ export const getTrips = async (from: { lat: number, lon: number }, to: { lat: nu
  * @return the trip
  */
 export const getTripById = async (id: string) => {
-    return Trip.find({id: id}, {
+    return Trip.find({id: {$eq: id}}, {
         _id: 0,
         __v: 0
     });
@@ -130,8 +189,9 @@ export const getTripById = async (id: string) => {
  */
 export const initDB = async () => {
     try {
-        // delete all saved trips
+        // delete all saved trips and bookings
         await Trip.deleteMany({})
+        await Booking.deleteMany({})
         logger.info('DB cleared')
         // insert test values
         for (let trip of testTrips) {
@@ -192,7 +252,7 @@ export const getUserById = async (id: string) => {
  * @returns the user
  */
 export const getUserBySub = async (id: string) => {
-    return User.findOne({sub: id}, {
+    return User.findOne({sub: {$eq: id}}, {
         _id: 0,
         __v: 0
     })
@@ -221,23 +281,25 @@ export const getPublicProfile = async (id: string) => {
  */
 export const bookTrip: Function = async (b: any) => {
     b.id = v4()
-    const booking = new Booking(b)
-    let trip = await Trip.findOne({id: {$eq: b.trip_id}})
-    let bookingExists = await Booking.findOne({trip_id: {$eq: b.trip_id}, user_id: {$eq: b.user_id}})
+    let trip = await Trip.findOne({id: {$eq: b.trip}})
     if (!trip) {
         throw new BookingError('Ce trajet n\'existe pas')
     }
+    let bookingExists = await Booking.findOne({trip: {$eq: trip._id}, user_id: {$eq: b.user_id}})
     if (bookingExists) {
         throw new BookingError('Vous avez déjà réservé ce trajet')
     }
-    if (trip.driver_id === booking.user_id) {
+    if (trip.driver_id === b.user_id) {
         throw new BookingError('Vous ne pouvez pas réserver votre propre trajet')
     }
     if (trip.places > 0) {
         trip.places--
         await trip.save()
+
+        b.trip = trip._id
+        const booking = new Booking(b)
         await booking.save()
-        logger.success(`Trip ${b.trip_id} booked`)
+        logger.success(`Trip ${b.trip} booked`)
     } else {
         throw new BookingError('Ce trajet est complet')
     }
@@ -261,24 +323,22 @@ export const deleteBooking = async (id: string, user: string | undefined) => {
  * @returns the user's trips
  */
 export const getUserBookings = async (id: string) => {
-    let bookings = Booking.find({user_id: {$eq: id}}, {
+    let bookings = await Booking.find({user_id: {$eq: id}}, {
         _id: 0,
-        __v: 0
+        __v: 0,
+        updated_at: 0,
+        created_at: 0
+    }).populate("trip", {
+        _id: 0,
+        __v: 0,
+        updated_at: 0,
+        created_at: 0
     })
-    let list: any[] = []
-    for await (let booking of bookings) {
-        let trip = await Trip.findOne({id: {$eq: booking.trip_id}}, {
-            _id: 0,
-            __v: 0,
-            updated_at: 0,
-            created_at: 0
-        })
-        if (trip) {
-            trip.booking = booking.id
-            list.push(trip)
-        }
+    if (bookings) {
+        return bookings
+    } else {
+        throw new BookingError('Aucune réservation')
     }
-    return list
 }
 
 
@@ -303,7 +363,7 @@ export const getUserTrips = async (id: string | undefined) => {
  * @returns the picture url and name
  */
 export const getUserAvatarAndNameById: Function = async (id: string) => {
-    return User.find({id}).then((user: any) => {
+    return User.find({id: {$eq: id}}).then((user: any) => {
         return user ? {
             picture: user.picture,
             name: user.name
@@ -319,5 +379,5 @@ export const getUserAvatarAndNameById: Function = async (id: string) => {
  * @returns the updated user
  */
 export const updateUserPicture = async (id: string, picture: string) => {
-    return User.findByIdAndUpdate({sub: id}, {picture: picture}, {new: true})
+    return User.findByIdAndUpdate({sub: {$eq: id}}, {picture: picture}, {new: true})
 }
