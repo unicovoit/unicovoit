@@ -90,4 +90,4 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
     }
 )
 
-export const Trip = mongoose.model("Trip", TripSchema)
+export const Trip = mongoose.connection.models.Trip || mongoose.model("Trip", TripSchema)
