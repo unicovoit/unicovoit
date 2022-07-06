@@ -11,10 +11,11 @@
             v-else
         >
             <TripCard
-                v-for="trip in bookings"
-                :key="trip.id"
+                v-for="booking in bookings"
+                :key="booking.id"
                 type="delete"
-                :trip="trip"
+                :trip="booking.trip"
+                :id="booking.id"
                 @refresh="$emit('refresh')"
             >
 
