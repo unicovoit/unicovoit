@@ -64,9 +64,12 @@
             >
                 {{ trip.description }}
             </v-card-text>
-            <v-card-text>
+            <v-card-text
+                class="text--primary"
+            >
                 <v-avatar
-                    size="40"
+                    size="60"
+                    class="mr-2"
                 >
                     <v-img
                         :alt="trip.driver_name || 'Utilisateur'"
