@@ -47,7 +47,7 @@
                 border="left"
                 type="error"
             >
-                Une erreur est survenue. Merci de réessayer plus tard.
+                {{ error }}
             </v-alert>
 
             <v-alert
@@ -67,13 +67,13 @@
                 <v-subheader>Trajet</v-subheader>
                 <v-list-item>
                     <v-list-item-content>
-                        <v-list-item-title>{{ trip.fromName.toLowerCase() }}</v-list-item-title>
+                        <v-list-item-title>{{ trip.fromName }}</v-list-item-title>
                         <v-list-item-subtitle>Départ</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
-                        <v-list-item-title>{{ trip.toName.toLowerCase() }}</v-list-item-title>
+                        <v-list-item-title>{{ trip.toName }}</v-list-item-title>
                         <v-list-item-subtitle>Arrivée</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
@@ -131,29 +131,31 @@ export default {
         return {
             dialog: false,
             distance: 0,
-            error: false,
+            error: '',
             success: false,
         };
     },
     methods: {
         confirm() {
-            this.$axios.post('/api/v1/trips/book', {
-                trip_id: this.trip.id,
-                user_id: this.$store.state.auth.user.sub
-            }).then(response => {
-                this.success = true
-                this.error = false
-            }).catch(error => {
+            try {
+                this.$axios.post('/api/v1/trips/book', {
+                    trip_id: this.trip.id,
+                    user_id: this.$store.state.auth.user.sub
+                }).then(response => {
+                    this.success = true
+                    this.error = false
+                })
+            } catch (error) {
+                console.log('wtf is happening')
+                console.error(error.response)
                 this.error = true
                 this.success = false
-                console.error(error)
-            })
+            }
         },
     }
 }
 </script>
 
 <style scoped lang="sass">
-.v-list-item__title
-    text-transform: capitalize
+
 </style>
