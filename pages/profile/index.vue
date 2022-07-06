@@ -100,6 +100,8 @@
 
         <LazyModifyProfile :user="user"/>
         <LazyDisplayBookingsAndTrips/>
+
+        <v-divider class="mt-7"></v-divider>
         <DeleteAccount/>
     </v-container>
 </template>
