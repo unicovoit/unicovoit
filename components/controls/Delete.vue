@@ -33,7 +33,7 @@
                     <v-btn
                         class="ma-1"
                         color="error"
-                        @click="cancelBooking(trip.id)"
+                        @click="cancelBooking(id)"
                     >
                         Supprimer
                     </v-btn>
@@ -49,6 +49,10 @@ export default {
     props: {
         trip: {
             type: Object,
+            required: true,
+        },
+        id: {
+            type: String,
             required: true,
         },
     },
