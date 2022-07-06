@@ -169,5 +169,17 @@ Returns a json object containing the distace in kilometers and duration in minut
 }
 ```
 
+#### Get the average price of Unleaded 95 for France
+
+```http
+  GET /api/v1/trips/petrol
+```
+
+#### Access the public profile of a user
+
+```http
+  GET /api/v1/users/profile/:id
+```
+
 **All other API routes are only accessible by authenticated users**
 
