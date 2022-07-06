@@ -13,14 +13,17 @@ import helmet from "helmet"
 const {version} = require('../package.json')
 
 const mongoUrl: string = process.env.MONGO_URL || 'localhost'
-const mongoPort: string | number = process.env.MONGO_PORT || 27017
+const mongoPort: string = process.env.MONGO_PORT || '27017'
 
 logger.info('Starting...')
 logger.info('Version : ' + version)
 logger.info('MongoDB Url : ' + mongoUrl + ':' + mongoPort)
 
 // Connect to MongoDB first
-mongoose.connect(`mongodb://${mongoUrl}:${mongoPort}/unicovoit`)
+mongoose.connect(`mongodb://${mongoUrl}:${mongoPort}/unicovoit`, {
+    user: process.env.MONGO_USER,
+    pass: process.env.MONGO_PASSWORD,
+})
 mongoose.connection.once('open', function () {
     logger.info('Mongo connected Successfully')
 }).on('error', function (err) {
