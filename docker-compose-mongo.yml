@@ -1,8 +1,12 @@
 version: '3'
 
 services:
-    mongodb:
+    mongo:
         image: mongo:5
         restart: always
+        volumes:
+            - "./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/1-init-db.sh:z"
+        env_file:
+            - '.mongo.env'
         ports:
             - "27017:27017"
