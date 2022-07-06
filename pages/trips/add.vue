@@ -242,7 +242,7 @@
                 <v-textarea
                     v-model="trip.description"
                     auto-grow
-                    counter
+                    :counter="150"
                     label="Facultatif"
                     name="description"
                     placeholder="Points de rencontre et horaires flexibles ou non, taille des bagages, etc."
@@ -323,7 +323,7 @@ export default {
                     },
                 ],
                 description: [
-                    v => v.length <= 80 || 'La description ne doit pas dépasser 80 caractères',
+                    v => v.length <= 150 || 'La description ne doit pas dépasser 150 caractères',
                 ],
             },
         }
