@@ -63,6 +63,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.mongo.env
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -96,6 +97,3 @@ sw.*
 
 # Vim swap files
 *.swp
-
-#Misc
-elastic_creds.csv
