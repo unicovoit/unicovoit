@@ -137,19 +137,17 @@ export default {
     },
     methods: {
         confirm() {
-            try {
+            if (!this.error) {
                 this.$axios.post('/api/v1/trips/book', {
-                    trip_id: this.trip.id,
+                    trip: this.trip.id,
                     user_id: this.$store.state.auth.user.sub
                 }).then(response => {
                     this.success = true
                     this.error = false
+                }).catch(error => {
+                    this.error = error.response.data.message
+                    this.success = false
                 })
-            } catch (error) {
-                console.log('wtf is happening')
-                console.error(error.response)
-                this.error = true
-                this.success = false
             }
         },
     }
