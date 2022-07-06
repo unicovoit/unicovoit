@@ -24,7 +24,7 @@
                     <v-list-item-action>
                         <v-switch
                             v-model="$vuetify.theme.dark"
-                            color="info"
+                            color="primary"
                             @click="toggleTheme"
                             inset
                         ></v-switch>
