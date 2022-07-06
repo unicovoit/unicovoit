@@ -18,17 +18,10 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
         driver_picture: {
             type: String,
         },
-        from: [
-            {
-                type: String,
-                required: true,
-                index: true
-            }, {
-                type: String,
-                required: true,
-                index: true
-            }
-        ],
+        from: {
+            type: {type: String},
+            coordinates: []
+        },
         fromName: {
             type: String,
             required: true
@@ -37,17 +30,10 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
             type: String,
             required: true
         },
-        to: [
-            {
-                type: String,
-                required: true,
-                index: true
-            }, {
-                type: String,
-                required: true,
-                index: true
-            }
-        ],
+        to: {
+            type: {type: String},
+            coordinates: []
+        },
         toName: {
             type: String,
             required: true
@@ -89,5 +75,8 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
     }
 )
+
+TripSchema.index({from: "2dsphere"})
+TripSchema.index({to: "2dsphere"})
 
 export const Trip = mongoose.connection.models.Trip || mongoose.model("Trip", TripSchema)
