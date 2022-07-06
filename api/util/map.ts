@@ -14,8 +14,8 @@ const addokDomain: string = process.env.ADDOK_DOMAIN || 'api.covoit.ozna.me'
  */
 export async function getDistance(from: string, to: string): Promise<{ distance: number, duration: number } | Error> {
     // invert latitudes and longitudes
-    let fromCoord: string[] = from.split(",");
-    let toCoord: string[] = to.split(",");
+    let fromCoord: string[] = from.split(",")
+    let toCoord: string[] = to.split(",")
     validateCoordinates(fromCoord)
     validateCoordinates(toCoord)
     const start = `${fromCoord[1]},${fromCoord[0]}`
@@ -36,7 +36,6 @@ export async function getDistance(from: string, to: string): Promise<{ distance:
 
 
 function validateCoordinates(coord: string[]) {
-    console.log(coord)
     if (coord.length !== 2)
         throw new Error("Invalid coordinates")
     if (isNaN(parseFloat(coord[0])) || isNaN(parseFloat(coord[1])))
