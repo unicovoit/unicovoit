@@ -1,72 +1,73 @@
-<template><v-dialog
-    v-model="dialog"
-    fullscreen
-    hide-overlay
-    transition="dialog-bottom-transition"
->
-    <template v-slot:activator="{ on, attrs }">
-        <v-btn
-            v-bind="attrs"
-            v-on="on"
-            class="my-4"
-            depressed
-            block
-        >
-            <v-icon class="mr-2">mdi-car</v-icon>
-            Trajets et Réservations
-        </v-btn>
-    </template>
-
-    <v-card>
-        <v-toolbar
-            dark
-            color="primary"
-        >
+<template>
+    <v-dialog
+        v-model="dialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+    >
+        <template v-slot:activator="{ on, attrs }">
             <v-btn
-                icon
-                dark
-                @click="dialog = false"
+                v-bind="attrs"
+                v-on="on"
+                class="my-4"
+                depressed
+                block
             >
-                <v-icon>mdi-close</v-icon>
+                <v-icon class="mr-2">mdi-car</v-icon>
+                Trajets et Réservations
             </v-btn>
-            <v-toolbar-title>Trajets et Réservations</v-toolbar-title>
-        </v-toolbar>
+        </template>
 
-        <v-tabs
-            grow
-        >
-            <v-tab>Réservations</v-tab>
-            <v-tab>Trajets</v-tab>
-
-            <v-tab-item
-                key="0"
+        <v-card>
+            <v-toolbar
+                dark
+                color="primary"
             >
-                <v-container
-                    class="ma-0 pa-0"
-                    fluid
+                <v-btn
+                    icon
+                    dark
+                    @click="dialog = false"
                 >
-                    <DisplayBookedTrips
-                        :bookings="bookings"
-                        @refresh="$fetch"
-                    ></DisplayBookedTrips>
-                </v-container>
-            </v-tab-item>
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+                <v-toolbar-title>Trajets et Réservations</v-toolbar-title>
+            </v-toolbar>
 
-            <v-tab-item
-                key="1"
+            <v-tabs
+                grow
             >
-                <v-container
-                    class="ma-0 pa-0"
-                    fluid
+                <v-tab>Réservations</v-tab>
+                <v-tab>Trajets</v-tab>
+
+                <v-tab-item
+                    key="0"
                 >
-                    <DisplayTrips
-                        :trips="trips"
-                    ></DisplayTrips>
-                </v-container>
-            </v-tab-item>
-        </v-tabs>
-    </v-card>
-</v-dialog>
+                    <v-container
+                        class="ma-0 pa-0"
+                        fluid
+                    >
+                        <DisplayBookedTrips
+                            :bookings="bookings"
+                            @refresh="$fetch"
+                        ></DisplayBookedTrips>
+                    </v-container>
+                </v-tab-item>
+
+                <v-tab-item
+                    key="1"
+                >
+                    <v-container
+                        class="ma-0 pa-0"
+                        fluid
+                    >
+                        <DisplayTrips
+                            :trips="trips"
+                        ></DisplayTrips>
+                    </v-container>
+                </v-tab-item>
+            </v-tabs>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script>
