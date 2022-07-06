@@ -55,9 +55,11 @@ app.use('/v1/users', require('./routes/users').router)
 // reset db if not in prod
 if (process.env.NODE_ENV !== 'production') {
     logger.time('initialisation')
-    initDB().then(() => {
-        logger.timeEnd('initialisation')
-    })
+    setTimeout(() => {
+        initDB().then(() => {
+            logger.timeEnd('initialisation')
+        })
+    }, 1000)
 }
 
 // remove old trips every hour
