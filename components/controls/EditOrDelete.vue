@@ -80,6 +80,5 @@ export default {
 </script>
 
 <style scoped lang="sass">
-*
-    word-break: keep-all
+
 </style>
