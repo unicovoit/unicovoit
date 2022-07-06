@@ -12,10 +12,10 @@ const BookingSchema: mongoose.Schema = new mongoose.Schema({
             required: true,
             index: true
         },
-        trip_id: {
-            type: String,
+        trip: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Trip',
             required: true,
-            index: true
         },
     }, {
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
