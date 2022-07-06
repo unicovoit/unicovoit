@@ -26,6 +26,7 @@
                             v-model="$vuetify.theme.dark"
                             color="info"
                             @click="toggleTheme"
+                            inset
                         ></v-switch>
                     </v-list-item-action>
                     <v-list-item-action-text
@@ -34,7 +35,9 @@
                         Passer en mode {{ $vuetify.theme.dark ? 'clair' : 'sombre' }}
                     </v-list-item-action-text>
                 </v-list-item>
-                <v-list-item>
+                <v-list-item
+                    v-if="$store.state.auth.loggedIn"
+                >
                     <v-list-item-action>
                         <v-btn
                             icon
