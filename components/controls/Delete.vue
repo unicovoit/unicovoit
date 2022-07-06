@@ -17,7 +17,7 @@
         >
             <v-card>
                 <v-card-title>
-                    Voulez-vous vraiment supprimer cette réservation ?
+                    Voulez-vous vraiment annuler cette réservation ?
                 </v-card-title>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -72,6 +72,7 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
+*
+    word-break: keep-all
 </style>
