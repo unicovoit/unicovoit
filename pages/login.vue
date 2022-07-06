@@ -8,7 +8,7 @@
         <v-main
             style="text-align: justify"
         >
-            Vous pouvez vous connecter à UniCovoit avec Auth0, Microsoft ou Discord.
+            Vous pouvez créer un compte ou simplement vous connecter à UniCovoit avec Google, Discord ou Microsoft.
             <br>
             <br>
             En vous inscrivant, vous acceptez les <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'Utilisation</NuxtLink>.
