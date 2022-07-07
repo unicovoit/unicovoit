@@ -62,6 +62,7 @@
                     >
                         <DisplayTrips
                             :trips="trips"
+                            @refresh="$fetch"
                         ></DisplayTrips>
                     </v-container>
                 </v-tab-item>
