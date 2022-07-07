@@ -1,4 +1,3 @@
-import xss from 'xss'
 import {ExpressFileuploadValidator} from 'express-fileupload-validator'
 
 const fileValidator: ExpressFileuploadValidator = new ExpressFileuploadValidator({
@@ -31,8 +30,6 @@ export const verifyTrip: Function = (trip: any) => {
     if (!trip.places) throw new Error('Available places is required')
     if (!trip.description) {
         trip.description = ''
-    } else {
-        trip.description = xss(trip.description)
     }
 
     // Verify driver existence
