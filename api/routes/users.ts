@@ -140,11 +140,11 @@ router.get('/profile/:id', async (req, res) => {
 /**
  * @route   POST /api/v1/users/login
  * @desc    Login user and save to db
- * @access  Private
+ * @access  Public
  */
 router.post('/login', async (req, res) => {
     try {
-        logger.info(req.body)
+        logger.info(req)
         // TODO perform validity check on the id
         const user = await db.getUserBySub(req.body.sub)
         if (user) {
