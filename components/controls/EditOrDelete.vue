@@ -26,6 +26,11 @@
                 <v-card-title>
                     Voulez-vous vraiment supprimer ce trajet ?
                 </v-card-title>
+                <v-card-text>
+                    Nous notifierons tous les utilisateurs qui ont réservé ce trajet.
+                    <br><br>
+                    Si vous souhaitez seulement modifier le trajet, cliquez sur l'icône <v-icon dense>mdi-circle-edit-outline</v-icon>.
+                </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn
