@@ -18,6 +18,10 @@
 export default {
     name: "account",
     auth: false,
+    async validate({ params, store }) {
+        // Must be a uuid v4
+        return store.dispatch('validateUuidV4', params.id)
+    },
     async asyncData({ $axios, route }) {
         try {
             const { data } = await $axios.get(`/api/v1/users/profile/${route.params.id}`);

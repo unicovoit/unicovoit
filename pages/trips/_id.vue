@@ -1,7 +1,7 @@
 <template>
     <v-container
         v-touch="{
-            right: () => $router.go(-1),
+            right: () => $router.go(-1)
         }"
     >
         <h2
@@ -131,6 +131,10 @@ export default {
     name: "trip",
     components: {
         ConfirmOrder,
+    },
+    async validate({ params, store }) {
+        // Must be a uuid v4
+        return store.dispatch('validateUuidV4', params.id)
     },
     computed: {
         parseDateTime() {
