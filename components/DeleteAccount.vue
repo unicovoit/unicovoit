@@ -4,6 +4,7 @@
             class="my-4"
             depressed
             block
+            outlined
             color="error"
             @click="confirmDeletion = true"
         >
