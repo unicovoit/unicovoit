@@ -92,8 +92,11 @@ export default {
             this.bookings = await this.$axios.$get('/api/v1/users/bookings')
             this.trips = await this.$axios.$get('/api/v1/users/trips')
         } catch (err) {
-            console.log(err)
+            console.log(err.response.data)
         }
+    },
+    mounted() {
+        this.dialog = this.$route.query.hasOwnProperty("bookings")
     }
 }
 </script>
