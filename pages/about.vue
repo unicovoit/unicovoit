@@ -28,6 +28,15 @@
                     target="_blank"
                 >finxol</a>.
             </p>
+            <p>
+                Logo par
+                <a
+                    class="text--secondary"
+                    href="https://www.instagram.com/feun_art/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >Feun Art</a>.
+            </p>
 
             <div class="text-h4">
                 FAQ
