@@ -1,5 +1,5 @@
 <template>
-    <v-app dark>
+    <v-app>
         <v-container>
             <h2
                 class="text-h2"
@@ -95,7 +95,7 @@ export default {
             title: this.error.statusCode === 404 ? this.pageNotFound : this.otherError
         }
     },
-    mounted() {
+    activated() {
         if(!this.$config.isProd) {
             console.error(this.error)
         }
