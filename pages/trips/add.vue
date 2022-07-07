@@ -287,8 +287,8 @@ export default {
             estimatedPrice: 0,
             priceExplanation: false,
             trip: {
-                from: "",
-                to: "",
+                from: [],
+                to: [],
                 price: "",
                 description: "",
                 departure_time: new Date(),
@@ -310,11 +310,10 @@ export default {
                 city: [
                     v => !!v || "Merci de renseigner un lieu",
                     v => {
-                        let coord = atob(v).split(",")
-                        if (coord.length !== 2) {
+                        if (v.length !== 2) {
                             return "Merci de renseigner un lieu valide"
                         } else {
-                            if (/\d+(.\d+)?/.test(coord[0]) || /\d+(.\d+)?/.test(coord[1])) {
+                            if (/\d+(.\d+)?/.test(v[0]) || /\d+(.\d+)?/.test(v[1])) {
                                 return true
                             } else {
                                 return "Merci de renseigner un lieu valide"
@@ -394,10 +393,14 @@ export default {
             return req.data
         },
         async getDistance() {
+            console.log({
+                from: this.trip.from.join(","),
+                    to: this.trip.to.join(","),
+            })
             let req = await this.$axios.get('/api/v1/trips/distance', {
                 params: {
-                    from: this.trip.from,
-                    to: this.trip.to,
+                    from: this.trip.from.join(","),
+                    to: this.trip.to.join(","),
                 }
             })
             return req.data.distance
@@ -416,10 +419,10 @@ export default {
                         this.error = false
                         window.scrollTo(0, 0)
                     }).catch(error => {
-                    this.error = true
-                    this.success = false
-                    console.error(error)
-                })
+                        this.error = true
+                        this.success = false
+                        console.error(error)
+                    })
             }
         }
     },
