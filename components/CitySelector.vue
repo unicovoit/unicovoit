@@ -45,9 +45,6 @@ export default {
         }
     },
     methods: {
-        changeCity(city) {
-            this.$emit("changeCity", city)
-        },
         refreshSuggestions(query) {
             clearTimeout(this.getSuggestions)
             this.getSuggestions = setTimeout(() => {
@@ -64,7 +61,6 @@ export default {
                         for(const suggestion of this.searchSuggestions) {
                             this.suggestions.push(suggestion.properties.label)
                         }
-                        console.table(this.suggestions)
                     })
                 }
             }, 600)
@@ -75,9 +71,14 @@ export default {
             this.refreshSuggestions(val)
         },
         query(val) {
-            let [lon, lat] = this.searchSuggestions.find(s => s.properties.label === val).geometry.coordinates
-            let cityBase64 = Buffer.from(`${lat},${lon}`).toString('base64')
-            this.$emit("changeCity", cityBase64)
+            console.log(val)
+            try {
+                let coord = this.searchSuggestions.find(s => s.properties.label === val).geometry.coordinates
+                console.log(coord)
+                this.$emit("changeCity", coord)
+            } catch (e) {
+                console.error(e)
+            }
         },
     }
 }

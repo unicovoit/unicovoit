@@ -94,8 +94,8 @@ export default {
             this.$router.push({
                 path: '/trips',
                 query: {
-                    from: this.search.from,
-                    to: this.search.to,
+                    from: this.search.from.join(','),
+                    to: this.search.to.join(','),
                     date: this.search.date,
                 },
             })
@@ -134,13 +134,10 @@ export default {
             this.refreshSuggestions(val, "toSuggestions")
         },
         fromQuery(val) {
-            console.log(val)
-            let [lon, lat] = this.suggestions.find(s => s.properties.label === val).geometry.coordinates
-            this.search.from = btoa(`${lon},${lat}`)
+            this.search.from = this.suggestions.find(s => s.properties.label === val).geometry.coordinates
         },
         toQuery(val) {
-            let [lon, lat] = this.suggestions.find(s => s.properties.label === val).geometry.coordinates
-            this.search.to = btoa(`${lon},${lat}`)
+            this.search.to = this.suggestions.find(s => s.properties.label === val).geometry.coordinates
         },
     }
 }
