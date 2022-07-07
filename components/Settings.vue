@@ -19,45 +19,64 @@
                 Paramètres
             </v-card-title>
 
-            <v-card-text class="mt-4 px-0">
-                <v-list-item>
-                    <v-list-item-action>
+            <v-card-text class="mt-4 px-7">
+                <v-row
+                    align="center"
+                >
+                    <v-col
+                        class="d-flex justify-center pa-0"
+                        cols="3"
+                    >
                         <v-switch
                             v-model="$vuetify.theme.dark"
                             color="primary"
                             @click="toggleTheme"
                             inset
                         ></v-switch>
-                    </v-list-item-action>
-                    <v-list-item-action-text
+                    </v-col>
+                    <v-col
+                        cols="auto"
                         class="text-body-1"
                     >
                         Passer en mode {{ $vuetify.theme.dark ? 'clair' : 'sombre' }}
-                    </v-list-item-action-text>
-                </v-list-item>
-                <v-list-item
+                    </v-col>
+                </v-row>
+                <v-row
                     v-if="$store.state.auth.loggedIn"
+                    align="center"
+                    @click="logout"
                 >
-                    <v-list-item-action>
+                    <v-col
+                        class="d-flex justify-center pa-0"
+                        cols="3"
+                    >
                         <v-btn
                             icon
-                            @click="logout"
                         >
                             <v-icon>mdi-logout</v-icon>
                         </v-btn>
-                    </v-list-item-action>
-                    <v-list-item-action-text
+                    </v-col>
+                    <v-col
+                        cols="auto"
                         class="text-body-1"
                     >
                         Déconnexion
-                    </v-list-item-action-text>
-                </v-list-item>
+                    </v-col>
+                </v-row>
             </v-card-text>
 
-            <v-card-actions>
+            <v-divider></v-divider>
+
+            <v-card-actions
+                class="mx-2"
+            >
+                <span class="text--secondary text-body-2">
+                    Version {{ $store.getters.displayVersion }}
+                </span>
                 <v-spacer></v-spacer>
                 <v-btn
                     text
+                    color="primary"
                     @click="dialog = false"
                 >
                     OK
