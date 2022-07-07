@@ -40,6 +40,7 @@
             :color="`primary ${$vuetify.theme.dark ? 'darken-4' : 'lighten-5'}`"
             flat
             rounded="20"
+            id="presentation"
         >
             <v-card-title
                 class="text-h4 mb-5"
@@ -64,17 +65,29 @@
         <v-container
             class="text--secondary text-caption ma-0 pa-0 mt-10"
         >
-            <v-icon
-                size="18"
-            >mdi-image-outline</v-icon>
-            Illustration par
-            <a class="text--secondary" target="_blank" rel="noreferrer noopener"
-               href="https://icons8.com/illustrations/author/TQQ1qAnr9rn5">
-                Oleg Shcherba</a>
-            de
-            <a class="text--secondary" target="_blank" rel="noreferrer noopener"
-               href="https://icons8.com/illustrations">
-                Ouch!</a>
+            <div>
+                <v-icon
+                    size="18"
+                >mdi-image-outline</v-icon>
+                Illustration par
+                <a class="text--secondary" target="_blank" rel="noreferrer noopener"
+                   href="https://icons8.com/illustrations/author/TQQ1qAnr9rn5">
+                    Oleg Shcherba</a>
+                de
+                <a class="text--secondary" target="_blank" rel="noreferrer noopener"
+                   href="https://icons8.com/illustrations">
+                    Ouch!</a>
+            </div>
+            <div>
+                <v-icon
+                    size="18"
+                >mdi-image-outline</v-icon>
+                Logo par
+                <a class="text--secondary" target="_blank" rel="noreferrer noopener"
+                   href="https://www.instagram.com/feun_art/">
+                    Feun Art
+                </a>
+            </div>
         </v-container>
     </div>
 </template>
@@ -109,3 +122,7 @@ export default {
     },
 }
 </script>
+
+<style scoped lang="sass">
+
+</style>
