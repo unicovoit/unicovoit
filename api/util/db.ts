@@ -1,5 +1,6 @@
 import logger from './signale'
 import {Trip} from '../models/Trip'
+import ITrip from '../interfaces/Trip'
 import {User} from '../models/User'
 import {Booking} from "../models/Booking";
 import {v4} from "uuid";
@@ -66,7 +67,7 @@ export const testTrips = [{
     departure_time: '2022-07-20T07:45:29.623Z',
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     driver_name: 'Brice de nice',
-    driver_picture: 'https://content4.coedcherry.com/met-art/215409/w_6A55BECA986273C41D23C7F7FCB46CB6.jpg',
+    driver_picture: 'https://media.ouest-france.fr/v1/pictures/MjAxMzA5ZmI4ZmM0NzBlZjhlZTViMGUwZTNlZGU5ODBkMGI4YTU',
     places: '2',
     id: '6d4126ff-e472-44b5-a891-2927d17f7e1a',
     distance: 1338,
@@ -112,7 +113,7 @@ axios.get(`https://randomuser.me/api/?results=${testTrips.length}`).then(res => 
  * Add a trip to the database
  * @param t the trip to add
  */
-export const addTrip: Function = async (t: any) => {
+export const addTrip: Function = async (t: ITrip) => {
     try {
         const tmp = new Trip(t)
         await tmp.save()
@@ -181,6 +182,29 @@ export const getTripById = async (id: string) => {
         _id: 0,
         __v: 0
     });
+}
+
+
+/**
+ * Remove a trip by id and driver_id
+ * @param id the id of the trip
+ * @param driver_id the id of the driver
+ * @returns the number of removed trips
+ * @throws if the trip doesn't exist
+ * @access Private
+ */
+export const removeTrip = async (id: string, driver_id: string) => {
+    const trip = await Trip.findOne({id: {$eq: id}, driver_id: {$eq: driver_id}})
+    if (trip) {
+        await Trip.deleteOne({id: {$eq: id}, driver_id: {$eq: driver_id}})
+        logger.success(`Trip ${id} removed`)
+        let nbBookings = await Booking.countDocuments({trip: {$eq: trip._id}})
+        await Booking.deleteMany({trip: {$eq: trip._id}})
+        logger.success(`${nbBookings} bookings removed`)
+        // TODO notify driver add users
+    } else {
+        throw new Error(`Trip ${id} doesn't exist`)
+    }
 }
 
 
