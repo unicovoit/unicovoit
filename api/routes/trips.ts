@@ -5,11 +5,14 @@ import {XMLParser} from "fast-xml-parser"
 import logger from '../util/signale'
 import * as db from '../util/db'
 import {verifyTrip} from "../util/verifier"
-import {getDistance, decodeCoords, prepareTrip} from "../util/map"
+import {getDistance, validateCoordinates, prepareTrip} from "../util/map"
 import {Mail} from "../util/mail"
 
 import {Error} from "mongoose"
 import {BookingError} from "../errors/BookingError"
+
+import Distance from "../interfaces/Distance"
+import Trip from "../interfaces/Trip"
 
 const router: Router = Router()
 
@@ -37,10 +40,12 @@ router.get('/', (req, res) => {
         }
 
         if (req.query.from && req.query.to) {
-            let from = decodeCoords(String(req.query.from))
-            let to = decodeCoords(String(req.query.to))
+            let from: string[] = String(req.query.from).split(',')
+            let to: string[] = String(req.query.to).split(',')
+            validateCoordinates(from)
+            validateCoordinates(to)
 
-            db.getTrips(from, to, date).then(trips => {
+            db.getTrips(from.map(co => parseFloat(co)), to.map(co => parseFloat(co)), date).then(trips => {
                 res.json(trips)
             }).catch(err => {
                 logger.error(err)
@@ -69,18 +74,16 @@ router.get('/', (req, res) => {
  */
 // @ts-ignore
 router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
-    const from = decodeCoords(String(req.query.from)).join(',')
-    const to = decodeCoords(String(req.query.to)).join(',')
-    if (from && to) {
-        getDistance(from, to).then((distance: { distance: number, duration: number } | Error) => {
-            if (distance instanceof Error) {
-                res.status(500).json({
-                    error: distance
-                })
-            } else {
+    if (req.query.from && req.query.to) {
+        getDistance(req.query.from, req.query.to)
+            .then((distance: Distance) => {
                 res.json(distance)
-            }
-        })
+            }).catch(err => {
+                logger.error(err)
+                res.status(500).json({
+                    error: err
+                })
+            })
     } else {
         res.status(400).json({
             error: 'Missing parameters'
@@ -144,9 +147,18 @@ router.get('/id/:id', checkJwt, async (req: Request<RouteParameters<string>, any
  * @access  Private
  */
 router.delete('/id/:id', checkJwt, async (req, res) => {
-    logger.info(`Deleting trip ${req.params.id}`)
-    // TODO verify if user is the owner of the trip before deleting
-    res.sendStatus(202)
+    try {
+        // @ts-ignore
+        await db.removeTrip(req.params.id, req.auth.payload.sub)
+        res.json({
+            message: 'Trip deleted'
+        })
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: e
+        })
+    }
 })
 
 
@@ -158,13 +170,12 @@ router.delete('/id/:id', checkJwt, async (req, res) => {
 // @ts-ignore
 router.post('/add', checkJwt, async (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<ResBody, Locals>) => {
     try {
-        console.log(req.body)
-        let trip = verifyTrip(req.body)
-        trip = await prepareTrip(trip)
+        let tmp = verifyTrip(req.body)
+        let trip: Trip = await prepareTrip(tmp, req.auth?.payload.sub)
 
-        logger.info(trip)
+        logger.info(typeof trip, trip)
         db.addTrip(
-            trip
+            trip as Trip
         ).then((r: object) => {
             res.json(r)
         }).catch((e: Error) => {
