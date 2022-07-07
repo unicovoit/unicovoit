@@ -36,14 +36,6 @@
                 ></v-img>
             </NuxtLink>
             <v-spacer></v-spacer>
-            <a
-                :href="'https://github.com/finxol/unicovoit/tree/v' + version"
-                class="text--secondary text-decoration-none"
-                rel="noreferrer noopener"
-                target="_blank"
-            >
-                v{{ getVersion }}
-            </a>
             <Settings/>
         </v-app-bar>
 
@@ -51,7 +43,7 @@
             class="mt-15"
         >
             <v-container>
-                <Nuxt/>
+                <Nuxt keep-alive :keep-alive-props="{exclude: ['pages/trips/index.vue']}" />
             </v-container>
         </v-main>
 
@@ -121,7 +113,6 @@
 </template>
 
 <script>
-const {version} = require('../package.json')
 import Settings from "../components/Settings"
 
 export default {
@@ -158,13 +149,10 @@ export default {
             ],
             miniVariant: false,
             title: 'UniCovoit',
-            version,
+            version: this.$store.state.version,
         }
     },
     computed: {
-        getVersion() {
-            return (version || '') + (this.$config.isProd ? '' : '-dev')
-        },
         isLoggedIn() {
             return this.$store.state.auth.loggedIn
         },
