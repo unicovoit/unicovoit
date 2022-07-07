@@ -58,6 +58,12 @@ export default {
             trips: [],
         }
     },
+    activated() {
+        this.$fetch()
+    },
+    deactivated() {
+        this.trips = []
+    },
     async fetch() {
         // Get filters from query params
         const filters = {
