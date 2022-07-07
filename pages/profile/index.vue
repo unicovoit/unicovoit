@@ -134,9 +134,6 @@ export default {
             console.log(error.message);
         }
     },
-    methods: {
-
-    }
 }
 </script>
 
