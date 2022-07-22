@@ -53,9 +53,14 @@ COPY --chown=node:node --from=builder /home/node/build/node_modules ./node_modul
 COPY --chown=node:node --from=builder /home/node/build/.nuxt ./.nuxt
 COPY --chown=node:node --from=builder /home/node/build/static/ ./static/
 
-# The planning never falls, but you never know
 #HEALTHCHECK --interval=15s --timeout=5s --retries=5 \
 #  CMD ["curl", "-H", "ignore-statistics: true", "http://localhost:3000"]
+
+# change timezone
+RUN apk add --no-cache tzdata
+ENV TZ=Europe/Paris
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apk del tzdata
 
 EXPOSE 3000
 
