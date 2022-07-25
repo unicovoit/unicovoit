@@ -148,6 +148,7 @@ export default {
                     this.error = error.response.data.message
                     this.success = false
                 })
+                window.scrollTo(0, 0)
             }
         },
     }
