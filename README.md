@@ -83,7 +83,7 @@ cd unicovoit
 yarn install
 
 # Démarrer le serveur de développement
-  yarn dev
+yarn dev
 ```
 
 ## Déploiement avec Docker
