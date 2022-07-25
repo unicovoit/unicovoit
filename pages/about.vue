@@ -86,8 +86,11 @@ export default {
         return {
             faq: [
                 {
-                    title: "Est-ce que je peux faire des trajets en commun ?",
-                    content: "Absolument ! Le but de cette application est de mettre en relation les étudiants allant au même endroit, donc nous recommandons même de proposer tous vos trajets au maximum de personnes."
+                    title: "Comment fonctionne UniCovoit ?",
+                    content: `Avec UniCovoit, vous pouvez proposer vos trajets, qu'ils soient courts ou longs, aux autres étudiants afin de couvrir vos frais.
+                        Vous pouvez également réserver des trajets si vous cherchez à effectuer un déplacement sans avoir à conduire.<br>
+                        UniCovoit ne prend pas en charge les paiements donc vous devez convenir d'un moyen de paiement entre conducteur et passagers.
+                        Aucune commission n'est relevée sur le prix du trajet.`
                 }, {
                     title: "Qui a développé cette application ?",
                     content: "Cette application a été développée par finxol, un étudiant de l'IUT de Vannes (Bretagne)."
@@ -95,14 +98,14 @@ export default {
                     title: "Comment traitez-vous mes données ?",
                     content: `Les informations concernant les trajets et les utilisateurs sont stockées sur les serveurs d'UniCovoit en Allemagne. Ces informations ne sont pas communiquées à des tiers.<br>
                         Les informations de connexion (identifiant, mot de passe) sont gérées par Auth0 sur des serveurs en Europe.<br>
-                        Vous trouverez plus de détails dans notre <a href='/privacy-policy' class="text--secondary">Politique de confidentialité</a>.`
+                        Vous trouverez plus de détails dans notre <a href='/privacy-policy' class="text--secondary">Politique de Confidentialité</a>.`
                 }, {
-                    title: "Comment puis-je me désinscrire ?",
-                    content: "Pour vous désinscrire, accédez à votre profil et cliquez sur \"Supprimer mon compte\" dans l'onglet administration."
+                    title: "Comment supprimer mon compte ?",
+                    content: `Accédez à votre profil, dans l'onglet "Administration", cliquez sur "Supprimer mon compte.`
                 }, {
                     icon: "mdi-message-processing-outline",
                     title: "Comment puis-je contacter l'équipe ?",
-                    content: `Si vous souhaitez me contacter, vous pouvez envoyer un mail à <a class="text--secondary" href="mailto:contact@finxol.io" target="_blank" rel="noopener noreferrer">contact@finxol.io</a>.
+                    content: `Vous pouvez envoyer un mail à <a class="text--secondary" href="mailto:contact@finxol.io" target="_blank" rel="noopener noreferrer">contact@finxol.io</a>.
                         Vous pouvez également m'envoyer un message sur Discord avec finxol#8918 ou <a class="text--secondary" href="https://twitter.com/_finxol" rel="noopener noreferrer" target="_blank">Twitter</a>.`
                 }
             ]
