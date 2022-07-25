@@ -68,12 +68,12 @@ router.get('/', (req, res) => {
 /**
  * @route   GET /api/v1/trips/distance
  * @desc    Get the distance between two cities
- * @access  Public
+ * @access  Private
  * @param   {string} from - The city where the trip starts
  * @param   {string} to - The city where the trip ends
  */
 // @ts-ignore
-router.get('/distance', (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
+router.get('/distance', checkJwt, (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
     if (req.query.from && req.query.to) {
         getDistance(req.query.from, req.query.to)
             .then((distance: Distance) => {
