@@ -15,14 +15,25 @@
             Vous n'êtes pas connecté à internet. Vous ne pouvez pas enregistrer de nouveaux trajet.
         </v-alert>
 
-        <v-alert
+        <div
             v-if="success"
-            border="left"
-            class="mx-2 my-4"
-            type="success"
         >
-            Trajet ajouté !
-        </v-alert>
+            <v-alert
+                border="left"
+                class="mx-2 my-4"
+                type="success"
+            >
+                Trajet ajouté !
+            </v-alert>
+            <v-btn
+                class="mt-8"
+                text
+                block
+                @click="$router.push('/profile?trips')"
+            >
+                Voir mes trajets
+            </v-btn>
+        </div>
         <v-alert
             v-if="error"
             border="left"
@@ -33,6 +44,7 @@
         </v-alert>
 
         <v-stepper
+            v-if="!success"
             v-model="steps"
             class="mx-n2"
             outlined
@@ -152,7 +164,7 @@
                     v-model="trip.price"
                     :rules="rules.price"
                     label="Prix"
-                    placeholder="10"
+                    :placeholder="String(Math.round(estimatedPrice/2))"
                     suffix="€"
                     @keyup.native.enter="nextStep"
                 ></v-text-field>
@@ -179,8 +191,8 @@
                         Comment le prix est-il estimé ?
                     </v-card-title>
                     <v-card-text>
-                        Pour calculer le prix du trajet, nous utilisons le prix moyen instantané du SP95-E10 en France.
-                        Nous le multiplions ensuite par la consommation moyenne d'une voiture, ici 5.5 L/100km,
+                        Pour calculer le prix du trajet, nous utilisons le prix moyen instantané du SP95-E10 en France,
+                        la consommation moyenne d'une voiture, ici 5.5 L/100km,
                         et par la distance du trajet.
                         Le tout est arrondi à l'entier.<br>
                         Les péages ne sont pas pris en compte.
@@ -332,6 +344,21 @@ export default {
             return this.$nuxt.isOffline
         },
     },
+    deactivated() {
+        if (this.success){
+            this.trip = {
+                from: [],
+                    to: [],
+                    price: "",
+                    description: "",
+                    departure_time: new Date(),
+                    driver_id: this.$store.state.auth.user.sub,
+                    places: "",
+            }
+            this.success = false
+            this.steps = 0
+        }
+    },
     methods: {
         nextStep() {
             const verifyRules = (rules, value) => {
@@ -393,10 +420,6 @@ export default {
             return req.data
         },
         async getDistance() {
-            console.log({
-                from: this.trip.from.join(","),
-                    to: this.trip.to.join(","),
-            })
             let req = await this.$axios.get('/api/v1/trips/distance', {
                 params: {
                     from: this.trip.from.join(","),
@@ -434,6 +457,7 @@ small
     margin-top: 4px
 
 .v-autocomplete.v-input--is-focused,
-.v-input.v-input--is-label-active.v-input--is-readonly
+.v-input.v-input--is-label-active.v-input--is-readonly,
+.v-textarea
     padding-top: .4rem !important
 </style>
