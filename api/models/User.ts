@@ -43,13 +43,12 @@ const UserSchema = new mongoose.Schema({
         defaultPlaces: {
             type: Number
         },
-        isVerified: {
+        verified: {
             type: Boolean,
             default: false
         },
         studentEmail: {
             type: String,
-            required: true,
             unique: true
         },
         isBlocked: {
