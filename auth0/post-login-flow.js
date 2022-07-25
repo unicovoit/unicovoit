@@ -8,7 +8,7 @@ exports.onExecutePostLogin = async (event, api) => {
     // check if user is verified
     const token = api.redirect.encodeToken({
         secret: event.secrets.VERIFICATION_SECRET,
-        expiresInSeconds: 60, 
+        expiresInSeconds: 60,
         payload: {
             sub: event.user.user_id,
         },
@@ -18,9 +18,8 @@ exports.onExecutePostLogin = async (event, api) => {
             Authorization: 'Bearer ' + token
         }
     }).then(res => {
-        if (red.data.verified) {
+        if (res.data.verified) {
             // user is already verified, finish Action
-            return
         } else {
             // user isn't verified, redirect to verification page
             api.redirect.sendUserTo("https://unicovoit.com/verify", {
@@ -30,7 +29,6 @@ exports.onExecutePostLogin = async (event, api) => {
     }).catch(err => {
         console.error(err)
         api.access.deny("Une erreur est survenue. Merci de réessayer plus tard.")
-        return
     })
 };
 
