@@ -2,8 +2,9 @@ import logger from './signale'
 import {Trip} from '../models/Trip'
 import ITrip from '../interfaces/Trip'
 import {User} from '../models/User'
-import {Booking} from "../models/Booking";
-import {v4} from "uuid";
+import IUser from '../interfaces/User'
+import {Booking} from "../models/Booking"
+import {v4} from "uuid"
 import {Error} from "mongoose"
 import {BookingError} from "../errors/BookingError"
 import axios from "axios"
@@ -250,7 +251,7 @@ export const removeOldTrips: Function = async () => {
  * Add a user to the database
  * @param u the user to add
  */
-export const addUser: Function = async (u: object) => {
+export const addUser: Function = async (u: IUser) => {
     try {
         const tmp = new User(u)
         logger.info(tmp)
@@ -280,6 +281,17 @@ export const getUserBySub = async (id: string) => {
         _id: 0,
         __v: 0
     })
+}
+
+
+/**
+ * Check if a user is verified
+ * @param   id user sub
+ * @returns true if verified, false otherwise
+ */
+export const userIsVerified = async (id: string): Promise<boolean | undefined> => {
+    const user = await getUserBySub(id)
+    return user?.verified
 }
 
 
