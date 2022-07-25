@@ -76,8 +76,8 @@ UniCovoit permet à chaque étudiant de publier des annonces et de réserver des
 même si vous n’êtes pas inscrit ou connecté sur le site. En revanche, vous ne pouvez ni publier une annonce de
 covoiturage ni en réserver un sans avoir, au préalable, créé un compte.
 
-Pour créer votre Compte, vous pouvez vous connecter avec Auth0, Microsoft ou Discord. En vous connectant avec l’une des
-deux dernières méthodes, UniCovoit aura accès, publiera sur son site et conservera certaines informations de votre
+Pour créer votre Compte, vous pouvez vous connecter avec Auth0, Microsoft, Google ou Discord. En vous connectant avec l’une des
+trois dernières méthodes, UniCovoit aura accès, publiera sur son site et conservera certaines informations de votre
 compte.
 
 Pour vous inscrire sur la Plateforme, vous devez avoir lu et accepter les présentes CGU.
