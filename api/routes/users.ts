@@ -2,15 +2,37 @@ import * as db from '../util/db'
 import logger from '../util/signale'
 import {auth} from "express-oauth2-jwt-bearer"
 import {Router} from "express"
+import * as jwt from 'jsonwebtoken'
 
 const router: Router = Router()
 
-const isDev = process.env.NODE_ENV !== 'production'
+const isDev: boolean = process.env.NODE_ENV !== 'production'
+const AUTH0_DOMAIN: string = process.env.AUTH0_DOMAIN || 'localhost'
+const VERIFICATION_SECRET: string = process.env.VERIFICATION_SECRET || ''
 const checkJwt = auth({
-    jwksUri: 'https://iucovoit.eu.auth0.com/.well-known/jwks.json',
-    issuer: 'https://iucovoit.eu.auth0.com/',
-    audience: 'https://iucovoit.eu.auth0.com/api/v2/',
-})
+    jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`,
+    issuer: `https://${AUTH0_DOMAIN}/`,
+    audience: `https://${AUTH0_DOMAIN}/api/v2/`,
+});
+
+/**
+ * Verify the JWT token comes from the Auth0 server
+ * @param req The request
+ * @param res The response
+ * @param next The next middleware
+ */
+const originCheck = async (req, res, next) => {
+    try {
+        const token: string = req.header('Authorization')?.replace('Bearer ', '') || ''
+        logger.info(token)
+        const decoded = jwt.verify(token, VERIFICATION_SECRET)
+        logger.info(decoded)
+        next()
+    } catch (e) {
+        logger.error(e)
+        res.status(401).send('Unauthorized')
+    }
+}
 
 
 /**
@@ -135,8 +157,6 @@ router.get('/profile/:id', async (req, res) => {
 })
 
 
-
-
 /**
  * @route   POST /api/v1/users/login
  * @desc    Login user and save to db
@@ -154,6 +174,26 @@ router.post('/login', async (req, res) => {
                 error: 'User not found'
             })
         }
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: 'Server error'
+        })
+    }
+})
+
+
+/**
+ * @route   POST /api/v1/users/isVerified
+ * @desc    Check if user is verified
+ * @access  Private
+ */
+router.get('/isVerified', originCheck, async (req, res, next) => {
+    logger.info(req)
+    try {
+        // @ts-ignore
+        const verified: boolean = true || await db.userIsVerified(req.auth.sub)
+        res.status(200).json({verified})
     } catch (e) {
         logger.error(e)
         res.status(500).json({
