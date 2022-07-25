@@ -42,7 +42,7 @@ RUN rm -rf /usr/local/lib/node_modules/npm/ /usr/local/bin/npm
 WORKDIR /usr/src/unicovoit
 RUN chown -R node:node /usr/src/unicovoit
 
-RUN apk --no-cache add dumb-init
+RUN apk --no-cache add dumb-init tzdata
 
 # Don't run container as root
 USER node
@@ -57,7 +57,6 @@ COPY --chown=node:node --from=builder /home/node/build/static/ ./static/
 #  CMD ["curl", "-H", "ignore-statistics: true", "http://localhost:3000"]
 
 # change timezone
-RUN apk add --no-cache tzdata
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apk del tzdata
