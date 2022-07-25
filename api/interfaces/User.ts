@@ -1,0 +1,16 @@
+export default interface User {
+    _id?: string,
+    id: string,
+    sub: string,
+    name: string,
+    email: string,
+    picture?: string,
+    smokePref: string,
+    petsPref: string,
+    musicPref: string,
+    autoBook: boolean,
+    defaultPlaces?: number,
+    verified: boolean,
+    studentEmail?: string,
+    isBlocked: boolean,
+}
