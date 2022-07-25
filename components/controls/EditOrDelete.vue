@@ -45,6 +45,7 @@
                     <v-btn
                         class="ma-1"
                         color="error"
+                        outlined
                         @click="deleteTrip(trip.id)"
                     >
                         Supprimer
