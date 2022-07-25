@@ -34,6 +34,7 @@
             </v-toolbar>
 
             <v-tabs
+                v-model="tab"
                 grow
             >
                 <v-tab>Réservations</v-tab>
@@ -83,9 +84,10 @@ export default {
     },
     data() {
         return {
-            dialog: false,
+            dialog: this.$route.query.hasOwnProperty("bookings") || this.$route.query.hasOwnProperty('trips'),
             bookings: [],
             trips: [],
+            tab: this.$route.query.hasOwnProperty('trips') ? 1 : 0
         };
     },
     async fetch() {
@@ -96,9 +98,13 @@ export default {
             console.log(err.response.data)
         }
     },
-    mounted() {
-        this.dialog = this.$route.query.hasOwnProperty("bookings")
-    }
+    deactivated() {
+        this.bookings = []
+        this.trips = []
+    },
+    activated() {
+        this.$fetch()
+    },
 }
 </script>
 
