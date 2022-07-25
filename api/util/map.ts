@@ -4,7 +4,7 @@ import {v4} from "uuid";
 import Distance from "~/api/interfaces/Distance"
 import Trip from "~/api/interfaces/Trip"
 
-const addokDomain: string = process.env.ADDOK_DOMAIN || 'api.covoit.ozna.me'
+const addokDomain: string = process.env.ADDOK_DOMAIN || 'addok.unicovoit.fr'
 
 /**
  * @desc    Get the distance between two cities
