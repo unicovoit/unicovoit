@@ -44,6 +44,11 @@ RUN chown -R node:node /usr/src/unicovoit
 
 RUN apk --no-cache add dumb-init tzdata
 
+# change timezone
+ENV TZ=Europe/Paris
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apk del tzdata
+
 # Don't run container as root
 USER node
 
@@ -56,10 +61,6 @@ COPY --chown=node:node --from=builder /home/node/build/static/ ./static/
 #HEALTHCHECK --interval=15s --timeout=5s --retries=5 \
 #  CMD ["curl", "-H", "ignore-statistics: true", "http://localhost:3000"]
 
-# change timezone
-ENV TZ=Europe/Paris
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apk del tzdata
 
 EXPOSE 3000
 
