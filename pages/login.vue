@@ -11,7 +11,8 @@
             Vous pouvez créer un compte ou simplement vous connecter à UniCovoit avec Google, Discord ou Microsoft.
             <br>
             <br>
-            En vous inscrivant, vous acceptez les <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'Utilisation</NuxtLink>.
+            En vous inscrivant, vous acceptez les <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'Utilisation</NuxtLink>
+            et la <NuxtLink to="/privacy-policy" class="text--secondary">Politique de Confidentialité</NuxtLink>.
         </v-main>
 
         <v-btn
