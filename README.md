@@ -28,11 +28,11 @@ Suivi de la disponibilité des services : [https://status.unicovoit.fr](https://
 - [Stack Technologique](#stack-technologique)
 - [Variables d'environnement](#variables-denvironnement)
 - [Lancer localement](#lancer-localement)
-- [Déployer avec Docker](#dploiement-avec-docker)
+- [Déployer avec Docker](#déploiement-avec-docker)
 - [Auteurs](#auteurs)
-- [Mentions particulières](#mentions-particulires)
+- [Mentions particulières](#mentions-particulières)
 - [Licence](#licence)
-- [Référence d'API publiques](#rfrence-dapi-publiques)
+- [Référence d'API publiques](#référence-dapi-publiques)
 
 ## Features
 
