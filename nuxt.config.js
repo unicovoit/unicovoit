@@ -3,11 +3,11 @@ import colors from 'vuetify/lib/util/colors'
 const PLAUSIBLE_DOMAIN = 'plausible.finxol.io'
 const DESCRIPTION = 'Plateforme de covoiturage entre étudiants'
 const TITLE = 'UniCovoit'
-const DOMAIN = 'unicovoit.com'
+const DOMAIN = 'unicovoit.fr'
 const URL = `https://${DOMAIN}`
 const BANNER = `${URL}/icon_long.png`
 
-const ADDOK_DOMAIN = "api.covoit.ozna.me"
+const ADDOK_DOMAIN = "addok.unicovoit.fr"
 
 const AUTH0_ID = process.env.AUTH0_CLIENTID || 'no id'
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'example.org'
