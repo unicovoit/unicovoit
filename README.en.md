@@ -18,8 +18,8 @@ Services uptime monitor: [https://status.unicovoit.fr](https://status.unicovoit.
 
 #### Language
 
-- [Français](README.md)
-- English
+- [🇫🇷 Français](README.md)
+- 🇬🇧 English
 
 ## Summary
 

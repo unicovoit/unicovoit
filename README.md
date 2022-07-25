@@ -18,8 +18,8 @@ Suivi de la disponibilité des services : [https://status.unicovoit.fr](https://
 
 #### Langue
 
-- Français
-- [English](README.en.md)
+- 🇫🇷 Français
+- [🇬🇧 English](README.en.md)
 
 ## Sommaire
 
