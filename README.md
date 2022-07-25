@@ -1,6 +1,6 @@
 # UniCovoit
 
-Carpool platform for students
+Plateforme de covoiturage pour étudiants
 
 [![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&label=unicovoit&up_color=green&up_message=online&url=https%3A%2F%2Fcovoit.ozna.me)](https://status.unicovoit.fr)
 [![GitHub package.json version](https://img.shields.io/github/package-json/v/finxol/unicovoit)](https://github.com/finxol/unicovoit/releases/)
@@ -12,176 +12,166 @@ Carpool platform for students
 ![GitHub stars](https://img.shields.io/github/stars/finxol/unicovoit)
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/finxol)](https://github.com/sponsors/finxol)
 
-Official deployment: [unicovoit.fr](https://unicovoit.fr)
+Site officiel : [unicovoit.fr](https://unicovoit.fr)
 
-Services uptime monitor : [https://status.unicovoit.fr](https://status.unicovoit.fr)
+Suivi de la disponibilité des services : [https://status.unicovoit.fr](https://status.unicovoit.fr)
 
-## Summary
+#### Langue
+
+- Français
+- [English](README.en.md)
+
+## Sommaire
 
 - [Features](#features)
-- [Contribute and Support](#contribute-and-support)
-- [Tech Stack](#tech-stack)
-- [Environment Variables](#environment-variables)
-- [Run Locally](#run-locally)
-- [Deployment](#deployment)
-- [Authors](#authors)
-- [Acknowledgements](#acknowledgements)
-- [License](#license)
-- [Public API Reference](#api-reference)
+- [Contribuer et soutenir](#contribuer-et-soutenir)
+- [Stack Technologique](#stack-technologique)
+- [Variables d'environnement](#variables-denvironnement)
+- [Lancer localement](#lancer-localement)
+- [Déployer avec Docker](#dploiement-avec-docker)
+- [Auteurs](#auteurs)
+- [Mentions particulières](#mentions-particulires)
+- [Licence](#licence)
+- [Référence d'API publiques](#rfrence-dapi-publiques)
 
 ## Features
 
-- [ ] All accounts are verified as belonging to a student
-- [ ] Add and book trips between students
-- [ ] Mark your trip as recurring so that you don't have to add the same one every week
-- [x] Add and book trips up to 3 weeks in advance
-- [x] Light/dark mode toggle
+- [ ] Tous les comptes sont vérifiés comme appartenant à un étudiant
+- [ ] Ajouter et réserver des voyages entre étudiants
+- [ ] Marquez vos voyages comme récurrents afin de ne pas avoir à ajouter le même voyage chaque semaine.
+- [x] Ajouter et réserver des voyages jusqu'à 3 semaines à l'avance.
+- [x] Mode clair/sombre
 
-*UniCovoit doesn't handle payments*
+*UniCovoit ne prend pas en charge les paiements*
 
-## Contribute and Support
+## Contribuer et soutenir
 
-If you want to contribute to the project, feel free to open an issue or create a pull request.
+Si vous souhaitez contribuer au projet, n'hésitez pas à ouvrir une issue ou à créer une pull request.
 
-If you have any feedback, you can reach me on Discord (finxol#8918), Twitter or via email on contact@finxol.io
+Si vous avez des retours, vous pouvez me joindre sur Discord (finxol#8918), Twitter (@_finxol) ou par mail à contact@finxol.io.
 
-You can also support the project by donating to the [GitHub Sponsorship Program](https://github.com/sponsors/finxol).
+Vous pouvez également soutenir le projet en faisant un don par le [Programme de parrainage GitHub](https://github.com/sponsors/finxol).
 
-## Tech Stack
+## Stack technologique
 
 **Framework:** Vuetify, Nuxt + Typescript
 
-**Server:** Node (Typescript), Express
+**Serveur:** Node (Typescript), Express
 
-## Environment Variables
+## Variables d'Environnement
 
-To run this project, you will need to add the following environment variables to your .env file
+Pour lancer ce projet localement, vous devez avoir les variables d'environnement suivantes :
 
 ```env
 AUTH0_CLIENTID=<your auth0 client ID>
 AUTH0_DOMAIN=<your auth0 tenant domain>
 MAPBOX_TOKEN=<your mapbox token>
+DISCORD_SECRET=<your Discord token>
+MONGO_USER=<username for Mongo>
+MONGO_PASSWORD=<password for Mongo>
+VERIFICATION_SECRET=<secret to use with Auth0 Action>
 ```
 
-## Run Locally
-
-Clone the project
+## Lancer Localement
 
 ```bash
-  git clone https://github.com/finxol/unicovoit
-```
+# Cloner le projet
+git clone https://github.com/finxol/unicovoit
+cd unicovoit
 
-Go to the project directory
+# Installer les dépendances
+yarn install
 
-```bash
-  cd unicovoit
-```
-
-Install dependencies
-
-```bash
-  yarn install
-```
-
-Start the server
-
-```bash
+# Démarrer le serveur de développement
   yarn dev
 ```
 
-## Deployment
+## Déploiement avec Docker
 
-Before building, your need a `.dockersecrets` directory
+Avant de construire l'image Docker, vous devez avoir un répertoire `.dockersecrets`.
 
-```files
+```
 .dockersecrets
 ├── auth0_clientid.txt
 └── auth0_domain.txt
 ```
 
-The files respectively contain the Auth0 Client ID and the Auth0 tenant domain.
+Ces fichiers contiennent respectivement l'ID du client Auth0 et le domaine du tenant Auth0..
 
-To build and run with podman, run:
+Vous devez également avoir un fichier `.env` avec les variables d'environnement déclarées plus tôt,
+ainsi qu'un fichier `.mongo.env` complété.
 
 ```bash
-  yarn podman
+# Construire l'image et l'exécuter avec Podman
+yarn podman
+
+# Construire l'image 
+yarn podman:build
+
+# Arrêter le container, reconstruire l'image et la lancer
+yarn podman:rebuild
+
+# Exécuter l'image
+yarn podman:run
+
+# Arrêter le container
+yarn podman:kill
 ```
 
-If you prefer using Docker, just replace podman with docker in the commands above.
+Si vous préférez utiliser Docker, remplacez simplement `podman` par `docker` dans les commandes ci-dessus.
 
 ### Addok
 
-For address auto-completion, an [addok](https://github.com/BaseAdresseNationale/addok-docker) instance is used.
+Pour l'autocomplétion des adresses, une instance [addok](https://github.com/BaseAdresseNationale/addok-docker) est utilisée.
 
-To setup your own, follow the steps detailed in [this issue](https://github.com/finxol/unicovoit/issues/3#issuecomment-1168000850).
+Pour configurer la vôtre, suivez les étapes détaillées dans [cette issue](https://github.com/finxol/unicovoit/issues/3#issuecomment-1168000850).
 
-## Authors
+## Auteurs
 
 - [@finxol](https://www.github.com/finxol)
 
-## Acknowledgements
+## Mentions particulières
 
-*UniCovoit is still under development. Not all features might be implemented yet*
+*UniCovoit est encore en cours de développement. Toutes les fonctionnalités ne sont pas encore implémentées.*
 
 - [Vuetify frontend framework](https://vuetifyjs.com)
 - [Nuxt.js](https://nuxtjs.org)
-- Authentication by [Auth0](https://auth0.com)
-- Distance and duration calculated by [Mapbox](https://www.mapbox.com)
-- Illustrations from [Icons8](https://icons8.com/)
-- Font Grammatika from [Font Library](https://fontlibrary.org/en/font/grammatika)
+- Authentification avec [Auth0](https://auth0.com)
+- Distance et temps de trajet calculés avec [Mapbox](https://www.mapbox.com)
+- Illustrations de [Icons8](https://icons8.com/)
+- Police Grammatika de [Font Library](https://fontlibrary.org/en/font/grammatika)
 
-## License
+## Licence
 
-| Can            | Must                         | Cannot    |
-|:---------------|:-----------------------------|:----------|
-| Commercial Use | Disclose Source              | Liability |
-| Distribution   | License and Copyright Notice | Warranty  |
-| Modification   | Same License                 |           |
-| Patent Use     | State Changes                |           |
-| Private Use    |                              |           |
+| Autorisé                | Obligatoire                        | Interdit              |
+|:------------------------|:-----------------------------------|:----------------------|
+| Utilisation commerciale | Publier la source                  | Responsabilité civile |
+| Distribution            | Licence et Avis de droits d'auteur | Garanties             |
+| Modification            | Même Licence                       |                       |
+| Utilisation Privée      | Déclarer les changements           |                       |
 
-For more information, please read the `LICENSE` file, or go to
+Pour plus d'informations, veuillez lire le fichier `LICENSE`, ou allez à
 [Choose A License](https://choosealicense.com/licenses/agpl-3.0/).
 
-## API Reference
+## Référence d'API publiques
 
-#### Get all published trips
+#### Obtenir tous les voyages publiés
 
 ```http
   GET /api/v1/trips
 ```
 
-#### Get distance between two cities
-
-```http
-  GET /api/v1/trips/distance
-```
-
-| Parameter | Type     | Description                           |
-|:----------|:---------|:--------------------------------------|
-| `from`    | `string` | **Required**. Name of the first city  |
-| `to`      | `string` | **Required**. Name of the second city |
-
-Returns a json object containing the distace in kilometers and duration in minutes
-
-```json
-{
-    "distance": 0,
-    "duration": 0
-}
-```
-
-#### Get the average price of Unleaded 95 for France
+#### Obtenir le prix moyen du Sans Plomb 95 pour la France
 
 ```http
   GET /api/v1/trips/petrol
 ```
 
-#### Access the public profile of a user
+#### Accéder au profil public d'un utilisateur
 
 ```http
   GET /api/v1/users/profile/:id
 ```
 
-**All other API routes are only accessible by authenticated users**
+**Toutes les autres routes API ne sont accessibles qu'aux utilisateurs authentifiés.**
 
