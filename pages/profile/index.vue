@@ -5,6 +5,7 @@
         >
             Mon compte
         </h2>
+
         <v-alert
             v-if="!user.email_verified"
             icon="mdi-alert-circle"
@@ -27,10 +28,10 @@
         >
             <v-card>
                 <v-card-title>
-                    Pourquoi vérifier son adresse mail ?
+                    Pourquoi vérifier votre adresse mail ?
                 </v-card-title>
                 <v-card-text>
-                    Vérifier votre adresse mail permet de nous assurer que vous êtes bien le propriétaire du compte,
+                    Vérifier votre adresse mail nous permet de nous assurer que vous êtes bien le propriétaire du compte,
                     et que l'adresse ne contient pas d'erreur.<br>
                     Si l'adresse est incorrecte, vous ne recevrez pas nos mails de confirmation et de notification.
                 </v-card-text>
