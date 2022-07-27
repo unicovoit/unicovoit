@@ -84,18 +84,24 @@ export default {
     },
     data() {
         return {
-            dialog: this.$route.query.hasOwnProperty("bookings") || this.$route.query.hasOwnProperty('trips'),
+            dialog: false,
             bookings: [],
             trips: [],
-            tab: this.$route.query.hasOwnProperty('trips') ? 1 : 0
+            tab: 1,
         };
+    },
+    methods: {
+        initialise() {
+            this.dialog = this.$route.query.hasOwnProperty("bookings") || this.$route.query.hasOwnProperty('trips')
+            this.tab = this.$route.query.hasOwnProperty('trips') ? 1 : 0
+        },
     },
     async fetch() {
         try {
             this.bookings = await this.$axios.$get('/api/v1/users/bookings')
             this.trips = await this.$axios.$get('/api/v1/users/trips')
         } catch (err) {
-            console.log(err.response.data)
+            console.error(err.response.data)
         }
     },
     deactivated() {
@@ -104,7 +110,11 @@ export default {
     },
     activated() {
         this.$fetch()
+        this.initialise()
     },
+    mounted() {
+        this.initialise()
+    }
 }
 </script>
 
