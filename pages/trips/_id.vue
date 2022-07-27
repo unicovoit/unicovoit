@@ -118,6 +118,14 @@
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-title>
+                        <v-icon class="mr-3">mdi-seat-passenger</v-icon>
+                        {{ trip.places }} places restantes
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
         </v-card>
 
         <ConfirmOrder :trip="trip" :date="parseDateTime"></ConfirmOrder>
@@ -131,6 +139,11 @@ export default {
     name: "trip",
     components: {
         ConfirmOrder,
+    },
+    data() {
+        return {
+            trip: {},
+        }
     },
     async validate({ params, store }) {
         // Must be a uuid v4
@@ -158,13 +171,12 @@ export default {
             return this.parseTime(d)
         },
     },
-    async asyncData({error, params, $axios}) {
+    async fetch() {
         try {
-            const trip = await $axios.$get(`/api/v1/trips/id/${params.id}`)
-            return {trip}
-        } catch (e) {
-            console.error(e)
-            error({statusCode: e.code, message: e.message})
+            this.trip = await this.$axios.$get(`/api/v1/trips/id/${this.$route.params.id}`)
+        } catch (error) {
+            console.error(`Trip ${this.$route.params.id}: ${error.message}`)
+            this.$nuxt.error({ statusCode: error.response.status, message: error.response.status === 404 ? "Ce trajet n'existe pas" : error.response.data })
         }
     },
     methods: {
@@ -177,13 +189,16 @@ export default {
             return date.toLocaleTimeString('fr-FR', options)
         },
     },
+    activated() {
+        if (!this.$fetchState.pending)
+            this.$fetch()
+    },
 }
 </script>
 
 <style scoped lang="sass">
 .text-h5
     text-transform: capitalize
-    word-break: break-word
 
 .v-timeline-item
     align-items: start
