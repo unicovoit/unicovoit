@@ -36,7 +36,7 @@ export default {
             },
             {name: 'author', content: 'finxol <contact@finxol.io>'},
             {name: 'language', content: 'French'},
-            {name: 'robots', content: 'noindex,nofollow'},
+            {name: 'robots', content: 'index,follow'},
             {name: 'category', content: 'internet'},
             {hid: 'title', name: 'title', content: TITLE},
 
