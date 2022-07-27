@@ -28,3 +28,10 @@ export class Mail {
         }
     }
 }
+
+export const verifyEmail: Function = (email: string): boolean => {
+    const regex = [
+        /^[A-Za-z\-]+\.e\d{7}@etud\.univ-ubs\.fr$/
+    ]
+    return regex.some(r => r.test(email))
+}
