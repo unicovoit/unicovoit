@@ -155,10 +155,10 @@ export default {
             }
         }
     },
-    async asyncData({ req, $config, redirect, $axios }) {
+    async asyncData({ route, $config, redirect, $axios }) {
         const ret = {
             verified: false,
-            token: req.headers.authorization?.replace("Bearer ", "")
+            token: route.query.token
         }
         if (!ret.token && !$config.isProd) {
             ret.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTg4NzIxNDUsImlzcyI6Iml1Y292b2l0LmF1dGgwLmNvbSIsInN1YiI6ImF1dGgwfDVmN2M4ZWM3YzMzYzZjMDA0YmJhZmU4MiIsImV4cCI6MTY1OTk5OTk5OSwiaXAiOiIxMy4zMy44Ni40NyJ9.qoTr16G5TdgrmtSkmVZmhdHsX7rZ86J0IMYnDX-VG9g'
@@ -242,6 +242,11 @@ export default {
                 this.verified = true
                 this.error = false
                 this.loading = false
+
+                setTimeout(() => {
+                    const state = this.$route.query.state
+                    window.location.replace(`https://${this.$config.AUTH0_DOMAIN}/continue?state=${state}?token=${res.data.token}`)
+                }, 2000)
             }).catch(err => {
                 this.loading = false
                 this.code = ""
