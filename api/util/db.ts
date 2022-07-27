@@ -322,6 +322,34 @@ export const getPublicProfile = async (id: string) => {
 
 
 /**
+ * Get a user's public profile by sub
+ * @param   id the id of the user
+ * @returns the user
+ */
+export const getPublicProfileBySub = async (id: string) => {
+    return User.findOne({sub: {$eq: id}}, {
+        musicPref: 1,
+        petsPref: 1,
+        smokingPref: 1,
+        picture: 1,
+        nickname: 1,
+    })
+}
+
+
+/**
+ * Create a new user
+ * @param   u the user to add
+ * @returns the user
+ */
+export const createUser = async (u: IUser) => {
+    const user = new User(u)
+    await user.save()
+    return user
+}
+
+
+/**
  * Book a trip
  * @param b the booking to add
  */
