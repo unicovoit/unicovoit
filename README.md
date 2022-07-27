@@ -2,10 +2,10 @@
 
 Plateforme de covoiturage pour étudiants
 
-[![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&label=unicovoit&up_color=green&up_message=online&url=https%3A%2F%2Fcovoit.ozna.me)](https://status.unicovoit.fr)
+[![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&label=unicovoit&up_color=green&up_message=online&url=https%3A%2F%2Funicovoit.fr)](https://status.unicovoit.fr)
 [![GitHub package.json version](https://img.shields.io/github/package-json/v/finxol/unicovoit)](https://github.com/finxol/unicovoit/releases/)
 [![Docker Build Status](https://github.com/finxol/unicovoit/actions/workflows/docker-image.yml/badge.svg)](https://github.com/finxol/unicovoit/actions/workflows/docker-image.yml)
-![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fcovoit.ozna.me)
+![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Funicovoit.fr)
 [![GitHub license](https://img.shields.io/github/license/finxol/unicovoit)](https://github.com/finxol/unicovoit/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/finxol/unicovoit)](https://github.com/finxol/unicovoit/issues)
 
@@ -24,6 +24,7 @@ Suivi de la disponibilité des services : [https://status.unicovoit.fr](https://
 ## Sommaire
 
 - [Features](#features)
+- [Ajoutez votre université](#ajoutez-votre-université)
 - [Contribuer et soutenir](#contribuer-et-soutenir)
 - [Stack Technologique](#stack-technologique)
 - [Variables d'environnement](#variables-denvironnement)
@@ -43,6 +44,23 @@ Suivi de la disponibilité des services : [https://status.unicovoit.fr](https://
 - [x] Mode clair/sombre
 
 *UniCovoit ne prend pas en charge les paiements*
+
+## Ajoutez votre université
+
+Pour ajouter votre université, modifiez le fichier [universities.ts](api/universities.ts) dans une nouvelle pull request.
+
+Vous devez respecter le format suivant :
+
+```typescript
+{
+    id: "<identifiant unique>",
+    name: "<nom complet de l'université>",
+    country: "<pays de l'université>",
+    format: /^format des addresses universitaires$/
+}
+```
+
+Inspirez des entrées existantes.
 
 ## Contribuer et soutenir
 

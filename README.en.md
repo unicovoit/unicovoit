@@ -24,6 +24,7 @@ Services uptime monitor: [https://status.unicovoit.fr](https://status.unicovoit.
 ## Summary
 
 - [Features](#features)
+- [Add your university](#add-your-university)
 - [Contribute and Support](#contribute-and-support)
 - [Tech Stack](#tech-stack)
 - [Environment Variables](#environment-variables)
@@ -43,6 +44,23 @@ Services uptime monitor: [https://status.unicovoit.fr](https://status.unicovoit.
 - [x] Light/dark mode toggle
 
 *UniCovoit doesn't handle payments*
+
+## Add your university
+
+To add your university, edit the file [universities.ts](api/universities.ts) in a new pull request.
+
+You must follow the following format:
+
+```typescript
+{
+    id: "<unique identifier>",
+    name: "<full name of university>",
+    country: "<country of the university>",
+    format: /^university address format$/
+}
+```
+
+Build on existing entries.
 
 ## Contribute and Support
 
