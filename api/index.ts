@@ -5,7 +5,8 @@ import cookieParser from 'cookie-parser'
 
 import mongoose from "mongoose"
 import logger from './util/signale'
-import {universities} from "./util/mail"
+import * as mail from "./util/mail"
+import universities from "./universities"
 
 import cors from 'cors'
 import rateLimit from 'express-rate-limit'
@@ -83,6 +84,10 @@ setInterval(() => {
 
 
 export default app
+
+
+// test mail connection
+mail.test()
 
 
 // Start the server if standalone mode
