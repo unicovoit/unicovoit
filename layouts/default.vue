@@ -192,4 +192,7 @@ export default {
 <style lang="sass">
 .v-bottom-navigation .v-btn--active
     background-color: transparent
+
+.v-bottom-navigation .v-btn__content
+    display: flex !important
 </style>
