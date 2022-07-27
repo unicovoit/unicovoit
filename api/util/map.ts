@@ -1,8 +1,8 @@
 import axios from "axios"
-import logger from "../util/signale"
-import {v4} from "uuid";
-import Distance from "~/api/interfaces/Distance"
-import Trip from "~/api/interfaces/Trip"
+import logger from "./signale"
+import {v4} from "uuid"
+import Distance from "../interfaces/Distance"
+import Trip from "../interfaces/Trip"
 
 const addokDomain: string = process.env.ADDOK_DOMAIN || 'addok.unicovoit.fr'
 
