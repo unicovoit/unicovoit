@@ -29,7 +29,7 @@
                 class="mt-8"
                 text
                 block
-                @click="$router.push('/profile?trips')"
+                @click="$router.push({path: '/profile', query: {trips: 1}})"
             >
                 Voir mes trajets
             </v-btn>
