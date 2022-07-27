@@ -98,7 +98,7 @@
                         <v-list-item-action-text
                             class="text-body-1">
                             <v-icon>mdi-cigar</v-icon>
-                            Trajet fumeur ?
+                            Trajet fumeur
                         </v-list-item-action-text>
                     </v-list-item>
                     <v-list-item>
@@ -112,7 +112,7 @@
                         <v-list-item-action-text
                             class="text-body-1">
                             <v-icon>mdi-paw</v-icon>
-                            Trajet avec animaux ?
+                            Trajet avec animaux
                         </v-list-item-action-text>
                     </v-list-item>
                     <v-list-item>
@@ -126,7 +126,7 @@
                         <v-list-item-action-text
                             class="text-body-1">
                             <v-icon>mdi-music-note</v-icon>
-                            Trajet en musique ?
+                            Trajet en musique
                         </v-list-item-action-text>
                     </v-list-item>
                     <v-list-item>
@@ -140,7 +140,7 @@
                         <v-list-item-action-text
                             class="text-body-1">
                             <v-icon>mdi-flash</v-icon>
-                            Acceptation automatique ?
+                            Acceptation automatique
                         </v-list-item-action-text>
                     </v-list-item>
                 </v-list>
