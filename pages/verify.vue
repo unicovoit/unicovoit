@@ -6,15 +6,18 @@
             Vérification
         </h2>
 
-        <v-alert
+        <div
             v-if="verified"
-            icon="mdi-check-circle"
-            type="success"
-            border="left"
-            text
         >
-            Statut étudiant vérifié
-        </v-alert>
+            <v-alert
+                icon="mdi-check-circle"
+                type="success"
+                border="left"
+                text
+            >
+                Statut étudiant vérifié
+            </v-alert>
+        </div>
 
         <div
             v-else
@@ -92,8 +95,23 @@
                             color="primary"
                         ></v-progress-circular>
                     </v-overlay>
+
+                    <div
+                        v-if="resend"
+                        class="text-body-2"
+                    >
+                        Vous n'avez rien reçu ?
+                        <span
+                            class="text--secondary text-decoration-underline cursor-pointer"
+                            @click="sendCode"
+                        >
+                            Renvoyer le code
+                        </span>
+                    </div>
+
                     <v-alert
                         v-if="error"
+                        class="mt-5"
                         icon="mdi-alert-circle"
                         type="error"
                         border="left"
@@ -123,11 +141,12 @@ export default {
             step: 1,
             loading: false,
             error: false,
+            resend: false,
             code: "",
             email: "",
             emailRules: [
                 v => !!v || "L'adresse mail est obligatoire",
-                v => /^[\dA-Za-z\-.]+@[a-z\-.]+$/.test(v) || "L'adresse mail doit être valide",
+                v => /^[\dA-Za-z\-.]+@[a-z\-.]+\.[a-z]$/.test(v) || "L'adresse mail doit être valide",
             ],
             errorMessages: {
                 teapot: `Le format de votre adresse mail n'est pas reconnu.
@@ -181,7 +200,6 @@ export default {
         async sendCode() {
             if (!this.verifyRules()) return
 
-            console.log(this.email)
             this.loading = true
             const axios = this.$axios.create()
             delete axios.defaults.headers.common['Authorization']
@@ -196,6 +214,9 @@ export default {
                 this.error = false
                 this.step = 2
                 this.token = res.data.token
+                setTimeout(() => {
+                    this.resend = true
+                }, 6000)
             }).catch(err => {
                 this.loading = false
                 if (err.response.status === 418) {
@@ -205,6 +226,7 @@ export default {
                 }
                 console.error(err)
             })
+
         },
         async verify() {
             this.loading = true
@@ -212,7 +234,6 @@ export default {
             delete axios.defaults.headers.common['Authorization']
             await axios.post('/api/v1/users/verify', {
                 code: this.code,
-                email: this.email,
             }, {
                 headers: {
                     Authorization: 'Bearer ' + this.token,
