@@ -110,6 +110,7 @@
 <script>
 export default {
     name: "account",
+    auth: true,
     data() {
         return {
             user: {
