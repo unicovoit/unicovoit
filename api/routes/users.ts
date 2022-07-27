@@ -2,6 +2,7 @@ import * as db from '../util/db'
 import logger from '../util/signale'
 import {verifyEmail} from "../util/mail"
 import VerificationJWT from "../interfaces/VerificationJWT"
+import * as mail from '../util/mail'
 
 import {auth} from "express-oauth2-jwt-bearer"
 import {Router} from "express"
@@ -150,6 +151,28 @@ router.get('/trips', checkJwt, async (req, res) => {
 
 
 /**
+ * @route   GET /api/v1/users/profile/sub/:sub
+ * @desc    Get user public profile by sub
+ * @access  Public
+ */
+router.get('/profile/sub/:sub', originCheck, async (req, res) => {
+    try {
+        const user = await db.getPublicProfileBySub(req.params.sub)
+        if (user) {
+            res.json(user)
+        } else {
+            res.json(await db.createUser(req.body.user))
+        }
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: 'Server error'
+        })
+    }
+})
+
+
+/**
  * @route   GET /api/v1/users/profile/:id
  * @desc    Get user public profile by id
  * @access  Public
@@ -261,14 +284,13 @@ router.post('/sendVerificationCode', originCheck, async (req, res) => {
                 let code = String(parseInt(bytes, 16)).substring(0, 6)
 
                 await db.saveVerificationCode(auth.sub, req.body.email, code)
-                //TODO: send code by email
+                await mail.send('confirm_address', req.body.email, 'Confirmation de votre adresse universitaire', {code})
 
                 const token = jwt.sign({
                     sub: auth.sub,
                     email: req.body.email
                 }, VERIFICATION_SECRET, { expiresIn: '5m' })
 
-                logger.info(`Verification code: ${code}`)
                 res.json({token})
             } else {
                 res.sendStatus(418)
@@ -279,7 +301,7 @@ router.post('/sendVerificationCode', originCheck, async (req, res) => {
     } catch (e) {
         logger.error(e)
         res.status(500).json({
-            error: 'Server error'
+            error: e
         })
     }
 })
@@ -292,13 +314,16 @@ router.post('/sendVerificationCode', originCheck, async (req, res) => {
  */
 router.post('/verify', originCheck, async (req, res) => {
     try {
-        logger.info(req.body)
-        logger.info(req.auth)
         const auth = req.auth as unknown as VerificationJWT
         if (req.body.hasOwnProperty('code') && /\d{6}/.test(req.body.code)) {
+            const ok = await db.verifyCode(auth.sub, String(auth.email), req.body.code)
 
-                const ok = await db.verifyCode(auth.sub, String(auth.email), req.body.code)
-                res.sendStatus(ok ? 200 : 401)
+            const token = jwt.sign({
+                sub: auth.sub,
+                verified: ok
+            }, VERIFICATION_SECRET, { expiresIn: '30s' })
+
+            res.status(ok ? 200 : 401).json(ok ? {token} : '')
         } else {
             res.sendStatus(400)
         }
