@@ -18,7 +18,7 @@ Services uptime monitor: [https://status.unicovoit.fr](https://status.unicovoit.
 
 #### Language
 
-- [🇫🇷 Français](README.md)
+- [🇫🇷 Français](/)
 - 🇬🇧 English
 
 ## Summary
@@ -156,21 +156,40 @@ For more information, please read the `LICENSE` file, or go to
 
 ## API Reference
 
+#### List of supported universities
+
+```http request
+GET /api/v1/universities
+```
+
+##### Response format
+
+```js
+{
+    universities: [
+        {
+            id: string,
+            name: string,
+            country: string
+        }
+    ]
+}
+```
 #### Get all published trips
 
-```http
+```http request
   GET /api/v1/trips
 ```
 
 #### Get the average price of Unleaded 95 for France
 
-```http
+```http request
   GET /api/v1/trips/petrol
 ```
 
 #### Access the public profile of a user
 
-```http
+```http request
   GET /api/v1/users/profile/:id
 ```
 

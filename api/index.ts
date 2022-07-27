@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 
 import mongoose from "mongoose"
 import logger from './util/signale'
+import {universities} from "./util/mail"
 
 import cors from 'cors'
 import rateLimit from 'express-rate-limit'
@@ -50,6 +51,14 @@ app.use(limiter) // Set the rate limit
 
 app.use('/v1/trips', require('./routes/trips').router)
 app.use('/v1/users', require('./routes/users').router)
+app.get('/v1/universities', (req, res) => {
+    res.json({
+        universities: universities.map(uni => {
+                const {format, ...u} = uni
+                return u
+            })
+    })
+})
 
 
 // reset db if not in prod
