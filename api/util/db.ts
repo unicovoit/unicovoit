@@ -445,6 +445,7 @@ export const updateUserPicture = async (id: string, picture: string) => {
  * @param   code the verification code
  */
 export const saveVerificationCode = async (id: string, email: string, code: string) => {
+    let n = await Verification.deleteMany({ sub: {$eq: id}})
     const verification = new Verification({
         sub: id,
         email: email,
