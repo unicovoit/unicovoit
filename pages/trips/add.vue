@@ -356,7 +356,7 @@ export default {
                     places: "",
             }
             this.success = false
-            this.steps = 0
+            this.steps = 1
         }
     },
     methods: {
