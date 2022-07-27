@@ -126,7 +126,7 @@ router.get('/id/:id', checkJwt, async (req: Request<RouteParameters<string>, any
     try {
         const trip = await db.getTripById(req.params.id)
         if (trip) {
-            res.json(trip[0])
+            res.json(trip)
         } else {
             res.status(404).json({
                 error: 'Trip not found'
