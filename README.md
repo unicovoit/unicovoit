@@ -155,22 +155,42 @@ Pour plus d'informations, veuillez lire le fichier `LICENSE`, ou allez à
 
 ## Référence d'API publiques
 
+#### Liste des universités prises en charge
+
+```http request
+GET /api/v1/universities
+```
+
+##### Format de réponse
+
+```js
+{
+    universities: [
+        {
+            id: string,
+            name: string,
+            country: string
+        }
+    ]
+}
+```
+
 #### Obtenir tous les voyages publiés
 
-```http
-  GET /api/v1/trips
+```http request
+GET /api/v1/trips
 ```
 
 #### Obtenir le prix moyen du Sans Plomb 95 pour la France
 
-```http
-  GET /api/v1/trips/petrol
+```http request
+GET /api/v1/trips/petrol
 ```
 
 #### Accéder au profil public d'un utilisateur
 
-```http
-  GET /api/v1/users/profile/:id
+```http request
+GET /api/v1/users/profile/:id
 ```
 
 **Toutes les autres routes API ne sont accessibles qu'aux utilisateurs authentifiés.**

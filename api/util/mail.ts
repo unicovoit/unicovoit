@@ -29,9 +29,16 @@ export class Mail {
     }
 }
 
+
+export const universities = [
+    {
+        id: 'ubs',
+        name: 'Université de Bretagne Sud',
+        country: 'France',
+        format: /^[A-Za-z\-]+\.e\d{7}@etud\.univ-ubs\.fr$/
+    }
+]
+
 export const verifyEmail: Function = (email: string): boolean => {
-    const regex = [
-        /^[A-Za-z\-]+\.e\d{7}@etud\.univ-ubs\.fr$/
-    ]
-    return regex.some(r => r.test(email))
+    return universities.some(u => u.format.test(email))
 }
