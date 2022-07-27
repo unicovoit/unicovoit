@@ -1,14 +1,20 @@
 import logger from './signale'
+import {actions} from '../../store/index'
+
+
 import {Trip} from '../models/Trip'
 import ITrip from '../interfaces/Trip'
 import {User} from '../models/User'
 import IUser from '../interfaces/User'
 import {Booking} from "../models/Booking"
+import {Verification} from "../models/Verification"
+
 import {v4} from "uuid"
 import {Error} from "mongoose"
 import {BookingError} from "../errors/BookingError"
 import axios from "axios"
 
+const today: Date = new Date()
 export const testTrips = [{
     from: {
         type: "Point",
@@ -18,11 +24,11 @@ export const testTrips = [{
         type: "Point",
         coordinates: [-1.52818191449501, 48.1110706956896]
     },
-    price: '6',
+    price: 6,
     description: "on a fait de l'escalade à réguiny",
-    departure_time: '2022-07-14T18:30:51.400Z',
+    departure_time: new Date().setDate(today.getDate() + 1),
     driver_id: 'auth0|623f93c6c665610070aa3d75',
-    places: '3',
+    places: 3,
     id: '4a8c12f3-48e9-4b14-9522-69f0bbb067fb',
     distance: 114,
     duration: 80,
@@ -39,13 +45,13 @@ export const testTrips = [{
         type: "Point",
         coordinates: [-2.788994, 47.655162]
     },
-    price: '7',
+    price: 7,
     description: 'Geronimooooo!!!!!!!!!',
-    departure_time: '2022-07-20T19:35:56.400Z',
+    departure_time: new Date().setDate(today.getDate() + 4),
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     driver_picture: 'https://pm1.narvii.com/7423/0e9230dce862b4ad9c54955d679b9935bc8f7e98r1-1153-1153v2_uhq.jpg',
     driver_name: 'Eleventh Doctor',
-    places: '3',
+    places: 3,
     id: '1d866cb1-342f-4492-b679-c3be592544cf',
     distance: 128,
     duration: 90,
@@ -62,14 +68,14 @@ export const testTrips = [{
         type: "Point",
         coordinates: [7.306975, 43.69076]
     },
-    price: '75',
+    price: 75,
     description: 'Long trajet avec de nombreuses pauses. Musique la plupart du temps.\n' +
         "Je ne passerai pas par l'autoroute",
-    departure_time: '2022-07-20T07:45:29.623Z',
+    departure_time: new Date().setDate(today.getDate() + 5),
     driver_id: 'auth0|623f93c6c665610070aa3d75',
     driver_name: 'Brice de nice',
     driver_picture: 'https://media.ouest-france.fr/v1/pictures/MjAxMzA5ZmI4ZmM0NzBlZjhlZTViMGUwZTNlZGU5ODBkMGI4YTU',
-    places: '2',
+    places: 2,
     id: '6d4126ff-e472-44b5-a891-2927d17f7e1a',
     distance: 1338,
     duration: 755,
@@ -86,11 +92,11 @@ export const testTrips = [{
         type: "Point",
         coordinates: [ 43.604836, 1.457352 ]
     },
-    price: '10',
+    price: 10,
     description: '',
-    departure_time: '2022-07-13T19:00:30.660Z',
+    departure_time: new Date().setDate(today.getDate() + 6),
     driver_id: 'oauth2|discord|688822573970096165',
-    places: '2',
+    places: 2,
     id: '9c2b8635-f45f-4e43-8064-111708f23400',
     distance: 206,
     duration: 126,
@@ -132,8 +138,10 @@ export const addTrip: Function = async (t: ITrip) => {
 export const getAllTrips = async () => {
     return Trip.find({}, {
         _id: 0,
-        __v: 0
-    });
+        __v: 0,
+        created_at: 0,
+        updated_at: 0
+    }).sort({departure_time: 1})
 }
 
 
@@ -169,7 +177,7 @@ export const getTrips = async (from: number[], to: number[], date: Date) => {
     }, {
         _id: 0,
         __v: 0
-    })
+    }).sort({departure_time: 1})
 }
 
 
@@ -179,9 +187,11 @@ export const getTrips = async (from: number[], to: number[], date: Date) => {
  * @return the trip
  */
 export const getTripById = async (id: string) => {
-    return Trip.find({id: {$eq: id}}, {
+    return Trip.findOne({id: {$eq: id}}, {
         _id: 0,
-        __v: 0
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
     });
 }
 
@@ -329,12 +339,12 @@ export const bookTrip: Function = async (b: any) => {
         throw new BookingError('Vous ne pouvez pas réserver votre propre trajet')
     }
     if (trip.places > 0) {
-        trip.places--
-        await trip.save()
-
         b.trip = trip._id
         const booking = new Booking(b)
         await booking.save()
+
+        trip.places--
+        await trip.save()
         logger.success(`Trip ${b.trip} booked`)
     } else {
         throw new BookingError('Ce trajet est complet')
@@ -349,7 +359,13 @@ export const bookTrip: Function = async (b: any) => {
  * @returns the booking
  */
 export const deleteBooking = async (id: string, user: string | undefined) => {
-    return Booking.deleteOne({trip_id: {$eq: id}, user_id: {$eq: user}})
+    if (actions.validateUuidV4({}, id)) {
+        const booking = await Booking.findOne({id: {$eq: id}})
+        await Trip.updateOne({_id: booking.trip}, {$inc: {places: 1}})
+        return Booking.deleteOne({trip: {$eq: booking.trip}, user_id: {$eq: user}})
+    } else {
+        throw new BookingError('Identifiant invalide')
+    }
 }
 
 
@@ -415,5 +431,42 @@ export const getUserAvatarAndNameById: Function = async (id: string) => {
  * @returns the updated user
  */
 export const updateUserPicture = async (id: string, picture: string) => {
-    return User.findByIdAndUpdate({sub: {$eq: id}}, {picture: picture}, {new: true})
+    return await User.findByIdAndUpdate({sub: {$eq: id}}, {picture: picture}, {new: true})
+}
+
+
+// ------------------------------------------------------
+// User verification-related functions
+// ------------------------------------------------------
+/**
+ * Save a verification code
+ * @param   id the sub of the user
+ * @param   email the email to verify
+ * @param   code the verification code
+ */
+export const saveVerificationCode = async (id: string, email: string, code: string) => {
+    const verification = new Verification({
+        sub: id,
+        email: email,
+        code: code
+    })
+    await verification.save()
+}
+
+
+/**
+ * Check a verification code
+ * @param   id the sub of the user
+ * @param   email the email to verify
+ * @param   code the verification code
+ * @returns true if the code is correct, false otherwise
+ */
+export const verifyCode = async (id: string, email: string, code: string): Promise<boolean> => {
+    const valid = await Verification.findOne({sub: {$eq: id}, email: {$eq: email}, code: {$eq: code}})
+    if (valid) {
+        await Verification.findByIdAndDelete(valid._id)
+        await User.updateOne({sub: {$eq: id}}, {verified: true, studentEmail: email}, {new: true})
+        return true
+    }
+    return false
 }
