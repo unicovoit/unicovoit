@@ -456,8 +456,8 @@ export default {
 small
     margin-top: 4px
 
-.v-autocomplete.v-input--is-focused,
-.v-input.v-input--is-label-active.v-input--is-readonly,
+.v-autocomplete,
+.v-input,
 .v-textarea
     padding-top: .4rem !important
 </style>
