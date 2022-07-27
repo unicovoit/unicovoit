@@ -6,7 +6,7 @@ import logger from '../util/signale'
 import * as db from '../util/db'
 import {verifyTrip} from "../util/verifier"
 import {getDistance, validateCoordinates, prepareTrip} from "../util/map"
-import {Mail} from "../util/mail"
+import * as mail from "../util/mail"
 
 import {Error} from "mongoose"
 import {BookingError} from "../errors/BookingError"
@@ -197,19 +197,18 @@ router.post('/add', checkJwt, async (req: Request<RouteParameters<string>, any, 
 router.post('/book', checkJwt, (req, res) => {
     try {
         db.bookTrip(req.body)
-        .then((r: object) => {
-            res.sendStatus(200)
-            let mail = new Mail()
-            mail.sendRequest('test@finxol.io', {
-                driver_name: 'Jules',
-                fromCity: 'Paris',
-                toCity: 'Lyon',
-                dateString: '12/12/2020',
+            .then(async (r: object) => {
+                res.sendStatus(200)
+                await mail.send('request_sent', 'test@finxol.io', `Demande envoyée pour le trajet ${req.body.fromCity} - ${req.body.toCity}!`, {
+                    driver_name: req.body.driver_name,
+                    fromCity: req.body.fromCity,
+                    toCity: req.body.toCity,
+                    dateString: req.body.departure_time.toLocaleDateString(),
+                })
+            }).catch((e: BookingError) => {
+                logger.error('Booking error: ' + e.message)
+                res.status(400).json({message: e.message})
             })
-        }).catch((e: BookingError) => {
-            logger.error('Booking error: ' + e.message)
-            res.status(400).json({message: e.message})
-        })
     } catch (e) {
         logger.error(e)
         res.status(500).json(isDev ? e : {error: 'Internal server error'})
