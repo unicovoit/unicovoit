@@ -146,7 +146,7 @@ export default {
             email: "",
             emailRules: [
                 v => !!v || "L'adresse mail est obligatoire",
-                v => /^[\dA-Za-z\-.]+@[a-z\-.]+\.[a-z]$/.test(v) || "L'adresse mail doit être valide",
+                v => /^[\dA-Za-z\-.]+@[a-z\-.]+\.[a-z]+$/.test(v) || "L'adresse mail doit être valide",
             ],
             errorMessages: {
                 teapot: `Le format de votre adresse mail n'est pas reconnu.
