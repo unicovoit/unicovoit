@@ -14,11 +14,8 @@ const addokDomain: string = process.env.ADDOK_DOMAIN || 'addok.unicovoit.fr'
  * @private
  */
 export async function getDistance(from: string, to: string): Promise<Distance> {
-    // invert latitudes and longitudes
-    let fromCoord: string[] = from.split(",")
-    let toCoord: string[] = to.split(",")
-    validateCoordinates(fromCoord)
-    validateCoordinates(toCoord)
+    validateCoordinates(from.split(','))
+    validateCoordinates(to.split(','))
 
     // Get distance between two points
     return axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving/${from};${to}?access_token=${process.env.MAPBOX_TOKEN}`
