@@ -96,17 +96,20 @@
             >
                 <span>Mon Compte</span>
 
-<!--                <v-icon
+                <v-avatar
                     v-if="getUserAvatar"
+                    class="v-icon"
+                    size="25"
                 >
                     <v-img
                         :src="getUserAvatar"
-                        width="30"
-                        height="30"
                     ></v-img>
-                </v-icon>-->
+                </v-avatar>
                 <v-icon
-                >mdi-account-circle</v-icon>
+                    v-else
+                >
+                    mdi-account-circle
+                </v-icon>
             </v-btn>
         </v-bottom-navigation>
     </v-app>
@@ -190,9 +193,9 @@ export default {
 </script>
 
 <style lang="sass">
-.v-bottom-navigation .v-btn--active
-    background-color: transparent
-
 .v-bottom-navigation .v-btn__content
     display: flex !important
+
+.v-bottom-navigation .v-btn.v-btn--active .v-btn__content .v-icon.v-avatar
+    margin-bottom: 5px
 </style>
