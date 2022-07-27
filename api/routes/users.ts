@@ -48,17 +48,6 @@ const originCheck = async (req, res, next) => {
  */
 router.get('/', checkJwt, async (req, res) => {
     try {
-        res.json({
-            "sub": "auth0|623f93c6c665610070aa3d75",
-            "nickname": "du7iuw5f",
-            "name": "du7iuw5f@mailer.me",
-            "picture": "https://s.gravatar.com/avatar/371bf211f9b892f400479cb44bb6f1cf?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdu.png",
-            "updated_at": "2022-07-27T09:56:19.559Z",
-            "email": "du7iuw5f@mailer.me",
-            "email_verified": true,
-            "birthdate": new Date("2020-07-27T09:56:19.559Z").toLocaleDateString(),
-        })
-        return
         // @ts-ignore
         const user = await db.getUserById(req.auth.sub)
         if (user) {
