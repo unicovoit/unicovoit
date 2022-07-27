@@ -3,6 +3,7 @@ export default interface User {
     id: string,
     sub: string,
     name: string,
+    nickname: string,
     email: string,
     picture?: string,
     smokePref: string,
