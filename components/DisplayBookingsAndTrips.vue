@@ -108,6 +108,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
+.v-tab
+    border-radius: .4rem
+    margin: .2rem .2rem .29rem
 </style>
