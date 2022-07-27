@@ -23,7 +23,7 @@ services:
             - .env
         environment:
             - MONGO_URL=mongo
-            - ADDOK_DOMAIN=api.covoit.ozna.me
+            - ADDOK_DOMAIN=addok.unicovoit.fr
         networks:
             - unicovoit
         depends_on:
