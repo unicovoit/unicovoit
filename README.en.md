@@ -24,8 +24,8 @@ Services uptime monitor: [https://status.unicovoit.fr](https://status.unicovoit.
 ## Summary
 
 - [Features](#features)
-- [Add your university](#add-your-university)
 - [Contribute and Support](#contribute-and-support)
+  - [Add your university](#add-your-university)
 - [Tech Stack](#tech-stack)
 - [Environment Variables](#environment-variables)
 - [Run Locally](#run-locally)
@@ -45,7 +45,15 @@ Services uptime monitor: [https://status.unicovoit.fr](https://status.unicovoit.
 
 *UniCovoit doesn't handle payments*
 
-## Add your university
+## Contribute and Support
+
+If you want to contribute to the project, feel free to open an issue or create a pull request.
+
+If you have any feedback, you can reach me on Discord (finxol#8918), Twitter or via email on contact@finxol.io
+
+You can also support the project by donating to the [GitHub Sponsorship Program](https://github.com/sponsors/finxol).
+
+### Add your university
 
 To add your university, edit the file [universities.ts](api/universities.ts) in a new pull request.
 
@@ -61,14 +69,6 @@ You must follow the following format:
 ```
 
 Build on existing entries.
-
-## Contribute and Support
-
-If you want to contribute to the project, feel free to open an issue or create a pull request.
-
-If you have any feedback, you can reach me on Discord (finxol#8918), Twitter or via email on contact@finxol.io
-
-You can also support the project by donating to the [GitHub Sponsorship Program](https://github.com/sponsors/finxol).
 
 ## Tech Stack
 
