@@ -24,8 +24,8 @@ Suivi de la disponibilité des services : [https://status.unicovoit.fr](https://
 ## Sommaire
 
 - [Features](#features)
-- [Ajoutez votre université](#ajoutez-votre-université)
 - [Contribuer et soutenir](#contribuer-et-soutenir)
+  - [Ajoutez votre université](#ajoutez-votre-université)
 - [Stack Technologique](#stack-technologique)
 - [Variables d'environnement](#variables-denvironnement)
 - [Lancer localement](#lancer-localement)
@@ -45,7 +45,15 @@ Suivi de la disponibilité des services : [https://status.unicovoit.fr](https://
 
 *UniCovoit ne prend pas en charge les paiements*
 
-## Ajoutez votre université
+## Contribuer et soutenir
+
+Si vous souhaitez contribuer au projet, n'hésitez pas à ouvrir une issue ou à créer une pull request.
+
+Si vous avez des retours, vous pouvez me joindre sur Discord (finxol#8918), Twitter (@_finxol) ou par mail à contact@finxol.io.
+
+Vous pouvez également soutenir le projet en faisant un don par le [Programme de parrainage GitHub](https://github.com/sponsors/finxol).
+
+### Ajoutez votre université
 
 Pour ajouter votre université, modifiez le fichier [universities.ts](api/universities.ts) dans une nouvelle pull request.
 
@@ -61,14 +69,6 @@ Vous devez respecter le format suivant :
 ```
 
 Inspirez des entrées existantes.
-
-## Contribuer et soutenir
-
-Si vous souhaitez contribuer au projet, n'hésitez pas à ouvrir une issue ou à créer une pull request.
-
-Si vous avez des retours, vous pouvez me joindre sur Discord (finxol#8918), Twitter (@_finxol) ou par mail à contact@finxol.io.
-
-Vous pouvez également soutenir le projet en faisant un don par le [Programme de parrainage GitHub](https://github.com/sponsors/finxol).
 
 ## Stack technologique
 
