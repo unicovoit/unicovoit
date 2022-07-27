@@ -67,13 +67,13 @@
                 <v-subheader>Trajet</v-subheader>
                 <v-list-item>
                     <v-list-item-content>
-                        <v-list-item-title>{{ trip.fromName }}</v-list-item-title>
+                        <v-list-item-title>{{ trip.fromName }}, {{ trip.fromCity }}</v-list-item-title>
                         <v-list-item-subtitle>Départ</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
-                        <v-list-item-title>{{ trip.toName }}</v-list-item-title>
+                        <v-list-item-title>{{ trip.toName }}, {{ trip.toCity }}</v-list-item-title>
                         <v-list-item-subtitle>Arrivée</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
