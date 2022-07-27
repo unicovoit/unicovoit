@@ -180,7 +180,8 @@ export default {
             enableAutoOutboundTracking: true
         },
         isProd,
-        ADDOK_DOMAIN
+        ADDOK_DOMAIN,
+        AUTH0_DOMAIN
     },
 
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
