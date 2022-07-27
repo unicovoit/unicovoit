@@ -10,7 +10,8 @@ const UserSchema = new mongoose.Schema({
         sub: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            index: true
         },
         name: {
             type: String,
@@ -25,16 +26,16 @@ const UserSchema = new mongoose.Schema({
             type: String
         },
         smokePref: {
-            type: String,
-            default: "No"
+            type: Boolean,
+            default: false
         },
         petsPref: {
-            type: String,
-            default: "No"
+            type: Boolean,
+            default: false
         },
         musicPref: {
-            type: String,
-            default: "Yes"
+            type: Boolean,
+            default: false
         },
         autoBook: {
             type: Boolean,
