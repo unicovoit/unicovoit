@@ -239,6 +239,7 @@ export default {
             delete axios.defaults.headers.common['Cookie']
             await axios.post('/api/v1/users/verify', {
                 code: this.code,
+                state: this.$route.query.state,
             }, {
                 headers: {
                     Authorization: 'Bearer ' + this.token,

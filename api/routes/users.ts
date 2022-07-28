@@ -309,7 +309,8 @@ router.post('/verify', originCheck, async (req, res) => {
 
             const token = jwt.sign({
                 sub: auth.sub,
-                verified: ok
+                verified: ok,
+                state: req.body.state
             }, VERIFICATION_SECRET, { expiresIn: '30s' })
 
             res.status(ok ? 200 : 401).json(ok ? {token} : '')
