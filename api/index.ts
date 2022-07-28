@@ -32,6 +32,12 @@ mongoose.connection.once('open', function () {
     logger.error('Error', err)
 })
 
+// Exit if the JWT secret is not set
+if (!process.env.VERIFICATION_SECRET) {
+    logger.error('JWT_SECRET is not set')
+    process.exit(1)
+}
+
 const app: express.Express = express()
 
 let limiter: any = rateLimit({
@@ -56,7 +62,7 @@ app.get('/v1/universities', (req, res) => {
     res.json({
         universities: universities.map(uni => {
                 const {format, ...u} = uni
-                return u
+                return {...u, format: format.source}
             })
     })
 })
