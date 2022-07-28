@@ -69,14 +69,11 @@
                 <v-icon
                     size="18"
                 >mdi-image-outline</v-icon>
-                Illustration par
-                <a class="text--secondary" target="_blank" rel="noreferrer noopener"
-                   href="https://icons8.com/illustrations/author/TQQ1qAnr9rn5">
-                    Oleg Shcherba</a>
-                de
+                Illustration de la collection
                 <a class="text--secondary" target="_blank" rel="noreferrer noopener"
                    href="https://icons8.com/illustrations">
-                    Ouch!</a>
+                    Ouch!
+                </a>
             </div>
             <div>
                 <v-icon
@@ -85,7 +82,7 @@
                 Logo par
                 <a class="text--secondary" target="_blank" rel="noreferrer noopener"
                    href="https://www.instagram.com/feun_art/">
-                    Feun Art
+                    Enora Couloigner
                 </a>
             </div>
         </v-container>

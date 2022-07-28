@@ -23,7 +23,7 @@
                 Créé par
                 <a
                     class="text--secondary"
-                    href="https://github.com/finxol/unicovoit"
+                    href="https://github.com/unicovoit/unicovoit"
                     rel="noopener noreferrer"
                     target="_blank"
                 >finxol</a>.
@@ -35,7 +35,7 @@
                     href="https://www.instagram.com/feun_art/"
                     rel="noopener noreferrer"
                     target="_blank"
-                >Feun Art</a>.
+                >Enora Couloigner</a>.
             </p>
 
             <div class="text-h4">
