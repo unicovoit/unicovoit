@@ -250,7 +250,7 @@ export default {
 
                 setTimeout(() => {
                     const state = this.$route.query.state
-                    window.location.replace(`https://${this.$config.AUTH0_DOMAIN}/continue?state=${state}?token=${res.data.token}`)
+                    window.location.replace(`https://${this.$config.AUTH0_DOMAIN}/continue?state=${state}&token=${res.data.token}`)
                 }, 2000)
             }).catch(err => {
                 this.loading = false
