@@ -38,7 +38,7 @@ Suivi de la disponibilité des services : [https://status.unicovoit.fr](https://
 ## Features
 
 - [ ] Tous les comptes sont vérifiés comme appartenant à un étudiant
-- [ ] Ajouter et réserver des voyages entre étudiants
+- [x] Ajouter et réserver des voyages entre étudiants
 - [ ] Marquez vos voyages comme récurrents afin de ne pas avoir à ajouter le même voyage chaque semaine.
 - [x] Ajouter et réserver des voyages jusqu'à 3 semaines à l'avance.
 - [x] Mode clair/sombre
