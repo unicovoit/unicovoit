@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport(config)
 
 const readTemplate = (name: string) => readFileSync(path.join(__dirname, '..', 'mail', `${name}.html`), 'utf8')
 const templates: any = {}
-templates.booking_request = String(readTemplate('request_sent'))
+templates.generic = String(readTemplate('generic'))
 templates.confirm_address = String(readTemplate('confirm_address'))
 
 
@@ -59,6 +59,7 @@ export async function send(template: string, to: string, subject: string, data: 
 /**
  * Verify if the email is one the supported universities
  * @param email
+ * @returns {boolean} True if the email is valid, false otherwise
  */
 export const verifyEmail: Function = (email: string): boolean => {
     return universities.some(u => u.format.test(email))
