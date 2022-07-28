@@ -38,7 +38,7 @@ Services uptime monitor: [https://status.unicovoit.fr](https://status.unicovoit.
 ## Features
 
 - [ ] All accounts are verified as belonging to a student
-- [ ] Add and book trips between students
+- [x] Add and book trips between students
 - [ ] Mark your trip as recurring so that you don't have to add the same one every week
 - [x] Add and book trips up to 3 weeks in advance
 - [x] Light/dark mode toggle
