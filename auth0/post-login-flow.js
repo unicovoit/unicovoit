@@ -48,7 +48,7 @@ exports.onContinuePostLogin = async (event, api) => {
         tokenParameterName: 'token',
     })
     if (data.verified && data.sub === event.user.user_id) {
-        api.user.setUserMetadata('verified', true)
+        //ok
     } else {
         api.access.deny("Vous devez vérifier votre statut étudiant pour vous connecter")
     }
