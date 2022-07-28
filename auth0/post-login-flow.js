@@ -6,34 +6,19 @@ const url = 'https://unicovoit.fr'
  * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
  */
 exports.onExecutePostLogin = async (event, api) => {
-    // check if user is verified
-    const token = api.redirect.encodeToken({
-        secret: event.secrets.VERIFICATION_SECRET,
-        expiresInSeconds: 60,
-        payload: {
-            sub: event.user.user_id,
-        },
-    })
     const user = {
         ...event.user,
         sub: event.user.user_id
     }
-    /*console.log(`${url}/api/v1/users/profile/sub/${user.sub}`)
-    const profile = await axios.post(`${url}/api/v1/users/profile/sub/${user.sub}`, {
-        user
-    }, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }).catch(e => {
-        console.error(e)
+    const token = api.redirect.encodeToken({
+        secret: event.secrets.VERIFICATION_SECRET,
+        expiresInSeconds: 60,
+        payload: {
+            ...user
+        },
     })
-    console.log('got profile')
-    if (profile.data.nickname && profile.data.picture) {
-        api.user.setUserMetadata('nickname', profile.data.nickname)
-        api.user.setUserMetadata('picture', profile.data.picture)
-    }*/
 
+    // check if user is verified
     let res = await axios.get(`${url}/api/v1/users/isVerified`, {
         headers: {
             'Authorization': 'Bearer ' + token
