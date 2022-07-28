@@ -156,30 +156,35 @@ export default {
         rules() {
             return [
                 v => !!v || "L'adresse mail est obligatoire",
-                v => /^[\dA-Za-z\-.]+@[a-z\-.]+\.[a-z]+$/.test(v) || "L'adresse mail doit être valide",
+                v => /^[\dA-Za-z\-.]+@[\da-z\-.]+\.[a-z]+$/.test(v) || "L'adresse mail doit être valide",
             ]
         }
     },
-    async fetch() {
-        if (!this.token && !this.$config.isProd) {
-            this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTg4NzIxNDUsImlzcyI6Iml1Y292b2l0LmF1dGgwLmNvbSIsInN1YiI6ImF1dGgwfDVmN2M4ZWM3YzMzYzZjMDA0YmJhZmU4MiIsImV4cCI6MTY1OTk5OTk5OSwiaXAiOiIxMy4zMy44Ni40NyJ9.qoTr16G5TdgrmtSkmVZmhdHsX7rZ86J0IMYnDX-VG9g'
-        }
-
-        if (this.token) {
-            const axios = this.$axios.create()
-            delete axios.defaults.headers.common['Authorization']
-            let { data } = await axios.get('/api/v1/users/isVerified', {
-                headers: {
-                    Authorization: 'Bearer ' + this.token,
-                }
-            })
-            this.verified = data.verified
-            this.token = data.token
-        } else {
-            await this.$router.push('/profile')
-        }
+    activated() {
+        this.fetch()
     },
     methods: {
+        async fetch() {
+            if (!this.token && !this.$config.isProd) {
+                this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTg4NzIxNDUsImlzcyI6Iml1Y292b2l0LmF1dGgwLmNvbSIsInN1YiI6ImF1dGgwfDVmN2M4ZWM3YzMzYzZjMDA0YmJhZmU4MiIsImV4cCI6MTY1OTk5OTk5OSwiaXAiOiIxMy4zMy44Ni40NyJ9.qoTr16G5TdgrmtSkmVZmhdHsX7rZ86J0IMYnDX-VG9g'
+            }
+
+            if (this.token) {
+                const axios = this.$axios.create()
+                delete axios.defaults.headers.common['Authorization']
+                delete axios.defaults.headers.common['Cookie']
+                let { data } = await axios.get('/api/v1/users/isVerified', {
+                    headers: {
+                        Authorization: 'Bearer ' + this.token,
+                        Cookie: undefined
+                    }
+                })
+                this.verified = data.verified
+                this.token = data.token
+            } else {
+                await this.$router.push('/profile')
+            }
+        },
         firstStep() {
             this.loading = false
             this.error = false
@@ -187,9 +192,7 @@ export default {
         },
         verifyRules() {
             let valid = true
-            console.log(this.rules)
             this.rules.forEach(rule => {
-                console.log(rule)
                 let v = rule(this.email)
                 if (typeof v !== "boolean" && v !== true) {
                     valid = false
@@ -203,6 +206,7 @@ export default {
             this.loading = true
             const axios = this.$axios.create()
             delete axios.defaults.headers.common['Authorization']
+            delete axios.defaults.headers.common['Cookie']
             await axios.post('/api/v1/users/sendVerificationCode', {
                 email: this.email,
             }, {
@@ -232,6 +236,7 @@ export default {
             this.loading = true
             const axios = this.$axios.create()
             delete axios.defaults.headers.common['Authorization']
+            delete axios.defaults.headers.common['Cookie']
             await axios.post('/api/v1/users/verify', {
                 code: this.code,
             }, {
