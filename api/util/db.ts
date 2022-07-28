@@ -510,19 +510,15 @@ export const verifyCode = async (id: string, email: string, code: string): Promi
     const valid = await Verification.findOne({sub: {$eq: id}, email: {$eq: email}, code: {$eq: code}})
     if (valid) {
         await Verification.findByIdAndDelete(valid._id)
-        const user = await User.findOne({sub: {$eq: id}, email: {$eq: email}})
+        const user = await User.findOne({sub: {$eq: id}})
         if (user) {
             user.verified = true
             user.studentEmail = email
             await user.save()
             return true
         } else {
-            const newUser = new User({
-                sub: id,
-                email: email,
-                verified: true,
-                studentEmail: email
-            })
+            logger.error(`User ${id} not found`)
+            return false
         }
     }
     return false
