@@ -35,7 +35,7 @@
                     </h6>
                     <v-text-field
                         v-model="email"
-                        :rules="emailRules"
+                        :rules="rules"
                         ref="email"
                         label="Adresse mail"
                         placeholder="nom.e2111111@etud.univ-ubs.fr"
@@ -138,16 +138,13 @@ export default {
     data() {
         return {
             verified: false,
+            token: this.$route.query.token,
             step: 1,
             loading: false,
             error: false,
             resend: false,
             code: "",
             email: "",
-            emailRules: [
-                v => !!v || "L'adresse mail est obligatoire",
-                v => /^[\dA-Za-z\-.]+@[a-z\-.]+\.[a-z]+$/.test(v) || "L'adresse mail doit être valide",
-            ],
             errorMessages: {
                 teapot: `Le format de votre adresse mail n'est pas reconnu.
                     Votre université n'est peut-être pas encore prise en charge par UniCovoit.`,
@@ -155,31 +152,32 @@ export default {
             }
         }
     },
-    async asyncData({ route, $config, redirect, $axios }) {
-        const ret = {
-            verified: false,
-            token: route.query.token
+    computed: {
+        rules() {
+            return [
+                v => !!v || "L'adresse mail est obligatoire",
+                v => /^[\dA-Za-z\-.]+@[a-z\-.]+\.[a-z]+$/.test(v) || "L'adresse mail doit être valide",
+            ]
         }
-        if (!ret.token && !$config.isProd) {
-            ret.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTg4NzIxNDUsImlzcyI6Iml1Y292b2l0LmF1dGgwLmNvbSIsInN1YiI6ImF1dGgwfDVmN2M4ZWM3YzMzYzZjMDA0YmJhZmU4MiIsImV4cCI6MTY1OTk5OTk5OSwiaXAiOiIxMy4zMy44Ni40NyJ9.qoTr16G5TdgrmtSkmVZmhdHsX7rZ86J0IMYnDX-VG9g'
+    },
+    async fetch() {
+        if (!this.token && !this.$config.isProd) {
+            this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTg4NzIxNDUsImlzcyI6Iml1Y292b2l0LmF1dGgwLmNvbSIsInN1YiI6ImF1dGgwfDVmN2M4ZWM3YzMzYzZjMDA0YmJhZmU4MiIsImV4cCI6MTY1OTk5OTk5OSwiaXAiOiIxMy4zMy44Ni40NyJ9.qoTr16G5TdgrmtSkmVZmhdHsX7rZ86J0IMYnDX-VG9g'
         }
 
-        if (ret.token) {
-            const axios = $axios.create()
+        if (this.token) {
+            const axios = this.$axios.create()
             delete axios.defaults.headers.common['Authorization']
             let { data } = await axios.get('/api/v1/users/isVerified', {
                 headers: {
-                    Authorization: 'Bearer ' + ret.token,
+                    Authorization: 'Bearer ' + this.token,
                 }
             })
-            ret.verified = data.verified
-            ret.token = data.token
+            this.verified = data.verified
+            this.token = data.token
         } else {
-            redirect('/profile')
+            await this.$router.push('/profile')
         }
-
-        console.log(ret)
-        return ret
     },
     methods: {
         firstStep() {
@@ -189,7 +187,9 @@ export default {
         },
         verifyRules() {
             let valid = true
-            this.emailRules.forEach(rule => {
+            console.log(this.rules)
+            this.rules.forEach(rule => {
+                console.log(rule)
                 let v = rule(this.email)
                 if (typeof v !== "boolean" && v !== true) {
                     valid = false
