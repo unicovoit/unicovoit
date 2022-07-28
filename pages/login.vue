@@ -21,6 +21,7 @@
             color="primary"
             x-large
             rounded
+            :loading="loading"
             @click="auth0Login"
         >
             connexion
@@ -31,10 +32,18 @@
 <script>
 export default {
     name: "login",
+    data() {
+        return {
+            loading: false
+        }
+    },
     methods: {
         async auth0Login() {
             try {
-                await this.$auth.loginWith('auth0')
+                this.loading = true
+                await this.$auth.loginWith('auth0').then(() => {
+                    this.loading = false
+                })
             } catch (err) {
                 console.error(err)
             }
