@@ -29,14 +29,13 @@ const checkJwt = auth({
 const originCheck = async (req, res, next) => {
     try {
         const token: string = req.header('Authorization')?.replace('Bearer ', '') || ''
-        logger.info(token)
         const decoded = jwt.verify(token, VERIFICATION_SECRET)
         logger.info(decoded)
         req.auth = {...decoded}
         next()
     } catch (e) {
         logger.error(e)
-        res.status(401).send('Unauthorized')
+        res.sendStatus(401)
     }
 }
 
@@ -150,7 +149,9 @@ router.get('/profile/sub/:sub', originCheck, async (req, res) => {
         if (user) {
             res.json(user)
         } else {
-            res.json(await db.createUser(req.body.user))
+            res.status(404).json({
+                error: 'User not found'
+            })
         }
     } catch (e) {
         logger.error(e)
@@ -186,32 +187,6 @@ router.get('/profile/:id', async (req, res) => {
 
 
 /**
- * @route   POST /api/v1/users/login
- * @desc    Login user and save to db
- * @access  Public
- */
-router.post('/login', async (req, res) => {
-    try {
-        logger.info(req)
-        // TODO perform validity check on the id
-        const user = await db.getUserBySub(req.body.sub)
-        if (user) {
-            res.status(200).json(user)
-        } else {
-            res.status(404).json({
-                error: 'User not found'
-            })
-        }
-    } catch (e) {
-        logger.error(e)
-        res.status(500).json({
-            error: 'Server error'
-        })
-    }
-})
-
-
-/**
  * @route   POST /api/v1/users/isVerified
  * @desc    Check if user is verified
  * @access  Private
@@ -219,37 +194,13 @@ router.post('/login', async (req, res) => {
 router.get('/isVerified', originCheck, async (req, res, next) => {
     try {
         const auth = req.auth as unknown as VerificationJWT
-        const verified: boolean | undefined = false // await db.userIsVerified(auth.sub)
+        // check if the user is verified and save it if doesn't exist
+        const verified: boolean | undefined = await db.verifiedOrSave(auth)
         const token = jwt.sign({
             sub: auth.sub,
         }, VERIFICATION_SECRET, { expiresIn: '5m' })
 
         res.status(200).json({verified, token})
-    } catch (e) {
-        logger.error(e)
-        res.status(500).json({
-            error: 'Server error'
-        })
-    }
-})
-
-
-/**
- * @route   POST /api/v1/users/add
- * @desc    Add user
- * @access  Private
- */
-router.post('/add', checkJwt, async (req, res) => {
-    try {
-        logger.info(req.body)
-        const user = await db.addUser(req.body)
-        if (user) {
-            res.status(200).json(user)
-        } else {
-            res.status(404).json({
-                error: 'User not found'
-            })
-        }
     } catch (e) {
         logger.error(e)
         res.status(500).json({
@@ -277,7 +228,7 @@ router.post('/sendVerificationCode', originCheck, async (req, res) => {
 
                 const token = jwt.sign({
                     sub: auth.sub,
-                    email: req.body.email
+                    studentEmail: req.body.email
                 }, VERIFICATION_SECRET, { expiresIn: '5m' })
 
                 res.json({token})
@@ -305,7 +256,7 @@ router.post('/verify', originCheck, async (req, res) => {
     try {
         const auth = req.auth as unknown as VerificationJWT
         if (req.body.hasOwnProperty('code') && /\d{6}/.test(req.body.code)) {
-            const ok = await db.verifyCode(auth.sub, String(auth.email), req.body.code)
+            const ok = await db.verifyCode(auth.sub, String(auth.studentEmail), req.body.code)
 
             const token = jwt.sign({
                 sub: auth.sub,

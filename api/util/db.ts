@@ -1,13 +1,13 @@
 import logger from './signale'
 import {actions} from '../../store/index'
 
-
 import {Trip} from '../models/Trip'
 import ITrip from '../interfaces/Trip'
 import {User} from '../models/User'
 import IUser from '../interfaces/User'
 import {Booking} from "../models/Booking"
 import {Verification} from "../models/Verification"
+import IVerification from "../interfaces/VerificationJWT"
 
 import {v4} from "uuid"
 import {Error} from "mongoose"
@@ -94,7 +94,7 @@ export const testTrips = [{
     },
     price: 10,
     description: '',
-    departure_time: new Date().setDate(today.getDate() + 6),
+    departure_time: new Date().setDate(today.getDate() + 3),
     driver_id: 'oauth2|discord|688822573970096165',
     places: 2,
     id: '9c2b8635-f45f-4e43-8064-111708f23400',
@@ -124,7 +124,7 @@ export const addTrip: Function = async (t: ITrip) => {
     try {
         const tmp = new Trip(t)
         await tmp.save()
-        logger.success(`Trip from ${t.from} to ${t.to} on ${t.departure_time} added`)
+        logger.success(`Trip from ${t.from.coordinates.join(',')} to ${t.to.coordinates.join(',')} on ${t.departure_time} added`)
     } catch (err) {
         throw err
     }
@@ -289,19 +289,10 @@ export const getUserById = async (id: string) => {
 export const getUserBySub = async (id: string) => {
     return User.findOne({sub: {$eq: id}}, {
         _id: 0,
-        __v: 0
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
     })
-}
-
-
-/**
- * Check if a user is verified
- * @param   id user sub
- * @returns true if verified, false otherwise
- */
-export const userIsVerified = async (id: string): Promise<boolean | undefined> => {
-    const user = await getUserBySub(id)
-    return user?.verified
 }
 
 
@@ -343,6 +334,7 @@ export const getPublicProfileBySub = async (id: string) => {
  * @returns the user
  */
 export const createUser = async (u: IUser) => {
+    if (!u.id) u.id = v4()
     const user = new User(u)
     await user.save()
     return user
@@ -467,6 +459,30 @@ export const updateUserPicture = async (id: string, picture: string) => {
 // User verification-related functions
 // ------------------------------------------------------
 /**
+ * Check if a user is verified
+ * @param   user user to check
+ * @returns true if verified, false otherwise
+ */
+export const verifiedOrSave = async (user: IVerification): Promise<boolean | undefined> => {
+    const u = await getUserBySub(user.sub)
+    if (u) {
+        return u.verified
+    } else {
+        await createUser(<IUser> {
+            id: v4(),
+            sub: user.sub,
+            name: user.name,
+            nickname: user.nickname,
+            email: user.email,
+            picture: user.picture,
+            verified: false
+        })
+        return false
+    }
+}
+
+
+/**
  * Save a verification code
  * @param   id the sub of the user
  * @param   email the email to verify
@@ -494,8 +510,20 @@ export const verifyCode = async (id: string, email: string, code: string): Promi
     const valid = await Verification.findOne({sub: {$eq: id}, email: {$eq: email}, code: {$eq: code}})
     if (valid) {
         await Verification.findByIdAndDelete(valid._id)
-        await User.updateOne({sub: {$eq: id}}, {verified: true, studentEmail: email}, {new: true})
-        return true
+        const user = await User.findOne({sub: {$eq: id}, email: {$eq: email}})
+        if (user) {
+            user.verified = true
+            user.studentEmail = email
+            await user.save()
+            return true
+        } else {
+            const newUser = new User({
+                sub: id,
+                email: email,
+                verified: true,
+                studentEmail: email
+            })
+        }
     }
     return false
 }
