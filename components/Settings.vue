@@ -70,9 +70,14 @@
             <v-card-actions
                 class="mx-2"
             >
-                <span class="text--secondary text-body-2">
+                <a
+                    class="text--secondary text-body-2 text-decoration-none"
+                    :href="`https://github.com/unicovoit/unicovoit/tree/v${$store.state.version}`"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     Version {{ $store.getters.displayVersion }}
-                </span>
+                </a>
                 <v-spacer></v-spacer>
                 <v-btn
                     text
