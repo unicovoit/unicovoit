@@ -264,7 +264,7 @@ router.post('/verify', originCheck, async (req, res) => {
                 state: req.body.state
             }, VERIFICATION_SECRET, { expiresIn: '30s' })
 
-            res.status(ok ? 200 : 401).json(ok ? {token} : '')
+            res.status(ok ? 200 : 418).json(ok ? {token} : '')
         } else {
             res.sendStatus(400)
         }
