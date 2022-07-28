@@ -68,7 +68,7 @@ Vous devez respecter le format suivant :
 }
 ```
 
-Inspirez des entrées existantes.
+Inspirez-vous des entrées existantes.
 
 ## Stack technologique
 
