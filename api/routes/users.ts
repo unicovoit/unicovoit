@@ -3,6 +3,7 @@ import logger from '../util/signale'
 import {verifyEmail} from "../util/mail"
 import VerificationJWT from "../interfaces/VerificationJWT"
 import * as mail from '../util/mail'
+import * as image from "../util/image"
 
 import {auth} from "express-oauth2-jwt-bearer"
 import {Router} from "express"
@@ -294,9 +295,10 @@ router.post('/verify', originCheck, async (req, res) => {
  */
 router.put('/picture', checkJwt, async (req, res) => {
     try {
-        logger.info(req.body)
+        const img = await image.compress(req.body)
+        logger.info('Image compressed', img)
         return res.sendStatus(200)
-        const user = await db.updateUserPicture(req.params.id, req.body)
+        const user = await db.updateUserPictureBySub(String(req.auth?.payload.sub), req.body)
         if (user) {
             res.status(200).json(user)
         } else {
