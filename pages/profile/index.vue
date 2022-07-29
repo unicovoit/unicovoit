@@ -7,7 +7,7 @@
         </h2>
 
         <v-alert
-            v-if="!user.email_verified"
+            v-if="!$auth.user.email_verified"
             icon="mdi-alert-circle"
             type="error"
             border="left"
@@ -66,7 +66,7 @@
                         Nom
                     </v-list-item-subtitle>
                     <v-list-item-title>
-                        {{ getName }}
+                        {{ user.nickname || user.name }}
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
@@ -113,29 +113,14 @@ export default {
     auth: true,
     data() {
         return {
-            user: {
-                ...this.$store.state.auth.user,
-            },
             emailExplanation: false,
         }
     },
-    computed: {
-        getName() {
-            let method = this.user.sub.split("|")[0]
-            if (method === "auth0") {
-                return this.user.nickname
-            } else {
-                return this.user.name
-            }
-        },
-    },
-    async fetch() {
-        try {
-            this.user = await this.$axios.$get("/api/v1/users")
-        } catch (error) {
-            console.log(error.message);
+    async asyncData({ store, $auth }) {
+        return {
+            user: await store.dispatch('user', $auth.strategy.token.get())
         }
-    },
+    }
 }
 </script>
 
