@@ -7,8 +7,9 @@ const BookingSchema: mongoose.Schema = new mongoose.Schema({
             unique: true,
             index: true
         },
-        user_id: {
-            type: String,
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
             required: true,
             index: true
         },
@@ -17,6 +18,10 @@ const BookingSchema: mongoose.Schema = new mongoose.Schema({
             ref: 'Trip',
             required: true,
         },
+        confirmed: {
+            type: Boolean,
+            default: false
+        }
     }, {
         timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
     }
