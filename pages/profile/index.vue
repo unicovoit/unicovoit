@@ -113,13 +113,12 @@ export default {
     auth: true,
     data() {
         return {
+            user: {},
             emailExplanation: false,
         }
     },
-    async asyncData({ store, $auth }) {
-        return {
-            user: await store.dispatch('user', $auth.strategy.token.get())
-        }
+    async fetch() {
+        this.user = await this.$store.dispatch('user', this.$auth.strategy.token.get())
     }
 }
 </script>
