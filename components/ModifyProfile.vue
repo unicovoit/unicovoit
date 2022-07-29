@@ -35,11 +35,10 @@
             <v-list>
                 <v-list-item>
                     <v-text-field
-                        v-model="user.name"
+                        v-model="user.nickname"
                         :rules="rules.name"
-                        :counter="20"
+                        :counter="30"
                         label="First name"
-                        :value="getName"
                         required
                     ></v-text-field>
                 </v-list-item>
@@ -164,34 +163,26 @@ export default {
             rules: {
                 name: [
                     v => !!v || 'Nom requis',
-                    v => v.length <= 20 || 'Nom trop long',
+                    v => v?.length <= 30 || 'Nom trop long',
                 ]
             }
         }
-    },
-    computed: {
-        getName() {
-            let method = this.user.sub.split("|")[0]
-            if (method === "auth0") {
-                return this.user.nickname
-            } else {
-                return this.user.name
-            }
-        },
     },
     methods: {
         onAvatarChange(e) {
             const file = e.target.files[0]
             const reader = new FileReader()
-            reader.onload = (e) => {
-                this.user.picture = e.target.result
+            reader.onload = (evt) => {
+                console.log(evt.target.result)
                 this.$axios.put("/api/v1/users/picture", {
-                    picture: e.target.result
+                    picture: evt.target.result
+                }).then(res => {
+                    this.user.picture = res.data
                 })
             }
             reader.readAsDataURL(file)
             console.log(file)
-        }
+        },
     },
 }
 </script>
