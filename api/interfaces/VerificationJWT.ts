@@ -4,6 +4,7 @@ export default interface VerificationJWT {
     sub: string,
     exp: number,
     email?: string,
+    email_verified?: boolean,
     studentEmail?: string,
     nickname?: string,
     name?: string,
