@@ -84,10 +84,7 @@ export default {
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
         // https://github.com/moritzsternemann/vue-plausible
-        'vue-plausible',
-        ['@nuxtjs/imagemin', {
-            enableInDev: true
-        }]
+        'vue-plausible'
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
