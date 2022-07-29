@@ -57,20 +57,31 @@
 
         <v-list-item justify="center">
             <v-list-item-title
-                @click.prevent="$router.push(`/profile/${trip.driver_id}`)"
+                @click.prevent="$router.push(`/profile/${trip.driver?.id}`)"
             >
                 <v-avatar
                     size="40"
                     class="mr-3"
                 >
                     <v-img
-                        :alt="trip.driver_name || 'Utilisateur'"
-                        :src="trip.driver_picture || '/account_circle.svg'"
+                        :alt="trip.driver?.nickname || 'Utilisateur'"
+                        :src="trip.driver?.picture || '/account_circle.svg'"
                     ></v-img>
                 </v-avatar>
-                {{ trip.driver_name || 'Utilisateur' }}
+                {{ trip.driver?.nickname || trip.driver?.name || 'Utilisateur' }}
             </v-list-item-title>
             <v-spacer></v-spacer>
+            <v-icon
+                v-if="requestPending"
+                color="warning"
+            >
+                mdi-timer-sand
+            </v-icon>
+            <v-icon
+                v-if="trip.driver.autoBook"
+            >
+                mdi-flash
+            </v-icon>
             <v-btn
                 v-if="!!trip.description"
                 icon
@@ -113,6 +124,10 @@ export default {
         type: {
             type: String,
             default: "view"
+        },
+        requestPending: {
+            type: Boolean,
+            default: false
         },
         id: String
     },
