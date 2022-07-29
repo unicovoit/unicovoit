@@ -264,6 +264,7 @@
                 ></v-textarea>
                 <v-btn
                     color="primary"
+                    :loading="loading"
                     @click="submit"
                 >
                     Envoyer
@@ -298,6 +299,7 @@ export default {
             errorMessage: "",
             estimatedPrice: 0,
             priceExplanation: false,
+            loading: false,
             trip: {
                 from: [],
                 to: [],
@@ -436,10 +438,12 @@ export default {
         },
         submit() {
             if (!(this.success || this.error)) {
+                this.loading = true
                 this.$axios.post("/api/v1/trips/add", this.trip)
                     .then(r => {
                         this.success = true
                         this.error = false
+                        this.loading = false
                         window.scrollTo(0, 0)
                     }).catch(error => {
                         this.error = true
