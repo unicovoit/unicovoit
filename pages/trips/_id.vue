@@ -59,25 +59,25 @@
             outlined
         >
             <v-card-text
-                class="text--primary"
                 v-if="trip.description"
+                class="text--primary"
             >
                 {{ trip.description }}
             </v-card-text>
             <v-card-text
-                class="text--primary"
+                class="text--primary cursor-pointer"
+                @click="$router.push(`/profile/${trip.driver?.id}`)"
             >
                 <v-avatar
-                    size="60"
                     class="mr-2"
+                    size="60"
                 >
                     <v-img
-                        :alt="trip.driver_name || 'Utilisateur'"
-                        :src="trip.driver_picture || '/account_circle.svg'"
-                        @click="$router.push(`/profile/${trip.driver_id}`)"
+                        :alt="trip.driver?.nickname || 'Utilisateur'"
+                        :src="trip.driver?.picture || '/account_circle.svg'"
                     ></v-img>
                 </v-avatar>
-                &nbsp;{{ trip.driver_name || 'Utilisateur' }}
+                &nbsp;{{ trip.driver?.nickname || trip.driver?.name || 'Utilisateur' }}
                 <v-spacer></v-spacer>
             </v-card-text>
         </v-card>
@@ -126,26 +126,125 @@
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
+            <v-list-item
+                v-if="trip.driver?.autoBook"
+            >
+                <v-list-item-content>
+                    <v-list-item-title>
+                        <v-icon class="mr-3">mdi-flash</v-icon>
+                        Acceptation automatique
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
         </v-card>
 
-        <ConfirmOrder :trip="trip" :date="parseDateTime"></ConfirmOrder>
+        <v-card
+            v-if="owner"
+            id="bookings"
+            class="py-3 mt-3"
+            outlined
+        >
+            <div
+                v-if="bookings.length === 0"
+            >
+                <v-card-title>
+                    Aucune demande de réservation
+                </v-card-title>
+            </div>
+            <div
+                v-else
+            >
+                <v-card-title>
+                    Réservations
+                </v-card-title>
+                <v-list>
+                    <v-list-item
+                        v-for="booking in bookings"
+                        :key="booking.id"
+                        class="d-flex flex-row"
+                    >
+                        <v-list-item-content>
+                            <v-list-item-title
+                                @click.prevent="$router.push(`/profile/${booking.user?.id}`)"
+                            >
+                                <v-avatar
+                                    class="mr-3"
+                                    size="40"
+                                >
+                                    <v-img
+                                        :alt="booking.user?.nickname || 'Utilisateur'"
+                                        :src="booking.user?.picture || '/account_circle.svg'"
+                                    ></v-img>
+                                </v-avatar>
+                                {{ booking.user?.nickname || booking.user?.name || 'Utilisateur' }}
+                            </v-list-item-title>
+                        </v-list-item-content>
+                        <v-list-item-action>
+                            <div
+                                v-if="!booking.confirmed"
+                            >
+                                <v-btn
+                                    :loading="confirmLoading"
+                                    color="primary"
+                                    elevation="0"
+                                    fab
+                                    small
+                                    @click="confirmBooking(booking)"
+                                >
+                                    <v-icon>mdi-check</v-icon>
+                                </v-btn>
+                                <v-btn
+                                    :loading="cancelLoading"
+                                    color="error"
+                                    elevation="0"
+                                    fab
+                                    icon
+                                    small
+                                    @click="cancelBooking(booking)"
+                                >
+                                    <v-icon>mdi-close</v-icon>
+                                </v-btn>
+                            </div>
+                            <div
+                                v-else
+                            >
+                                <v-icon
+                                    color="success"
+                                >
+                                    mdi-check-circle-outline
+                                </v-icon>
+                            </div>
+                        </v-list-item-action>
+                    </v-list-item>
+                </v-list>
+            </div>
+        </v-card>
+
+        <ConfirmBooking
+            v-if="!owner"
+            :date="parseDateTime"
+            :trip="trip"
+        ></ConfirmBooking>
     </v-container>
 </template>
 
 <script>
-import ConfirmOrder from '../../components/ConfirmOrder'
+import ConfirmBooking from "../../components/ConfirmBooking"
 
 export default {
     name: "trip",
     components: {
-        ConfirmOrder,
+        ConfirmBooking,
     },
     data() {
         return {
             trip: {},
+            bookings: [],
+            confirmLoading: false,
+            cancelLoading: false,
         }
     },
-    async validate({ params, store }) {
+    async validate({params, store}) {
         // Must be a uuid v4
         return store.dispatch('validateUuidV4', params.id)
     },
@@ -170,13 +269,22 @@ export default {
             d.setMinutes(d.getMinutes() + this.trip.duration)
             return this.parseTime(d)
         },
+        owner() {
+            return this.trip.driver_id === this.$auth.user.sub
+        },
     },
     async fetch() {
         try {
             this.trip = await this.$axios.$get(`/api/v1/trips/id/${this.$route.params.id}`)
+            if (this.owner) {
+                this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
+            }
         } catch (error) {
             console.error(`Trip ${this.$route.params.id}: ${error.message}`)
-            this.$nuxt.error({ statusCode: error.response.status, message: error.response.status === 404 ? "Ce trajet n'existe pas" : error.response.data })
+            this.$nuxt.error({
+                statusCode: error.response.status,
+                message: error.response.status === 404 ? "Ce trajet n'existe pas" : error.response.data
+            })
         }
     },
     methods: {
@@ -188,6 +296,34 @@ export default {
             }
             return date.toLocaleTimeString('fr-FR', options)
         },
+        async confirmBooking(booking) {
+            try {
+                this.confirmLoading = true
+                await this.$axios.$post(`/api/v1/trips/bookings/${booking.id}/confirm`)
+                this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
+                this.confirmLoading = false
+            } catch (error) {
+                console.error(`Trip ${this.$route.params.id}: ${error.message}`)
+                this.$nuxt.error({
+                    statusCode: error.response.status,
+                    message: error.response.data
+                })
+            }
+        },
+        async cancelBooking(booking) {
+            try {
+                this.cancelLoading = true
+                await this.$axios.$delete(`/api/v1/trips/bookings/${booking.id}/cancel`)
+                this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
+                this.cancelLoading = false
+            } catch (error) {
+                console.error(`Trip ${this.$route.params.id}: ${error.message}`)
+                this.$nuxt.error({
+                    statusCode: error.response.status,
+                    message: error.response.data
+                })
+            }
+        },
     },
     activated() {
         if (!this.$fetchState.pending)
@@ -196,7 +332,7 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass" scoped>
 .text-h5
     text-transform: capitalize
 
