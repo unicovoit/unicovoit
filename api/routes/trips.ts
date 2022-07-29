@@ -8,9 +8,6 @@ import {verifyTrip} from "../util/verifier"
 import {getDistance, validateCoordinates, prepareTrip} from "../util/map"
 import * as mail from "../util/mail"
 
-import {Error} from "mongoose"
-import {BookingError} from "../errors/BookingError"
-
 import Distance from "../interfaces/Distance"
 import Trip from "../interfaces/Trip"
 
@@ -148,11 +145,98 @@ router.get('/id/:id', checkJwt, async (req: Request<RouteParameters<string>, any
  */
 router.delete('/id/:id', checkJwt, async (req, res) => {
     try {
-        // @ts-ignore
-        await db.removeTrip(req.params.id, req.auth.payload.sub)
+        await db.removeTrip(req.params.id, String(req.auth?.payload.sub))
+        // TODO notify driver and users
         res.json({
             message: 'Trip deleted'
         })
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: e
+        })
+    }
+})
+
+
+/**
+ * @route   POST /api/v1/trips/bookings/:id/confirm
+ * @desc    Confirm a booking
+ * @access  Private
+ */
+router.post('/bookings/:id/confirm', checkJwt, async (req, res) => {
+    try {
+        const booking = await db.getBookingById(req.params.id)
+        if (booking) {
+            if (String(booking.trip?.driver_id) === String(req.auth?.payload.sub)) {
+                await db.confirmBooking(req.params.id, String(req.auth?.payload.sub))
+                await mail.sendConfirmation(booking.trip, await db.getUserById(booking.user.id), await db.getEmailBySub(String(req.auth?.payload.sub)))
+                res.sendStatus(200)
+            } else {
+                res.status(403).json({
+                    error: 'You are not allowed to confirm this booking'
+                })
+            }
+        } else {
+            res.status(404).json({
+                error: 'Booking not found'
+            })
+        }
+    } catch (e: any) {
+        logger.error(e)
+        res.status(500).json({
+            error: e.message
+        })
+    }
+})
+
+
+/**
+ * @route   DELETE /api/v1/trips/bookings/:id/cancel
+ * @desc    Cancel a booking
+ * @access  Private
+ */
+router.delete('/bookings/:id/cancel', checkJwt, async (req, res) => {
+    try {
+        const booking = await db.getBookingById(req.params.id)
+        if (booking) {
+            if (String(booking.trip?.driver_id) === String(req.auth?.payload.sub)) {
+                await db.deleteBooking(req.params.id)
+                await mail.sendCancellation(booking.trip, await db.getUserById(booking.user.id), await db.getEmailBySub(String(req.auth?.payload.sub)))
+                res.sendStatus(200)
+            } else {
+                res.status(403).json({
+                    error: 'You are not allowed to cancel this booking'
+                })
+            }
+        } else {
+            res.status(404).json({
+                error: 'Booking not found'
+            })
+        }
+    } catch (e: any) {
+        logger.error(e)
+        res.status(500).json({
+            error: e.message
+        })
+    }
+})
+
+
+/**
+ * @route   GET /api/v1/trips/bookings/:id
+ * @desc    get all bookings for a trip
+ * @access  Private
+ */
+router.get('/bookings/:id', checkJwt, async (req, res) => {
+    try {
+        const requests = await db.getBookings(req.params.id, String(req.auth?.payload.sub)).catch(err => {
+            logger.error(err)
+            res.status(404).json({
+                error: err.message
+            })
+        })
+        res.json(requests)
     } catch (e) {
         logger.error(e)
         res.status(500).json({
@@ -174,14 +258,8 @@ router.post('/add', checkJwt, async (req: Request<RouteParameters<string>, any, 
         let trip: Trip = await prepareTrip(tmp, req.auth?.payload.sub)
 
         logger.info(typeof trip, trip)
-        db.addTrip(
-            trip as Trip
-        ).then((r: object) => {
-            res.json(r)
-        }).catch((e: Error) => {
-            logger.error(e)
-            res.status(500).json({error: 'Internal server error'})
-        })
+        await db.addTrip(trip as Trip)
+        res.sendStatus(200)
     } catch (e) {
         logger.error(e)
         res.status(500).json(isDev ? e : {error: 'Internal server error'})
@@ -194,21 +272,29 @@ router.post('/add', checkJwt, async (req: Request<RouteParameters<string>, any, 
  * @desc    Book a trip
  * @access  Private
  */
-router.post('/book', checkJwt, (req, res) => {
+router.post('/book', checkJwt, async (req, res) => {
     try {
-        db.bookTrip(req.body)
-            .then(async (r: object) => {
-                res.sendStatus(200)
-                await mail.send('request_sent', 'test@finxol.io', `Demande envoyée pour le trajet ${req.body.fromCity} - ${req.body.toCity}!`, {
-                    driver_name: req.body.driver_name,
-                    fromCity: req.body.fromCity,
-                    toCity: req.body.toCity,
-                    dateString: req.body.departure_time.toLocaleDateString(),
-                })
-            }).catch((e: BookingError) => {
+        let b = req.body
+        let trip = await db.getTripById(b.trip)
+        let user = await db.getUserBySub(String(req.auth?.payload.sub))
+        if (trip && user) {
+            const driver_email = await db.getEmailById(trip.driver.id)
+            b.confirmed = trip.driver.autoBook
+            await db.bookTrip(req.body).catch((e) => {
                 logger.error('Booking error: ' + e.message)
-                res.status(400).json({message: e.message})
+                res.status(400).json({
+                    error: e.message
+                })
             })
+            if (trip.driver.autoBook) {
+                await mail.sendConfirmation(trip, user, driver_email)
+            } else {
+                await mail.sendRequest(trip, user, driver_email)
+            }
+            res.sendStatus(200)
+        } else {
+            res.sendStatus(404)
+        }
     } catch (e) {
         logger.error(e)
         res.status(500).json(isDev ? e : {error: 'Internal server error'})
