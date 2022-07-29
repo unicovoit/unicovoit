@@ -34,6 +34,7 @@
                         class="ma-1"
                         color="error"
                         outlined
+                        :loading="loading"
                         @click="cancelBooking(id)"
                     >
                         Supprimer
@@ -60,14 +61,17 @@ export default {
     data() {
         return {
             confirmDeletion: false,
+            loading: false,
         };
     },
     methods: {
         cancelBooking(id) {
+            this.loading = true
             this.$axios.delete(`/api/v1/users/bookings/${id}`)
                 .then(() => {
                     this.$emit('refresh')
                     this.confirmDeletion = false
+                    this.loading = false
                 })
                 .catch(err => {
                     console.log(err)
