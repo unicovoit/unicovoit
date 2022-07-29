@@ -69,7 +69,7 @@
                             hidden
                             ref="avatar"
                             type="file"
-                            accept="image/jpeg,image/png,image/jpg"
+                            accept="image/jpeg,image/png,image/jpg,image/webp"
                             @change="onAvatarChange"
                         />
                     </v-list-item-content>
@@ -173,15 +173,17 @@ export default {
             const file = e.target.files[0]
             const reader = new FileReader()
             reader.onload = (evt) => {
-                console.log(evt.target.result)
                 this.$axios.put("/api/v1/users/picture", {
                     picture: evt.target.result
                 }).then(res => {
-                    this.user.picture = res.data
+                    const payload = {
+                        token: this.$auth.strategy.token.get(),
+                        force: true
+                    }
+                    this.$store.dispatch('user', payload)
                 })
             }
             reader.readAsDataURL(file)
-            console.log(file)
         },
     },
 }

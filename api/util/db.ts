@@ -1,5 +1,6 @@
 import logger from './signale'
 import {actions} from '../../store/index'
+import * as image from './image'
 
 import {Trip} from '../models/Trip'
 import ITrip from '../interfaces/Trip'
@@ -579,7 +580,7 @@ export const getUserTrips = async (id: string | undefined) => {
  * @returns the updated user
  */
 export const updateUserPictureBySub = async (id: string, picture: string) => {
-    return await User.findByIdAndUpdate({sub: {$eq: id}}, {picture: picture}, {new: true})
+    await User.updateOne({sub: {$eq: id}}, {$set: {picture: picture}}, {new: true})
 }
 
 
@@ -596,8 +597,11 @@ export const verifiedOrSave = async (user: IVerification): Promise<boolean | und
     if (u) {
         return u.verified
     } else {
-        await createUser(<IUser>{
-            id: v4(),
+        const id = v4()
+        user.picture = await image.download(String(user.picture), id)
+        logger.info('User picture downloaded', user.picture)
+        await createUser(<IUser> {
+            id,
             sub: user.sub,
             name: user.name,
             nickname: user.nickname,

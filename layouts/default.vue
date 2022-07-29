@@ -97,12 +97,12 @@
                 <span>Mon Compte</span>
 
                 <v-avatar
-                    v-if="getUserAvatar"
+                    v-if="user_picture"
                     class="v-icon"
                     size="25"
                 >
                     <v-img
-                        :src="getUserAvatar"
+                        :src="user_picture"
                     ></v-img>
                 </v-avatar>
                 <v-icon
@@ -159,8 +159,16 @@ export default {
         isLoggedIn() {
             return this.$store.state.auth.loggedIn
         },
-        getUserAvatar() {
-            return this.$store.state.auth.user.picture
+        user_picture() {
+            return this.$store.state.user.picture
+        }
+    },
+    async fetch() {
+        if (this.isLoggedIn) {
+            const payload = {
+                token: this.$auth.strategy.token.get()
+            }
+            await this.$store.commit('user', payload)
         }
     },
     beforeCreate() {
