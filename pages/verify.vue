@@ -1,10 +1,16 @@
 <template>
     <v-container>
         <h2
-            class="text-h2 mb-8"
+            class="text-h2"
         >
             Vérification
         </h2>
+
+        <p
+            class="text-body-2 mt-3 mb-5"
+        >
+            Avant de pouvoir utiliser UniCovoit, vous devez prouver votre statut étudiant.
+        </p>
 
         <div
             v-if="verified"
@@ -43,7 +49,7 @@
                     <span class="text-caption grey--text text--darken-1"></span>
 
                     <div
-                        class="d-flex flex-row "
+                        class="d-flex flex-row"
                     >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -148,6 +154,7 @@ export default {
             errorMessages: {
                 teapot: `Le format de votre adresse mail n'est pas reconnu.
                     Votre université n'est peut-être pas encore prise en charge par UniCovoit.`,
+                exists: `L'adresse mail entrée est déjà utilisée.`,
                 generic: `Une erreur est survenue. Merci de réessayer plus tard.`
             }
         }
@@ -166,7 +173,7 @@ export default {
     methods: {
         async fetch() {
             if (!this.token && !this.$config.isProd) {
-                this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTg4NzIxNDUsImlzcyI6Iml1Y292b2l0LmF1dGgwLmNvbSIsInN1YiI6ImF1dGgwfDVmN2M4ZWM3YzMzYzZjMDA0YmJhZmU4MiIsImV4cCI6MTY1OTk5OTk5OSwiaXAiOiIxMy4zMy44Ni40NyJ9.qoTr16G5TdgrmtSkmVZmhdHsX7rZ86J0IMYnDX-VG9g'
+                this.token = "418 I'm a teapot"
             }
 
             if (this.token) {
@@ -225,6 +232,8 @@ export default {
                 this.loading = false
                 if (err.response.status === 418) {
                     this.error = this.errorMessages.teapot
+                } else if (err.response.status === 409) {
+                    this.error = this.errorMessages.exists
                 } else {
                     this.error = this.errorMessages.generic
                 }
