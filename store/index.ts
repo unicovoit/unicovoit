@@ -6,7 +6,7 @@ const $config = config.publicRuntimeConfig
 
 export const state = () => ({
     version: version,
-    user: null,
+    user: {},
 })
 
 export const getters = {
@@ -14,25 +14,24 @@ export const getters = {
 }
 
 export const mutations = {
-}
-
-export const actions = {
-    validateUuidV4(ctx, id: string) {
-        return /^[\dA-Fa-f]{8}-[\dA-Fa-f]{4}-4[\dA-Fa-f]{3}-[89ABab][\dA-Fa-f]{3}-[\dA-Fa-f]{12}$/i.test(id)
-    },
-    async user(state, token: string) {
+    async user(state, {token, force = false}) {
         try {
-            if (!state.user) {
+            if (!state.user.id || force) {
                 ({ data: state.user } = await axios.get('/api/v1/users/', {
                     headers: {
                         Authorization: token
                     }
                 }))
             }
-            return state.user
         } catch (e) {
             // @ts-ignore
             console.error(e.message)
         }
     }
+}
+
+export const actions = {
+    validateUuidV4(ctx, id: string) {
+        return /^[\dA-Fa-f]{8}-[\dA-Fa-f]{4}-4[\dA-Fa-f]{3}-[89ABab][\dA-Fa-f]{3}-[\dA-Fa-f]{12}$/i.test(id)
+    },
 }
