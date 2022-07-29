@@ -105,6 +105,7 @@
                     rounded
                     block
                     x-large
+                    :loading="loading"
                     @click="confirm"
                 >
                     Confirmer la réservation
@@ -116,7 +117,7 @@
 
 <script>
 export default {
-    name: "ConfirmOrder",
+    name: "ConfirmBooking",
     props: {
         trip: {
             type: Object,
@@ -133,18 +134,22 @@ export default {
             distance: 0,
             error: '',
             success: false,
+            loading: false,
         };
     },
     methods: {
         confirm() {
             if (!this.error) {
+                this.loading = true
                 this.$axios.post('/api/v1/trips/book', {
                     trip: this.trip.id,
                     user_id: this.$store.state.auth.user.sub
                 }).then(response => {
+                    this.loading = false
                     this.success = true
                     this.error = false
                 }).catch(error => {
+                    this.loading = false
                     this.error = error.response.data.message
                     this.success = false
                 })
