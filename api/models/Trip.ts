@@ -7,9 +7,13 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
             unique: true,
             index: true
         },
+        driver: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            index: true,
+        },
         driver_id: {
             type: String,
-            required: true,
             index: true
         },
         driver_name: {

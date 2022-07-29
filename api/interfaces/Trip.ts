@@ -1,7 +1,10 @@
+import User from "./User"
+
 export default interface Trip {
     _id?: string
     id: string,
-    driver_id: string,
+    driver?: User,
+    driver_id?: string,
     driver_name?: string,
     driver_picture?: string,
     from: {
@@ -23,6 +26,4 @@ export default interface Trip {
     distance: number,
     duration: number,
     show: boolean,
-    created_at?: Date,
-    updated_at?: Date
 }
