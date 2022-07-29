@@ -16,6 +16,7 @@
                 type="delete"
                 :trip="booking.trip"
                 :id="booking.id"
+                :requestPending="!booking.confirmed"
                 @refresh="$emit('refresh')"
             >
 
