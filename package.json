@@ -1,6 +1,6 @@
 {
     "name": "unicovoit",
-    "version": "0.17.4",
+    "version": "0.17.5",
     "private": true,
     "license": "AGPL-3.0",
     "scripts": {
@@ -27,7 +27,6 @@
         "@nuxtjs/axios": "^5.13.6",
         "@nuxtjs/device": "^2.1.0",
         "@nuxtjs/pwa": "^3.3.5",
-        "@squoosh/lib": "^0.4.0",
         "axios": "^0.27.2",
         "cookie-parser": "^1.4.6",
         "cookie-universal-nuxt": "^2.2.1",
@@ -44,6 +43,7 @@
         "nodemailer": "^6.7.7",
         "nuxt": "^2.15.8",
         "nuxt-start": "^2.15.8",
+        "sharp": "^0.30.7",
         "signale": "^1.4.0",
         "uuid": "^8.3.2",
         "vue": "^2.6.14",
