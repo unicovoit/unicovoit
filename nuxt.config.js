@@ -84,7 +84,10 @@ export default {
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
         // https://github.com/moritzsternemann/vue-plausible
-        'vue-plausible'
+        'vue-plausible',
+        ['@nuxtjs/imagemin', {
+            enableInDev: true
+        }]
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
@@ -136,7 +139,7 @@ export default {
                 'style-src': ["'self'", "'unsafe-inline'"],
                 'font-src': ["'self'"],
                 'script-src': ["'self'", "'unsafe-inline'"],
-                'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com"],
+                'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com", "*.googleusercontent.com"],
                 'connect-src': ["'self'", "bano.addok.xyz", ADDOK_DOMAIN, PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
             }
         }
