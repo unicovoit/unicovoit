@@ -50,7 +50,9 @@ let limiter: any = rateLimit({
 
 app.disable('x-powered-by') // Disable Express header
 
-app.use(bodyParser.json())
+app.use(bodyParser.json({
+    limit: '50mb'
+}))
 app.use(cookieParser())
 app.use(helmet()) // Add security headers
 app.use(cors()) // Set cross-origin requests headers

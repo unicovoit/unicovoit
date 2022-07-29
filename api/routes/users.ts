@@ -295,16 +295,28 @@ router.post('/verify', originCheck, async (req, res) => {
  */
 router.put('/picture', checkJwt, async (req, res) => {
     try {
-        const img = await image.compress(req.body)
-        logger.info('Image compressed', img)
-        return res.sendStatus(200)
-        const user = await db.updateUserPictureBySub(String(req.auth?.payload.sub), req.body)
+        const decoded = image.base64ToBuffer(req.body.picture)
+        const img = await image.compress(decoded.data)
+        logger.info('Image compressed', img.length)
+
+        const user = await db.getUserBySub(String(req.auth?.payload.sub))
         if (user) {
-            res.status(200).json(user)
+            const hash = crypto.createHash('sha1')
+                .update(crypto.randomBytes(20))
+                .digest('hex')
+            const type = decoded.type.match(/\/(.*?)$/)
+            if (type) {
+                let name = `${user.id}_${hash}.${type[1]}`
+                await image.save(img, name)
+                name = `/img/${name}`
+                await db.updateUserPictureBySub(user.sub, name)
+
+                res.status(200).json({picture: name})
+            } else {
+                res.sendStatus(400)
+            }
         } else {
-            res.status(404).json({
-                error: 'User not found'
-            })
+            res.sendStatus(404)
         }
     } catch (e) {
         logger.error(e)
