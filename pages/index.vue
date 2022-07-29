@@ -2,7 +2,8 @@
     <div>
         <v-snackbar
             v-model="snackbar"
-            elevation="20"
+            class="mb-14"
+            elevation="1"
             timeout="-1"
         >
             UniCovoit est encore en développement.
