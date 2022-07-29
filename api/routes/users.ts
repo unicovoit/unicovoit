@@ -47,8 +47,7 @@ const originCheck = async (req, res, next) => {
  */
 router.get('/', checkJwt, async (req, res) => {
     try {
-        // @ts-ignore
-        const user = await db.getUserById(req.auth.sub)
+        const user = await db.getUserBySub(String(req.auth?.payload.sub))
         if (user) {
             res.status(200).json(user)
         } else {
@@ -97,12 +96,18 @@ router.get('/bookings', checkJwt, async (req, res) => {
  */
 router.delete('/bookings/:id', checkJwt, async (req, res) => {
     try {
-        const trip = await db.deleteBooking(req.params.id, req.auth?.payload.sub)
-        if (trip) {
-            res.json(trip)
+        const booking = await db.getBookingById(req.params.id)
+        if (booking) {
+            if (booking.user.sub === req.auth?.payload.sub) {
+                await db.deleteBooking(req.params.id)
+                await mail.sendCancellation(booking.trip, await db.getUserBySub(String(req.auth?.payload.sub)), await db.getEmailBySub(booking.trip.driver_id))
+                res.json({
+                    message: 'Booking deleted'
+                })
+            }
         } else {
             res.status(404).json({
-                error: 'User or booking not found'
+                error: 'Booking not found'
             })
         }
     } catch (e: any) {
@@ -220,18 +225,22 @@ router.post('/sendVerificationCode', originCheck, async (req, res) => {
         const auth = req.auth as unknown as VerificationJWT
         if (req.body.hasOwnProperty('email')) {
             if (verifyEmail(String(req.body.email))) {
-                const bytes = crypto.randomBytes(4).toString('hex')
-                let code = String(parseInt(bytes, 16)).substring(0, 6)
+                if (await db.studentEmailUsed(String(req.body.email))) {
+                    res.sendStatus(409)
+                } else {
+                    const bytes = crypto.randomBytes(4).toString('hex')
+                    let code = String(parseInt(bytes, 16)).substring(0, 6)
 
-                await db.saveVerificationCode(auth.sub, req.body.email, code)
-                await mail.send('confirm_address', req.body.email, 'Confirmation de votre adresse universitaire', {code})
+                    await db.saveVerificationCode(auth.sub, req.body.email, code)
+                    await mail.send('confirm_address', req.body.email, 'Confirmation de votre adresse universitaire', {code})
 
-                const token = jwt.sign({
-                    sub: auth.sub,
-                    studentEmail: req.body.email
-                }, VERIFICATION_SECRET, { expiresIn: '5m' })
+                    const token = jwt.sign({
+                        sub: auth.sub,
+                        studentEmail: req.body.email
+                    }, VERIFICATION_SECRET, { expiresIn: '5m' })
 
-                res.json({token})
+                    res.json({token})
+                }
             } else {
                 res.sendStatus(418)
             }
