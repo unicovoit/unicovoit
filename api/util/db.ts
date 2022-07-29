@@ -12,7 +12,6 @@ import IVerification from "../interfaces/VerificationJWT"
 import {v4} from "uuid"
 import {Error} from "mongoose"
 import {BookingError} from "../errors/BookingError"
-import axios from "axios"
 
 const today: Date = new Date()
 export const testTrips = [{
@@ -27,7 +26,7 @@ export const testTrips = [{
     price: 6,
     description: "on a fait de l'escalade à réguiny",
     departure_time: new Date().setDate(today.getDate() + 1),
-    driver_id: 'auth0|623f93c6c665610070aa3d75',
+    driver_id: 'google-oauth2|101534163227018751576',
     places: 3,
     id: '4a8c12f3-48e9-4b14-9522-69f0bbb067fb',
     distance: 114,
@@ -48,9 +47,7 @@ export const testTrips = [{
     price: 7,
     description: 'Geronimooooo!!!!!!!!!',
     departure_time: new Date().setDate(today.getDate() + 4),
-    driver_id: 'auth0|623f93c6c665610070aa3d75',
-    driver_picture: 'https://pm1.narvii.com/7423/0e9230dce862b4ad9c54955d679b9935bc8f7e98r1-1153-1153v2_uhq.jpg',
-    driver_name: 'Eleventh Doctor',
+    driver_id: 'google-oauth2|101534163227018751576',
     places: 3,
     id: '1d866cb1-342f-4492-b679-c3be592544cf',
     distance: 128,
@@ -73,8 +70,6 @@ export const testTrips = [{
         "Je ne passerai pas par l'autoroute",
     departure_time: new Date().setDate(today.getDate() + 5),
     driver_id: 'auth0|623f93c6c665610070aa3d75',
-    driver_name: 'Brice de nice',
-    driver_picture: 'https://media.ouest-france.fr/v1/pictures/MjAxMzA5ZmI4ZmM0NzBlZjhlZTViMGUwZTNlZGU5ODBkMGI4YTU',
     places: 2,
     id: '6d4126ff-e472-44b5-a891-2927d17f7e1a',
     distance: 1338,
@@ -83,19 +78,19 @@ export const testTrips = [{
     fromCity: 'Cherbourg-en-Cotentin',
     toName: '35 Boulevard Princesse Grace de Monaco',
     toCity: 'Nice'
-},  {
+}, {
     from: {
         type: "Point",
-        coordinates: [ 42.712716, 2.889324 ]
+        coordinates: [42.712716, 2.889324]
     },
     to: {
         type: "Point",
-        coordinates: [ 43.604836, 1.457352 ]
+        coordinates: [43.604836, 1.457352]
     },
     price: 10,
     description: '',
     departure_time: new Date().setDate(today.getDate() + 3),
-    driver_id: 'oauth2|discord|688822573970096165',
+    driver_id: 'google-oauth2|101534163227018751576',
     places: 2,
     id: '9c2b8635-f45f-4e43-8064-111708f23400',
     distance: 206,
@@ -104,14 +99,23 @@ export const testTrips = [{
     fromCity: 'Perpignan',
     toName: '25bis Boulevard de la Gare',
     toCity: 'Toulouse'
+}, {
+    from: {type: 'Point', coordinates: [-1.554136, 47.218637]},
+    to: {type: 'Point', coordinates: [-1.68002, 48.111339]},
+    price: '5',
+    description: '',
+    departure_time: '2022-08-15T17:30:12.220Z',
+    driver_id: 'oauth2|discord|688822573970096165',
+    places: '3',
+    id: '9e4ddeac-969b-4ece-905f-75be8535d042',
+    distance: 111,
+    duration: 92,
+    fromName: 'Nantes',
+    fromCity: 'Nantes',
+    toName: 'Rennes',
+    toCity: 'Rennes'
 }]
 
-axios.get(`https://randomuser.me/api/?results=${testTrips.length}`).then(res => {
-    for (let i = 0; i < res.data.results.length; i++) {
-        testTrips[i].driver_name = res.data.results[i].name.first + " " + res.data.results[i].name.last
-        testTrips[i].driver_picture = res.data.results[i].picture.medium
-    }
-})
 
 //------------------------------------------------------
 // Trip-related functions
@@ -121,12 +125,12 @@ axios.get(`https://randomuser.me/api/?results=${testTrips.length}`).then(res => 
  * @param t the trip to add
  */
 export const addTrip: Function = async (t: ITrip) => {
-    try {
+    let driver = await getUserBySub(String(t.driver_id))
+    if (driver) {
+        t.driver = driver._id
         const tmp = new Trip(t)
         await tmp.save()
         logger.success(`Trip from ${t.from.coordinates.join(',')} to ${t.to.coordinates.join(',')} on ${t.departure_time} added`)
-    } catch (err) {
-        throw err
     }
 }
 
@@ -141,6 +145,20 @@ export const getAllTrips = async () => {
         __v: 0,
         created_at: 0,
         updated_at: 0
+    }).populate('driver', {
+        _id: 0,
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
+        sub: 0,
+        email: 0,
+        smokePref: 0,
+        petsPref: 0,
+        musicPref: 0,
+        defaultPlaces: 0,
+        verified: 0,
+        studentEmail: 0,
+        isBlocked: 0,
     }).sort({departure_time: 1})
 }
 
@@ -192,7 +210,18 @@ export const getTripById = async (id: string) => {
         __v: 0,
         created_at: 0,
         updated_at: 0,
-    });
+    }).populate('driver', {
+        _id: 0,
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
+        sub: 0,
+        email: 0,
+        defaultPlaces: 0,
+        verified: 0,
+        studentEmail: 0,
+        isBlocked: 0,
+    })
 }
 
 
@@ -212,7 +241,6 @@ export const removeTrip = async (id: string, driver_id: string) => {
         let nbBookings = await Booking.countDocuments({trip: {$eq: trip._id}})
         await Booking.deleteMany({trip: {$eq: trip._id}})
         logger.success(`${nbBookings} bookings removed`)
-        // TODO notify driver add users
     } else {
         throw new Error(`Trip ${id} doesn't exist`)
     }
@@ -258,27 +286,16 @@ export const removeOldTrips: Function = async () => {
 // User-related functions
 //------------------------------------------------------
 /**
- * Add a user to the database
- * @param u the user to add
- */
-export const addUser: Function = async (u: IUser) => {
-    try {
-        const tmp = new User(u)
-        logger.info(tmp)
-        await tmp.save()
-    } catch (err) {
-        throw err
-    }
-}
-
-
-/**
  * Get a user by id
  * @param   id the id of the user
  * @returns the user
  */
 export const getUserById = async (id: string) => {
-    return User.findById(id)
+    return User.findOne({id: {$eq: id}}, {
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
+    })
 }
 
 /**
@@ -288,10 +305,12 @@ export const getUserById = async (id: string) => {
  */
 export const getUserBySub = async (id: string) => {
     return User.findOne({sub: {$eq: id}}, {
-        _id: 0,
         __v: 0,
         created_at: 0,
         updated_at: 0,
+        studentEmail: 0,
+        verified: 0,
+        isBlocked: 0,
     })
 }
 
@@ -307,6 +326,7 @@ export const getPublicProfile = async (id: string) => {
         petsPref: 1,
         smokingPref: 1,
         picture: 1,
+        nickname: 1,
         name: 1,
     })
 }
@@ -324,7 +344,30 @@ export const getPublicProfileBySub = async (id: string) => {
         smokingPref: 1,
         picture: 1,
         nickname: 1,
+        name: 1,
     })
+}
+
+
+/**
+ * Get a user's email address from his sub
+ * @param   sub the id of the user
+ * @returns the user's email address
+ */
+export const getEmailBySub = async (sub: string) => {
+    const user = await getUserBySub(sub)
+    return user.email
+}
+
+
+/**
+ * Get a user's email address from his id
+ * @param   id the id of the user
+ * @returns the user's email address
+ */
+export const getEmailById = async (id: string) => {
+    const user = await getUserById(id)
+    return user.email
 }
 
 
@@ -360,12 +403,14 @@ export const bookTrip: Function = async (b: any) => {
     }
     if (trip.places > 0) {
         b.trip = trip._id
+        b.user = (await getUserBySub(b.user_id))._id
         const booking = new Booking(b)
         await booking.save()
 
         trip.places--
         await trip.save()
         logger.success(`Trip ${b.trip} booked`)
+        return trip
     } else {
         throw new BookingError('Ce trajet est complet')
     }
@@ -373,16 +418,88 @@ export const bookTrip: Function = async (b: any) => {
 
 
 /**
- * Delete a booking
+ * Get all bookings of a trip
+ * @param id the id of the trip
+ * @param driver_id the id of the driver
+ * @returns the booking requests
+ */
+export const getBookings = async (id: string, driver_id: string) => {
+    const trip = await Trip.findOne({id: {$eq: id}, driver_id: {$eq: driver_id}})
+    if (trip) {
+        return Booking.find({trip: {$eq: trip._id}}, {
+            _id: 0,
+            __v: 0,
+            created_at: 0,
+            updated_at: 0,
+        }).populate('user', {
+            id: 1,
+            nickname: 1,
+            name: 1,
+            picture: 1,
+        })
+    } else {
+        throw new BookingError(`Trip ${id} doesn't exist`)
+    }
+}
+
+
+/**
+ * Get a booking by id
  * @param id the id of the booking
- * @param user the id of the user
  * @returns the booking
  */
-export const deleteBooking = async (id: string, user: string | undefined) => {
+export const getBookingById = async (id: string) => {
+    return Booking.findOne({id: {$eq: id}}, {
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
+    }).populate([{
+        path: 'user',
+        model: 'User',
+        select: {
+            id: 1,
+            sub: 1,
+            nickname: 1,
+            name: 1,
+            picture: 1,
+        }
+    }, {
+        path: 'trip',
+        model: 'Trip',
+        select: {
+            __v: 0,
+            created_at: 0,
+            updated_at: 0,
+        }
+    }
+    ])
+}
+
+
+/**
+ * Confirm a booking
+ * @param id the id of the booking
+ * @param driver_sub the id of the driver
+ */
+export const confirmBooking = async (id: string, driver_sub: string) => {
+    const booking = await getBookingById(id)
+    booking.confirmed = true
+    await booking.save()
+    logger.success(`Booking ${id} confirmed`)
+    return booking
+}
+
+
+/**
+ * Delete a booking
+ * @param id the id of the booking
+ * @returns the booking
+ */
+export const deleteBooking = async (id: string) => {
     if (actions.validateUuidV4({}, id)) {
         const booking = await Booking.findOne({id: {$eq: id}})
         await Trip.updateOne({_id: booking.trip}, {$inc: {places: 1}})
-        return Booking.deleteOne({trip: {$eq: booking.trip}, user_id: {$eq: user}})
+        return Booking.findByIdAndDelete(booking._id)
     } else {
         throw new BookingError('Identifiant invalide')
     }
@@ -400,12 +517,27 @@ export const getUserBookings = async (id: string) => {
         __v: 0,
         updated_at: 0,
         created_at: 0
-    }).populate("trip", {
-        _id: 0,
-        __v: 0,
-        updated_at: 0,
-        created_at: 0
-    })
+    }).populate([{
+            path: 'user',
+            model: 'User',
+            select: {
+                id: 1,
+                sub: 1,
+                nickname: 1,
+                name: 1,
+                picture: 1,
+            }
+        }, {
+            path: 'trip',
+            model: 'Trip',
+            select: {
+                _id: 0,
+                __v: 0,
+                updated_at: 0,
+                created_at: 0
+            }
+        }
+    ])
     if (bookings) {
         return bookings
     } else {
@@ -425,6 +557,18 @@ export const getUserTrips = async (id: string | undefined) => {
         __v: 0,
         updated_at: 0,
         created_at: 0
+    }).populate('driver', {
+        _id: 0,
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
+        sub: 0,
+        name: 0,
+        email: 0,
+        defaultPlaces: 0,
+        verified: 0,
+        studentEmail: 0,
+        isBlocked: 0,
     })
 }
 
@@ -468,17 +612,29 @@ export const verifiedOrSave = async (user: IVerification): Promise<boolean | und
     if (u) {
         return u.verified
     } else {
-        await createUser(<IUser> {
+        await createUser(<IUser>{
             id: v4(),
             sub: user.sub,
             name: user.name,
             nickname: user.nickname,
             email: user.email,
+            email_verified: user.email_verified,
+            studentEmail: user.email,
             picture: user.picture,
             verified: false
         })
         return false
     }
+}
+
+
+/**
+ * Checks if a student email is already used
+ * @param   email the email to check
+ * @returns true if used, false otherwise
+ */
+export const studentEmailUsed = async (email: string): Promise<boolean> => {
+    return !!await User.findOne({studentEmail: {$eq: email}})
 }
 
 
@@ -489,7 +645,7 @@ export const verifiedOrSave = async (user: IVerification): Promise<boolean | und
  * @param   code the verification code
  */
 export const saveVerificationCode = async (id: string, email: string, code: string) => {
-    await Verification.deleteMany({ sub: {$eq: id}})
+    await Verification.deleteMany({sub: {$eq: id}})
     const verification = new Verification({
         sub: id,
         email: email,
