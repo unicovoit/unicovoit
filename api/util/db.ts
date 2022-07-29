@@ -309,7 +309,6 @@ export const getUserBySub = async (id: string) => {
         created_at: 0,
         updated_at: 0,
         studentEmail: 0,
-        verified: 0,
         isBlocked: 0,
     })
 }
@@ -574,27 +573,12 @@ export const getUserTrips = async (id: string | undefined) => {
 
 
 /**
- * Get user's picture url and name by id
- * @param   id the id of the user
- * @returns the picture url and name
- */
-export const getUserAvatarAndNameById: Function = async (id: string) => {
-    return User.find({id: {$eq: id}}).then((user: any) => {
-        return user ? {
-            picture: user.picture,
-            name: user.name
-        } : false
-    })
-}
-
-
-/**
  * Update a user's picture
  * @param   id the oauth id of the user
  * @param   picture the new picture url
  * @returns the updated user
  */
-export const updateUserPicture = async (id: string, picture: string) => {
+export const updateUserPictureBySub = async (id: string, picture: string) => {
     return await User.findByIdAndUpdate({sub: {$eq: id}}, {picture: picture}, {new: true})
 }
 
