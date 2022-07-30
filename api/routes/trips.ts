@@ -170,7 +170,7 @@ router.post('/bookings/:id/confirm', checkJwt, async (req, res) => {
         if (booking) {
             if (String(booking.trip?.driver_id) === String(req.auth?.payload.sub)) {
                 await db.confirmBooking(req.params.id, String(req.auth?.payload.sub))
-                await mail.sendConfirmation(booking.trip, await db.getUserById(booking.user.id), await db.getEmailBySub(String(req.auth?.payload.sub)))
+                await mail.sendConfirmation(booking.trip, await db.getUserById(booking.user.id), await db.getUserBySub(String(req.auth?.payload.sub)))
                 res.sendStatus(200)
             } else {
                 res.status(403).json({
@@ -278,20 +278,22 @@ router.post('/book', checkJwt, async (req, res) => {
         let trip = await db.getTripById(b.trip)
         let user = await db.getUserBySub(String(req.auth?.payload.sub))
         if (trip && user) {
-            const driver_email = await db.getEmailById(trip.driver.id)
+            const driver = await db.getUserById(trip.driver.id)
             b.confirmed = trip.driver.autoBook
-            await db.bookTrip(req.body).catch((e) => {
+            try {
+                await db.bookTrip(req.body)
+                if (trip.driver.autoBook) {
+                    await mail.sendConfirmation(trip, user, driver)
+                } else {
+                    await mail.sendRequest(trip, user, driver)
+                }
+                res.sendStatus(200)
+            } catch (e: any) {
                 logger.error('Booking error: ' + e.message)
                 res.status(400).json({
                     error: e.message
                 })
-            })
-            if (trip.driver.autoBook) {
-                await mail.sendConfirmation(trip, user, driver_email)
-            } else {
-                await mail.sendRequest(trip, user, driver_email)
             }
-            res.sendStatus(200)
         } else {
             res.sendStatus(404)
         }
