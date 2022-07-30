@@ -38,7 +38,7 @@
                         v-model="user.nickname"
                         :rules="rules.name"
                         :counter="30"
-                        label="First name"
+                        label="Nom d'utilisateur"
                         required
                     ></v-text-field>
                 </v-list-item>
@@ -46,7 +46,7 @@
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-subtitle>
-                            Avatar
+                            Photo de profil
                         </v-list-item-subtitle>
 
                         <v-list-item-group>
@@ -176,11 +176,7 @@ export default {
                 this.$axios.put("/api/v1/users/picture", {
                     picture: evt.target.result
                 }).then(res => {
-                    const payload = {
-                        token: this.$auth.strategy.token.get(),
-                        force: true
-                    }
-                    this.$store.dispatch('user', payload)
+                    this.$emit('refresh')
                 })
             }
             reader.readAsDataURL(file)
