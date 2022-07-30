@@ -26,6 +26,19 @@ templates.generic = String(readTemplate('generic'))
 templates.confirm_address = String(readTemplate('confirm_address'))
 
 
+const toLocaleDateString: Function = (date: Date): string => {
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+    }
+    return date.toLocaleDateString('fr-FR', options)
+}
+
+
 /**
  * Test the connection to the email server
  */
@@ -64,19 +77,19 @@ export async function send(template: string, to: string, subject: string, data: 
  * Send confirmation emails to driver and user
  * @param trip The trip to confirm
  * @param user The user who confirmed the trip
- * @param driver_email The address of the user
+ * @param driver The driver
  */
-export async function sendConfirmation(trip: Trip, user: User, driver_email: string) {
-    logger.info(`Sending confirmation email to ${driver_email} and ${user.email} for trip ${trip.id}`)
+export async function sendConfirmation(trip: Trip, user: User, driver: User) {
+    logger.info(`Sending confirmation email to ${driver.email} and ${user.email} for trip ${trip.id}`)
     await send('generic', user.email, `Confirmation de réservation pour le trajet ${trip.fromCity} - ${trip.toCity}`, {
         title: 'Confirmation de votre trajet',
-        body: `Votre réservation a été confirmé. Vous pouvez désormais joindre votre conducteur·trice sur l'adresse suivante : ${createEmailLink(driver_email)}`,
+        body: `Votre réservation a été confirmé. Vous pouvez désormais joindre ${driver.nickname || driver.name} sur l'adresse suivante : ${createEmailLink(driver.email)}`,
         url: `https://unicovoit.fr/profile?bookings`,
         urlText: 'Voir mes réservations'
     } as GenericEmailData)
-    await send('generic', driver_email, `Nouvelle réservation sur votre trajet ${trip.fromCity} - ${trip.toCity} !`, {
+    await send('generic', driver.email, `Nouvelle réservation sur votre trajet ${trip.fromCity} - ${trip.toCity} !`, {
         title: `Nouvelle réservation sur votre trajet ${trip.fromCity} - ${trip.toCity}`,
-        body: `Un nouvel utilisateur vient de réserver son trajet. Vous pouvez désormais le·la joindre sur l'adresse suivante : ${createEmailLink(user.email)}`,
+        body: `${user.nickname || user.name} vient de faire une réservation sur votre trajet. Vous pouvez désormais le·la joindre sur l'adresse suivante : ${createEmailLink(user.email)}`,
         url: `https://unicovoit.fr/profile?trips`,
         urlText: 'Voir mes trajets'
     } as GenericEmailData)
@@ -87,23 +100,24 @@ export async function sendConfirmation(trip: Trip, user: User, driver_email: str
  * Send request emails to driver and user
  * @param trip The trip to request
  * @param user The user who booked the trip
- * @param driver_email The address of the user
+ * @param driver The driver
  */
-export async function sendRequest(trip: Trip, user: User, driver_email: string) {
+export async function sendRequest(trip: Trip, user: User, driver: User) {
     await send('generic', String(user.email), `Demande envoyée pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
         title: 'Demande de réservation envoyée !',
-        body: `Votre demande de réservation pour le trajet ${trip.fromCity} - ${trip.toCity} le ${trip.departure_time.toLocaleDateString()} a été envoyée à ${trip.driver?.nickname || trip.driver?.name}!`,
+        body: `Votre demande de réservation pour le trajet ${trip.fromCity} - ${trip.toCity}, le ${toLocaleDateString(trip.departure_time)} a été envoyée à ${driver.nickname || driver.name} !`,
         url: `https://unicovoit.fr/profile?trips`,
         urlText: 'Voir mes réservations',
     } as GenericEmailData)
 
-    await send('generic', String(driver_email), `Demande de réservation pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
+    await send('generic', String(driver.email), `Demande de réservation pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
         title: 'Nouvelle demande de réservation !',
-        body: `${user.nickname || user.name} a demandé un trajet ${trip.fromCity} - ${trip.toCity} le ${trip.departure_time.toLocaleDateString()}!`,
+        body: `${user.nickname || user.name} a demandé un trajet ${trip.fromCity} - ${trip.toCity}, le ${toLocaleDateString(trip.departure_time)} !`,
         url: `https://unicovoit.fr/trips/${trip.id}`,
         urlText: 'Voir la réservation',
     } as GenericEmailData)
 }
+
 
 /**
  * Send an email to the user when a booking is canceled
@@ -115,14 +129,14 @@ export async function sendCancellation(trip: Trip, user: User, driver_email: str
     logger.info(`Sending cancellation email to ${driver_email} and ${user.email} for trip ${trip.id}`)
     await send('generic', String(user.email), `Réservation annulée pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
         title: 'Réservation annulée',
-        body: `Votre réservation pour le trajet ${trip.fromCity} - ${trip.toCity} le ${trip.departure_time.toLocaleDateString()} a été annulée.`,
+        body: `Votre réservation pour le trajet ${trip.fromCity} - ${trip.toCity}, le ${trip.departure_time.toLocaleDateString()} a été annulée.`,
         url: `https://unicovoit.fr/profile?trips`,
         urlText: 'Voir mes réservations',
     } as GenericEmailData)
 
     await send('generic', String(driver_email), `Réservation annulée pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
         title: 'Réservation annulée',
-        body: `${user.nickname || user.name} a annulé sa réservation pour le trajet ${trip.fromCity} - ${trip.toCity} le ${trip.departure_time.toLocaleDateString()}!`,
+        body: `${user.nickname || user.name} a annulé sa réservation pour le trajet ${trip.fromCity} - ${trip.toCity}, le ${trip.departure_time.toLocaleDateString()} !`,
         url: `https://unicovoit.fr/profile?trips`,
         urlText: 'Voir mes trajets',
     } as GenericEmailData)
@@ -145,5 +159,6 @@ export function createEmailLink(email: string) {
  * @returns {boolean} True if the email is valid, false otherwise
  */
 export const verifyEmail: Function = (email: string): boolean => {
+
     return universities.some(u => u.format.test(email))
 }
