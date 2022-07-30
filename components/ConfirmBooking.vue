@@ -150,7 +150,7 @@ export default {
                     this.error = false
                 }).catch(error => {
                     this.loading = false
-                    this.error = error.response.data.message
+                    this.error = error.response.data.error
                     this.success = false
                 })
                 window.scrollTo(0, 0)
