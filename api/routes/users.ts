@@ -72,10 +72,9 @@ router.get('/', checkJwt, async (req, res) => {
  */
 router.get('/bookings', checkJwt, async (req, res) => {
     try {
-        // @ts-ignore
-        const trips = await db.getUserBookings(req.auth?.payload.sub)
-        if (trips) {
-            res.json(trips)
+        const bookings = await db.getUserBookings(String(req.auth?.payload.sub))
+        if (bookings) {
+            res.json(bookings)
         } else {
             res.status(404).json({
                 error: 'User or bookings not found'
