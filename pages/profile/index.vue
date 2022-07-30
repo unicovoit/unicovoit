@@ -63,7 +63,7 @@
             <v-list-item>
                 <v-list-item-content>
                     <v-list-item-subtitle>
-                        Nom
+                        Nom d'utilisateur
                     </v-list-item-subtitle>
                     <v-list-item-title>
                         {{ user.nickname || user.name }}
@@ -74,7 +74,7 @@
             <v-list-item>
                 <v-list-item-content>
                     <v-list-item-subtitle>
-                        Avatar
+                        Photo de profil
                     </v-list-item-subtitle>
 
                     <v-list-item-group>
@@ -99,7 +99,7 @@
             </v-list-item>
         </v-list>
 
-        <LazyModifyProfile :user="user"/>
+        <LazyModifyProfile :user="user" @refresh="$fetch"/>
         <LazyDisplayBookingsAndTrips/>
 
         <v-divider class="mt-7"></v-divider>
@@ -108,24 +108,30 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "account",
     auth: true,
     data() {
         return {
+            user: {},
             emailExplanation: false,
         }
     },
-    computed: {
-        user() {
-            return this.$store.state.user
+    async fetch() {
+        try {
+            ({ data: this.user } = await this.$axios.get('/api/v1/users/', {
+                headers: {
+                    Authorization: this.$auth.strategy.token.get()
+                }
+            }))
+        } catch (e) {
+            console.error(e)
         }
     },
-    async fetch() {
-        const payload = {
-            token: this.$auth.strategy.token.get()
-        }
-        await this.$store.commit('user', payload)
+    async activated() {
+        await this.$fetch
     }
 }
 </script>
