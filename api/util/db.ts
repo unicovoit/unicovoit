@@ -512,36 +512,41 @@ export const deleteBooking = async (id: string) => {
  * @returns the user's trips
  */
 export const getUserBookings = async (id: string) => {
-    let bookings = await Booking.find({user_id: {$eq: id}}, {
-        _id: 0,
-        __v: 0,
-        updated_at: 0,
-        created_at: 0
-    }).populate([{
-            path: 'user',
-            model: 'User',
-            select: {
-                id: 1,
-                sub: 1,
-                nickname: 1,
-                name: 1,
-                picture: 1,
+    const user = await getUserBySub(id)
+    if (user) {
+        let bookings = await Booking.find({user: {$eq: user._id}}, {
+            _id: 0,
+            __v: 0,
+            updated_at: 0,
+            created_at: 0
+        }).populate([{
+                path: 'user',
+                model: 'User',
+                select: {
+                    id: 1,
+                    sub: 1,
+                    nickname: 1,
+                    name: 1,
+                    picture: 1,
+                }
+            }, {
+                path: 'trip',
+                model: 'Trip',
+                select: {
+                    _id: 0,
+                    __v: 0,
+                    updated_at: 0,
+                    created_at: 0
+                }
             }
-        }, {
-            path: 'trip',
-            model: 'Trip',
-            select: {
-                _id: 0,
-                __v: 0,
-                updated_at: 0,
-                created_at: 0
-            }
+        ])
+        if (bookings) {
+            return bookings
+        } else {
+            throw new BookingError('Aucune réservation')
         }
-    ])
-    if (bookings) {
-        return bookings
     } else {
-        throw new BookingError('Aucune réservation')
+        throw new BookingError("User not found")
     }
 }
 
