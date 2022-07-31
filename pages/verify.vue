@@ -172,10 +172,6 @@ export default {
     },
     methods: {
         async fetch() {
-            if (!this.token && !this.$config.isProd) {
-                this.token = "418 I'm a teapot"
-            }
-
             if (this.token) {
                 const axios = this.$axios.create()
                 delete axios.defaults.headers.common['Authorization']
