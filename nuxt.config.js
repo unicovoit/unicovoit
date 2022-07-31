@@ -8,6 +8,7 @@ const URL = `https://${DOMAIN}`
 const BANNER = `${URL}/icon_long.png`
 
 const ADDOK_DOMAIN = "addok.unicovoit.fr"
+const LANG = "fr-FR"
 
 const AUTH0_ID = process.env.AUTH0_CLIENTID || 'no id'
 const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'example.org'
@@ -23,8 +24,9 @@ export default {
     head: {
         title: TITLE,
         htmlAttrs: {
-            lang: 'fr'
+            lang: LANG
         },
+        contentLanguage: LANG,
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -181,7 +183,8 @@ export default {
         },
         isProd,
         ADDOK_DOMAIN,
-        AUTH0_DOMAIN
+        AUTH0_DOMAIN,
+        LANG
     },
 
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

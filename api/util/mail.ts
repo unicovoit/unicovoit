@@ -6,7 +6,9 @@ import logger from './signale'
 import universities from '../universities'
 import Trip from '../interfaces/Trip'
 import User from '../interfaces/User'
-import GenericEmailData from "~/api/interfaces/GenericEmailData";
+import GenericEmailData from "../interfaces/GenericEmailData"
+
+import nuxtConfig from '../../nuxt.config'
 
 
 const config = {
@@ -35,7 +37,7 @@ const toLocaleDateString: Function = (date: Date): string => {
         hour: 'numeric',
         minute: '2-digit'
     }
-    return date.toLocaleDateString('fr-FR', options)
+    return date.toLocaleDateString(nuxtConfig.publicRuntimeConfig.LANG, options)
 }
 
 
@@ -129,14 +131,14 @@ export async function sendCancellation(trip: Trip, user: User, driver_email: str
     logger.info(`Sending cancellation email to ${driver_email} and ${user.email} for trip ${trip.id}`)
     await send('generic', String(user.email), `Réservation annulée pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
         title: 'Réservation annulée',
-        body: `Votre réservation pour le trajet ${trip.fromCity} - ${trip.toCity}, le ${trip.departure_time.toLocaleDateString()} a été annulée.`,
+        body: `Votre réservation pour le trajet ${trip.fromCity} - ${trip.toCity}, le ${toLocaleDateString(trip.departure_time)} a été annulée.`,
         url: `https://unicovoit.fr/profile?trips`,
         urlText: 'Voir mes réservations',
     } as GenericEmailData)
 
     await send('generic', String(driver_email), `Réservation annulée pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
         title: 'Réservation annulée',
-        body: `${user.nickname || user.name} a annulé sa réservation pour le trajet ${trip.fromCity} - ${trip.toCity}, le ${trip.departure_time.toLocaleDateString()} !`,
+        body: `${user.nickname || user.name} a annulé sa réservation pour le trajet ${trip.fromCity} - ${trip.toCity}, le ${toLocaleDateString(trip.departure_time)} !`,
         url: `https://unicovoit.fr/profile?trips`,
         urlText: 'Voir mes trajets',
     } as GenericEmailData)
