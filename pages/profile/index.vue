@@ -1,11 +1,5 @@
 <template>
     <v-container>
-        <h2
-            class="text-h2"
-        >
-            Mon compte
-        </h2>
-
         <v-alert
             v-if="!$auth.user.email_verified"
             icon="mdi-alert-circle"
@@ -48,46 +42,63 @@
             </v-card>
         </v-dialog>
 
-        <v-card
-            v-if="!$config.isProd"
-            class="overflow-auto"
-            outlined
-            max-height="100px"
-        >
-            <v-container>
-                {{ user }}
-            </v-container>
-        </v-card>
+        <v-container>
+            <v-row
+                class="d-flex align-center"
+            >
+                <span
+                    v-if="!editNickname"
+                    class="text-h3"
+                >
+                    {{ user.nickname || user.name }}
+                </span>
+                <v-text-field
+                    v-else
+                    v-model="user.nickname"
+                    :rules="nameRules"
+                    :counter="30"
+                    label="Nom d'utilisateur"
+                    required
+                ></v-text-field>
+                <v-btn
+                    class="primary--text ml-4"
+                    icon
+                    x-small
+                    @click="updateNickname"
+                >
+                    <v-icon v-if="editNickname">mdi-check</v-icon>
+                    <v-icon v-else>mdi-square-edit-outline</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-avatar
+                    size="80"
+                    @click="$refs.avatar.click()"
+                >
+                    <v-img
+                        :src="user.picture"
+                    ></v-img>
+                    <v-btn
+                        class="primary--text mr-n1"
+                        absolute
+                        fab
+                        x-small
+                        @click="$refs.avatar.click()"
+                    >
+                        <v-icon>mdi-square-edit-outline</v-icon>
+                    </v-btn>
+                </v-avatar>
+                <input
+                    hidden
+                    ref="avatar"
+                    type="file"
+                    accept="image/jpeg,image/png,image/jpg,image/webp"
+                    @change="onAvatarChange"
+                />
+            </v-row>
+        </v-container>
 
-        <v-list>
-            <v-list-item>
-                <v-list-item-content>
-                    <v-list-item-subtitle>
-                        Nom d'utilisateur
-                    </v-list-item-subtitle>
-                    <v-list-item-title>
-                        {{ user.nickname || user.name }}
-                    </v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
-                <v-list-item-content>
-                    <v-list-item-subtitle>
-                        Photo de profil
-                    </v-list-item-subtitle>
-
-                    <v-list-item-group>
-                        <v-avatar>
-                            <v-img
-                                :src="user.picture"
-                            ></v-img>
-                        </v-avatar>
-                    </v-list-item-group>
-                </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
+        <v-list id="main">
+            <v-list-item class="px-0">
                 <v-list-item-content>
                     <v-list-item-subtitle>
                         Email
@@ -97,19 +108,27 @@
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
+            <v-list-item class="px-0">
+                <v-list-item-content>
+                    <v-list-item-subtitle>
+                        Université
+                    </v-list-item-subtitle>
+                    <v-list-item-title>
+                        {{ user.university || 'ubs' }}
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
         </v-list>
 
         <LazyModifyProfile :user="user" @refresh="$fetch"/>
-        <LazyDisplayBookingsAndTrips/>
 
         <v-divider class="mt-7"></v-divider>
-        <DeleteAccount/>
+
+        <LazySettings :user="user"/>
     </v-container>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
     name: "account",
     auth: true,
@@ -117,6 +136,15 @@ export default {
         return {
             user: {},
             emailExplanation: false,
+            editNickname: false,
+        }
+    },
+    computed: {
+        nameRules() {
+            return [
+                v => !!v || 'Nom requis',
+                v => v.length <= 30 || 'Nom trop long',
+            ]
         }
     },
     async fetch() {
@@ -132,10 +160,57 @@ export default {
     },
     async activated() {
         await this.$fetch
+    },
+    methods: {
+        toggleTheme() {
+            try {
+                this.$cookies.set('dark', `${this.$vuetify.theme.dark}`, {
+                    path: '/',
+                    sameSite: 'Strict',
+                    httpOnly: false,
+                })
+                this.$plausible.trackEvent('darkTheme', {
+                    props: {
+                        variation: this.$vuetify.theme.dark
+                    },
+                });
+            } catch (e) {
+                console.error(e)
+            }
+            return this.$vuetify.theme.dark
+        },
+        onAvatarChange(e) {
+            const file = e.target.files[0]
+            const reader = new FileReader()
+            reader.onload = (evt) => {
+                this.$axios.put("/api/v1/users/picture", {
+                    picture: evt.target.result
+                }).then(res => {
+                    this.$fetch()
+                })
+            }
+            reader.readAsDataURL(file)
+        },
+        updateNickname() {
+            if (this.editNickname) {
+                if (this.user.nickname !== '' && this.user.nickname !== null) {
+                    this.$axios.put("/api/v1/users/nickname", {
+                        nickname: this.user.nickname
+                    })
+                }
+            }
+            this.editNickname = !this.editNickname
+        },
     }
 }
 </script>
 
-<style scoped>
+<style scoped lang="sass">
+.v-avatar
+    align-items: end
+    justify-content: right
+    overflow: visible
 
+.v-list#main
+    background: none
 </style>
