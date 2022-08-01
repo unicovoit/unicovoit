@@ -9,6 +9,7 @@ import IUser from '../interfaces/User'
 import {Booking} from "../models/Booking"
 import {Verification} from "../models/Verification"
 import IVerification from "../interfaces/VerificationJWT"
+import {Contact} from "../models/Contact"
 
 import {v4} from "uuid"
 import {Error} from "mongoose"
@@ -213,16 +214,11 @@ export const getTripById = async (id: string) => {
         created_at: 0,
         updated_at: 0,
     }).populate('driver', {
-        _id: 0,
-        __v: 0,
-        created_at: 0,
-        updated_at: 0,
-        sub: 0,
-        email: 0,
-        defaultPlaces: 0,
-        verified: 0,
-        studentEmail: 0,
-        isBlocked: 0,
+        id: 1,
+        name: 1,
+        nickname: 1,
+        picture: 1,
+        autoBook: 1,
     })
 }
 
@@ -297,6 +293,10 @@ export const getUserById = async (id: string) => {
         __v: 0,
         created_at: 0,
         updated_at: 0,
+    }).populate('contact', {
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
     })
 }
 
@@ -312,6 +312,10 @@ export const getUserBySub = async (id: string) => {
         updated_at: 0,
         studentEmail: 0,
         isBlocked: 0,
+    }).populate('contact', {
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
     })
 }
 
@@ -322,10 +326,11 @@ export const getUserBySub = async (id: string) => {
  * @returns the user
  */
 export const getPublicProfile = async (id: string) => {
-    return User.find({id: {$eq: id}}, {
+    return User.findOne({id: {$eq: id}}, {
         musicPref: 1,
         petsPref: 1,
-        smokingPref: 1,
+        smokePref: 1,
+        autoBook: 1,
         picture: 1,
         nickname: 1,
         name: 1,
@@ -357,7 +362,7 @@ export const getPublicProfileBySub = async (id: string) => {
  */
 export const getEmailBySub = async (sub: string) => {
     const user = await getUserBySub(sub)
-    return user.email
+    return user.contact.email
 }
 
 
@@ -368,7 +373,7 @@ export const getEmailBySub = async (sub: string) => {
  */
 export const getEmailById = async (id: string) => {
     const user = await getUserById(id)
-    return user.email
+    return user.contact.email
 }
 
 
@@ -379,7 +384,13 @@ export const getEmailById = async (id: string) => {
  */
 export const createUser = async (u: IUser) => {
     if (!u.id) u.id = v4()
+    const contact = new Contact({
+        sub: u.sub,
+        email: u.email,
+    })
+    u.contact = contact._id
     const user = new User(u)
+    await contact.save()
     await user.save()
     return user
 }
@@ -391,11 +402,15 @@ export const createUser = async (u: IUser) => {
  */
 export const bookTrip: Function = async (b: any) => {
     b.id = v4()
+    b.user = (await getUserBySub(b.user_id))?._id
+    if (!b.user) {
+        throw new BookingError(`User ${b.user_id} doesn't exist`)
+    }
     let trip = await Trip.findOne({id: {$eq: b.trip}})
     if (!trip) {
         throw new BookingError('Ce trajet n\'existe pas')
     }
-    let bookingExists = await Booking.findOne({trip: {$eq: trip._id}, user_id: {$eq: b.user_id}})
+    let bookingExists = await Booking.findOne({trip: {$eq: trip._id}, user: {$eq: b.user}})
     if (bookingExists) {
         throw new BookingError('Vous avez déjà réservé ce trajet')
     }
@@ -404,7 +419,6 @@ export const bookTrip: Function = async (b: any) => {
     }
     if (trip.places > 0) {
         b.trip = trip._id
-        b.user = (await getUserBySub(b.user_id))._id
         const booking = new Booking(b)
         await booking.save()
 
@@ -540,7 +554,7 @@ export const getUserBookings = async (id: string) => {
                     created_at: 0
                 }
             }
-        ])
+        ]).sort({'trip.departure_time': 1})
         if (bookings) {
             return bookings
         } else {
@@ -575,7 +589,7 @@ export const getUserTrips = async (id: string | undefined) => {
         verified: 0,
         studentEmail: 0,
         isBlocked: 0,
-    })
+    }).sort({departure_time: 1})
 }
 
 
@@ -613,6 +627,22 @@ export const saveUserPreferencesBySub = async (id: string, preferences: any) => 
             autoBook: preferences.autoBook,
         }
     }, {new: true})
+}
+
+
+/**
+ * Save a user's contact info
+ * @param   id the oauth id of the user
+ * @param   info the new contact info
+ */
+export const saveUserContactBySub = async (id: string, info: any) => {
+    const contact = await Contact.findOne({sub: {$eq: id}})
+    contact.email = info.email
+    contact.phone = info.phone
+    contact.snapchat = info.snapchat
+    contact.facebook = info.facebook
+    contact.instagram = info.instagram
+    await contact.save()
 }
 
 
