@@ -36,7 +36,16 @@
                 ></v-img>
             </NuxtLink>
             <v-spacer></v-spacer>
-            <Settings/>
+            <NuxtLink
+                to="/trips/add"
+                class="text-decoration-none"
+            >
+                <v-icon
+                    size="30"
+                >
+                    mdi-plus-circle-outline
+                </v-icon>
+            </NuxtLink>
         </v-app-bar>
 
         <v-main
@@ -72,7 +81,7 @@
                 exact
                 router
             >
-                <span>Login</span>
+                <span>Connexion</span>
 
                 <v-icon>mdi-account-circle</v-icon>
             </v-btn>
@@ -96,18 +105,7 @@
             >
                 <span>Mon Compte</span>
 
-                <v-avatar
-                    v-if="user_picture"
-                    class="v-icon"
-                    size="25"
-                >
-                    <v-img
-                        :src="user_picture"
-                    ></v-img>
-                </v-avatar>
-                <v-icon
-                    v-else
-                >
+                <v-icon>
                     mdi-account-circle
                 </v-icon>
             </v-btn>
@@ -116,13 +114,8 @@
 </template>
 
 <script>
-import Settings from "../components/Settings"
-
 export default {
     name: 'DefaultLayout',
-    components: {
-        Settings
-    },
     data() {
         return {
             clipped: true,
@@ -135,20 +128,15 @@ export default {
                     title: 'Accueil',
                     to: '/',
                     id: '0'
-                }, {
-                    icon: 'mdi-car-outline',
-                    title: 'Trajets',
-                    to: '/trips',
-                    id: '1'
                 }
             ],
             menu2: [
                 {
-                    icon: 'mdi-plus-circle-outline',
-                    title: 'Ajouter',
-                    to: '/trips/add',
+                    icon: 'mdi-car',
+                    title: 'Mon activité',
+                    to: '/activity',
                     id: '2'
-                },
+                }
             ],
             miniVariant: false,
             title: 'UniCovoit',
