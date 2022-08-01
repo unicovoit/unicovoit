@@ -10,6 +10,17 @@
             Trajet
         </h2>
 
+        <v-alert
+            v-if="pendingRequests"
+            class="mt-3"
+            dense
+            text
+            icon="mdi-alert-circle"
+            color="warning"
+        >
+            Vous avez une demande de réservation en attente
+        </v-alert>
+
         <v-timeline
             appear="slide-y-transition"
             class="mb-8 mt-3"
@@ -97,7 +108,7 @@
             <v-list-item justify="center">
                 <v-list-item-content>
                     <v-list-item-title>
-                        <v-icon class="mr-3">mdi-currency-eur</v-icon>
+                        <v-icon class="mr-3">mdi-piggy-bank-outline</v-icon>
                         {{ trip.price }} €
                     </v-list-item-title>
                 </v-list-item-content>
@@ -157,6 +168,12 @@
                 <v-card-title>
                     Réservations
                 </v-card-title>
+                <v-card-subtitle
+                    v-if="pendingRequests"
+                    class="red--text"
+                >
+                    Acceptez ou refusez les demandes de réservation
+                </v-card-subtitle>
                 <v-list>
                     <v-list-item
                         v-for="booking in bookings"
@@ -185,7 +202,7 @@
                             >
                                 <v-btn
                                     :loading="confirmLoading"
-                                    color="primary"
+                                    color="success"
                                     elevation="0"
                                     fab
                                     small
@@ -195,7 +212,7 @@
                                 </v-btn>
                                 <v-btn
                                     :loading="cancelLoading"
-                                    color="error"
+                                    color="gray"
                                     elevation="0"
                                     fab
                                     icon
@@ -272,6 +289,9 @@ export default {
         owner() {
             return this.trip.driver_id === this.$auth.user.sub
         },
+        pendingRequests() {
+            return this.bookings.some(b => !b.confirmed)
+        },
     },
     async fetch() {
         try {
@@ -312,6 +332,7 @@ export default {
         },
         async cancelBooking(booking) {
             try {
+                // TODO: ask for confirmation
                 this.cancelLoading = true
                 await this.$axios.$delete(`/api/v1/trips/bookings/${booking.id}/cancel`)
                 this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
@@ -335,6 +356,9 @@ export default {
 <style lang="sass" scoped>
 .text-h5
     text-transform: capitalize
+
+.warning--text
+    color: #ebb80f !important
 
 .v-timeline-item
     align-items: start
