@@ -201,19 +201,19 @@ export default {
                 dark: {
                     primary: "#4A6DD9",
                     accent: colors.grey.darken3,
-                    secondary: colors.amber.darken3,
+                    secondary: colors.grey.darken3,
                     info: "#03A9F4",
-                    warning: "#F2B544",
-                    error: colors.deepOrange.accent4,
+                    warning: colors.amber.accent3,
+                    error: colors.red.darken3,
                     success: colors.green.darken2
                 },
                 light: {
                     primary: "#4A6DD9",
                     accent: colors.grey.base,
-                    secondary: colors.amber.base,
+                    secondary: colors.grey.lighten4,
                     info: "#03A9F4",
                     warning: colors.amber.accent3,
-                    error: colors.deepOrange.base,
+                    error: colors.red.base,
                     success: colors.green.base
                 }
             }
