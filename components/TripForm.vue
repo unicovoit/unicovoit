@@ -2,7 +2,7 @@
     <v-form
         ref="form"
         lazy-validation
-        @keyup.native.enter="valid && validate($event)"
+        @keyup.native.enter="validate($event)"
     >
         <v-row>
             <v-autocomplete
@@ -94,8 +94,8 @@ export default {
             this.$router.push({
                 path: '/trips',
                 query: {
-                    from: this.search.from.join(','),
-                    to: this.search.to.join(','),
+                    from: this.search.from?.join(','),
+                    to: this.search.to?.join(','),
                     date: this.search.date,
                 },
             })
@@ -143,6 +143,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="sass">
 
+.v-text-field--outlined > .v-input__control > .v-input__slot
+    background: #ffffff !important
 </style>
