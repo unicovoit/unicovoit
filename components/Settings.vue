@@ -1,28 +1,44 @@
 <template>
     <v-dialog
         v-model="dialog"
-        width="500"
-        class="rounded-lg"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
     >
         <template v-slot:activator="{ on, attrs }">
             <v-btn
-                icon
                 v-bind="attrs"
                 v-on="on"
+                class="my-4"
+                block
+                large
+                depressed
             >
-                <v-icon>mdi-cog</v-icon>
+                <v-icon class="mr-2">mdi-cog</v-icon>
+                Paramètres
             </v-btn>
         </template>
 
         <v-card>
-            <v-card-title class="text-h5">
-                Paramètres
-            </v-card-title>
-
-            <v-card-text class="mt-4 px-7">
-                <v-row
-                    align="center"
+            <v-list>
+                <v-list-item
+                    class="d-flex align-center"
                 >
+                    <v-btn
+                        class="mr-3"
+                        icon
+                        @click="dialog = false"
+                    >
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                    <h4
+                        class="text-h4"
+                    >
+                        Paramètres
+                    </h4>
+                </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item>
                     <v-col
                         class="d-flex justify-center pa-0"
                         cols="3"
@@ -40,11 +56,10 @@
                     >
                         Passer en mode {{ $vuetify.theme.dark ? 'clair' : 'sombre' }}
                     </v-col>
-                </v-row>
-                <v-row
+                </v-list-item>
+                <v-list-item
                     v-if="$store.state.auth.loggedIn"
-                    align="center"
-                    @click="logout"
+                    @click="$auth.logout()"
                 >
                     <v-col
                         class="d-flex justify-center pa-0"
@@ -62,31 +77,77 @@
                     >
                         Déconnexion
                     </v-col>
-                </v-row>
-            </v-card-text>
+                </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item
+                    @click="confirmDeletion = true"
+                >
+                    <v-col
+                        class="d-flex justify-center pa-0"
+                        cols="3"
+                    >
+                        <v-btn
+                            color="error"
+                            icon
+                        >
+                            <v-icon>mdi-trash-can-outline</v-icon>
+                        </v-btn>
+                    </v-col>
+                    <v-col
+                        class="text-body-1"
+                        cols="auto"
+                    >
+                        Supprimer mon compte
+                    </v-col>
+                </v-list-item>
+                <v-list-item>
+                    <v-list-item-subtitle>
+                        <a
+                            class="text--secondary text-body-2 text-decoration-none"
+                            :href="`https://github.com/unicovoit/unicovoit/tree/v${$store.state.version}`"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Version {{ $store.getters.displayVersion }}
+                        </a>
+                    </v-list-item-subtitle>
+                </v-list-item>
+            </v-list>
 
-            <v-divider></v-divider>
-
-            <v-card-actions
-                class="mx-2"
+            <!-- Confirm booking suppression -->
+            <v-dialog
+                v-model="confirmDeletion"
+                max-width="500px"
             >
-                <a
-                    class="text--secondary text-body-2 text-decoration-none"
-                    :href="`https://github.com/unicovoit/unicovoit/tree/v${$store.state.version}`"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Version {{ $store.getters.displayVersion }}
-                </a>
-                <v-spacer></v-spacer>
-                <v-btn
-                    text
-                    color="primary"
-                    @click="dialog = false"
-                >
-                    OK
-                </v-btn>
-            </v-card-actions>
+                <v-card>
+                    <v-card-title>
+                        Voulez-vous vraiment supprimer votre compte ?
+                    </v-card-title>
+                    <v-card-text>
+                        Cela supprimera tous vos trajets, réservations, et vos informations personnelles.<br>
+                        <span class="font-weight-black text--primary">Cette action est irréversible.</span>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            class="ma-1"
+                            color="primary"
+                            text
+                            @click.prevent="confirmDeletion = false"
+                        >
+                            Annuler
+                        </v-btn>
+
+                        <v-btn
+                            class="ma-1"
+                            color="error"
+                            @click="deleteAccount()"
+                        >
+                            Supprimer
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-card>
     </v-dialog>
 </template>
@@ -94,9 +155,16 @@
 <script>
 export default {
     name: "Settings",
+    props: {
+        user: {
+            type: Object,
+            required: true,
+        }
+    },
     data () {
         return {
             dialog: false,
+            confirmDeletion: false,
         };
     },
     methods: {
