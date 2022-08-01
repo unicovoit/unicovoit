@@ -39,8 +39,7 @@ export default {
             searchSuggestions: [],
             query: '',
             input: '',
-            call: setTimeout(() => {
-            }, 0),
+            getSuggestions: setTimeout(() => {}, 0),
             suggestions: [],
         }
     },
@@ -71,11 +70,10 @@ export default {
             this.refreshSuggestions(val)
         },
         query(val) {
-            console.log(val)
             try {
                 let coord = this.searchSuggestions.find(s => s.properties.label === val).geometry.coordinates
-                console.log(coord)
                 this.$emit("changeCity", coord)
+                this.$emit("changeCityName", val)
             } catch (e) {
                 console.error(e)
             }
