@@ -1,14 +1,15 @@
 import * as db from '../util/db'
 import logger from '../util/signale'
+import * as mail from "../util/mail"
 import {verifyEmail} from "../util/mail"
 import VerificationJWT from "../interfaces/VerificationJWT"
-import * as mail from '../util/mail'
 import * as image from "../util/image"
 
 import {auth} from "express-oauth2-jwt-bearer"
 import {Router} from "express"
 import * as jwt from 'jsonwebtoken'
 import * as crypto from "crypto"
+import {updateUserNickname} from "../util/db";
 
 const router: Router = Router()
 
@@ -192,6 +193,77 @@ router.get('/profile/:id', async (req, res) => {
 
 
 /**
+ * @route   PUT /api/v1/users/nickname
+ * @desc    Update a user's nickname
+ * @access  Private
+ */
+router.put('/nickname', checkJwt, async (req, res) => {
+    try {
+        const user = await db.getUserBySub(String(req.auth?.payload.sub))
+        if (user) {
+            await db.updateUserNickname(user.id, req.body.nickname)
+            res.sendStatus(200)
+        } else {
+            res.status(404).json({
+                error: 'User not found'
+            })
+        }
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: 'Server error'
+        })
+    }
+})
+
+
+/**
+ * @route   POST /api/v1/users/preferences
+ * @desc    Update a user's travel preferences
+ * @access  Private
+ */
+router.put('/preferences', checkJwt, async (req, res) => {
+    try {
+        logger.info(req.body)
+        const user = await db.getUserBySub(String(req.auth?.payload.sub))
+        if (user) {
+            if (verifyPrefs(req.body)) {
+                await db.saveUserPreferencesBySub(String(req.auth?.payload.sub), req.body)
+                res.sendStatus(200)
+            } else {
+                res.sendStatus(400)
+            }
+        } else {
+            res.status(404).json({
+                error: 'User not found'
+            })
+        }
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: 'Server error'
+        })
+    }
+})
+
+/**
+ * Validate user preferences
+ * @param {Object} prefs
+ * @returns {Boolean}
+ */
+function verifyPrefs(prefs: any) {
+    if (typeof prefs.smokePref !== 'boolean')
+        return false
+    if (typeof prefs.petsPref !== 'boolean')
+        return false
+    if (typeof prefs.musicPref !== 'boolean')
+        return false
+    return typeof prefs.autoBook === 'boolean'
+
+}
+
+
+/**
  * @route   POST /api/v1/users/isVerified
  * @desc    Check if user is verified
  * @access  Private
@@ -203,7 +275,7 @@ router.get('/isVerified', originCheck, async (req, res, next) => {
         const verified: boolean | undefined = await db.verifiedOrSave(auth)
         const token = jwt.sign({
             sub: auth.sub,
-        }, VERIFICATION_SECRET, { expiresIn: '5m' })
+        }, VERIFICATION_SECRET, {expiresIn: '15m'})
 
         res.status(200).json({verified, token})
     } catch (e) {
@@ -224,7 +296,8 @@ router.post('/sendVerificationCode', originCheck, async (req, res) => {
     try {
         const auth = req.auth as unknown as VerificationJWT
         if (req.body.hasOwnProperty('email')) {
-            if (verifyEmail(String(req.body.email))) {
+            const uni = verifyEmail(String(req.body.email))
+            if (uni) {
                 if (await db.studentEmailUsed(String(req.body.email))) {
                     res.sendStatus(409)
                 } else {
@@ -234,10 +307,12 @@ router.post('/sendVerificationCode', originCheck, async (req, res) => {
                     await db.saveVerificationCode(auth.sub, req.body.email, code)
                     await mail.send('confirm_address', req.body.email, 'Confirmation de votre adresse universitaire', {code})
 
+                    await db.updateUserUniversity(auth.sub, uni)
+
                     const token = jwt.sign({
                         sub: auth.sub,
                         studentEmail: req.body.email
-                    }, VERIFICATION_SECRET, { expiresIn: '5m' })
+                    }, VERIFICATION_SECRET, {expiresIn: '3m'})
 
                     res.json({token})
                 }
@@ -271,7 +346,7 @@ router.post('/verify', originCheck, async (req, res) => {
                 sub: auth.sub,
                 verified: ok,
                 state: req.body.state
-            }, VERIFICATION_SECRET, { expiresIn: '30s' })
+            }, VERIFICATION_SECRET, {expiresIn: '30s'})
 
             res.status(ok ? 200 : 418).json(ok ? {token} : '')
         } else {
