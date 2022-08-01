@@ -1,10 +1,10 @@
 <template>
-    <v-container>
+    <div>
         <h4
             v-if="noTrips"
             class="text-subtitle-1"
         >
-            Aucun trajet publié pour le moment
+            Rien à afficher ici pour le moment !
         </h4>
 
         <v-list
@@ -18,7 +18,7 @@
                 @refresh="$emit('refresh')"
             ></TripCard>
         </v-list>
-    </v-container>
+    </div>
 </template>
 
 <script>
