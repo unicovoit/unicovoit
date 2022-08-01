@@ -49,7 +49,7 @@
         <v-list-item justify="center">
             <v-list-item-content>
                 <v-list-item-title class="text-body-2">
-                    <v-icon class="mr-3">mdi-currency-eur</v-icon>
+                    <v-icon class="mr-3">mdi-piggy-bank-outline</v-icon>
                     {{ trip.price }} €
                 </v-list-item-title>
             </v-list-item-content>
