@@ -16,7 +16,7 @@
             </p>
             <p>
                 Les
-                <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'utilisation</NuxtLink>
+                <NuxtLink class="text--secondary" to="/legal">Conditions Générales d'utilisation</NuxtLink>
                 sont disponibles sur le site.
             </p>
             <p>
@@ -53,8 +53,8 @@
                         :key="item.title"
                     >
                         <v-expansion-panel-header
-                            disable-icon-rotate
                             class="text-subtitle-1"
+                            disable-icon-rotate
                         >
                             {{ item.title }}
                             <template v-slot:actions>
@@ -92,6 +92,9 @@ export default {
                         UniCovoit ne prend pas en charge les paiements donc vous devez convenir d'un moyen de paiement entre conducteur et passagers.
                         Aucune commission n'est relevée sur le prix du trajet.`
                 }, {
+                    title: "Est-ce que je peux réserver plusieurs places sur un trajet ?",
+                    content: `Non. Les trajets sont réservés aux étudiants, donc vous devez avoir un compte UniCovoit et montrer votre statut étudiant avant de pouvoir réserver un trajet.`
+                }, {
                     title: "Qui a développé cette application ?",
                     content: "Cette application a été développée par finxol, un étudiant de l'IUT de Vannes (Bretagne)."
                 }, {
@@ -114,5 +117,5 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass" scoped>
 </style>
