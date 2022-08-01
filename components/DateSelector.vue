@@ -51,7 +51,7 @@ export default {
             minDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10),
             maxDate: (() => {
                 let d = new Date()
-                d.setDate(d.getDate() + 21) // 3 weeks later
+                d.setDate(d.getDate() + 91) // 3 weeks later
                 return d.toISOString().substring(0, 10)
             })(),
             dateMenu: false,
