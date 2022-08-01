@@ -29,7 +29,7 @@
                 class="mt-8"
                 text
                 block
-                @click="$router.push({path: '/profile', query: {trips: 1}})"
+                @click="$router.push({path: '/activity', query: {trips: 1}})"
             >
                 Voir mes trajets
             </v-btn>
@@ -57,7 +57,7 @@
                 step="1"
             >
                 Lieu de départ
-                <small>Sélectionnez une adresse</small>
+                <small>{{ details.from }}</small>
             </v-stepper-step>
             <v-stepper-content step="1">
                 <CitySelector
@@ -66,6 +66,7 @@
                     :error="errorMessage"
                     @changeCity="changeFrom"
                     @submit="nextStep"
+                    @changeCityName="val => {fromCityName = val}"
                 ></CitySelector>
 
                 <v-btn
@@ -82,7 +83,7 @@
                 step="2"
             >
                 Lieu d'arrivée
-                <small>Sélectionnez une adresse</small>
+                <small>{{ details.to }}</small>
             </v-stepper-step>
             <v-stepper-content
                 step="2"
@@ -92,6 +93,7 @@
                     :req="true"
                     @changeCity="changeTo"
                     @submit="nextStep"
+                    @changeCityName="val => {toCityName = val}"
                 ></CitySelector>
 
                 <v-btn
@@ -114,6 +116,7 @@
                 step="3"
             >
                 Date et heure de départ
+                <small>{{ details.date }}</small>
             </v-stepper-step>
             <v-stepper-content step="3">
                 <DateSelector
@@ -136,15 +139,45 @@
                 </v-btn>
             </v-stepper-content>
 
-            <!-- Select the price per passenger -->
+            <!-- Select the number of available spaces -->
             <v-stepper-step
                 :complete="steps > 4"
                 step="4"
             >
-                Prix
-                <small>Fixez le prix par passager.</small>
+                Nombre de places
+                <small>{{ details.places }}</small>
             </v-stepper-step>
             <v-stepper-content step="4">
+                <v-text-field
+                    v-model="trip.places"
+                    :rules="rules.places"
+                    label="Places"
+                    placeholder="2"
+                    @keyup.native.enter="nextStep"
+                ></v-text-field>
+                <v-btn
+                    color="primary"
+                    @click="nextStep"
+                >
+                    Suivant
+                </v-btn>
+                <v-btn
+                    text
+                    @click="prevStep"
+                >
+                    Retour
+                </v-btn>
+            </v-stepper-content>
+
+            <!-- Select the price per passenger -->
+            <v-stepper-step
+                :complete="steps > 5"
+                step="5"
+            >
+                Prix
+                <small>{{ details.price }}</small>
+            </v-stepper-step>
+            <v-stepper-content step="5">
                 <v-alert
                     class="text-body-2"
                     color="primary"
@@ -164,7 +197,7 @@
                     v-model="trip.price"
                     :rules="rules.price"
                     label="Prix"
-                    :placeholder="String(Math.round(estimatedPrice/2))"
+                    :placeholder="String(Math.round(estimatedPrice/trip.places))"
                     suffix="€"
                     @keyup.native.enter="nextStep"
                 ></v-text-field>
@@ -190,11 +223,12 @@
                     <v-card-title>
                         Comment le prix est-il estimé ?
                     </v-card-title>
-                    <v-card-text>
-                        Pour calculer le prix du trajet, nous utilisons le prix moyen instantané du SP95-E10 en France,
-                        la consommation moyenne d'une voiture, ici 5.5 L/100km,
-                        et par la distance du trajet.
-                        Le tout est arrondi à l'entier.<br>
+                    <v-card-text
+                        class="py-0"
+                    >
+                        Nous basons notre estimation sur la consommation moyenne d'une voiture, ici 5.5 L/100km,
+                        et la distance du trajet,
+                        en prenant en compte le prix moyen du SP95-E10 en France.<br>
                         Les péages ne sont pas pris en compte.
                     </v-card-text>
                     <v-card-actions>
@@ -210,36 +244,6 @@
                 </v-card>
             </v-dialog>
 
-            <!-- Select the number of available spaces -->
-            <v-stepper-step
-                :complete="steps > 5"
-                step="5"
-            >
-                Nombre de places
-                <small>Le nombre de passagers que vous pouvez transporter</small>
-            </v-stepper-step>
-            <v-stepper-content step="5">
-                <v-text-field
-                    v-model="trip.places"
-                    :rules="rules.places"
-                    label="Places"
-                    placeholder="2"
-                    @keyup.native.enter="nextStep"
-                ></v-text-field>
-                <v-btn
-                    color="primary"
-                    @click="nextStep"
-                >
-                    Suivant
-                </v-btn>
-                <v-btn
-                    text
-                    @click="prevStep"
-                >
-                    Retour
-                </v-btn>
-            </v-stepper-content>
-
             <!-- Give a short description to the trip for additional information -->
             <v-stepper-step
                 :complete="steps > 6"
@@ -247,7 +251,7 @@
             >
                 Description
                 <small>
-                    Il est préférable d'ajouter une description à votre trajet afin d'en définir les modalités.
+                    {{ details.description }}
                 </small>
             </v-stepper-step>
             <v-stepper-content step="6">
@@ -300,6 +304,14 @@ export default {
             estimatedPrice: 0,
             priceExplanation: false,
             loading: false,
+            details: {
+                from: "Sélectionnez une adresse",
+                to: "Sélectionnez une adresse",
+                date: "",
+                price: "Fixez le prix par passager",
+                places: "Le nombre de passagers que vous pouvez transporter",
+                description: "Il est préférable d'ajouter une description à votre trajet afin d'en définir les modalités"
+            },
             trip: {
                 from: [],
                 to: [],
@@ -309,6 +321,8 @@ export default {
                 driver_id: this.$store.state.auth.user.sub,
                 places: "",
             },
+            fromCityName: "",
+            toCityName: "",
             steps: 1,
             rules: {
                 price: [
@@ -362,7 +376,20 @@ export default {
         }
     },
     methods: {
-        nextStep() {
+        parseDateTime(date) {
+            console.log(date)
+            date = new Date(date)
+            let options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit'
+            }
+            return date.toLocaleDateString('fr-FR', options)
+        },
+        async nextStep() {
             const verifyRules = (rules, value) => {
                 let valid = true
                 rules.forEach(rule => {
@@ -376,20 +403,34 @@ export default {
 
             switch (this.steps) {
                 case 1:
-                    if (this.trip.from && verifyRules(this.rules.city, this.trip.from)) this.steps++
+                    if (this.trip.from && verifyRules(this.rules.city, this.trip.from)) {
+                        this.steps++
+                        this.details.from = this.fromCityName
+                    }
                     break
                 case 2:
-                    if (this.trip.to && verifyRules(this.rules.city, this.trip.to)) this.steps++
+                    if (this.trip.to && verifyRules(this.rules.city, this.trip.to)) {
+                        this.steps++
+                        this.details.to = this.toCityName
+                    }
                     break
                 case 3:
-                    this.estimatePrice()
                     this.steps++
+                    this.details.date = this.parseDateTime(this.trip.departure_time)
+                    this.details.date = this.details.date.charAt(0).toUpperCase() + this.details.date.slice(1)
                     break
                 case 4:
-                    if (this.trip.price && verifyRules(this.rules.price, this.trip.price)) this.steps++
+                    await this.estimatePrice()
+                    if (this.trip.places && verifyRules(this.rules.places, this.trip.places)) {
+                        this.steps++
+                        this.details.places = this.trip.places
+                    }
                     break
                 case 5:
-                    if (this.trip.places && verifyRules(this.rules.places, this.trip.places)) this.steps++
+                    if (this.trip.price && verifyRules(this.rules.price, this.trip.price)) {
+                        this.steps++
+                        this.details.price = this.trip.price + " €"
+                    }
                     break
                 default:
                     this.steps++
