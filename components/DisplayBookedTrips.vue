@@ -10,7 +10,7 @@
         <v-list
             v-else
         >
-            <TripCard
+            <LazyTripCard
                 v-for="booking in bookings"
                 :key="booking.id"
                 type="delete"
@@ -18,21 +18,14 @@
                 :id="booking.id"
                 :requestPending="!booking.confirmed"
                 @refresh="$emit('refresh')"
-            >
-
-            </TripCard>
+            />
         </v-list>
     </div>
 </template>
 
 <script>
-import TripCard from "./TripCard"
-
 export default {
     name: "DisplayBookedTrips",
-    components: {
-        TripCard
-    },
     props: {
         bookings: {
             type: Array,
@@ -41,7 +34,7 @@ export default {
     },
     computed: {
         noBookings() {
-            return this.bookings === undefined || this.bookings.length === 0
+            return this.bookings?.length === 0
         }
     },
 }

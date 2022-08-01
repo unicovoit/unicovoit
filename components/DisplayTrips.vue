@@ -4,31 +4,26 @@
             v-if="noTrips"
             class="text-subtitle-1"
         >
-            Rien à afficher ici pour le moment !
+            Rien à afficher pour le moment !
         </h4>
 
         <v-list
             v-else
         >
-            <TripCard
+            <LazyTripCard
                 v-for='trip in trips'
                 :key='trip.id'
                 :trip='trip'
                 type="edit"
                 @refresh="$emit('refresh')"
-            ></TripCard>
+            />
         </v-list>
     </div>
 </template>
 
 <script>
-import TripCard from "./TripCard"
-
 export default {
     name: "DisplayTrips",
-    components: {
-        TripCard
-    },
     props: {
         trips: {
             type: Array,
@@ -37,7 +32,7 @@ export default {
     },
     computed: {
         noTrips() {
-            return this.trips === undefined || this.trips.length === 0
+            return this.trips?.length === 0
         }
     },
 }
