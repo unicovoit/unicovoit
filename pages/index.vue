@@ -91,11 +91,8 @@
 </template>
 
 <script>
-import TripForm from "../components/TripForm";
-
 export default {
     name: 'Accueil',
-    components: {TripForm},
     auth: false,
     data: () => ({
         snackbar: false,
@@ -122,5 +119,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
-
+/*h2
+    background-image: url('/landscape.svg')
+    background-size: cover
+    background-position: center*/
 </style>
