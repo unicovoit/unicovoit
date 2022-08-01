@@ -4,35 +4,149 @@
             right: () => $router.go(-1),
         }"
     >
-        <h2
-            class="text-h2"
+        <v-container
+            class="pt-0"
         >
-            User Profile
-        </h2>
+            <v-row
+                class="d-flex align-center"
+            >
+                <v-col
+                    class="px-0"
+                    cols="8"
+                >
+                    <span
+                        class="text-h3"
+                    >
+                        {{ user.nickname || user.name }}
+                    </span>
+                </v-col>
+                <v-col
+                    class="pr-0 d-flex flex-row"
+                    cols="3"
+                >
+                    <v-spacer></v-spacer>
+                    <v-avatar
+                        size="80"
+                    >
+                        <v-img
+                            :src="user.picture"
+                        ></v-img>
+                    </v-avatar>
+                </v-col>
+            </v-row>
+        </v-container>
 
-        {{user}}
+        <v-card
+            outlined
+        >
+            <v-card-title>
+                Introduction
+            </v-card-title>
+            <v-card-text
+                v-if="user.bio"
+            >
+                {{ user.bio }}
+            </v-card-text>
+            <v-card-text
+                v-else
+                class="text--secondary font-italic"
+            >
+                Pas de texte d'introduction
+            </v-card-text>
+        </v-card>
+
+        <v-list>
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-group
+                        v-if="user.smokePref"
+                        class="text-body-1"
+                    >
+                        <v-icon left>mdi-smoking</v-icon>
+                        La fumée ne me dérange pas
+                    </v-list-item-group>
+                    <v-list-item-group
+                        v-else
+                        class="text-body-1"
+                    >
+                        <v-icon left>mdi-smoking-off</v-icon>
+                        Je préfère voyager sans fumée
+                    </v-list-item-group>
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-group
+                        v-if="user.petsPref"
+                        class="text-body-1"
+                    >
+                        <v-icon left>mdi-paw</v-icon>
+                        Les animaux de compagnie sont les bienvenus !
+                    </v-list-item-group>
+                    <v-list-item-group
+                        v-else
+                        class="text-body-1"
+                    >
+                        <v-icon left>mdi-paw-off</v-icon>
+                        Je préfère voyager sans animaux de compagnie
+                    </v-list-item-group>
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-group
+                        v-if="user.musicPref"
+                        class="text-body-1"
+                    >
+                        <v-icon left>mdi-music-note</v-icon>
+                        Je fais le trajet en musique !
+                    </v-list-item-group>
+                    <v-list-item-group
+                        v-else
+                        class="text-body-1"
+                    >
+                        <v-icon left>mdi-music-note-off</v-icon>
+                        Je préfère voyager sans musique
+                    </v-list-item-group>
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-group
+                        v-if="user.autoBook"
+                        class="text-body-1"
+                    >
+                        <v-icon left>mdi-flash</v-icon>
+                        J'accepte automatiquement les réservations
+                    </v-list-item-group>
+                    <v-list-item-group
+                        v-else
+                        class="text-body-1"
+                    >
+                        <v-icon left>mdi-flash-off</v-icon>
+                        Pas de réservation automatique pour moi
+                    </v-list-item-group>
+                </v-list-item-content>
+            </v-list-item>
+        </v-list>
     </v-container>
 </template>
 
 <script>
 export default {
-    name: "account",
+    name: "profile",
     auth: false,
     async validate({ params, store }) {
         // Must be a uuid v4
         return store.dispatch('validateUuidV4', params.id)
     },
-    async asyncData({ $axios, route }) {
-        try {
-            const { data } = await $axios.get(`/api/v1/users/profile/${route.params.id}`);
-            return {
-                user: data,
-            };
-        } catch (error) {
-            return {
-                error: true,
-            };
+    data() {
+        return {
+            user: {},
         }
+    },
+    async fetch() {
+        ({ data: this.user } = await this.$axios.get(`/api/v1/users/profile/${this.$route.params.id}`))
     },
 }
 </script>
