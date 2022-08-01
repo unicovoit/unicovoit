@@ -141,7 +141,8 @@ export const addTrip: Function = async (t: ITrip) => {
  * @returns {Promise<Trip[]>} the array of trips
  */
 export const getAllTrips = async () => {
-    return Trip.find({}, {
+    const now: Date = new Date()
+    return Trip.find({departure_time: {$gt: now}}, {
         _id: 0,
         __v: 0,
         created_at: 0,
@@ -579,6 +580,16 @@ export const getUserTrips = async (id: string | undefined) => {
 
 
 /**
+ * Update a user's nickname
+ * @param   id the id of the user
+ * @param   nickname the new nickname
+ */
+export const updateUserNickname = async (id: string, nickname: string) => {
+    await User.updateOne({id: {$eq: id}}, {$set: {nickname: nickname}})
+}
+
+
+/**
  * Update a user's picture
  * @param   id the oauth id of the user
  * @param   picture the new picture url
@@ -586,6 +597,22 @@ export const getUserTrips = async (id: string | undefined) => {
  */
 export const updateUserPictureBySub = async (id: string, picture: string) => {
     await User.updateOne({sub: {$eq: id}}, {$set: {picture: picture}}, {new: true})
+}
+
+
+/**
+ * Save a user's travel preferences
+ * @param   id the oauth id of the user
+ * @param   preferences the new preferences
+ */
+export const saveUserPreferencesBySub = async (id: string, preferences: any) => {
+    await User.updateOne({sub: {$eq: id}}, {$set: {
+            smokePref: preferences.smokePref,
+            musicPref: preferences.musicPref,
+            petsPref: preferences.petsPref,
+            autoBook: preferences.autoBook,
+        }
+    }, {new: true})
 }
 
 
@@ -628,6 +655,16 @@ export const verifiedOrSave = async (user: IVerification): Promise<boolean | und
  */
 export const studentEmailUsed = async (email: string): Promise<boolean> => {
     return !!await User.findOne({studentEmail: {$eq: email}})
+}
+
+
+/**
+ * Save the user's university
+ * @param   id the user's sub
+ * @param   university the university
+ */
+export const updateUserUniversity = async (id: string, university: string) => {
+    await User.updateOne({sub: {$eq: id}}, {$set: {university: university}})
 }
 
 
