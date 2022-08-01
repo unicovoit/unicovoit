@@ -77,7 +77,7 @@ export default {
             dialog: false,
             bookings: [],
             trips: [],
-            tab: 1,
+            tab: 0,
         };
     },
     computed: {
