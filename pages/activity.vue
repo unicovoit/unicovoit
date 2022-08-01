@@ -10,11 +10,27 @@
             key="0"
         >
             <v-container
-                class="ma-0 pa-0"
                 fluid
             >
+                <h5
+                    class="text-h5 font-weight-bold"
+                >
+                    Trajets à venir
+                </h5>
                 <DisplayBookedTrips
-                    :bookings="bookings"
+                    :bookings="upcomingBookings"
+                    @refresh="$fetch"
+                ></DisplayBookedTrips>
+
+                <v-divider class="my-5"></v-divider>
+
+                <h5
+                    class="text-h5 font-weight-bold"
+                >
+                    Trajets passés
+                </h5>
+                <DisplayBookedTrips
+                    :bookings="oldBookings"
                     @refresh="$fetch"
                 ></DisplayBookedTrips>
             </v-container>
@@ -24,13 +40,29 @@
             key="1"
         >
             <v-container
-                class="ma-0 pa-0"
                 fluid
             >
-                <DisplayTrips
-                    :trips="trips"
+                <h5
+                    class="text-h5 font-weight-bold"
+                >
+                    Trajets à venir
+                </h5>
+                <LazyDisplayTrips
+                    :trips="upcomingTrips"
                     @refresh="$fetch"
-                ></DisplayTrips>
+                ></LazyDisplayTrips>
+
+                <v-divider class="my-5"></v-divider>
+
+                <h5
+                    class="text-h5 font-weight-bold"
+                >
+                    Trajets passés
+                </h5>
+                <LazyDisplayTrips
+                    :trips="oldTrips"
+                    @refresh="$fetch"
+                ></LazyDisplayTrips>
             </v-container>
         </v-tab-item>
     </v-tabs>
@@ -53,16 +85,16 @@ export default {
             return new Date()
         },
         oldTrips() {
-            return this.trips.filter(trip => trip.departure_time < this.now)
+            return this.trips.filter(trip => new Date(trip.departure_time) < this.now)
         },
         upcomingTrips() {
-            return this.trips.filter(trip => trip.departure_time >= this.now)
+            return this.trips.filter(trip => new Date(trip.departure_time) >= this.now)
         },
         oldBookings() {
-            return this.bookings.filter(booking => booking.trip.departure_time < this.now)
+            return this.bookings.filter(booking => new Date(booking.trip.departure_time) < this.now)
         },
         upcomingBookings() {
-            return this.bookings.filter(booking => booking.trip.departure_time >= this.now)
+            return this.bookings.filter(booking => new Date(booking.trip.departure_time) >= this.now)
         },
     },
     methods: {
@@ -78,10 +110,6 @@ export default {
         } catch (err) {
             console.error(err.response.data)
         }
-    },
-    deactivated() {
-        this.bookings = []
-        this.trips = []
     },
     activated() {
         this.$fetch()
