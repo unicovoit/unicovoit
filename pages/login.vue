@@ -9,7 +9,7 @@
             style="text-align: justify"
         >
             En vous inscrivant, vous acceptez les <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'Utilisation</NuxtLink>
-            et la <NuxtLink to="/privacy-policy" class="text--secondary">Politique de Confidentialité</NuxtLink>.
+            et la <NuxtLink to="/legal/privacy" class="text--secondary">Politique de Confidentialité</NuxtLink>.
         </v-main>
 
         <v-btn
