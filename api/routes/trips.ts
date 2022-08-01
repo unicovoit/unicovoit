@@ -119,7 +119,7 @@ router.get('/petrol', (req, res) => {
  * @access  Private
  */
 // @ts-ignore
-router.get('/id/:id', checkJwt, async (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
+router.get('/id/:id', async (req: Request<RouteParameters<string>, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => {
     try {
         const trip = await db.getTripById(req.params.id)
         if (trip) {
