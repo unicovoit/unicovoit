@@ -237,22 +237,18 @@
             </div>
         </v-card>
 
-        <ConfirmBooking
-            v-if="!owner"
+        <LazyConfirmBooking
+            v-if="$auth.loggedIn && !owner"
             :date="parseDateTime"
             :trip="trip"
-        ></ConfirmBooking>
+        />
     </v-container>
 </template>
 
 <script>
-import ConfirmBooking from "../../components/ConfirmBooking"
-
 export default {
     name: "trip",
-    components: {
-        ConfirmBooking,
-    },
+    auth: false,
     data() {
         return {
             trip: {},
@@ -287,7 +283,7 @@ export default {
             return this.parseTime(d)
         },
         owner() {
-            return this.trip.driver_id === this.$auth.user.sub
+            return this.trip.driver_id === this.$auth.user?.sub
         },
         pendingRequests() {
             return this.bookings.some(b => !b.confirmed)
@@ -322,6 +318,10 @@ export default {
                 await this.$axios.$post(`/api/v1/trips/bookings/${booking.id}/confirm`)
                 this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
                 this.confirmLoading = false
+                /*this.$store.dispatch('notify', {
+                    title: 'Réservation acceptée',
+                    message: `${booking.user.nickname || booking.user.name} part avec vous !`,
+                })*/
             } catch (error) {
                 console.error(`Trip ${this.$route.params.id}: ${error.message}`)
                 this.$nuxt.error({
