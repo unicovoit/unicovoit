@@ -7,8 +7,10 @@ import universities from '../universities'
 import Trip from '../interfaces/Trip'
 import User from '../interfaces/User'
 import GenericEmailData from "../interfaces/GenericEmailData"
+import Contact from "../interfaces/Contact"
 
 import nuxtConfig from '../../nuxt.config'
+
 
 const logos = {
     snap: `<span class="material-icons">snapchat</span>`,
@@ -93,7 +95,7 @@ export async function sendConfirmation(trip: Trip, user: User, driver: User) {
         title: `Vous partez pour ${trip.toCity}`,
         body: `${driver.nickname || driver.name} a confirmé votre réservation.
             <br>Vous pouvez désormais le·la joindre directement :<br>
-            ${createContactBox(driver)}`,
+            ${createContactBox(<Contact> driver.contact)}`,
         url: `https://unicovoit.fr/trip/${trip.id}`,
         urlText: 'Voir le trajet'
     } as GenericEmailData)
@@ -101,7 +103,7 @@ export async function sendConfirmation(trip: Trip, user: User, driver: User) {
         title: `${user.nickname || user.name} part avec vous !`,
         body: `Vous avez confirmé ${user.nickname || user.name} comme passager sur votre trajet ${trip.fromCity} - ${trip.toCity}
             <br>Vous pouvez désormais le·la joindre directement :<br>
-            ${createContactBox(user)}`,
+            ${createContactBox(<Contact> user.contact)}`,
         url: `https://unicovoit.fr/trips/${trip.id}`,
         urlText: 'Voir mon trajet'
     } as GenericEmailData)
@@ -119,7 +121,7 @@ export async function sendAutoBookConfirmation(trip: Trip, user: User, driver: U
         title: `Vous partez pour ${trip.toCity}`,
         body: `Votre trajet avec ${driver.nickname || driver.name} pour ${trip.toCity} est réservé !
             <br>Vous pouvez désormais le·la joindre directement :<br>
-            ${createContactBox(driver)}`,
+            ${createContactBox(<Contact> driver.contact)}`,
         url: `https://unicovoit.fr/trip/${trip.id}`,
         urlText: 'Voir le trajet'
     } as GenericEmailData)
@@ -127,7 +129,7 @@ export async function sendAutoBookConfirmation(trip: Trip, user: User, driver: U
         title: `${user.nickname || user.name} part avec vous !`,
         body: `${user.nickname || user.name} a réservé une place sur votre trajet ${trip.fromCity} - ${trip.toCity}
             <br>Vous pouvez désormais le·la joindre directement :<br>
-            ${createContactBox(user)}`,
+            ${createContactBox(<Contact> user.contact)}`,
         url: `https://unicovoit.fr/trips/${trip.id}`,
         urlText: 'Voir mon trajet'
     } as GenericEmailData)
@@ -180,12 +182,12 @@ export async function sendCancellation(trip: Trip, user: User, driver_email: str
 }
 
 
-function createContactBox(user: User): string {
+function createContactBox(contact: Contact): string {
     let contactBox = `<div style="background-color: #4A6DD919; padding:1rem; border-radius: 2rem; max-width: 35rem; min-width: 15rem; width: 30%; margin: 2rem">`
     for (let [key, logo] of Object.entries(logos)) {
-        if (user[key]) {
+        if (contact[key]) {
             contactBox += `<div style="display: flex; align-items: center; justify-content: left">
-                            ${logo}&nbsp;&nbsp;${user[key]}<br>
+                            ${logo}&nbsp;&nbsp;${contact[key]}<br>
                           </div>`
         }
     }
