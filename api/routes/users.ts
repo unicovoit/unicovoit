@@ -9,7 +9,6 @@ import {auth} from "express-oauth2-jwt-bearer"
 import {Router} from "express"
 import * as jwt from 'jsonwebtoken'
 import * as crypto from "crypto"
-import {updateUserNickname} from "../util/db";
 
 const router: Router = Router()
 
@@ -224,7 +223,6 @@ router.put('/nickname', checkJwt, async (req, res) => {
  */
 router.put('/preferences', checkJwt, async (req, res) => {
     try {
-        logger.info(req.body)
         const user = await db.getUserBySub(String(req.auth?.payload.sub))
         if (user) {
             if (verifyPrefs(req.body)) {
@@ -259,8 +257,32 @@ function verifyPrefs(prefs: any) {
     if (typeof prefs.musicPref !== 'boolean')
         return false
     return typeof prefs.autoBook === 'boolean'
-
 }
+
+
+/**
+ * @route   PUT /api/v1/users/contact
+ * @desc    Update a user's contact info
+ * @access  Private
+ */
+router.put('/contact', checkJwt, async (req, res) => {
+    try {
+        const user = await db.getUserBySub(String(req.auth?.payload.sub))
+        if (user) {
+            await db.saveUserContactBySub(user.sub, req.body)
+            res.sendStatus(200)
+        } else {
+            res.status(404).json({
+                error: 'User not found'
+            })
+        }
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: 'Server error'
+        })
+    }
+})
 
 
 /**
