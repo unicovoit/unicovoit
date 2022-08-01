@@ -30,7 +30,7 @@
                 >
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
-                <v-toolbar-title>Réserver un trajet</v-toolbar-title>
+                <v-toolbar-title>Réserver une place</v-toolbar-title>
             </v-toolbar>
 
             <v-alert
