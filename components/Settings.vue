@@ -20,87 +20,109 @@
         </template>
 
         <v-card>
-            <v-list>
-                <v-list-item
-                    class="d-flex align-center"
+            <v-toolbar
+                elevation="0"
+            >
+                <v-btn
+                    class="mr-3"
+                    icon
+                    @click="dialog = false"
                 >
-                    <v-btn
-                        class="mr-3"
-                        icon
-                        @click="dialog = false"
-                    >
-                        <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                    <h4
-                        class="text-h4"
-                    >
-                        Paramètres
-                    </h4>
-                </v-list-item>
-                <v-divider></v-divider>
-                <v-list-item>
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+                <v-toolbar-title
+                    class="text-h5"
+                >
+                    Paramètres
+                </v-toolbar-title>
+            </v-toolbar>
+            <v-divider></v-divider>
+
+            <v-container>
+                <v-row class="d-flex justify-space-around">
                     <v-col
-                        class="d-flex justify-center pa-0"
-                        cols="3"
+                        cols="5"
+                        class="secondary"
+                        @click.prevent="toggleTheme"
                     >
                         <v-switch
                             v-model="$vuetify.theme.dark"
+                            ref="themeSwitch"
                             color="primary"
-                            @click="toggleTheme"
                             inset
                         ></v-switch>
-                    </v-col>
-                    <v-col
-                        cols="auto"
-                        class="text-body-1"
-                    >
                         Passer en mode {{ $vuetify.theme.dark ? 'clair' : 'sombre' }}
                     </v-col>
-                </v-list-item>
-                <v-list-item
-                    v-if="$store.state.auth.loggedIn"
-                    @click="$auth.logout()"
-                >
                     <v-col
-                        class="d-flex justify-center pa-0"
-                        cols="3"
+                        cols="5"
+                        class="secondary"
+                        @click="logout"
                     >
                         <v-btn
                             icon
                         >
-                            <v-icon>mdi-logout</v-icon>
+                            <v-icon size="30">mdi-logout</v-icon>
                         </v-btn>
-                    </v-col>
-                    <v-col
-                        cols="auto"
-                        class="text-body-1"
-                    >
                         Déconnexion
                     </v-col>
-                </v-list-item>
-                <v-divider></v-divider>
-                <v-list-item
-                    @click="confirmDeletion = true"
-                >
+                </v-row>
+                <v-row class="d-flex justify-space-around">
                     <v-col
-                        class="d-flex justify-center pa-0"
-                        cols="3"
+                        cols="5"
+                        class="secondary"
+                        @click="$router.push('/legal')"
                     >
                         <v-btn
-                            color="error"
                             icon
                         >
-                            <v-icon>mdi-trash-can-outline</v-icon>
+                            <v-icon size="30">mdi-scale-balance</v-icon>
                         </v-btn>
+                        Conditions Générales d'Utilisation
                     </v-col>
                     <v-col
-                        class="text-body-1"
-                        cols="auto"
+                        cols="5"
+                        class="secondary"
+                        @click="$router.push('/legal/privacy')"
                     >
+                        <v-btn
+                            icon
+                        >
+                            <v-icon size="30">mdi-scale-balance</v-icon>
+                        </v-btn>
+                        Politique de Confidentialité
+                    </v-col>
+                </v-row>
+            </v-container>
+
+            <v-divider class="mt-5"></v-divider>
+
+            <v-container>
+                <v-row class="d-flex justify-space-around">
+                    <v-col
+                        id="danger"
+                        cols="5"
+                        class="secondary"
+                        @click="confirmDeletion = true"
+                    >
+                        <v-btn
+                            icon
+                            color="error"
+                        >
+                            <v-icon size="30">mdi-trash-can-outline</v-icon>
+                        </v-btn>
                         Supprimer mon compte
                     </v-col>
-                </v-list-item>
-                <v-list-item>
+                    <v-col
+                        cols="5"
+                    >
+                    </v-col>
+                </v-row>
+            </v-container>
+
+            <v-list>
+                <v-list-item
+                    class="mt-4 text-center"
+                >
                     <v-list-item-subtitle>
                         <a
                             class="text--secondary text-body-2 text-decoration-none"
@@ -131,8 +153,8 @@
                         <v-spacer></v-spacer>
                         <v-btn
                             class="ma-1"
-                            color="primary"
                             text
+                            color="primary"
                             @click.prevent="confirmDeletion = false"
                         >
                             Annuler
@@ -141,7 +163,8 @@
                         <v-btn
                             class="ma-1"
                             color="error"
-                            @click="deleteAccount()"
+                            depressed
+                            @click="deleteAccount"
                         >
                             Supprimer
                         </v-btn>
@@ -171,8 +194,9 @@ export default {
         logout() {
             this.$auth.logout()
         },
-        toggleTheme() {
+        toggleTheme(evt) {
             try {
+                this.$refs.themeSwitch.$el.click()
                 this.$cookies.set('dark', `${this.$vuetify.theme.dark}`, {
                     path: '/',
                     sameSite: 'Strict',
@@ -186,12 +210,22 @@ export default {
             } catch (e) {
                 console.error(e)
             }
-            return this.$vuetify.theme.dark
+        },
+        deleteAccount() {
+            console.log('delete account')
         }
     },
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
+.col.col-5
+    margin: 1rem 0
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    border-radius: 1rem
+    text-align: center
+    cursor: pointer
 </style>
