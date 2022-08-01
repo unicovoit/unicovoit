@@ -8,9 +8,6 @@
         <v-main
             style="text-align: justify"
         >
-            Vous pouvez créer un compte ou simplement vous connecter à UniCovoit avec Google, Discord ou Microsoft.
-            <br>
-            <br>
             En vous inscrivant, vous acceptez les <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'Utilisation</NuxtLink>
             et la <NuxtLink to="/privacy-policy" class="text--secondary">Politique de Confidentialité</NuxtLink>.
         </v-main>
@@ -24,7 +21,7 @@
             :loading="loading"
             @click="auth0Login"
         >
-            connexion
+            Me connecter
         </v-btn>
     </v-container>
 </template>
