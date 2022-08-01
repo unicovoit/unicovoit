@@ -21,13 +21,16 @@ const UserSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        email: {
-            type: String,
-            required: true,
-            unique: true
+        contact: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Contact"
         },
         picture: {
             type: String
+        },
+        bio: {
+            type: String,
+            default: ""
         },
         smokePref: {
             type: Boolean,
@@ -39,7 +42,7 @@ const UserSchema = new mongoose.Schema({
         },
         musicPref: {
             type: Boolean,
-            default: false
+            default: true
         },
         autoBook: {
             type: Boolean,
@@ -55,6 +58,9 @@ const UserSchema = new mongoose.Schema({
         studentEmail: {
             type: String,
             unique: true
+        },
+        university: {
+            type: String,
         },
         isBlocked: {
             type: Boolean,
