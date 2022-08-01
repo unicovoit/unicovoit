@@ -42,72 +42,82 @@
             </v-card>
         </v-dialog>
 
-        <v-container>
+        <v-container
+            class="pt-0"
+        >
             <v-row
                 class="d-flex align-center"
             >
-                <span
-                    v-if="!editNickname"
-                    class="text-h3"
+                <v-col
+                    class="px-0"
+                    cols="8"
                 >
-                    {{ user.nickname || user.name }}
-                </span>
-                <v-text-field
-                    v-else
-                    v-model="user.nickname"
-                    :rules="nameRules"
-                    :counter="30"
-                    label="Nom d'utilisateur"
-                    required
-                ></v-text-field>
-                <v-btn
-                    class="primary--text ml-4"
-                    icon
-                    x-small
-                    @click="updateNickname"
+                    <span
+                        v-if="!editNickname"
+                        class="text-h3"
+                    >
+                        {{ user.nickname || user.name }}
+                    </span>
+                    <v-text-field
+                        v-else
+                        v-model="user.nickname"
+                        :rules="nameRules"
+                        :counter="30"
+                        label="Nom d'utilisateur"
+                        style="width: 80%"
+                        required
+                        @keydown.enter="updateNickname"
+                        @keydown.esc="editNickname = false"
+                    ></v-text-field>
+                </v-col>
+                <v-col
+                    class="d-flex justify-center pl-0"
+                    cols="1"
                 >
-                    <v-icon v-if="editNickname">mdi-check</v-icon>
-                    <v-icon v-else>mdi-square-edit-outline</v-icon>
-                </v-btn>
-                <v-spacer></v-spacer>
-                <v-avatar
-                    size="80"
-                    @click="$refs.avatar.click()"
-                >
-                    <v-img
-                        :src="user.picture"
-                    ></v-img>
                     <v-btn
-                        class="primary--text mr-n1"
-                        absolute
-                        fab
+                        class="primary--text"
+                        icon
                         x-small
+                        @click="updateNickname"
+                    >
+                        <v-icon v-if="editNickname">mdi-check</v-icon>
+                        <v-icon v-else>mdi-square-edit-outline</v-icon>
+                    </v-btn>
+                </v-col>
+                <v-col
+                    class="pr-0 d-flex flex-row"
+                    cols="3"
+                >
+                    <v-spacer></v-spacer>
+                    <v-avatar
+                        size="80"
                         @click="$refs.avatar.click()"
                     >
-                        <v-icon>mdi-square-edit-outline</v-icon>
-                    </v-btn>
-                </v-avatar>
-                <input
-                    hidden
-                    ref="avatar"
-                    type="file"
-                    accept="image/jpeg,image/png,image/jpg,image/webp"
-                    @change="onAvatarChange"
-                />
+                        <v-img
+                            :src="user.picture"
+                        ></v-img>
+                        <v-btn
+                            class="primary--text mr-n1"
+                            absolute
+                            fab
+                            x-small
+                            @click="$refs.avatar.click()"
+                        >
+                            <v-icon>mdi-square-edit-outline</v-icon>
+                        </v-btn>
+                    </v-avatar>
+                    <input
+                        hidden
+                        ref="avatar"
+                        type="file"
+                        accept="image/jpeg,image/png,image/jpg,image/webp"
+                        @change="onAvatarChange"
+                    />
+                </v-col>
             </v-row>
         </v-container>
 
-        <v-list id="main">
-            <v-list-item class="px-0">
-                <v-list-item-content>
-                    <v-list-item-subtitle>
-                        Email
-                    </v-list-item-subtitle>
-                    <v-list-item-title>
-                        {{ user.email }}
-                    </v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
+        <v-list>
             <v-list-item class="px-0">
                 <v-list-item-content>
                     <v-list-item-subtitle>
@@ -119,6 +129,8 @@
                 </v-list-item-content>
             </v-list-item>
         </v-list>
+
+        <LazyContactInfo :contact="contact" />
 
         <LazyModifyProfile :user="user" @refresh="$fetch"/>
 
@@ -145,6 +157,9 @@ export default {
                 v => !!v || 'Nom requis',
                 v => v.length <= 30 || 'Nom trop long',
             ]
+        },
+        contact() {
+            return this.user.contact || {}
         }
     },
     async fetch() {
@@ -201,7 +216,7 @@ export default {
             }
             this.editNickname = !this.editNickname
         },
-    }
+    },
 }
 </script>
 
@@ -213,4 +228,7 @@ export default {
 
 .v-list#main
     background: none
+
+div.v-input__control div.v-text-field__details
+    display: none !important
 </style>
