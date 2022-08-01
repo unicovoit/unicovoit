@@ -36,16 +36,23 @@
                 ></v-img>
             </NuxtLink>
             <v-spacer></v-spacer>
-            <NuxtLink
-                to="/trips/add"
-                class="text-decoration-none"
-            >
-                <v-icon
-                    size="30"
-                >
-                    mdi-plus-circle-outline
-                </v-icon>
-            </NuxtLink>
+            <v-tooltip left>
+                <template v-slot:activator="{ on, attrs }">
+                    <NuxtLink
+                        to="/trips/add"
+                        class="text-decoration-none"
+                    >
+                        <v-icon
+                            size="30"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            mdi-plus-circle-outline
+                        </v-icon>
+                    </NuxtLink>
+                </template>
+                <span>Publier un trajet</span>
+            </v-tooltip>
         </v-app-bar>
 
         <v-main
@@ -97,18 +104,6 @@
 
                 <v-icon>{{ item.icon }}</v-icon>
             </v-btn>
-            <v-btn
-                v-if="isLoggedIn"
-                to="/profile"
-                exact
-                router
-            >
-                <span>Mon Compte</span>
-
-                <v-icon>
-                    mdi-account-circle
-                </v-icon>
-            </v-btn>
         </v-bottom-navigation>
     </v-app>
 </template>
@@ -136,20 +131,20 @@ export default {
                     title: 'Mon activité',
                     to: '/activity',
                     id: '2'
+                }, {
+                    icon: 'mdi-account-circle',
+                    title: 'Mon Compte',
+                    to: '/profile',
+                    id: '3'
                 }
             ],
-            miniVariant: false,
             title: 'UniCovoit',
-            version: this.$store.state.version,
         }
     },
     computed: {
         isLoggedIn() {
             return this.$store.state.auth.loggedIn
         },
-        user_picture() {
-            return this.$store.state.user.picture
-        }
     },
     async fetch() {
         if (this.isLoggedIn) {
@@ -171,6 +166,11 @@ export default {
     mounted() {
         try {
             this.desktopWarning = !this.$device.isMobile && !this.$cookies.get('desktopWarning', {parseJSON: false})
+
+            // Request permission to show notifications
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission()
+            }
         } catch (e) {
             console.error(e)
         }
