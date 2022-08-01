@@ -16,12 +16,6 @@ const TripSchema: mongoose.Schema = new mongoose.Schema({
             type: String,
             index: true
         },
-        driver_name: {
-            type: String,
-        },
-        driver_picture: {
-            type: String,
-        },
         from: {
             type: {type: String},
             coordinates: []
