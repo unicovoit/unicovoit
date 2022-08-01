@@ -34,4 +34,19 @@ export const actions = {
     validateUuidV4(ctx, id: string) {
         return /^[\dA-Fa-f]{8}-[\dA-Fa-f]{4}-4[\dA-Fa-f]{3}-[89ABab][\dA-Fa-f]{3}-[\dA-Fa-f]{12}$/i.test(id)
     },
+    /**
+     * Send a notification to the user
+     * @param ctx The context
+     * @param title The title of the notification
+     * @param message The message of the notification
+     */
+    notify(ctx, {title, message}) {
+        let notification = new Notification(title, {
+            body: message,
+            icon: 'https://unicovoit.fr/icon.png'
+        })
+        setTimeout(() => {
+            notification.close()
+        }, 10000)
+    }
 }
