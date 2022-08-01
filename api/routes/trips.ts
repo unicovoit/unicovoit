@@ -283,7 +283,7 @@ router.post('/book', checkJwt, async (req, res) => {
             try {
                 await db.bookTrip(req.body)
                 if (trip.driver.autoBook) {
-                    await mail.sendConfirmation(trip, user, driver)
+                    await mail.sendAutoBookConfirmation(trip, user, driver)
                 } else {
                     await mail.sendRequest(trip, user, driver)
                 }
