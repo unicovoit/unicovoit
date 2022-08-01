@@ -1,10 +1,10 @@
 <template>
-    <v-container>
+    <div>
         <h4
             v-if="noBookings"
             class="text-subtitle-1"
         >
-            Aucun trajet réservé pour le moment
+            Rien à afficher pour le moment !
         </h4>
 
         <v-list
@@ -22,7 +22,7 @@
 
             </TripCard>
         </v-list>
-    </v-container>
+    </div>
 </template>
 
 <script>
