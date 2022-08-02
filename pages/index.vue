@@ -66,7 +66,7 @@
             </v-card-text>
         </v-card>
 
-        <LazyFAQ class="mt-5" />
+        <FAQ class="mt-5" />
 
         <v-container
             class="text--secondary text-caption ma-0 pa-0 mt-10"
