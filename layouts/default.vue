@@ -23,8 +23,10 @@
         </v-snackbar>
 
         <v-app-bar
-            absolute
+            :absolute="$device.isMobileOrTablet"
+            :fixed="!$device.isMobileOrTablet"
             flat
+            clipped-left
         >
             <NuxtLink to="/">
                 <v-img
@@ -55,16 +57,81 @@
             </v-tooltip>
         </v-app-bar>
 
+        <v-navigation-drawer
+            v-if="!$device.isMobileOrTablet"
+            class="mt-16 pt-3"
+            clipped
+            app
+            fixed
+        >
+            <v-list
+                nav
+            >
+                <v-list-item
+                    v-for="item in menu1"
+                    :key="item.id"
+                    :to="item.to"
+                    exact
+                    router
+                    color="primary"
+                >
+                    <v-list-item-action>
+                        <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title v-text="item.title"/>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item
+                    v-if="!isLoggedIn"
+                    to="/login"
+                    exact
+                    router
+                    color="primary"
+                >
+                    <v-list-item-action>
+                        <v-icon>mdi-account-circle</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            Connexion
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item
+                    v-else
+                    v-for="item in menu2"
+                    :key="item.id"
+                    :to="item.to"
+                    exact
+                    router
+                    color="primary"
+                >
+                    <v-list-item-action>
+                        <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title v-text="item.title"/>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
+
         <v-main
             class="mt-15"
         >
             <v-container>
-                <Nuxt keep-alive :keep-alive-props="{exclude: ['pages/trips/index.vue']}" />
+                <Nuxt
+                    keep-alive
+                    :keep-alive-props="{exclude: ['pages/trips/index.vue']}"
+                    class="px-md-16"
+                />
             </v-container>
         </v-main>
 
         <v-bottom-navigation
             v-model="activeBtn"
+            v-if="$device.isMobileOrTablet"
             color="primary"
             :dark="$vuetify.theme.dark"
             app
@@ -113,8 +180,6 @@ export default {
     name: 'DefaultLayout',
     data() {
         return {
-            clipped: true,
-            drawer: !this.$device.isMobile,
             desktopWarning: false,
             activeBtn: undefined,
             menu1: [
@@ -189,6 +254,9 @@ export default {
 </script>
 
 <style lang="sass">
+*
+    word-break: keep-all !important
+
 .v-bottom-navigation .v-btn__content
     display: flex !important
 
