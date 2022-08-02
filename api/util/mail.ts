@@ -16,7 +16,8 @@ const logos = {
     snap: `<span class="material-icons">snapchat</span>`,
     instagram: `<span class="material-icons">instagram</span>`,
     facebook: `<span class="material-icons">facebook</span>`,
-    email: `<span class="material-icons">mail</span>`
+    email: `<span class="material-icons">mail</span>`,
+    phone: `<span class="material-icons">phone</span>`
 }
 
 
