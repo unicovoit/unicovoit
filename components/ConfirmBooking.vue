@@ -18,7 +18,13 @@
                 Réserver
             </v-btn>
         </template>
-        <v-card>
+        <v-card
+            v-touch="{
+                down: () => {
+                    this.dialog = false
+                },
+            }"
+        >
             <v-toolbar
                 dark
                 color="primary"
