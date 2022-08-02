@@ -1,20 +1,23 @@
 <template>
-    <v-container>
+    <v-responsive
+        class="py-1 px-2"
+        max-width="600"
+    >
         <h2
-            class="text-h2"
+            class="text-h2 mt-md-2 pr-md-15"
         >
             Connexion
         </h2>
-        <v-main
-            style="text-align: justify"
+        <p
+            class="text-justify mt-5"
         >
             En vous inscrivant, vous acceptez les <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'Utilisation</NuxtLink>
             et la <NuxtLink to="/legal/privacy" class="text--secondary">Politique de Confidentialité</NuxtLink>.
-        </v-main>
+        </p>
 
         <v-btn
             block
-            class="mr-4"
+            class="mr-4 mt-10"
             color="primary"
             x-large
             rounded
@@ -23,7 +26,7 @@
         >
             Me connecter
         </v-btn>
-    </v-container>
+    </v-responsive>
 </template>
 
 <script>
