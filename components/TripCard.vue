@@ -1,107 +1,112 @@
 <template>
-    <v-card
-        class="mb-5"
-        outlined
-        lazy
-        :to="`/trips/${trip.id}`"
+    <v-responsive
+        max-width="600"
+        class="mx-auto"
     >
-        <v-row
-            align="center"
+        <v-card
+            class="mb-5"
+            outlined
+            lazy
+            :to="`/trips/${trip.id}`"
         >
-            <v-col
+            <v-row
+                align="center"
             >
-                <v-card-title id="trip-cities">
-                    {{ trip.fromCity }}
-                    <v-icon color="text--primary" class="mx-2">mdi-arrow-right-bold</v-icon>
-                    {{ trip.toCity }}
-                </v-card-title>
-            </v-col>
-            <v-col
-                class="mr-4"
-                cols="auto"
-            >
-                <ViewTrip
-                    v-if="type === 'view'"
-                    @refresh="$emit('refresh')"
-                />
-                <EditOrDelete
-                    v-else-if="type === 'edit'"
-                    :trip="trip"
-                    @refresh="$emit('refresh')"
-                />
-                <Delete
-                    v-else-if="type === 'delete'"
-                    :trip="trip"
-                    :id="id"
-                    @refresh="$emit('refresh')"
-                />
-            </v-col>
-        </v-row>
-
-        <v-list-item justify="center">
-            <v-list-item-content>
-                <v-list-item-title class="text-body-2">
-                    <v-icon class="mr-3">mdi-calendar-clock</v-icon>
-                    {{ parseDateTime(trip.departure_time) }}
-                </v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
-        <v-list-item justify="center">
-            <v-list-item-content>
-                <v-list-item-title class="text-body-2">
-                    <v-icon class="mr-3">mdi-piggy-bank-outline</v-icon>
-                    {{ trip.price }} €
-                </v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item justify="center">
-            <v-list-item-title
-                @click.prevent="$router.push(`/profile/${trip.driver?.id}`)"
-            >
-                <v-avatar
-                    size="40"
-                    class="mr-3"
+                <v-col
                 >
-                    <v-img
-                        :alt="trip.driver?.nickname || 'Utilisateur'"
-                        :src="trip.driver?.picture || '/account_circle.svg'"
-                    ></v-img>
-                </v-avatar>
-                {{ trip.driver?.nickname || trip.driver?.name || 'Utilisateur' }}
-            </v-list-item-title>
-            <v-spacer></v-spacer>
-            <v-icon
-                v-if="requestPending"
-                color="warning"
-            >
-                mdi-timer-sand
-            </v-icon>
-            <v-icon
-                v-if="trip.driver.autoBook"
-            >
-                mdi-flash
-            </v-icon>
-            <v-btn
-                v-if="!!trip.description"
-                icon
-                @click.prevent="trip.show = !trip.show"
-            >
-                <v-icon>mdi-chevron-{{ trip.show ? 'up' : 'down' }}</v-icon>
-            </v-btn>
-        </v-list-item>
+                    <v-card-title id="trip-cities">
+                        {{ trip.fromCity }}
+                        <v-icon color="text--primary" class="mx-2">mdi-arrow-right-bold</v-icon>
+                        {{ trip.toCity }}
+                    </v-card-title>
+                </v-col>
+                <v-col
+                    class="mr-4"
+                    cols="auto"
+                >
+                    <ViewTrip
+                        v-if="type === 'view'"
+                        @refresh="$emit('refresh')"
+                    />
+                    <EditOrDelete
+                        v-else-if="type === 'edit'"
+                        :trip="trip"
+                        @refresh="$emit('refresh')"
+                    />
+                    <Delete
+                        v-else-if="type === 'delete'"
+                        :trip="trip"
+                        :id="id"
+                        @refresh="$emit('refresh')"
+                    />
+                </v-col>
+            </v-row>
 
-        <v-expand-transition>
-            <div
-                v-show="trip.show"
-                :class="`accent ${$vuetify.theme.dark ? 'darken-1' : 'lighten-3'}`"
-            >
-                <v-card-text>
-                    {{ trip.description }}
-                </v-card-text>
-            </div>
-        </v-expand-transition>
-    </v-card>
+            <v-list-item justify="center">
+                <v-list-item-content>
+                    <v-list-item-title class="text-body-2">
+                        <v-icon class="mr-3">mdi-calendar-clock</v-icon>
+                        {{ parseDateTime(trip.departure_time) }}
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item justify="center">
+                <v-list-item-content>
+                    <v-list-item-title class="text-body-2">
+                        <v-icon class="mr-3">mdi-piggy-bank-outline</v-icon>
+                        {{ trip.price }} €
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item justify="center">
+                <v-list-item-title
+                    @click.prevent="$router.push(`/profile/${trip.driver?.id}`)"
+                >
+                    <v-avatar
+                        size="40"
+                        class="mr-3"
+                    >
+                        <v-img
+                            :alt="trip.driver?.nickname || 'Utilisateur'"
+                            :src="trip.driver?.picture || '/account_circle.svg'"
+                        ></v-img>
+                    </v-avatar>
+                    {{ trip.driver?.nickname || trip.driver?.name || 'Utilisateur' }}
+                </v-list-item-title>
+                <v-spacer></v-spacer>
+                <v-icon
+                    v-if="requestPending"
+                    color="warning"
+                >
+                    mdi-timer-sand
+                </v-icon>
+                <v-icon
+                    v-if="trip.driver.autoBook"
+                >
+                    mdi-flash
+                </v-icon>
+                <v-btn
+                    v-if="!!trip.description"
+                    icon
+                    @click.prevent="trip.show = !trip.show"
+                >
+                    <v-icon>mdi-chevron-{{ trip.show ? 'up' : 'down' }}</v-icon>
+                </v-btn>
+            </v-list-item>
+
+            <v-expand-transition>
+                <div
+                    v-show="trip.show"
+                    :class="`accent ${$vuetify.theme.dark ? 'darken-1' : 'lighten-3'}`"
+                >
+                    <v-card-text>
+                        {{ trip.description }}
+                    </v-card-text>
+                </div>
+            </v-expand-transition>
+        </v-card>
+    </v-responsive>
 </template>
 
 <script>
