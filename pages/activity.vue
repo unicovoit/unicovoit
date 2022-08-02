@@ -19,6 +19,7 @@
                 </h5>
                 <DisplayBookedTrips
                     :bookings="upcomingBookings"
+                    type="edit"
                     @refresh="$fetch"
                 ></DisplayBookedTrips>
 
@@ -49,6 +50,7 @@
                 </h5>
                 <LazyDisplayTrips
                     :trips="upcomingTrips"
+                    type="edit"
                     @refresh="$fetch"
                 ></LazyDisplayTrips>
 

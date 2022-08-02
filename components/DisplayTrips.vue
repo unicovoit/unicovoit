@@ -14,7 +14,7 @@
                 v-for='trip in trips'
                 :key='trip.id'
                 :trip='trip'
-                type="edit"
+                :type="type"
                 @refresh="$emit('refresh')"
             />
         </v-list>
@@ -28,6 +28,10 @@ export default {
         trips: {
             type: Array,
             required: true,
+        },
+        type: {
+            type: String,
+            default: undefined,
         },
     },
     computed: {
