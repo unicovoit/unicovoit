@@ -4,13 +4,12 @@
         :rules="rules"
         :items="suggestions"
         :search-input.sync="input"
-        clearable
         no-filter
         outlined
         hide-selected
         hide-no-data
         hide-spin-buttons
-        label="Ville"
+        :label="label"
         placeholder="Adresse précise"
         prepend-inner-icon="mdi-map-marker"
         required
@@ -28,6 +27,10 @@ export default {
         disabled: {
             type: Boolean,
             default: false
+        },
+        label: {
+            type: String,
+            default: "Ville"
         },
     },
     data() {
@@ -62,7 +65,7 @@ export default {
                         }
                     })
                 }
-            }, 600)
+            }, 200)
         },
     },
     watch: {
