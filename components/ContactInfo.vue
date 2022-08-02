@@ -5,7 +5,7 @@
         <h5
             class="text-h5"
         >
-            Informations de contact
+            Contact
         </h5>
         <p class="text-subtitle-2">
             Ces informations seront transmises à vos conducteurs ou passagers une fois la réservation confirmée.
