@@ -6,9 +6,8 @@
             elevation="1"
             timeout="-1"
         >
-            UniCovoit est encore en développement.
-            Faites remonter les bugs sur <a class="grey--text lighten-1" href="https://github.com/finxol/iucovoit"
-                                            target="_blank" rel="noreferrer noopener">github</a>.
+            UniCovoit est encore en phase de test.
+            Faites remonter les bugs !
             <template v-slot:action="{ attrs }">
                 <v-btn
                     color="info"
@@ -23,19 +22,23 @@
 
         <v-container>
             <h2
-                class="text-h2 mb-10"
+                class="text-h2 mb-5"
             >
                 On va où ?
             </h2>
-            <TripForm></TripForm>
+            <div
+                class="d-md-flex flex-md-column"
+            >
+                <TripForm></TripForm>
+                <v-img
+                    aspect-ratio="1"
+                    contain
+                    max-width="600"
+                    src="/car-rental.svg"
+                ></v-img>
+            </div>
         </v-container>
 
-        <v-img
-            aspect-ratio="1"
-            contain
-            max-width="600"
-            src="/car-rental.svg"
-        ></v-img>
 
         <v-card
             :color="`primary ${$vuetify.theme.dark ? 'darken-4' : 'lighten-5'}`"
@@ -62,6 +65,8 @@
                 </p>
             </v-card-text>
         </v-card>
+
+        <LazyFAQ class="mt-5" />
 
         <v-container
             class="text--secondary text-caption ma-0 pa-0 mt-10"
