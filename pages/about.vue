@@ -37,19 +37,43 @@
                     target="_blank"
                 >Enora Couloigner</a>.
             </p>
-
-            <LazyFAQ />
         </div>
+
+        <h5
+            class="text-h5"
+        >
+            Universités supportées
+        </h5>
+        <v-simple-table
+            fixed-header
+            height="300px"
+        >
+            <template v-slot:default>
+                <tbody>
+                <tr
+                    v-for="item in universities"
+                    :key="item.name"
+                >
+                    <td>{{ item.name }}</td>
+                </tr>
+                </tbody>
+            </template>
+        </v-simple-table>
     </v-container>
 </template>
 
 <script>
+import universities from "../api/universities"
+
 export default {
     name: "about",
     auth: false,
     head: {
         title: "A Propos - UniCovoit",
     },
+    data: () => ({
+        universities
+    }),
 }
 </script>
 
