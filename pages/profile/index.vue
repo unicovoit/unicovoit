@@ -124,7 +124,7 @@
                         Université
                     </v-list-item-subtitle>
                     <v-list-item-title>
-                        {{ user.university || 'ubs' }}
+                        {{ user.university || 'Non précisé' }}
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
@@ -225,6 +225,10 @@ export default {
     align-items: end
     justify-content: right
     overflow: visible
+
+    .v-btn.v-btn--absolute.v-btn--fab
+        bottom: 0
+        right: 0
 
 .v-list#main
     background: none
