@@ -1,7 +1,6 @@
 <template>
     <v-responsive
         max-width="600"
-        class="mx-auto"
     >
         <v-card
             class="mb-5"
