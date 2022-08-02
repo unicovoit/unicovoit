@@ -15,7 +15,7 @@
             </h2>
 
             <v-alert
-                v-if="pendingRequests"
+                v-if="pendingRequests && owner"
                 class="mt-3"
                 dense
                 text
@@ -248,8 +248,21 @@
                 </div>
             </v-card>
 
+            <v-card
+                v-else-if="!owner && bookings.length > 0"
+                id="bookings"
+                class="py-3 mt-3"
+                outlined
+            >
+                <v-card-text
+                    class="text--primary"
+                >
+                    Vous avez réservé une place sur ce trajet.
+                </v-card-text>
+            </v-card>
+
             <LazyConfirmBooking
-                v-if="$auth.loggedIn && !owner"
+                v-else-if="$auth.loggedIn && !owner"
                 :date="parseDateTime"
                 :trip="trip"
             />
@@ -304,9 +317,7 @@ export default {
     async fetch() {
         try {
             this.trip = await this.$axios.$get(`/api/v1/trips/id/${this.$route.params.id}`)
-            if (this.owner) {
-                this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
-            }
+            this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
         } catch (error) {
             console.error(`Trip ${this.$route.params.id}: ${error.message}`)
             this.$nuxt.error({

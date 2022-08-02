@@ -457,7 +457,13 @@ export const getBookings = async (id: string, driver_id: string) => {
             university: 1,
         })
     } else {
-        throw new BookingError(`Trip ${id} doesn't exist`)
+        const user = await getUserBySub(driver_id)
+        return Booking.find({user: {$eq: user._id}}, {
+            _id: 0,
+            __v: 0,
+            created_at: 0,
+            updated_at: 0,
+        })
     }
 }
 
@@ -539,6 +545,14 @@ export const getUserBookings = async (id: string) => {
             updated_at: 0,
             created_at: 0
         }).populate([{
+            path: 'trip',
+            model: 'Trip',
+            select: {
+                __v: 0,
+                created_at: 0,
+                updated_at: 0,
+            }
+        }, {
             path: 'user',
             model: 'User',
             select: {
@@ -547,18 +561,9 @@ export const getUserBookings = async (id: string) => {
                 nickname: 1,
                 name: 1,
                 picture: 1,
+
             }
-        }, {
-            path: 'trip',
-            model: 'Trip',
-            select: {
-                _id: 0,
-                __v: 0,
-                updated_at: 0,
-                created_at: 0
-            }
-        }
-        ]).sort({'trip.departure_time': 1})
+        }]).sort({'trip.departure_time': 1})
         if (bookings) {
             return bookings
         } else {
