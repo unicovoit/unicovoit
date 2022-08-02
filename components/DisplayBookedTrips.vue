@@ -13,7 +13,7 @@
             <LazyTripCard
                 v-for="booking in bookings"
                 :key="booking.id"
-                type="delete"
+                :type="type"
                 :trip="booking.trip"
                 :id="booking.id"
                 :requestPending="!booking.confirmed"
@@ -30,7 +30,11 @@ export default {
         bookings: {
             type: Array,
             required: true
-        }
+        },
+        type: {
+            type: String,
+            default: undefined
+        },
     },
     computed: {
         noBookings() {
