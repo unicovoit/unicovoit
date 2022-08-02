@@ -149,19 +149,12 @@ export const getAllTrips = async () => {
         created_at: 0,
         updated_at: 0
     }).populate('driver', {
-        _id: 0,
-        __v: 0,
-        created_at: 0,
-        updated_at: 0,
-        sub: 0,
-        email: 0,
-        smokePref: 0,
-        petsPref: 0,
-        musicPref: 0,
-        defaultPlaces: 0,
-        verified: 0,
-        studentEmail: 0,
-        isBlocked: 0,
+        id: 1,
+        name: 1,
+        nickname: 1,
+        picture: 1,
+        autoBook: 1,
+        university: 1,
     }).sort({departure_time: 1})
 }
 
@@ -171,33 +164,39 @@ export const getAllTrips = async () => {
  * @param from the departure location
  * @param to the arrival location
  * @param date the date of the trip
+ * @param distance the maximum distance from the search locations
  * @returns the array of trips
  */
-export const getTrips = async (from: number[], to: number[], date: Date) => {
+export const getTrips = async (from: number[], to: number[], date: Date, distance: number = 20) => {
     const min = new Date(date.getFullYear(), date.getMonth(), date.getDate())
     const max = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
 
-    console.log(min, max)
-    console.log(from)
-    console.log(to)
+    const radius = distance / 6378 // distance km in radians
 
     return Trip.find({
         from: {
-            $nearSphere: {
-                $geometry: {
-                    type: 'Point',
-                    coordinates: from
-                },
-                $maxDistance: 20 * 1000
+            $geoWithin: {
+                $centerSphere: [ from,  radius ]
             }
         },
-        departure_time: {
-            $gte: min,
-            $lt: max
-        }
+        to: {
+            $geoWithin: {
+                $centerSphere: [ to,  radius ]
+            }
+        },
+        departure_time: {$gte: min, $lt: max}
     }, {
         _id: 0,
-        __v: 0
+        __v: 0,
+        created_at: 0,
+        updated_at: 0
+    }).populate('driver', {
+        id: 1,
+        name: 1,
+        nickname: 1,
+        picture: 1,
+        autoBook: 1,
+        university: 1,
     }).sort({departure_time: 1})
 }
 
@@ -219,6 +218,7 @@ export const getTripById = async (id: string) => {
         nickname: 1,
         picture: 1,
         autoBook: 1,
+        university: 1,
     })
 }
 
@@ -454,6 +454,7 @@ export const getBookings = async (id: string, driver_id: string) => {
             nickname: 1,
             name: 1,
             picture: 1,
+            university: 1,
         })
     } else {
         throw new BookingError(`Trip ${id} doesn't exist`)
@@ -538,25 +539,25 @@ export const getUserBookings = async (id: string) => {
             updated_at: 0,
             created_at: 0
         }).populate([{
-                path: 'user',
-                model: 'User',
-                select: {
-                    id: 1,
-                    sub: 1,
-                    nickname: 1,
-                    name: 1,
-                    picture: 1,
-                }
-            }, {
-                path: 'trip',
-                model: 'Trip',
-                select: {
-                    _id: 0,
-                    __v: 0,
-                    updated_at: 0,
-                    created_at: 0
-                }
+            path: 'user',
+            model: 'User',
+            select: {
+                id: 1,
+                sub: 1,
+                nickname: 1,
+                name: 1,
+                picture: 1,
             }
+        }, {
+            path: 'trip',
+            model: 'Trip',
+            select: {
+                _id: 0,
+                __v: 0,
+                updated_at: 0,
+                created_at: 0
+            }
+        }
         ]).sort({'trip.departure_time': 1})
         if (bookings) {
             return bookings
@@ -623,7 +624,8 @@ export const updateUserPictureBySub = async (id: string, picture: string) => {
  * @param   preferences the new preferences
  */
 export const saveUserPreferencesBySub = async (id: string, preferences: any) => {
-    await User.updateOne({sub: {$eq: id}}, {$set: {
+    await User.updateOne({sub: {$eq: id}}, {
+        $set: {
             smokePref: preferences.smokePref,
             musicPref: preferences.musicPref,
             petsPref: preferences.petsPref,
@@ -640,7 +642,6 @@ export const saveUserPreferencesBySub = async (id: string, preferences: any) => 
  */
 export const saveUserContactBySub = async (id: string, info: any) => {
     const contact = await Contact.findOne({sub: {$eq: id}})
-    contact.email = info.email
     contact.phone = info.phone
     contact.snapchat = info.snapchat
     contact.facebook = info.facebook
@@ -665,7 +666,7 @@ export const verifiedOrSave = async (user: IVerification): Promise<boolean | und
         const id = v4()
         user.picture = await image.download(String(user.picture), id)
         logger.info('User picture downloaded', user.picture)
-        await createUser(<IUser> {
+        await createUser(<IUser>{
             id,
             sub: user.sub,
             name: user.name,
