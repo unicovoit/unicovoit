@@ -11,13 +11,11 @@
 !components/
 !content/
 !layouts/
-!middleware/
 !pages/
 !static/
 !store/
 
 # Server files
 !api/
-!jobs/
 
 !tsconfig.json
