@@ -17,9 +17,14 @@
                 <v-list-item-subtitle>
                     Email
                 </v-list-item-subtitle>
-                <v-list-item-title>
-                    {{ contact.email }}
-                </v-list-item-title>
+                <div class="d-flex flex-row mt-1">
+                    <v-icon left color="primary">
+                        mdi-email-outline
+                    </v-icon>
+                    <v-list-item-title>
+                        {{ contact.email }}
+                    </v-list-item-title>
+                </div>
             </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -29,13 +34,18 @@
                 <v-list-item-subtitle>
                     Téléphone
                 </v-list-item-subtitle>
-                <v-text-field
-                    class="mt-0 pt-0"
-                    v-model="contact.phone"
-                    clearable
-                    :rules="rules.phone"
-                    placeholder="Ajouter un numéro de téléphone"
-                ></v-text-field>
+                <div class="d-flex flex-row align-start">
+                    <v-icon class="mt-2" left color="primary">
+                        mdi-phone
+                    </v-icon>
+                    <v-text-field
+                        class="mt-0 pt-0"
+                        v-model="contact.phone"
+                        clearable
+                        :rules="rules.phone"
+                        placeholder="Ajouter un numéro de téléphone"
+                    ></v-text-field>
+                </div>
             </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -45,13 +55,18 @@
                 <v-list-item-subtitle>
                     Snapchat
                 </v-list-item-subtitle>
-                <v-text-field
-                    class="mt-0 pt-0"
-                    v-model="contact.snapchat"
-                    clearable
-                    :rules="rules.social"
-                    placeholder="Ajouter un compte Snapchat"
-                ></v-text-field>
+                <div class="d-flex flex-row align-start">
+                    <v-icon class="mt-2" left color="rgb(201, 198, 19)">
+                        mdi-snapchat
+                    </v-icon>
+                    <v-text-field
+                        class="mt-0 pt-0"
+                        v-model="contact.snapchat"
+                        clearable
+                        :rules="rules.social"
+                        placeholder="Ajouter un compte Snapchat"
+                    ></v-text-field>
+                </div>
             </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -61,13 +76,18 @@
                 <v-list-item-subtitle>
                     Instagram
                 </v-list-item-subtitle>
-                <v-text-field
-                    class="mt-0 pt-0"
-                    v-model="contact.instagram"
-                    clearable
-                    :rules="rules.social"
-                    placeholder="Ajouter un compte Instagram"
-                ></v-text-field>
+                <div class="d-flex flex-row align-start">
+                    <v-icon class="mt-2" left color="rgb(220, 11, 66)">
+                        mdi-instagram
+                    </v-icon>
+                    <v-text-field
+                        class="mt-0 pt-0"
+                        v-model="contact.instagram"
+                        clearable
+                        :rules="rules.social"
+                        placeholder="Ajouter un compte Instagram"
+                    ></v-text-field>
+                </div>
             </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -75,15 +95,20 @@
         >
             <v-list-item-content class="py-0">
                 <v-list-item-subtitle>
-                    Facebook
+                    Facebook Messenger
                 </v-list-item-subtitle>
-                <v-text-field
-                    class="mt-0 pt-0"
-                    v-model="contact.facebook"
-                    clearable
-                    :rules="rules.social"
-                    placeholder="Ajouter un compte Facebook"
-                ></v-text-field>
+                <div class="d-flex flex-row align-start">
+                    <v-icon class="mt-2" left color="#3e6efed6">
+                        mdi-facebook-messenger
+                    </v-icon>
+                    <v-text-field
+                        class="mt-0 pt-0"
+                        v-model="contact.facebook"
+                        clearable
+                        :rules="rules.social"
+                        placeholder="Ajouter un compte Facebook"
+                    ></v-text-field>
+                </div>
             </v-list-item-content>
         </v-list-item>
     </v-list>
@@ -103,8 +128,7 @@ export default {
             sendContact: setTimeout(() => {}, 0),
             rules: {
                 phone: [
-                    v => !!v || 'Merci de renseigner un numéro de téléphone',
-                    v => /^\+?[\d]{10,}$/.test(v) || 'Merci de renseigner un numéro de téléphone valide',
+                    v => !v || /^\+?[\d]{10,}$/.test(v) || 'Merci de renseigner un numéro de téléphone valide',
                 ],
                 social: [
                     v => !v || /^[\w\-.éèà]+$/.test(v) || 'Merci de renseigner un compte valide',
@@ -124,8 +148,21 @@ export default {
         async updateContact() {
             clearTimeout(this.sendContact)
             this.sendContact = setTimeout(async () => {
-                await this.$axios.put("/api/v1/users/contact", this.contact)
+                console.log(this.checkContacts())
+                if (this.checkContacts())
+                    await this.$axios.put("/api/v1/users/contact", this.contact)
             }, 800)
+        },
+        checkContacts() {
+            if (this.rules.phone.some(r => typeof r(this.contact.phone) !== "boolean"))
+                return false
+            if (this.rules.social.some(r => typeof r(this.contact.instagram) !== "boolean"))
+                return false
+            if (this.rules.social.some(r => typeof r(this.contact.facebook) !== "boolean"))
+                return false
+            if (this.rules.social.some(r => typeof r(this.contact.snapchat) !== "boolean"))
+                return false
+            return true
         }
     },
 }
