@@ -57,6 +57,14 @@
 
         <v-list>
             <v-list-item>
+                <v-list-item-subtitle>
+                    Université
+                </v-list-item-subtitle>
+                <v-list-item-title>
+                    {{ user.university }}
+                </v-list-item-title>
+            </v-list-item>
+            <v-list-item>
                 <v-list-item-content>
                     <v-list-item-group
                         v-if="user.smokePref"
