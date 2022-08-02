@@ -19,7 +19,13 @@
             </v-btn>
         </template>
 
-        <v-card>
+        <v-card
+            v-touch="{
+                down: () => {
+                    this.dialog = false
+                },
+            }"
+        >
             <v-toolbar
                 elevation="0"
             >
