@@ -331,6 +331,7 @@ export const getPublicProfile = async (id: string) => {
         petsPref: 1,
         smokePref: 1,
         autoBook: 1,
+        university: 1,
         picture: 1,
         nickname: 1,
         name: 1,
@@ -347,7 +348,9 @@ export const getPublicProfileBySub = async (id: string) => {
     return User.findOne({sub: {$eq: id}}, {
         musicPref: 1,
         petsPref: 1,
-        smokingPref: 1,
+        smokePref: 1,
+        autoBook: 1,
+        university: 1,
         picture: 1,
         nickname: 1,
         name: 1,
