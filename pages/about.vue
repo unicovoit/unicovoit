@@ -104,7 +104,7 @@ export default {
                         Vous trouverez plus de détails dans notre <a href='/privacy-policy' class="text--secondary">Politique de Confidentialité</a>.`
                 }, {
                     title: "Comment supprimer mon compte ?",
-                    content: `Accédez à votre profil, dans l'onglet "Administration", cliquez sur "Supprimer mon compte.`
+                    content: `Accédez à votre profil, puis dans l'onglet "Paramètres", cliquez sur "Supprimer mon compte.`
                 }, {
                     icon: "mdi-message-processing-outline",
                     title: "Comment puis-je contacter l'équipe ?",
