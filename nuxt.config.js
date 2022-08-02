@@ -138,7 +138,7 @@ export default {
                 'style-src': ["'self'", "'unsafe-inline'"],
                 'font-src': ["'self'"],
                 'script-src': ["'self'", "'unsafe-inline'"],
-                'img-src': ["'self'", "s.gravatar.com", "cdn.discordapp.com", "i0.wp.com", "*.googleusercontent.com"],
+                'img-src': ["'self'"],
                 'connect-src': ["'self'", "bano.addok.xyz", ADDOK_DOMAIN, PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
             }
         }
