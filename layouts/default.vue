@@ -114,6 +114,22 @@
                         <v-list-item-title v-text="item.title"/>
                     </v-list-item-content>
                 </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item
+                    to="/about"
+                    exact
+                    router
+                    color="primary"
+                >
+                    <v-list-item-action>
+                        <v-icon>mdi-information</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            À propos
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
 
