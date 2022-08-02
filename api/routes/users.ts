@@ -269,8 +269,12 @@ router.put('/contact', checkJwt, async (req, res) => {
     try {
         const user = await db.getUserBySub(String(req.auth?.payload.sub))
         if (user) {
-            await db.saveUserContactBySub(user.sub, req.body)
-            res.sendStatus(200)
+            if (verifyContact(req.body)) {
+                await db.saveUserContactBySub(String(req.auth?.payload.sub), req.body)
+                res.sendStatus(200)
+            } else {
+                res.sendStatus(400)
+            }
         } else {
             res.status(404).json({
                 error: 'User not found'
@@ -283,6 +287,31 @@ router.put('/contact', checkJwt, async (req, res) => {
         })
     }
 })
+
+/**
+ * Validate user contact info
+ * @param {Object} contact
+ * @returns {Boolean}
+ */
+function verifyContact(contact: any) {
+    const rules = {
+        phone: [
+            v => !v || /^\+?[\d]{10,}$/.test(v) || 'Merci de renseigner un numéro de téléphone valide',
+        ],
+            social: [
+            v => !v || /^[\w\-.éèà]+$/.test(v) || 'Merci de renseigner un compte valide',
+        ],
+    }
+    if (rules.phone.some(r => typeof r(contact.phone) !== "boolean"))
+        return false
+    if (rules.social.some(r => typeof r(contact.instagram) !== "boolean"))
+        return false
+    if (rules.social.some(r => typeof r(contact.facebook) !== "boolean"))
+        return false
+    if (rules.social.some(r => typeof r(contact.snapchat) !== "boolean"))
+        return false
+    return true
+}
 
 
 /**
