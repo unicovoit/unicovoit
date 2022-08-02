@@ -21,7 +21,7 @@
                     </span>
                 </v-col>
                 <v-col
-                    class="pr-0 d-flex flex-row"
+                    class="pr-0 d-flex flex-row justify-space-between"
                     cols="3"
                 >
                     <v-spacer></v-spacer>
@@ -36,34 +36,32 @@
             </v-row>
         </v-container>
 
+        <v-list>
+            <v-list-item class="px-0">
+                <v-list-item-content>
+                    <v-list-item-subtitle>
+                        Université
+                    </v-list-item-subtitle>
+                    <v-list-item-title>
+                        {{ user.university || 'Non précisé' }}
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+        </v-list>
+
         <v-card
+            v-if="user.bio"
             outlined
         >
             <v-card-title>
-                Introduction
+                Présentation
             </v-card-title>
-            <v-card-text
-                v-if="user.bio"
-            >
+            <v-card-text>
                 {{ user.bio }}
-            </v-card-text>
-            <v-card-text
-                v-else
-                class="text--secondary font-italic"
-            >
-                Pas de texte d'introduction
             </v-card-text>
         </v-card>
 
         <v-list>
-            <v-list-item>
-                <v-list-item-subtitle>
-                    Université
-                </v-list-item-subtitle>
-                <v-list-item-title>
-                    {{ user.university }}
-                </v-list-item-title>
-            </v-list-item>
             <v-list-item>
                 <v-list-item-content>
                     <v-list-item-group
@@ -132,7 +130,7 @@
                         class="text-body-1"
                     >
                         <v-icon left>mdi-flash-off</v-icon>
-                        Pas de réservation automatique pour moi
+                        Pas de réservation automatique
                     </v-list-item-group>
                 </v-list-item-content>
             </v-list-item>
