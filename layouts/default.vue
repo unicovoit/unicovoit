@@ -230,7 +230,6 @@ export default {
     },
     mounted() {
         try {
-            console.log(window.matchMedia('(prefers-color-scheme: dark)').matches)
             if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 this.$vuetify.theme.dark = true
                 this.$cookies.set('dark', `${this.$vuetify.theme.dark}`, {
