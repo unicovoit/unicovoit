@@ -317,7 +317,8 @@ export default {
     async fetch() {
         try {
             this.trip = await this.$axios.$get(`/api/v1/trips/id/${this.$route.params.id}`)
-            this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
+            if (this.$auth.loggedIn)
+                this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
         } catch (error) {
             console.error(`Trip ${this.$route.params.id}: ${error.message}`)
             this.$nuxt.error({
