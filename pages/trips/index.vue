@@ -10,8 +10,17 @@
             Vous n'êtes pas connecté à internet. Les trajets affichés ne sont peut-être pas à jour.
         </v-alert>
 
+        <!-- Show items are loading -->
+        <v-progress-circular
+            v-if="isEmpty && $fetchState.pending"
+            class="mx-auto mt-5"
+            style="width: 100%"
+            color="primary"
+            indeterminate
+        ></v-progress-circular>
+
         <!-- Show no trips are available -->
-        <v-container v-if="isEmpty">
+        <v-container v-else-if="isEmpty && !$fetchState.pending">
             <v-card
                 outlined
             >
