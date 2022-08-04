@@ -39,7 +39,7 @@
         "fast-xml-parser": "^4.0.9",
         "helmet": "^5.1.1",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^6.5.0",
+        "mongoose": "^6.5.1",
         "nodemailer": "^6.7.7",
         "nuxt": "^2.15.8",
         "nuxt-start": "^2.15.8",
@@ -61,7 +61,7 @@
         "@nuxt/typescript-build": "^2.1.0",
         "@nuxtjs/vuetify": "^1.12.3",
         "@types/uuid": "^8.3.4",
-        "sass": "^1.54.0",
+        "sass": "^1.54.1",
         "sass-loader": "^10.1.1"
     }
 }
