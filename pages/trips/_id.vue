@@ -3,10 +3,17 @@
         max-width="900"
         class="mx-auto"
     >
+        <v-alert
+            v-if="$fetchState.error"
+            type="error"
+        >
+            Une erreur est survenue. Merci de réessayer plus tard.
+        </v-alert>
         <v-container
             v-touch="{
                 right: () => $router.go(-1)
             }"
+            v-else
         >
             <h2
                 class="text-h2"
@@ -42,10 +49,17 @@
                             <span class="font-weight-bold">{{ startTime }}</span>
                         </v-col>
                         <v-col class="font-weight-medium">
-                            {{ trip.fromName }}
-                            <div class="text-caption font-weight-regular">
-                                {{ trip.fromCity }}
-                            </div>
+                            <a
+                                class="text-primary text-decoration-none"
+                                :href="`https://www.qwant.com/maps/place/latlon:${trip.from.coordinates.reverse().join(':')}`"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {{ trip.fromName }}
+                                <div class="text-caption font-weight-regular">
+                                    {{ trip.fromCity }}
+                                </div>
+                            </a>
                         </v-col>
                     </v-row>
                 </v-timeline-item>
@@ -76,8 +90,9 @@
                 <v-card-text
                     v-if="trip.description"
                     class="text--primary"
+                    id="description"
                 >
-                    {{ trip.description }}
+                    <span>{{ trip.description }}</span>
                 </v-card-text>
                 <v-card-text
                     class="cursor-pointer d-flex flex-row"
@@ -228,10 +243,42 @@
                                         fab
                                         icon
                                         small
-                                        @click="cancelBooking(booking)"
+                                        @click="confirmCancel = true"
                                     >
                                         <v-icon>mdi-close</v-icon>
                                     </v-btn>
+                                    <!-- Ask for confirmation before cancelling booking -->
+                                    <v-dialog
+                                        v-model="confirmCancel"
+                                        max-width="500px"
+                                    >
+                                        <v-card>
+                                            <v-card-title>
+                                                Voulez-vous vraiment annuler cette réservation ?
+                                            </v-card-title>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    class="ma-1"
+                                                    color="primary"
+                                                    text
+                                                    @click.prevent="confirmCancel = false"
+                                                >
+                                                    Annuler
+                                                </v-btn>
+
+                                                <v-btn
+                                                    class="ma-1"
+                                                    color="error"
+                                                    outlined
+                                                    :loading="cancelLoading"
+                                                    @click="cancelBooking(booking)"
+                                                >
+                                                    Supprimer
+                                                </v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
                                 </div>
                                 <div
                                     v-else
@@ -280,6 +327,7 @@ export default {
             bookings: [],
             confirmLoading: false,
             cancelLoading: false,
+            confirmCancel: false,
         }
     },
     async validate({params, store}) {
@@ -386,4 +434,7 @@ export default {
 
 .v-timeline-item
     align-items: start
+
+#description
+    white-space: pre-wrap
 </style>
