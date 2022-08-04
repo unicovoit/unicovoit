@@ -420,7 +420,7 @@ export default {
                     this.details.date = this.details.date.charAt(0).toUpperCase() + this.details.date.slice(1)
                     break
                 case 4:
-                    await this.estimatePrice()
+                    this.estimatePrice()
                     if (this.trip.places && verifyRules(this.rules.places, this.trip.places)) {
                         this.steps++
                         this.details.places = this.trip.places
