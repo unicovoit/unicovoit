@@ -246,13 +246,15 @@ export default {
     },
     mounted() {
         try {
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches && !this.$cookies.get('dark', {parseJSON: false}) === false) {
-                this.$vuetify.theme.dark = true
-                this.$cookies.set('dark', `${this.$vuetify.theme.dark}`, {
-                    path: '/',
-                    sameSite: 'Strict',
-                    httpOnly: false,
-                })
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                if (!(this.$cookies.get('dark', {parseJSON: false}) === 'false')) {
+                    this.$vuetify.theme.dark = true
+                    this.$cookies.set('dark', `${this.$vuetify.theme.dark}`, {
+                        path: '/',
+                        sameSite: 'Strict',
+                        httpOnly: false,
+                    })
+                }
             }
 
             this.desktopWarning = !this.$device.isMobile && !this.$cookies.get('desktopWarning', {parseJSON: false})
