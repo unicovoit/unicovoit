@@ -46,7 +46,7 @@
         </h5>
         <v-simple-table
             fixed-header
-            height="300px"
+            max-height="300px"
         >
             <template v-slot:default>
                 <tbody>
@@ -59,6 +59,11 @@
                 </tbody>
             </template>
         </v-simple-table>
+        <p
+            class="text-subtitle-2 text--secondary"
+        >
+            Si vous souhaitez ajouter votre université, prenez contact avec nous sur <EmailAddress/>
+        </p>
     </v-container>
 </template>
 
