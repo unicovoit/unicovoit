@@ -1,12 +1,13 @@
 <template>
-    <v-form
-        ref="form"
-        lazy-validation
-        @keyup.native.enter="validate($event)"
+    <v-responsive
+        max-width="600"
+        width="100%"
+        class="pa-3"
     >
-        <v-responsive
-            max-width="600"
-            class="pa-3"
+        <v-form
+            ref="form"
+            lazy-validation
+            @keyup.native.enter="validate($event)"
         >
             <v-row>
                 <CitySelector
@@ -43,8 +44,8 @@
                     Rechercher
                 </v-btn>
             </div>
-        </v-responsive>
-    </v-form>
+        </v-form>
+    </v-responsive>
 </template>
 
 <script>
