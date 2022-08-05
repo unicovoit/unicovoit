@@ -50,8 +50,9 @@
                         </v-col>
                         <v-col class="font-weight-medium">
                             <a
-                                class="text-primary text-decoration-none"
-                                :href="`https://www.qwant.com/maps/place/latlon:${trip.from.coordinates.reverse().join(':')}`"
+                                ref="from"
+                                class="text--primary text-decoration-none"
+                                :href="`https://www.qwant.com/maps/place/latlon:${trip.from?.coordinates[1]}:${trip.from?.coordinates[0]}`"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -60,6 +61,12 @@
                                     {{ trip.fromCity }}
                                 </div>
                             </a>
+                        </v-col>
+                        <v-col
+                            cols="2"
+                            @click="$refs.from.click()"
+                        >
+                            <v-icon>mdi-chevron-right</v-icon>
                         </v-col>
                     </v-row>
                 </v-timeline-item>
@@ -72,12 +79,26 @@
                         <v-col cols="3">
                             <span class="font-weight-bold">{{ endTime }}</span>
                         </v-col>
-                        <v-col class="font-weight-medium">
-                            {{ trip.toName }}
-                            <div class="text-caption font-weight-regular">
-                                {{ trip.toCity }}
-                            </div>
-                        </v-col>
+                            <v-col class="font-weight-medium">
+                                <a
+                                    ref="to"
+                                    class="text--primary text-decoration-none"
+                                    :href="`https://www.qwant.com/maps/place/latlon:${trip.to?.coordinates[1]}:${trip.to?.coordinates[0]}`"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {{ trip.toName }}
+                                    <div class="text-caption font-weight-regular">
+                                        {{ trip.toCity }}
+                                    </div>
+                                </a>
+                            </v-col>
+                            <v-col
+                                cols="2"
+                                @click="$refs.to.click()"
+                            >
+                                <v-icon>mdi-chevron-right</v-icon>
+                            </v-col>
                     </v-row>
                 </v-timeline-item>
             </v-timeline>
