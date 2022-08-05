@@ -25,132 +25,130 @@
         <v-app-bar
             :absolute="$device.isMobileOrTablet"
             :fixed="!$device.isMobileOrTablet"
-            flat
             clipped-left
+            flat
+            class="mx-md-auto"
         >
-            <NuxtLink to="/">
-                <v-img
-                    contain
-                    alt="UniCovoit"
-                    max-height="40"
-                    max-width="150"
-                    src="/icon_long.png"
-                ></v-img>
-            </NuxtLink>
-            <v-spacer></v-spacer>
-            <v-tooltip left>
-                <template v-slot:activator="{ on, attrs }">
-                    <NuxtLink
-                        to="/trips/add"
-                        class="text-decoration-none"
-                    >
-                        <v-icon
-                            size="30"
-                            v-bind="attrs"
-                            v-on="on"
-                        >
-                            mdi-plus-circle-outline
-                        </v-icon>
-                    </NuxtLink>
-                </template>
-                <span>Publier un trajet</span>
-            </v-tooltip>
-        </v-app-bar>
-
-        <v-navigation-drawer
-            v-if="!$device.isMobileOrTablet"
-            class="mt-16 pt-3"
-            clipped
-            app
-            fixed
-        >
-            <v-list
-                nav
+            <v-sheet
+                max-width="1280"
+                color="transparent"
+                width="100%"
+                tile
+                class="mx-md-auto d-flex align-center"
             >
-                <v-list-item
-                    v-for="item in menu1"
-                    :key="item.id"
-                    :to="item.to"
-                    exact
-                    router
-                    color="primary"
+                <NuxtLink to="/">
+                    <v-img
+                        alt="UniCovoit"
+                        contain
+                        max-height="40"
+                        max-width="150"
+                        src="/icon_long.png"
+                    ></v-img>
+                </NuxtLink>
+                <div
+                    v-if="!$device.isMobileOrTablet"
+                    class="ml-4"
                 >
-                    <v-list-item-action>
+                    <v-btn
+                        v-for="item in menu1"
+                        :key="item.id"
+                        :to="item.to"
+                        color="primary"
+                        exact
+                        router
+                        text
+                    >
                         <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title v-text="item.title"/>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item
-                    v-if="!isLoggedIn"
-                    to="/login"
-                    exact
-                    router
-                    color="primary"
-                >
-                    <v-list-item-action>
-                        <v-icon>mdi-account-circle</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>
-                            Connexion
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item
-                    v-else
-                    v-for="item in menu2"
-                    :key="item.id"
-                    :to="item.to"
-                    exact
-                    router
-                    color="primary"
-                >
-                    <v-list-item-action>
-                        <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title v-text="item.title"/>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-divider></v-divider>
-                <v-list-item
-                    to="/about"
-                    exact
-                    router
-                    color="primary"
-                >
-                    <v-list-item-action>
+                        {{ item.title }}
+                    </v-btn>
+                    <v-btn
+                        v-if="!$device.isMobileOrTablet"
+                        color="primary"
+                        exact
+                        router
+                        text
+                        to="/about"
+                    >
                         <v-icon>mdi-information</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>
-                            À propos
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
-        </v-navigation-drawer>
+                        À propos
+                    </v-btn>
+                </div>
+                <v-spacer></v-spacer>
+                <div
+                    v-if="!$device.isMobileOrTablet"
+                    class="mr-4"
+                >
+                    <v-btn
+                        v-if="!isLoggedIn"
+                        color="primary"
+                        exact
+                        router
+                        text
+                        to="/login"
+                    >
+                        <v-icon>mdi-account-circle</v-icon>
+                        Connexion
+                    </v-btn>
+                    <v-btn
+                        v-for="item in menu2"
+                        v-else
+                        :key="item.id"
+                        :to="item.to"
+                        color="primary"
+                        exact
+                        router
+                        text
+                    >
+                        <v-icon>{{ item.icon }}</v-icon>
+                        {{ item.title }}
+                    </v-btn>
+                </div>
+                <v-tooltip
+                    :left="$device.isMobileOrTablet"
+                    :right="!$device.isMobileOrTablet"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                        <NuxtLink
+                            class="text-decoration-none"
+                            to="/trips/add"
+                        >
+                            <v-icon
+                                size="30"
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                mdi-plus-circle-outline
+                            </v-icon>
+                        </NuxtLink>
+                    </template>
+                    <span>Publier un trajet</span>
+                </v-tooltip>
+            </v-sheet>
+        </v-app-bar>
 
         <v-main
             class="mt-15"
         >
-            <v-container>
-                <Nuxt
-                    keep-alive
-                    :keep-alive-props="{exclude: ['pages/trips/index.vue']}"
-                    class="px-md-16"
-                />
-            </v-container>
+            <v-responsive
+                class="mx-md-auto mt-md-5"
+                max-width="1080"
+            >
+                <v-container>
+                    <Nuxt
+                        :keep-alive-props="{exclude: ['pages/trips/index.vue']}"
+                        class="px-md-16"
+                        keep-alive
+                    />
+                </v-container>
+            </v-responsive>
         </v-main>
 
         <v-bottom-navigation
-            v-model="activeBtn"
             v-if="$device.isMobileOrTablet"
-            color="primary"
+            v-model="activeBtn"
             :dark="$vuetify.theme.dark"
             app
+            color="primary"
             grow
             shift
         >
@@ -167,17 +165,17 @@
             </v-btn>
             <v-btn
                 v-if="!isLoggedIn"
-                to="/login"
                 exact
                 router
+                to="/login"
             >
                 <span>Connexion</span>
 
                 <v-icon>mdi-account-circle</v-icon>
             </v-btn>
             <v-btn
-                v-else
                 v-for="item in menu2"
+                v-else
                 :key="item.id"
                 :to="item.to"
                 exact
