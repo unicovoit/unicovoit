@@ -207,6 +207,7 @@ export default {
                     path: '/',
                     sameSite: 'Strict',
                     httpOnly: false,
+                    maxAge: 365 * 24 * 60 * 60,
                 })
                 this.$plausible.trackEvent('darkTheme', {
                     props: {
