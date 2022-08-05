@@ -14,13 +14,14 @@
                 v-model="dateFormatted"
                 :rules="rules"
                 color="primary"
-                outlined
                 hint="Au format JJ/MM/AAAA"
                 label="Date de départ"
+                outlined
                 persistent-hint
                 prepend-icon="mdi-calendar"
                 readonly
                 required
+                rounded
                 v-bind="attrs"
                 @blur="date = parseDate(dateFormatted)"
                 v-on="on"
