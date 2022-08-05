@@ -6,6 +6,7 @@
             class="mb-5"
             outlined
             lazy
+            rounded="lg"
             :to="`/trips/${trip.id}`"
         >
             <v-row
