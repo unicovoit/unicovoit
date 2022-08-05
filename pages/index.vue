@@ -20,14 +20,16 @@
             </template>
         </v-snackbar>
 
-        <v-container>
+        <v-container
+            class="mx-auto"
+        >
             <h2
                 class="text-h2 mb-5"
             >
                 On va où ?
             </h2>
             <div
-                class="d-md-flex flex-md-column"
+                class="d-md-flex flex-md-row justify-space-between align-center"
             >
                 <TripForm></TripForm>
                 <v-img
@@ -40,22 +42,25 @@
         </v-container>
 
 
-        <v-container>
+        <v-container
+            class="mb-5"
+        >
             <v-row
                 v-for="advantage in advantages"
                 :key="advantage.title"
                 class="d-flex align-start mb-2"
+                :class="advantage.colour"
             >
                 <v-col
                     cols="2"
                 >
-                    <v-icon size="35">{{ advantage.icon }}</v-icon>
+                    <v-icon size="35" :class="advantage.colour">{{ advantage.icon }}</v-icon>
                 </v-col>
                 <v-col
                     class="px-0"
                     cols="9"
                 >
-                    <h6 class="text-h6">
+                    <h6 class="text-h6 font-weight-bold">
                         {{ advantage.title }}
                     </h6>
                     <p
@@ -67,7 +72,8 @@
             </v-row>
 
             <NuxtLink
-                class="text-decoration-none text--secondary"
+                v-if="$device.isMobileOrTablet"
+                class="mt-2 text-decoration-none text--secondary"
                 to="/about"
             >
                 <v-icon>mdi-information</v-icon>
@@ -78,7 +84,6 @@
 
         <v-card
             id="presentation"
-            :color="`primary ${$vuetify.theme.dark ? 'darken-4' : 'lighten-5'}`"
             flat
             rounded="20"
         >
@@ -96,11 +101,6 @@
                 <p>
                     L'objectif est d'encourager le covoiturage entre étudiants, sans prendre de commission sur le prix
                     du trajet.
-                </p>
-                <p>
-                    Plus d'informations disponibles sur
-                    <NuxtLink alt="About" class="text--secondary" to="/about">cette page</NuxtLink>
-                    .
                 </p>
             </v-card-text>
         </v-card>
@@ -143,17 +143,20 @@ export default {
     data: () => ({
         snackbar: false,
         advantages: [{
-            icon: 'mdi-lock',
-            title: 'Sécurité',
-            content: `Profitez de trajets exclusivement entre étudiants.`
-        }, {
+            colour: 'amber--text text--darken-3',
             icon: 'mdi-piggy-bank',
             title: 'Petits Prix',
             content: `UniCovoit contribue à maintenir des prix bas en ne prenant aucune commission sur les trajets.`
         }, {
+            colour: 'primary--text',
+            icon: 'mdi-lock',
+            title: 'Sécurité',
+            content: `Profitez de trajets exclusivement entre étudiants.`
+        }, {
+            colour: 'light-green--text text--darken-2',
             icon: 'mdi-account-multiple-check',
             title: 'Transparence',
-            content: `UniCovoit est conçu pour des étudiants, par des étudiants. Le code de l'application est également entièrement ouvert.`
+            content: `UniCovoit est conçu pour des étudiants, par des étudiants. Le code de l'application est entièrement ouvert.`
         }]
     }),
     computed: {
