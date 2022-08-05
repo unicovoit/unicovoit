@@ -60,7 +60,7 @@
             </template>
         </v-simple-table>
         <p
-            class="text-subtitle-2 text--secondary"
+            class="mt-4 text-subtitle-2 text--secondary"
         >
             Si vous souhaitez ajouter votre université, prenez contact avec nous sur <EmailAddress/>
         </p>
