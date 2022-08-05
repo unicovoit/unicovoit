@@ -1,18 +1,19 @@
 <template>
     <v-autocomplete
         v-model="query"
-        :rules="rules"
         :items="suggestions"
+        :label="label"
+        :rules="rules"
         :search-input.sync="input"
+        hide-no-data
+        hide-selected
+        hide-spin-buttons
         no-filter
         outlined
-        hide-selected
-        hide-no-data
-        hide-spin-buttons
-        :label="label"
         placeholder="Adresse précise"
         prepend-inner-icon="mdi-map-marker"
         required
+        rounded
     ></v-autocomplete>
 </template>
 
@@ -42,7 +43,8 @@ export default {
             searchSuggestions: [],
             query: '',
             input: '',
-            getSuggestions: setTimeout(() => {}, 0),
+            getSuggestions: setTimeout(() => {
+            }, 0),
             suggestions: [],
         }
     },
@@ -60,7 +62,7 @@ export default {
                     }).then(res => {
                         this.searchSuggestions = res.data.features
                         this.suggestions = []
-                        for(const suggestion of this.searchSuggestions) {
+                        for (const suggestion of this.searchSuggestions) {
                             this.suggestions.push(suggestion.properties.label)
                         }
                     })
