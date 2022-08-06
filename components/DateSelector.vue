@@ -21,7 +21,7 @@
                 prepend-icon="mdi-calendar"
                 readonly
                 required
-                rounded
+                :rounded="rounded"
                 v-bind="attrs"
                 @blur="date = parseDate(dateFormatted)"
                 v-on="on"
@@ -45,6 +45,12 @@
 <script>
 export default {
     name: "DateSelector",
+    props: {
+        rounded: {
+            type: Boolean,
+            default: true
+        }
+    },
     data() {
         return {
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10),

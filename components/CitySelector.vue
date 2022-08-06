@@ -11,9 +11,10 @@
         no-filter
         outlined
         placeholder="Adresse précise"
-        prepend-inner-icon="mdi-map-marker"
+        :prepend-icon="inner ? '' : 'mdi-map-marker'"
+        :prepend-inner-icon="inner ? 'mdi-map-marker' : ''"
         required
-        rounded
+        :rounded="rounded"
     ></v-autocomplete>
 </template>
 
@@ -33,6 +34,14 @@ export default {
             type: String,
             default: "Ville"
         },
+        rounded: {
+            type: Boolean,
+            default: true
+        },
+        inner: {
+            type: Boolean,
+            default: true
+        }
     },
     data() {
         return {
@@ -87,6 +96,5 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="sass" scoped>
 </style>

@@ -21,40 +21,55 @@
         </v-snackbar>
 
         <v-container
-            class="mx-auto"
+            id="main"
+            class="pb-md-12"
         >
-            <h2
-                class="text-h2 mb-5"
+            <v-sheet
+                class="mx-auto"
+                max-width="1240"
             >
-                On va où ?
-            </h2>
+                <h2
+                    class="text-h2 my-5"
+                >
+                    On va où ?
+                </h2>
+            </v-sheet>
             <div
-                class="d-md-flex flex-md-row justify-space-between align-center"
+                class="d-md-flex flex-md-column justify-center align-center"
             >
-                <TripForm></TripForm>
-                <v-img
-                    aspect-ratio="1"
-                    contain
-                    max-width="600"
-                    src="/car-rental.svg"
-                ></v-img>
+                <div
+                    v-if="!$device.isMobileOrTablet"
+                    class="d-md-block"
+                    style="height: 1rem; width: 1rem"
+                ></div>
+                <TripForm
+                    class="mb-md-0"
+                />
             </div>
         </v-container>
 
 
         <v-container
-            class="mb-5"
+            class="mb-5 pt-0"
+            id="advantages"
         >
+            <v-img
+                class="d-md-none"
+                aspect-ratio="1"
+                contain
+                max-width="500"
+                src="/car-rental.svg"
+            ></v-img>
             <v-row
                 v-for="advantage in advantages"
                 :key="advantage.title"
-                class="d-flex align-start mb-2"
                 :class="advantage.colour"
+                class="d-flex align-start mb-2"
             >
                 <v-col
                     cols="2"
                 >
-                    <v-icon size="35" :class="advantage.colour">{{ advantage.icon }}</v-icon>
+                    <v-icon :class="advantage.colour" size="35">{{ advantage.icon }}</v-icon>
                 </v-col>
                 <v-col
                     class="px-0"
@@ -181,8 +196,16 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-/*h2
-    background-image: url('/landscape.svg')
-    background-size: cover
-    background-position: center*/
+@media screen and (min-width: 767px)
+    .container#main
+        width: 100vw
+        max-width: 100vw
+        position: relative
+        top: -1rem
+        left: calc(-50vw + 50%)
+
+/*background-image: url("/landscape.svg")
+        background-position: center center
+        background-repeat: no-repeat
+        background-size: cover*/
 </style>

@@ -1,43 +1,45 @@
 <template>
     <v-responsive
-        max-width="600"
+        :class="$vuetify.theme.dark ? 'grey darken-4' : 'white'"
+        class="pa-sm-3 pa-md-5 rounded-lg"
+        max-width="1280"
         width="100%"
-        class="pa-3"
     >
         <v-form
             ref="form"
+            class="d-md-flex flex-md-row align-start"
             lazy-validation
-            @keyup.native.enter="validate($event)"
         >
-            <v-row>
-                <CitySelector
-                    :req="true"
-                    label="Lieu de départ"
-                    error="Merci de renseigner un lieu"
-                    @changeCity="changeFrom"
-                ></CitySelector>
-            </v-row>
-            <v-row>
-                <CitySelector
-                    :req="true"
-                    label="Lieu d'arrivée"
-                    error="Merci de renseigner un lieu"
-                    @changeCity="changeTo"
-                ></CitySelector>
-            </v-row>
-            <v-row>
-                <DateSelector
-                    @changeDate="changeDate"
-                ></DateSelector>
-            </v-row>
+            <CitySelector
+                :inner="mobile"
+                :req="true"
+                :rounded="mobile"
+                class="mr-md-4"
+                error="Merci de renseigner un lieu"
+                label="Lieu de départ"
+                @changeCity="changeFrom"
+            ></CitySelector>
+            <CitySelector
+                :inner="mobile"
+                :req="true"
+                :rounded="mobile"
+                class="mr-md-4"
+                error="Merci de renseigner un lieu"
+                label="Lieu d'arrivée"
+                @changeCity="changeTo"
+            ></CitySelector>
+            <DateSelector
+                :rounded="mobile"
+                @changeDate="changeDate"
+            ></DateSelector>
             <div
                 style="display: flex; justify-content: space-between; align-items: flex-end;"
             >
-                <v-spacer></v-spacer>
+                <v-spacer class="d-sm-block d-md-none"></v-spacer>
                 <v-btn
-                    rounded
-                    class="mt-4"
+                    class="mt-sm-4 mt-md-2 ml-md-4"
                     color="primary"
+                    rounded
                     x-large
                     @click="validate"
                 >
@@ -53,6 +55,7 @@ export default {
     name: "TripForm",
     data() {
         return {
+            mobile: this.$device.isMobileOrTablet,
             search: {
                 from: null,
                 to: null,
@@ -87,13 +90,12 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass" scoped>
 @import "vuetify/src/styles/settings/_variables.scss"
-
-@media screen and (min-width: #{map-get($display-breakpoints, 'md-and-up')})
-    .v-form
-        max-width: 50rem
 
 .v-text-field--outlined > .v-input__control > .v-input__slot
     background: #ffffff !important
+
+.v-input
+    border-color: transparent
 </style>
