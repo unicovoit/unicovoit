@@ -3,6 +3,7 @@
         class="ma-0 pa-0"
     >
         <v-btn
+            v-if="false"
             color="primary"
             icon
             @click.prevent=""
