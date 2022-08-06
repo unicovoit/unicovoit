@@ -94,6 +94,7 @@
                         v-else
                         :key="item.id"
                         :to="item.to"
+                        class="mr-1"
                         color="primary"
                         exact
                         router
@@ -129,18 +130,20 @@
         <v-main
             class="mt-15"
         >
-            <v-responsive
+            <v-sheet
                 class="mx-md-auto mt-md-5"
                 max-width="1080"
             >
-                <v-container>
+                <v-container
+                    class="pt-0"
+                >
                     <Nuxt
                         :keep-alive-props="{exclude: ['pages/trips/index.vue']}"
                         class="px-md-16"
                         keep-alive
                     />
                 </v-container>
-            </v-responsive>
+            </v-sheet>
         </v-main>
 
         <v-bottom-navigation
