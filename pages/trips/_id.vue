@@ -55,7 +55,7 @@
                             <a
                                 ref="from"
                                 class="text--primary text-decoration-none"
-                                :href="`https://www.qwant.com/maps/place/latlon:${trip.from?.coordinates[1]}:${trip.from?.coordinates[0]}`"
+                                :href="`https://www.google.com/maps/search/?api=1&query=${trip.from?.coordinates[1]},${trip.from?.coordinates[0]}`"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -90,7 +90,7 @@
                                 <a
                                     ref="to"
                                     class="text--primary text-decoration-none"
-                                    :href="`https://www.qwant.com/maps/place/latlon:${trip.to?.coordinates[1]}:${trip.to?.coordinates[0]}`"
+                                    :href="`https://www.google.com/maps/search/?api=1&query=${trip.to?.coordinates[1]},${trip.to?.coordinates[0]}`"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
