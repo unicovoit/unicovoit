@@ -12,14 +12,24 @@ services:
             - ./logs:/logs
         links:
             - addok-redis:redis
+        networks:
+            - addok
         environment:
             WORKERS: 1
             WORKER_TIMEOUT: 30
             LOG_QUERIES: 1
             LOG_NOT_FOUND: 1
             SLOW_QUERIES: 200
+        depends_on:
+            - redis
 
-    addok-redis:
+    redis:
         image: etalab/addok-redis
         volumes:
             - ./addok-data/dump.rdb:/data/dump.rdb
+        networks:
+            - addok
+
+networks:
+    addok:
+        driver: bridge
