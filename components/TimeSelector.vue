@@ -18,6 +18,7 @@
                 label="Heure de départ"
                 prepend-icon="mdi-clock-outline"
                 readonly
+                rounded
                 v-bind="attrs"
                 v-on="on"
             ></v-text-field>
