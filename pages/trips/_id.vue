@@ -48,7 +48,10 @@
                         <v-col cols="3">
                             <span class="font-weight-bold">{{ startTime }}</span>
                         </v-col>
-                        <v-col class="font-weight-medium">
+                        <v-col
+                            class="font-weight-medium cursor-pointer"
+                            @click="$refs.from.click()"
+                        >
                             <a
                                 ref="from"
                                 class="text--primary text-decoration-none"
@@ -63,6 +66,7 @@
                             </a>
                         </v-col>
                         <v-col
+                            class="cursor-pointer"
                             cols="2"
                             @click="$refs.from.click()"
                         >
@@ -79,7 +83,10 @@
                         <v-col cols="3">
                             <span class="font-weight-bold">{{ endTime }}</span>
                         </v-col>
-                            <v-col class="font-weight-medium">
+                            <v-col
+                                class="font-weight-medium cursor-pointer"
+                                @click="$refs.to.click()"
+                            >
                                 <a
                                     ref="to"
                                     class="text--primary text-decoration-none"
@@ -94,6 +101,7 @@
                                 </a>
                             </v-col>
                             <v-col
+                                class="cursor-pointer"
                                 cols="2"
                                 @click="$refs.to.click()"
                             >
