@@ -5,7 +5,7 @@ const DESCRIPTION = 'Plateforme de covoiturage entre étudiants'
 const TITLE = 'UniCovoit'
 const DOMAIN = 'unicovoit.fr'
 const URL = `https://${DOMAIN}`
-const BANNER = `${URL}/icon_long.png`
+const BANNER = `${URL}/icon.png`
 
 const ADDOK_DOMAIN = "addok.unicovoit.fr"
 const LANGUAGE = "fr-FR"
