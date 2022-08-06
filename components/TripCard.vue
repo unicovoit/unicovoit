@@ -60,9 +60,7 @@
             </v-list-item>
 
             <v-list-item justify="center">
-                <v-list-item-title
-                    @click.prevent="$router.push(`/profile/${trip.driver?.id}`)"
-                >
+                <v-list-item-title>
                     <v-avatar
                         size="40"
                         class="mr-3"
