@@ -44,4 +44,7 @@ export default {
 
     a
         color: inherit
+
+    ul
+        margin-bottom: 1.5rem
 </style>
