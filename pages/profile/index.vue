@@ -164,11 +164,7 @@ export default {
     },
     async fetch() {
         try {
-            ({ data: this.user } = await this.$axios.get('/api/v1/users/', {
-                headers: {
-                    Authorization: this.$auth.strategy.token.get()
-                }
-            }))
+            ({ data: this.user } = await this.$axios.get('/api/v1/users'))
         } catch (e) {
             console.error(e)
         }
