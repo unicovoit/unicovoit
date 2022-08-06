@@ -18,7 +18,7 @@ services:
         ports:
             - "3000:3000"
         volumes:
-            -   './static/img:/usr/src/unicovoit/static/img'
+            -   './static/img:/usr/src/unicovoit/static/img:Z,U'
         env_file:
             - .env
         environment:
@@ -27,7 +27,7 @@ services:
         networks:
             - unicovoit
         depends_on:
-            - mongodb
+            - mongo
 
 networks:
     unicovoit:
