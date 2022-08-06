@@ -6,7 +6,9 @@
             A Propos
         </h2>
 
-        <div>
+        <div
+            class="mt-6"
+        >
             <p>
                 UniCovoit est une initiative étudiante pour encourager le covoiturage entre étudiants.
             </p>
@@ -83,4 +85,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+tr:hover
+    background-color: transparent !important
 </style>
