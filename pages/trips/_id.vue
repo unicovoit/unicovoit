@@ -188,7 +188,7 @@
                     <v-list-item-content>
                         <v-list-item-title>
                             <v-icon class="mr-3">mdi-seat-passenger</v-icon>
-                            {{ trip.places }} places restantes
+                            {{ trip.places }} {{this.remainingPlaces}}
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -204,125 +204,132 @@
                 </v-list-item>
             </v-card>
 
-            <v-card
+            <div
                 v-if="owner"
-                id="bookings"
-                class="py-3 mt-3"
-                outlined
             >
-                <div
-                    v-if="bookings.length === 0"
+                <v-card
+                    id="bookings"
+                    class="py-3 mt-3"
+                    outlined
                 >
-                    <v-card-title>
-                        Aucune demande de réservation
-                    </v-card-title>
-                </div>
-                <div
-                    v-else
-                >
-                    <v-card-title>
-                        Réservations
-                    </v-card-title>
-                    <v-card-subtitle
-                        v-if="pendingRequests"
-                        class="red--text"
+                    <div
+                        v-if="bookings.length === 0"
                     >
-                        Acceptez ou refusez les demandes de réservation
-                    </v-card-subtitle>
-                    <v-list>
-                        <v-list-item
-                            v-for="booking in bookings"
-                            :key="booking.id"
-                            class="d-flex flex-row"
+                        <v-card-title>
+                            Aucune demande de réservation
+                        </v-card-title>
+                    </div>
+                    <div
+                        v-else
+                    >
+                        <v-card-title>
+                            Réservations
+                        </v-card-title>
+                        <v-card-subtitle
+                            v-if="pendingRequests"
+                            class="red--text"
                         >
-                            <v-list-item-content>
-                                <v-list-item-title
-                                    @click.prevent="$router.push(`/profile/${booking.user?.id}`)"
-                                >
-                                    <v-avatar
-                                        class="mr-3"
-                                        size="40"
+                            Acceptez ou refusez les demandes de réservation
+                        </v-card-subtitle>
+                        <v-list>
+                            <v-list-item
+                                v-for="booking in bookings"
+                                :key="booking.id"
+                                class="d-flex flex-row"
+                            >
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        @click.prevent="$router.push(`/profile/${booking.user?.id}`)"
                                     >
-                                        <v-img
-                                            :alt="booking.user?.nickname || 'Utilisateur'"
-                                            :src="booking.user?.picture || '/account_circle.svg'"
-                                        ></v-img>
-                                    </v-avatar>
-                                    {{ booking.user?.nickname || booking.user?.name || 'Utilisateur' }}
-                                </v-list-item-title>
-                            </v-list-item-content>
-                            <v-list-item-action>
-                                <div
-                                    v-if="!booking.confirmed"
-                                >
-                                    <v-btn
-                                        :loading="confirmLoading"
-                                        color="success"
-                                        elevation="0"
-                                        fab
-                                        small
-                                        @click="confirmBooking(booking)"
+                                        <v-avatar
+                                            class="mr-3"
+                                            size="40"
+                                        >
+                                            <v-img
+                                                :alt="booking.user?.nickname || 'Utilisateur'"
+                                                :src="booking.user?.picture || '/account_circle.svg'"
+                                            ></v-img>
+                                        </v-avatar>
+                                        {{ booking.user?.nickname || booking.user?.name || 'Utilisateur' }}
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-action>
+                                    <div
+                                        v-if="!booking.confirmed"
                                     >
-                                        <v-icon>mdi-check</v-icon>
-                                    </v-btn>
-                                    <v-btn
-                                        :loading="cancelLoading"
-                                        color="gray"
-                                        elevation="0"
-                                        fab
-                                        icon
-                                        small
-                                        @click="confirmCancel = true"
-                                    >
-                                        <v-icon>mdi-close</v-icon>
-                                    </v-btn>
-                                    <!-- Ask for confirmation before cancelling booking -->
-                                    <v-dialog
-                                        v-model="confirmCancel"
-                                        max-width="500px"
-                                    >
-                                        <v-card>
-                                            <v-card-title>
-                                                Voulez-vous vraiment annuler cette réservation ?
-                                            </v-card-title>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn
-                                                    class="ma-1"
-                                                    color="primary"
-                                                    text
-                                                    @click.prevent="confirmCancel = false"
-                                                >
-                                                    Annuler
-                                                </v-btn>
+                                        <v-btn
+                                            :loading="confirmLoading"
+                                            color="success"
+                                            elevation="0"
+                                            fab
+                                            small
+                                            @click="confirmBooking(booking)"
+                                        >
+                                            <v-icon>mdi-check</v-icon>
+                                        </v-btn>
+                                        <v-btn
+                                            :loading="cancelLoading"
+                                            color="gray"
+                                            elevation="0"
+                                            fab
+                                            icon
+                                            small
+                                            @click="confirmCancel = true"
+                                        >
+                                            <v-icon>mdi-close</v-icon>
+                                        </v-btn>
+                                        <!-- Ask for confirmation before cancelling booking -->
+                                        <v-dialog
+                                            v-model="confirmCancel"
+                                            max-width="500px"
+                                        >
+                                            <v-card>
+                                                <v-card-title>
+                                                    Voulez-vous vraiment refuser cette réservation ?
+                                                </v-card-title>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn
+                                                        class="ma-1"
+                                                        color="primary"
+                                                        text
+                                                        @click.prevent="confirmCancel = false"
+                                                    >
+                                                        Annuler
+                                                    </v-btn>
 
-                                                <v-btn
-                                                    class="ma-1"
-                                                    color="error"
-                                                    outlined
-                                                    :loading="cancelLoading"
-                                                    @click="cancelBooking(booking)"
-                                                >
-                                                    Supprimer
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
-                                </div>
-                                <div
-                                    v-else
-                                >
-                                    <v-icon
-                                        color="success"
+                                                    <v-btn
+                                                        class="ma-1"
+                                                        color="error"
+                                                        outlined
+                                                        :loading="cancelLoading"
+                                                        @click="cancelBooking(booking)"
+                                                    >
+                                                        Refuser
+                                                    </v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                    </div>
+                                    <div
+                                        v-else
                                     >
-                                        mdi-check-circle-outline
-                                    </v-icon>
-                                </div>
-                            </v-list-item-action>
-                        </v-list-item>
-                    </v-list>
-                </div>
-            </v-card>
+                                        <v-icon
+                                            color="success"
+                                        >
+                                            mdi-check-circle-outline
+                                        </v-icon>
+                                    </div>
+                                </v-list-item-action>
+                            </v-list-item>
+                        </v-list>
+                    </div>
+                </v-card>
+
+                <LazyControlsEditOrDelete
+                    :trip="trip"
+                />
+            </div>
 
             <v-card
                 v-else-if="!owner && bookings.length > 0"
@@ -331,7 +338,7 @@
                 outlined
             >
                 <v-card-text
-                    class="text--primary"
+                    class="primary--text"
                 >
                     Vous avez réservé une place sur ce trajet.
                 </v-card-text>
@@ -389,6 +396,9 @@ export default {
         },
         pendingRequests() {
             return this.bookings.some(b => !b.confirmed)
+        },
+        remainingPlaces() {
+            return this.trip.places === 1 ? 'place restante' : 'places restantes'
         },
     },
     async fetch() {
