@@ -443,7 +443,6 @@ export default {
         },
         async cancelBooking(booking) {
             try {
-                // TODO: ask for confirmation
                 this.cancelLoading = true
                 await this.$axios.$delete(`/api/v1/trips/bookings/${booking.id}/cancel`)
                 this.bookings = await this.$axios.$get(`/api/v1/trips/bookings/${this.$route.params.id}`)
