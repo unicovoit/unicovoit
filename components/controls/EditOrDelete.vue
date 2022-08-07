@@ -11,11 +11,16 @@
             <v-icon size="30">mdi-circle-edit-outline</v-icon>
         </v-btn>
         <v-btn
+            class="my-4"
+            block
+            large
+            outlined
+            depressed
             color="error"
-            icon
             @click.prevent="confirmDeletion = true"
         >
-            <v-icon size="30">mdi-delete</v-icon>
+            <v-icon class="mr-2">mdi-delete</v-icon>
+            Supprimer le trajet
         </v-btn>
 
         <!-- Confirm booking suppression -->
@@ -28,9 +33,9 @@
                     Voulez-vous vraiment supprimer ce trajet ?
                 </v-card-title>
                 <v-card-text>
-                    Nous notifierons tous les utilisateurs qui ont réservé ce trajet.
-                    <br><br>
-                    Si vous souhaitez seulement modifier le trajet, cliquez sur l'icône <v-icon dense>mdi-circle-edit-outline</v-icon>.
+                    Nous notifierons tous les utilisateurs qui ont réservé une place sur ce trajet.
+<!--                    <br><br>
+                    Si vous souhaitez seulement modifier le trajet, cliquez sur l'icône <v-icon dense>mdi-circle-edit-outline</v-icon>.-->
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
