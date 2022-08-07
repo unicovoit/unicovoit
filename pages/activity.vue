@@ -72,7 +72,7 @@
 <script>
 
 export default {
-    name: "DisplayBookingsAndTrips",
+    name: "activity",
     data() {
         return {
             dialog: false,
