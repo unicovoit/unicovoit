@@ -309,7 +309,7 @@ export default {
                 date: "",
                 price: "Fixez le prix par passager",
                 places: "Le nombre de passagers que vous pouvez transporter",
-                description: "(Exemples: flexibilité des horaires et du point de rencontre, taille des bagages, etc.)"
+                description: "(Exemples: flexibilité des horaires, flexibilité des points de rencontre et de dépose, taille des bagages, etc.)"
             },
             trip: {
                 from: [],
@@ -369,6 +369,14 @@ export default {
                     departure_time: new Date(),
                     driver_id: this.$store.state.auth.user.sub,
                     places: "",
+            }
+            this.details = {
+                from: "Sélectionnez une adresse",
+                to: "Sélectionnez une adresse",
+                date: "",
+                price: "Fixez le prix par passager",
+                places: "Le nombre de passagers que vous pouvez transporter",
+                description: "(Exemples: flexibilité des horaires, flexibilité des points de rencontre et de dépose, taille des bagages, etc.)"
             }
             this.success = false
             this.steps = 1
@@ -453,8 +461,7 @@ export default {
         },
         changeTime(time) {
             let [hour, minute] = time.split(":")
-            let d = new Date()
-            this.trip.departure_time.setHours((parseInt(hour) + d.getTimezoneOffset()) % 24)
+            this.trip.departure_time.setHours(hour)
             this.trip.departure_time.setMinutes(minute)
         },
         async getPetrolPrice() {
