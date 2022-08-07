@@ -338,7 +338,7 @@
                 outlined
             >
                 <v-card-text
-                    class="primary--text"
+                    class="text--primary"
                 >
                     Vous avez réservé une place sur ce trajet.
                 </v-card-text>
