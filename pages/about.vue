@@ -18,7 +18,9 @@
             </p>
             <p>
                 Les
-                <NuxtLink class="text--secondary" to="/legal">Conditions Générales d'utilisation</NuxtLink>
+                <NuxtLink class="text--secondary" to="/legal">Conditions Générales d'Utilisation</NuxtLink>
+                et la
+                <NuxtLink class="text--secondary" to="/legal/privacy">Politique de Confidentialité</NuxtLink>
                 sont disponibles sur le site.
             </p>
             <p>
@@ -41,11 +43,16 @@
             </p>
         </div>
 
-        <h5
+<!--        <h5
             class="text-h5"
         >
             Universités supportées
-        </h5>
+        </h5>-->
+        <p
+            class="pt-4"
+        >
+            Notre système de vérification de statut étudiant supporte actuellement les universités suivantes :
+        </p>
         <v-simple-table
             fixed-header
             max-height="300px"
