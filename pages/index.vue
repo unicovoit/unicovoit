@@ -103,9 +103,9 @@
             rounded="20"
         >
             <v-card-title
-                class="text-h4 mb-5"
+                class="text-h5"
             >
-                Qui sommes-nous ?
+                UniCovoit, c'est quoi ?
             </v-card-title>
             <v-card-text
                 class="text-body-1"
@@ -158,7 +158,7 @@ export default {
     data: () => ({
         snackbar: false,
         advantages: [{
-            colour: 'amber--text text--darken-3',
+            colour: 'yellow--text text--darken-3',
             icon: 'mdi-piggy-bank',
             title: 'Petits Prix',
             content: `UniCovoit contribue à maintenir des prix bas en ne prenant aucune commission sur les trajets.`
