@@ -13,11 +13,11 @@ import nuxtConfig from '../../nuxt.config'
 
 
 const logos = {
-    snap: `<span class="material-icons">snapchat</span>`,
-    instagram: `<span class="material-icons">instagram</span>`,
-    facebook: `<span class="material-icons">facebook</span>`,
-    email: `<span class="material-icons">mail</span>`,
-    phone: `<span class="material-icons">phone</span>`
+    snapchat: `<img style="width: 20px" alt="snapchat" src="https://unicovoit.fr/icons/snapchat.png"></img>`,
+    instagram: `<img style="width: 20px" alt="instagram" src="https://unicovoit.fr/icons/instagram.png"></img>`,
+    facebook: `<img style="width: 20px" alt="facebook" src="https://unicovoit.fr/icons/facebook.png"></img>`,
+    email: `<img style="width: 20px" alt="email" src="https://unicovoit.fr/icons/email.png"></img>`,
+    phone: `<img style="width: 20px" alt="phone" src="https://unicovoit.fr/icons/phone.png"></img>`
 }
 
 
@@ -93,7 +93,7 @@ export async function send(template: string, to: string, subject: string, data: 
  */
 export async function sendConfirmation(trip: Trip, user: User, driver: User) {
     await send('generic', String(user.contact?.email), `Confirmation de réservation pour le trajet ${trip.fromCity} - ${trip.toCity}`, {
-        title: `Vous partez pour ${trip.toCity}`,
+        title: `Vous partez pour ${trip.toCity} !`,
         body: `${driver.nickname || driver.name} a confirmé votre réservation.
             <br>Vous pouvez désormais le·la joindre directement :<br>
             ${createContactBox(<Contact> driver.contact)}`,
@@ -119,7 +119,7 @@ export async function sendConfirmation(trip: Trip, user: User, driver: User) {
  */
 export async function sendAutoBookConfirmation(trip: Trip, user: User, driver: User) {
     await send('generic', String(user.contact?.email), `Confirmation de réservation pour le trajet ${trip.fromCity} - ${trip.toCity}`, {
-        title: `Vous partez pour ${trip.toCity}`,
+        title: `Vous partez pour ${trip.toCity} !`,
         body: `Votre trajet avec ${driver.nickname || driver.name} pour ${trip.toCity} est réservé !
             <br>Vous pouvez désormais le·la joindre directement :<br>
             ${createContactBox(<Contact> driver.contact)}`,
@@ -187,7 +187,7 @@ function createContactBox(contact: Contact): string {
     let contactBox = `<div style="background-color: #4A6DD919; padding:1rem; border-radius: 2rem; max-width: 35rem; min-width: 15rem; width: 30%; margin: 2rem">`
     for (let [key, logo] of Object.entries(logos)) {
         if (contact[key]) {
-            contactBox += `<div style="display: flex; align-items: center; justify-content: left">
+            contactBox += `<div style="display: flex; align-items: center; justify-content: left;margin-top: 5px">
                             ${logo}&nbsp;&nbsp;${contact[key]}<br>
                           </div>`
         }
