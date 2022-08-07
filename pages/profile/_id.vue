@@ -76,7 +76,7 @@
                         class="text-body-1"
                     >
                         <v-icon left>mdi-smoking-off</v-icon>
-                        Je préfère voyager sans fumée
+                        Je préfère voyager non fumeur
                     </v-list-item-group>
                 </v-list-item-content>
             </v-list-item>
@@ -113,24 +113,6 @@
                     >
                         <v-icon left>mdi-music-note-off</v-icon>
                         Je préfère voyager sans musique
-                    </v-list-item-group>
-                </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-                <v-list-item-content>
-                    <v-list-item-group
-                        v-if="user.autoBook"
-                        class="text-body-1"
-                    >
-                        <v-icon left>mdi-flash</v-icon>
-                        J'accepte automatiquement les réservations
-                    </v-list-item-group>
-                    <v-list-item-group
-                        v-else
-                        class="text-body-1"
-                    >
-                        <v-icon left>mdi-flash-off</v-icon>
-                        Pas de réservation automatique
                     </v-list-item-group>
                 </v-list-item-content>
             </v-list-item>
