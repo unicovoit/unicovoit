@@ -42,37 +42,6 @@
                 >Enora Couloigner</a>.
             </p>
         </div>
-
-<!--        <h5
-            class="text-h5"
-        >
-            Universités supportées
-        </h5>-->
-        <p
-            class="pt-4"
-        >
-            Notre système de vérification de statut étudiant supporte actuellement les universités suivantes :
-        </p>
-        <v-simple-table
-            fixed-header
-            max-height="300px"
-        >
-            <template v-slot:default>
-                <tbody>
-                <tr
-                    v-for="item in universities"
-                    :key="item.name"
-                >
-                    <td>{{ item.name }}</td>
-                </tr>
-                </tbody>
-            </template>
-        </v-simple-table>
-        <p
-            class="mt-4 text-subtitle-2 text--secondary"
-        >
-            Si vous souhaitez ajouter votre université, prenez contact avec nous sur <EmailAddress/>
-        </p>
     </v-container>
 </template>
 
@@ -92,6 +61,4 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-tr:hover
-    background-color: transparent !important
 </style>

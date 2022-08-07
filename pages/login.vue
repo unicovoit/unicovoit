@@ -1,10 +1,7 @@
 <template>
-    <v-responsive
-        class="py-1 px-2"
-        max-width="600"
-    >
+    <div>
         <h2
-            class="text-h2 mt-md-2 pr-md-15"
+            class="text-h2 mt-2 pr-md-15"
         >
             Connexion
         </h2>
@@ -15,26 +12,57 @@
             et la <NuxtLink to="/legal/privacy" class="text--secondary">Politique de Confidentialité</NuxtLink>.
         </p>
 
+        <p
+            class="pt-8"
+        >
+            Pour vous inscrire, vous devez être étudiant de l'une des universités suivantes :
+        </p>
+        <v-simple-table
+            fixed-header
+            height="150px"
+        >
+            <template v-slot:default>
+                <tbody>
+                <tr
+                    v-for="item in universities"
+                    :key="item.name"
+                >
+                    <td>{{ item.name }}</td>
+                </tr>
+                </tbody>
+            </template>
+        </v-simple-table>
+        <p
+            class="mt-4 text-subtitle-2 text--secondary"
+        >
+            Si vous souhaitez ajouter votre université, prenez contact avec nous sur <EmailAddress/>
+        </p>
+
         <v-btn
             block
-            class="mr-4 mt-10"
+            class="mr-sm-4 mt-10 mx-md-auto"
             color="primary"
             x-large
             rounded
             :loading="loading"
+            max-width="200"
+            width="100%"
             @click="auth0Login"
         >
             Me connecter
         </v-btn>
-    </v-responsive>
+    </div>
 </template>
 
 <script>
+import universities from "../api/universities"
+
 export default {
     name: "login",
     data() {
         return {
-            loading: false
+            loading: false,
+            universities,
         }
     },
     methods: {
@@ -52,6 +80,7 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="sass" scoped>
+tr:hover
+    background-color: transparent !important
 </style>
