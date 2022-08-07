@@ -226,7 +226,7 @@
                     <v-card-text
                         class="py-0"
                     >
-                        Nous basons notre estimation sur la consommation moyenne d'une voiture, ici 5.5 L/100km,
+                        Nous basons notre estimation sur la consommation moyenne d'une voiture, ici 6 L/100km,
                         et la distance du trajet,
                         en prenant en compte le prix moyen du SP95-E10 en France.<br>
                         Les péages ne sont pas pris en compte.
@@ -261,7 +261,6 @@
                     :counter="150"
                     label="Facultatif"
                     name="description"
-                    placeholder="Points de rencontre et horaires flexibles ou non, taille des bagages, etc."
                     value=""
                     outlined
                     :rules="rules.description"
@@ -310,7 +309,7 @@ export default {
                 date: "",
                 price: "Fixez le prix par passager",
                 places: "Le nombre de passagers que vous pouvez transporter",
-                description: "Il est préférable d'ajouter une description à votre trajet afin d'en définir les modalités"
+                description: "(Exemples: flexibilité des horaires et du point de rencontre, taille des bagages, etc.)"
             },
             trip: {
                 from: [],
@@ -412,6 +411,7 @@ export default {
                     if (this.trip.to && verifyRules(this.rules.city, this.trip.to)) {
                         this.steps++
                         this.details.to = this.toCityName
+                        this.estimatePrice()
                     }
                     break
                 case 3:
@@ -420,7 +420,6 @@ export default {
                     this.details.date = this.details.date.charAt(0).toUpperCase() + this.details.date.slice(1)
                     break
                 case 4:
-                    this.estimatePrice()
                     if (this.trip.places && verifyRules(this.rules.places, this.trip.places)) {
                         this.steps++
                         this.details.places = this.trip.places
@@ -472,7 +471,7 @@ export default {
             return req.data.distance
         },
         async estimatePrice() {
-            const litrePerKm = 5.5 / 100
+            const litrePerKm = 6 / 100
             let price = await this.getPetrolPrice()
             let distance = await this.getDistance()
             this.estimatedPrice = Math.round(distance * litrePerKm * price)
