@@ -164,13 +164,14 @@ export default {
     },
     async fetch() {
         try {
-            ({ data: this.user } = await this.$axios.get('/api/v1/users'))
+            this.user = await this.$axios.$get(`/api/v1/users`)
         } catch (e) {
             console.error(e)
         }
     },
-    async activated() {
-        await this.$fetch
+    activated() {
+        if (!this.$fetchState.pending)
+            this.$fetch()
     },
     methods: {
         toggleTheme() {
