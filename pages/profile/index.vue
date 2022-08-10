@@ -117,7 +117,9 @@
             </v-row>
         </v-container>
 
-        <v-list>
+        <v-list
+            class="px-md-5"
+        >
             <v-list-item class="px-0">
                 <v-list-item-content>
                     <v-list-item-subtitle>
@@ -130,9 +132,16 @@
             </v-list-item>
         </v-list>
 
-        <LazyContactInfo :contact="contact" />
+        <LazyContactInfo
+            class="px-md-5"
+            :contact="contact"
+        />
 
-        <LazyModifyProfile :user="user" @refresh="$fetch"/>
+        <LazyModifyProfile
+            class="px-md-5"
+            :user="user"
+            @refresh="$fetch"
+        />
 
         <v-divider class="mt-7"></v-divider>
 
