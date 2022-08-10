@@ -131,7 +131,7 @@
             class="mt-15"
         >
             <v-sheet
-                class="mx-md-auto mt-md-5"
+                class="mx-md-auto mt-md-5 transparent"
                 max-width="1080"
             >
                 <v-container
