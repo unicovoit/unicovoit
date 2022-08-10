@@ -24,6 +24,9 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
+# K8s config
+kubernetes
+
 # nyc test coverage
 .nyc_output
 
