@@ -674,8 +674,8 @@ export const verifiedOrSave = async (user: IVerification): Promise<boolean | und
         await createUser(<IUser>{
             id,
             sub: user.sub,
-            name: user.name,
-            nickname: user.nickname,
+            name: user.name?.split('@')[0],
+            nickname: user.username || user.nickname,
             email: user.email,
             email_verified: user.email_verified,
             studentEmail: user.email,
