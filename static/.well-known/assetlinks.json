@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "fr.unicovoit.app",
+            "sha256_cert_fingerprints": [
+                "B4:BB:DD:3D:0B:D3:D7:26:47:70:90:EE:19:42:B1:CC:31:48:D5:74:08:0B:95:84:6D:2E:2E:E7:48:86:C6:B9"
+            ]
+        }
+    }
+]
