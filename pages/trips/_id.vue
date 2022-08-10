@@ -327,6 +327,7 @@
                 </v-card>
 
                 <LazyControlsEditOrDelete
+                    v-if="pastTrip"
                     :trip="trip"
                 />
             </div>
@@ -338,9 +339,16 @@
                 outlined
             >
                 <v-card-text
+                    v-if="bookingConfirmed"
                     class="text--primary"
                 >
                     Vous avez réservé une place sur ce trajet.
+                </v-card-text>
+                <v-card-text
+                    v-else
+                    class="text--primary"
+                >
+                    Vous avez une réservation en attente sur ce trajet.
                 </v-card-text>
             </v-card>
 
@@ -393,6 +401,12 @@ export default {
         },
         owner() {
             return this.trip.driver_id === this.$auth.user?.sub
+        },
+        pastTrip() {
+            return new Date(this.trip.departure_time) < new Date()
+        },
+        bookingConfirmed() {
+            return this.bookings.some(b => b.confirmed)
         },
         pendingRequests() {
             return this.bookings.some(b => !b.confirmed)
