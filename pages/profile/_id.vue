@@ -134,7 +134,15 @@ export default {
         }
     },
     async fetch() {
-        ({ data: this.user } = await this.$axios.get(`/api/v1/users/profile/${this.$route.params.id}`))
+        try {
+            this.user = await this.$axios.$get(`/api/v1/users/profile/${this.$route.params.id}`)
+        } catch (e) {
+            console.error(e)
+        }
+    },
+    activated() {
+        if (!this.$fetchState.pending)
+            this.$fetch()
     },
 }
 </script>
