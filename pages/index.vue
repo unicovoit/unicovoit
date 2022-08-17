@@ -22,10 +22,10 @@
 
         <v-container
             id="main"
-            class="pb-md-12"
+            class="pb-md-12 mb-md-10"
         >
             <v-sheet
-                class="mx-auto"
+                class="mx-auto transparent"
                 max-width="1240"
             >
                 <h2
@@ -43,7 +43,7 @@
                     style="height: 1rem; width: 1rem"
                 ></div>
                 <TripForm
-                    class="mb-md-0"
+                    class="mb-md-7"
                 />
             </div>
         </v-container>
@@ -204,7 +204,8 @@ export default {
         top: -1rem
         left: calc(-50vw + 50%)
 
-/*background-image: url("/landscape.svg")
+
+/*        background-image: url("/landscape.svg")
         background-position: center center
         background-repeat: no-repeat
         background-size: cover*/
