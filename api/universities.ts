@@ -1,7 +1,14 @@
+export interface University {
+    id: string,
+    name: string,
+    country: string,
+    format: RegExp,
+}
+
 /**
  * List and email format of all supported universities
  */
-const universities = [
+const universities: University[] = [
     {
         id: 'ubs',
         name: 'Université de Bretagne Sud',
