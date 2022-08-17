@@ -170,8 +170,8 @@ export async function sendCancellation(trip: Trip, user: User, driver_email: str
     await send('generic', String(user.contact?.email), `Réservation annulée pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
         title: 'Réservation annulée',
         body: `Votre réservation pour le trajet ${trip.fromCity} - ${trip.toCity}, le ${toLocaleDateString(trip.departure_time)} a été annulée.`,
-        url: `https://unicovoit.fr/activity?bookings`,
-        urlText: 'Voir mes réservations',
+        url: `https://unicovoit.fr/trips?from=${trip.from.coordinates.join(',')}&to=${trip.to.coordinates.join(',')}&date=${trip.departure_time.getFullYear()}-${trip.departure_time.getMonth()}-${trip.departure_time.getDay()}`,
+        urlText: 'Trouver un trajet similaire',
     } as GenericEmailData)
 
     await send('generic', driver_email, `Réservation annulée pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
