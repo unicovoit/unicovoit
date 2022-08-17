@@ -176,12 +176,12 @@ export const getTrips = async (from: number[], to: number[], date: Date, distanc
     return Trip.find({
         from: {
             $geoWithin: {
-                $centerSphere: [ from,  radius ]
+                $centerSphere: [from, radius]
             }
         },
         to: {
             $geoWithin: {
-                $centerSphere: [ to,  radius ]
+                $centerSphere: [to, radius]
             }
         },
         departure_time: {$gte: min, $lt: max}
@@ -442,28 +442,30 @@ export const bookTrip: Function = async (b: any) => {
  * @returns the booking requests
  */
 export const getBookings = async (id: string, driver_id: string) => {
-    const trip = await Trip.findOne({id: {$eq: id}, driver_id: {$eq: driver_id}})
+    const trip = await Trip.findOne({id: {$eq: id}})
     if (trip) {
-        return Booking.find({trip: {$eq: trip._id}}, {
-            _id: 0,
-            __v: 0,
-            created_at: 0,
-            updated_at: 0,
-        }).populate('user', {
-            id: 1,
-            nickname: 1,
-            name: 1,
-            picture: 1,
-            university: 1,
-        })
-    } else {
-        const user = await getUserBySub(driver_id)
-        return Booking.find({user: {$eq: user._id}}, {
-            _id: 0,
-            __v: 0,
-            created_at: 0,
-            updated_at: 0,
-        })
+        if (trip.driver_id === driver_id) {
+            return Booking.find({trip: {$eq: trip._id}}, {
+                _id: 0,
+                __v: 0,
+                created_at: 0,
+                updated_at: 0,
+            }).populate('user', {
+                id: 1,
+                nickname: 1,
+                name: 1,
+                picture: 1,
+                university: 1,
+            })
+        } else {
+            const user = await getUserBySub(driver_id)
+            return Booking.find({user: {$eq: user._id}, trip: {$eq: trip._id}}, {
+                _id: 0,
+                __v: 0,
+                created_at: 0,
+                updated_at: 0,
+            })
+        }
     }
 }
 
