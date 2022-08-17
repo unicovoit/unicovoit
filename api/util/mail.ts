@@ -86,10 +86,10 @@ export async function send(template: string, to: string, subject: string, data: 
 
 
 /**
- * Send confirmation emails to driver and user
+ * Send booking confirmation emails to driver and user when driver has auto-book disabled
  * @param trip The trip to confirm
- * @param user The user who confirmed the trip
- * @param driver The driver
+ * @param user The passenger
+ * @param driver The driver who confirmed the trip
  */
 export async function sendConfirmation(trip: Trip, user: User, driver: User) {
     await send('generic', String(user.contact?.email), `Confirmation de réservation pour le trajet ${trip.fromCity} - ${trip.toCity}`, {
@@ -112,7 +112,7 @@ export async function sendConfirmation(trip: Trip, user: User, driver: User) {
 
 
 /**
- * Send confirmation emails to driver and user
+ * Send booking confirmation emails to driver and user when driver has auto-book enabled
  * @param trip The trip to confirm
  * @param user The user who confirmed the trip
  * @param driver The driver
@@ -138,7 +138,7 @@ export async function sendAutoBookConfirmation(trip: Trip, user: User, driver: U
 
 
 /**
- * Send request emails to driver and user
+ * Send booking request emails to driver and user
  * @param trip The trip to request
  * @param user The user who booked the trip
  * @param driver The driver
@@ -164,7 +164,7 @@ export async function sendRequest(trip: Trip, user: User, driver: User) {
  * Send an email to the user when a booking is canceled
  * @param trip The trip to cancel
  * @param user The user who canceled the trip
- * @param driver_email The address of the user
+ * @param driver_email The address of the driver
  */
 export async function sendCancellation(trip: Trip, user: User, driver_email: string) {
     await send('generic', String(user.contact?.email), `Réservation annulée pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
@@ -183,6 +183,10 @@ export async function sendCancellation(trip: Trip, user: User, driver_email: str
 }
 
 
+/**
+ * Create the container with contact details for a specified user
+ * @param contact The user's contact details
+ */
 function createContactBox(contact: Contact): string {
     let contactBox = `<div style="background-color: #4A6DD919; padding:1rem; border-radius: 2rem; max-width: 35rem; min-width: 15rem; width: 30%; margin: 2rem">`
     for (let [key, logo] of Object.entries(logos)) {
