@@ -114,8 +114,15 @@
                     :loading="loading"
                     @click="confirm"
                 >
-                    Confirmer la réservation
+                    Envoyer la réservation
                 </v-btn>
+            </v-container>
+
+            <v-container
+                v-if="!trip.autoBook"
+                class="text-caption text--secondary mb-10"
+            >
+                Une fois la réservation confirmée, vos informations de contact seront envoyées à votre conducteur et vous recevrez les leurs.
             </v-container>
         </v-card>
     </v-dialog>
