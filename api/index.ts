@@ -19,7 +19,7 @@ const mongoPort: string = process.env.MONGO_PORT || '27017'
 
 logger.info('Starting...')
 logger.info('Version : ' + version)
-logger.info('MongoDB Url : ' + mongoUrl + ':' + mongoPort)
+logger.info('MongoDB Url : ' + `mongodb://${mongoUrl}:${mongoPort}/unicovoit`)
 
 // Connect to MongoDB first
 mongoose.connect(`mongodb://${mongoUrl}:${mongoPort}/unicovoit`, {
