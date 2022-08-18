@@ -5,8 +5,8 @@ services:
         image: mongo:5
         restart: always
         volumes:
-            - './mongodb:/data/db'
-            - "./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/1-init-db.sh:z"
+            - './mongodb:/data/db:Z'
+            - "./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/1-init-db.sh:Z"
         env_file:
             - .mongo.env
         networks:
@@ -23,11 +23,10 @@ services:
             - .env
         environment:
             - MONGO_URL=mongo
+            - MONGO_PORT=27017
             - ADDOK_DOMAIN=addok.unicovoit.fr
         networks:
             - unicovoit
-        depends_on:
-            - mongo
 
 networks:
     unicovoit:
