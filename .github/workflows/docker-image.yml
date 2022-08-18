@@ -1,9 +1,8 @@
 name: Docker
 
 on:
-    push:
-        tags:
-            - 'v[0-9]+.[0-9]+.[0-9]+'
+    release:
+        types: [published]
 
 env:
     REGISTRY: registry.ozna.me
