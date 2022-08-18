@@ -137,7 +137,7 @@ export default {
                 'default-src': ["'self'"],
                 'style-src': ["'self'", "'unsafe-inline'"],
                 'font-src': ["'self'"],
-                'script-src': ["'self'", "'unsafe-inline'"],
+                'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
                 'img-src': ["'self'"],
                 'connect-src': ["'self'", "bano.addok.xyz", ADDOK_DOMAIN, PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
             }
