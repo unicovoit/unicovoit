@@ -56,8 +56,8 @@
         "xss": "^1.0.14"
     },
     "devDependencies": {
+        "@capacitor/cli": "^4.1.0",
         "@capacitor/android": "^4.1.0",
-        "@capacitor/cli": "^4.0.1",
         "@capacitor/core": "^4.0.1",
         "@mdi/font": "^7.0.96",
         "@nuxt/types": "^2.15.8",
