@@ -6,8 +6,14 @@
             elevation="1"
             timeout="-1"
         >
-            UniCovoit est encore en phase de test.
-            Faites remonter les bugs !
+            UniCovoit utilise des cookies.
+            Pour en savoir plus, consultez notre
+            <NuxtLink
+                to="/legal/privacy"
+                style="color: inherit"
+            >
+                Politique de Confidentialité
+            </NuxtLink>
             <template v-slot:action="{ attrs }">
                 <v-btn
                     color="info"
