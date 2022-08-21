@@ -327,7 +327,7 @@
                 </v-card>
 
                 <LazyControlsEditOrDelete
-                    v-if="pastTrip"
+                    v-if="!pastTrip"
                     :trip="trip"
                 />
             </div>
