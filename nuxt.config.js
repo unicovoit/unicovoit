@@ -181,6 +181,7 @@ export default {
             enableAutoPageviews: true,
             enableAutoOutboundTracking: true
         },
+        pageclipUrl: process.env.PAGECLIP_URL || '',
         isProd,
         ADDOK_DOMAIN,
         AUTH0_DOMAIN,
