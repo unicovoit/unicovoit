@@ -24,6 +24,14 @@
                 sont disponibles sur le site.
             </p>
             <p>
+                Pour prendre contact avec nous, veuillez utiliser le
+                <NuxtLink
+                    to="/contact"
+                    class="text--secondary"
+                >
+                    formulaire de contact</NuxtLink>.
+            </p>
+            <p>
                 Créé par
                 <a
                     class="text--secondary"
