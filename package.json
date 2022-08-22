@@ -1,6 +1,6 @@
 {
     "name": "unicovoit",
-    "version": "1.0.0-rc1",
+    "version": "1.0.0-rc2",
     "private": true,
     "license": "AGPL-3.0",
     "scripts": {
