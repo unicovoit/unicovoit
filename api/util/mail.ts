@@ -184,6 +184,33 @@ export async function sendCancellation(trip: Trip, user: User, driver_email: str
 
 
 /**
+ * Send an email to the user when a trip is canceled
+ * @param trip The trip to cancel
+ * @param users The array of users who booked the trip
+ * @param driver The driver who canceled the trip
+ */
+export async function sendTripCancellation(trip: Trip, users: User[], driver: User) {
+    await send('generic', String(driver.contact?.email), `Trajet ${trip.fromCity} - ${trip.toCity} annulé !`, {
+        title: 'Trajet annulé',
+        body: `Vous venez d'annuler votre trajet ${trip.fromCity} - ${trip.toCity}, le ${toLocaleDateString(trip.departure_time)}. <br>
+            Tous les utilisateurs ayant réservé une place ont été informés.`,
+        url: `https://unicovoit.fr/trips/add`,
+        urlText: 'Ajouter un trajet',
+    } as GenericEmailData)
+
+    for (const user of users) {
+        await send('generic', String(user.contact?.email), `Réservation annulée pour le trajet ${trip.fromCity} - ${trip.toCity} !`, {
+            title: 'Trajet annulé',
+            body: `Le trajet ${trip.fromCity} - ${trip.toCity}, le ${toLocaleDateString(trip.departure_time)} a été annulée. <br>
+                Réservez dès maintenant un nouveau trajet !`,
+            url: `https://unicovoit.fr/trips?from=${trip.from.coordinates.join(',')}&to=${trip.to.coordinates.join(',')}&date=${trip.departure_time.getFullYear()}-${trip.departure_time.getMonth()}-${trip.departure_time.getDay()}`,
+            urlText: 'Trouver un trajet similaire',
+        } as GenericEmailData)
+    }
+}
+
+
+/**
  * Create the container with contact details for a specified user
  * @param contact The user's contact details
  */
