@@ -35,6 +35,7 @@ export default {
 .nuxt-content
     h2
         text-align: left !important
+        margin-top: 2rem !important
         margin-bottom: .5rem
     p
         text-align: justify !important
