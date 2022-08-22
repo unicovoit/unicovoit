@@ -11,10 +11,15 @@
             Utilisez ce formulaire pour nous contacter.<br>
             Laissez-nous une adresse mail afin que nous puissions vous répondre.
         </p>
-        <v-form
-            :action="action"
-            method="POST"
+        <v-alert
+            v-if="finished"
+            border="left"
+            class="mx-2 my-4"
+            type="success"
         >
+            Message envoyé !
+        </v-alert>
+        <v-form v-else>
             <v-text-field
                 v-model="formData.name"
                 :rules="[
@@ -51,10 +56,11 @@
                 <v-spacer></v-spacer>
                 <v-btn
                     :disabled="!formData.name || !formData.email || !formData.message"
+                    :loading="loading"
                     color="primary"
                     large
                     rounded
-                    type="submit"
+                    @click="submit"
                 >
                     Envoyer
                 </v-btn>
@@ -75,8 +81,32 @@ export default {
                 email: '',
                 message: '',
             },
+            loading: false,
+            finished: false
         };
     },
+    methods: {
+        async submit() {
+            try {
+                this.loading = true
+                const req = this.$axios.create({
+                    maxRedirects: 0,
+                })
+                delete req.defaults.headers.common['Content-Type']
+                await req.post(this.action, this.formData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    maxRedirects: 0,
+                })
+            } catch (e) {
+                console.error(e)
+            } finally {
+                this.loading = false
+                this.finished = true
+            }
+        }
+    }
 }
 </script>
 
