@@ -208,7 +208,6 @@ export const getTrips = async (from: number[], to: number[], date: Date, distanc
  */
 export const getTripById = async (id: string) => {
     return Trip.findOne({id: {$eq: id}}, {
-        _id: 0,
         __v: 0,
         created_at: 0,
         updated_at: 0,
@@ -220,6 +219,41 @@ export const getTripById = async (id: string) => {
         autoBook: 1,
         university: 1,
     })
+}
+
+
+/**
+ * Get all users who have booked a trip
+ * @param id the id of the trip
+ * @return the array of users
+ */
+export const getTripPassengers = async (id: string) => {
+    const bookings = await Booking.find({trip: {$eq: id}}, {
+        _id: 0,
+        __v: 0,
+        created_at: 0,
+        updated_at: 0,
+    }).populate({
+        path: 'user',
+        select: {
+            id: 1,
+            name: 1,
+            nickname: 1,
+            picture: 1,
+            autoBook: 1,
+            university: 1,
+        },
+        populate : {
+            path: 'contact',
+            select: {
+                _id: 0,
+                __v: 0,
+                created_at: 0,
+                updated_at: 0,
+            }
+        }
+    })
+    return bookings.map(b => b.user) as IUser[]
 }
 
 
