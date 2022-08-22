@@ -1,8 +1,12 @@
 {
     "name": "unicovoit",
-    "version": "1.0.0-rc2",
+    "version": "1.0.0-rc3",
     "private": true,
     "license": "AGPL-3.0",
+    "author": "finxol <contact@finxol.io>",
+    "packageManager": "yarn@1.22.19",
+    "homepage": "https://github.com/unicovoit/unicovoit",
+    "bugs": "https://github.com/unicovoit/unicovoit/issues",
     "scripts": {
         "dev": "nuxt",
         "build": "nuxt build",
@@ -56,8 +60,8 @@
         "xss": "^1.0.14"
     },
     "devDependencies": {
-        "@capacitor/cli": "^4.1.0",
         "@capacitor/android": "^4.1.0",
+        "@capacitor/cli": "^4.1.0",
         "@capacitor/core": "^4.1.0",
         "@mdi/font": "^7.0.96",
         "@nuxt/types": "^2.15.8",
