@@ -10,6 +10,7 @@ import * as mail from "../util/mail"
 
 import Distance from "../interfaces/Distance"
 import Trip from "../interfaces/Trip"
+import User from "../interfaces/User"
 
 const router: Router = Router()
 
@@ -145,11 +146,26 @@ router.get('/id/:id', async (req: Request<RouteParameters<string>, any, any, Par
  */
 router.delete('/id/:id', checkJwt, async (req, res) => {
     try {
-        await db.removeTrip(req.params.id, String(req.auth?.payload.sub))
-        // TODO notify driver and users
-        res.json({
-            message: 'Trip deleted'
-        })
+        const trip = await db.getTripById(req.params.id)
+        if (trip) {
+            const driver: User = await db.getUserById(trip.driver.id)
+            if (driver.sub === req.auth?.payload.sub) {
+                const users: User[] = await db.getTripPassengers(trip._id)
+                await mail.sendTripCancellation(trip, users, driver)
+                await db.removeTrip(req.params.id, String(req.auth?.payload.sub))
+                res.json({
+                    message: 'Trip deleted'
+                })
+            } else {
+                res.status(403).json({
+                    error: 'You are not allowed to delete this trip'
+                })
+            }
+        } else {
+            res.status(404).json({
+                error: 'Trip not found'
+            })
+        }
     } catch (e) {
         logger.error(e)
         res.status(500).json({
