@@ -139,7 +139,7 @@ export default {
                 'font-src': ["'self'"],
                 'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
                 'img-src': ["'self'"],
-                'connect-src': ["'self'", "bano.addok.xyz", ADDOK_DOMAIN, PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
+                'connect-src': ["'self'", "bano.addok.xyz", "send.pageclip.co", ADDOK_DOMAIN, PLAUSIBLE_DOMAIN, AUTH0_DOMAIN]
             }
         }
     },
@@ -182,6 +182,7 @@ export default {
             enableAutoOutboundTracking: true
         },
         pageclipUrl: process.env.PAGECLIP_URL || '',
+        pageclipKey: process.env.PAGECLIP_KEY || '',
         isProd,
         ADDOK_DOMAIN,
         AUTH0_DOMAIN,
