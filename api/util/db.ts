@@ -587,6 +587,16 @@ export const getUserBookings = async (id: string) => {
                 __v: 0,
                 created_at: 0,
                 updated_at: 0,
+            },
+            populate: {
+                path: 'driver',
+                select: {
+                    id: 1,
+                    nickname: 1,
+                    name: 1,
+                    picture: 1,
+                    university: 1,
+                }
             }
         }, {
             path: 'user',
