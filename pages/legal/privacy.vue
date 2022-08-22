@@ -38,4 +38,10 @@ export default {
         margin-bottom: .5rem
     p
         text-align: justify !important
+
+    a
+        color: inherit
+
+    ul
+        margin-bottom: 1.5rem
 </style>
