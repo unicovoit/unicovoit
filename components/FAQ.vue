@@ -76,6 +76,7 @@ export default {
                     icon: "mdi-message-processing-outline",
                     title: "Comment puis-je contacter UniCovoit ?",
                     content: `Vous pouvez envoyer un mail à <a href="mailto:support@unicovoit.fr" target="_blank" rel="noopener noreferrer">support@unicovoit.fr</a>,
+                        utiliser le <a href="/contact">formulaire de contact</a>,
                         ou nous contacter sur <a href="https://instagram.com/unicovoit" target="_blank" rel="noopener noreferrer">Instagram</a>.`
                 }
             ]
