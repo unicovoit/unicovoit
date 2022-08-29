@@ -1,5 +1,24 @@
 <template>
     <div>
+        <!-- Show search queries -->
+        <v-card
+            v-if="isSearchQueries && !isOffline"
+            class="mt-2"
+            :color="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3`"
+            flat
+        >
+            <v-card-title>
+                {{ query.from }}&nbsp;
+                <v-icon>
+                    mdi-ray-start-end
+                </v-icon>
+                &nbsp;{{ query.to }}
+            </v-card-title>
+            <v-card-subtitle>
+                {{ query.date }}
+            </v-card-subtitle>
+        </v-card>
+
         <!-- Show no connectivity -->
         <v-alert
             v-if="isOffline"
@@ -12,7 +31,7 @@
 
         <!-- Show items are loading -->
         <v-progress-circular
-            v-if="isEmpty && $fetchState.pending"
+            v-if="isEmpty && $fetchState.pending && !isOffline"
             class="mx-auto mt-5"
             style="width: 100%"
             color="primary"
@@ -20,7 +39,7 @@
         ></v-progress-circular>
 
         <!-- Show no trips are available -->
-        <v-container v-else-if="isEmpty && !$fetchState.pending">
+        <v-container v-else-if="isEmpty && !$fetchState.pending && !isOffline">
             <v-card
                 outlined
             >
@@ -65,6 +84,11 @@ export default {
     data() {
         return {
             trips: [],
+            query: {
+                from: "",
+                to: "",
+                date: ""
+            }
         }
     },
     activated() {
@@ -86,6 +110,35 @@ export default {
                 params: filters,
             })
             this.trips = data
+
+            if (this.$route.query.from && this.$route.query.to && this.$route.query.date) {
+                const from = this.$route.query.from.split(',')
+                const to = this.$route.query.to.split(',')
+                const req = this.$axios.create()
+                delete req.defaults.headers.common['Authorization']
+                let {data: fromData} = await req.get(`https://${this.$config.ADDOK_DOMAIN}/reverse`, {
+                    params: {
+                        lon: from[0],
+                        lat: from[1]
+                    }
+                })
+                this.query.from = fromData.features[0].properties.city
+                let {data: toData} = await req.get(`https://${this.$config.ADDOK_DOMAIN}/reverse`, {
+                    params: {
+                        lon: to[0],
+                        lat: to[1]
+                    }
+                })
+                this.query.to = toData.features[0].properties.city
+
+                let options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                }
+                this.query.date = new Date(this.$route.query.date).toLocaleDateString('fr-FR', options)
+            }
         } catch (e) {
             console.error(e.response.data.message)
         }
@@ -97,6 +150,9 @@ export default {
         isOffline() {
             return this.$nuxt.isOffline
         },
+        isSearchQueries() {
+            return this.$route.query.from && this.$route.query.to && this.$route.query.date
+        }
     },
 }
 </script>
