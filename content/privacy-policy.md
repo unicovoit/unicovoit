@@ -93,14 +93,22 @@ La collecte et le traitement de ces données répond à la (aux) finalité(s) su
 - La publication et la réservation de trajets
 - La mise en relation des utilisateurs en cas de réservation
 
-[Préciser la/les raison(s) pour laquelle/lesquelles la collecte de données personnelles est nécessaire dans le cadre de votre activité]
+Cette collecte est nécessaire au bon fonctionnement du site.
 
 Ces données sont nécessaires au fonctionnement du site et de ses services.
 
 ### Article 3.2 : Mode de collecte des données
 
 Lorsque vous utilisez notre site, sont automatiquement collectées les données suivantes :  
-[Liste des données automatiquement collectées lors de la simple visite de l’utilisateur sur le site]
+
+- Adresse IP
+- Date et heure de la visite
+- Type d'appareil (mobile, tablette, ordinateur)
+- Provenance
+
+Ces données servent à produire une analyse statistique de l'utilisation d'UniCovoit.
+L'outil d'analyse statistique utilisé est [Plausible](https://plausible.io), hébergé sur des serveurs en Allemagne opérés par [Linode](https://www.linode.com).
+
 D’autres données personnelles sont collectées lorsque vous effectuez les opérations suivantes sur la plateforme :
 
 - Inscription:
