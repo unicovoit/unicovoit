@@ -29,7 +29,7 @@ RUN yarn install --prod
 RUN clean-modules --yes --exclude "**/*.mustache" --exclude "**/.cache/pwa/**"
 
 
-FROM node:16-alpine as runtime
+FROM node:16-alpine3.16 as runtime
 LABEL maintainer="finxol <contact@finxol.io>"
 
 ENV NUXT_HOST=0.0.0.0
