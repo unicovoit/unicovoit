@@ -68,7 +68,7 @@
         "@nuxt/typescript-build": "^2.1.0",
         "@nuxtjs/vuetify": "^1.12.3",
         "@types/uuid": "^8.3.4",
-        "sass": "^1.54.4",
+        "sass": "^1.54.6",
         "sass-loader": "^10.1.1"
     }
 }
