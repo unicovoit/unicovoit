@@ -1,6 +1,6 @@
 {
     "name": "unicovoit",
-    "version": "1.0.0-rc4.1",
+    "version": "1.0.0",
     "private": true,
     "license": "AGPL-3.0",
     "author": "finxol <contact@finxol.io>",
@@ -27,7 +27,7 @@
         "@auth0/auth0-vue": "^1.0.1",
         "@dansmaculotte/nuxt-security": "^0.0.5",
         "@nuxt/content": "^1.15.1",
-        "@nuxtjs/auth-next": "^5.0.0-1647967358.de1bb0f",
+        "@nuxtjs/auth-next": "^5.0.0-1648802546.c9880dc",
         "@nuxtjs/axios": "^5.13.6",
         "@nuxtjs/device": "^2.1.0",
         "@nuxtjs/pwa": "^3.3.5",
