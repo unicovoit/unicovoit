@@ -1,7 +1,7 @@
 <template>
     <v-responsive
         :class="$vuetify.theme.dark ? 'grey darken-4' : 'white'"
-        class="pa-sm-3 pa-md-5 rounded-lg"
+        class="px-3 py-2 pt-md-5 rounded-lg"
         max-width="1280"
         width="100%"
     >
