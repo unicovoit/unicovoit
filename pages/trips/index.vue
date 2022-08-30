@@ -4,7 +4,7 @@
         <v-card
             v-if="isSearchQueries && !isOffline"
             class="mt-2"
-            :color="`grey ${$vuetify.theme.dark ? 'darken' : 'lighten'}-3`"
+            :color="`grey ${$vuetify.theme.dark ? 'darken-4' : 'lighten-3'}`"
             flat
         >
             <v-card-title>
@@ -26,7 +26,7 @@
             border="left"
             type="warning"
         >
-            Vous n'êtes pas connecté à internet. Les trajets affichés ne sont peut-être pas à jour.
+            La recherche de trajets n'est pas disponible en mode hors-ligne. Veuillez vous connecter à internet.
         </v-alert>
 
         <!-- Show items are loading -->
