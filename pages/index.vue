@@ -28,10 +28,10 @@
 
         <v-container
             id="main"
-            class="pb-md-12 mb-md-10"
+            class="pb-md-12 mb-md-10 px-0"
         >
             <v-sheet
-                class="mx-auto transparent"
+                class="mx-auto transparent px-2"
                 max-width="1240"
             >
                 <h2
