@@ -95,8 +95,6 @@ La collecte et le traitement de ces données répond à la (aux) finalité(s) su
 
 Cette collecte est nécessaire au bon fonctionnement du site.
 
-Ces données sont nécessaires au fonctionnement du site et de ses services.
-
 ### Article 3.2 : Mode de collecte des données
 
 Lorsque vous utilisez notre site, sont automatiquement collectées les données suivantes :  
