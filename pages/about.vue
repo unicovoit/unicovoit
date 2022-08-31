@@ -49,6 +49,13 @@
                     target="_blank"
                 >Enora Couloigner</a>.
             </p>
+
+            <div
+                id="wcb"
+                class="carbonbadge mt-10"
+                :class="{'wcb-d': $vuetify.theme.dark}"
+            ></div>
+            <script src="https://cdn.jsdelivr.net/gh/unicovoit/website-carbon-badges/public/b.min.js" defer></script>
         </div>
     </v-container>
 </template>
