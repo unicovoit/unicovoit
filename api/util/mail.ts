@@ -13,11 +13,11 @@ import nuxtConfig from '../../nuxt.config'
 
 
 const logos = {
-    snapchat: `<img style="width: 20px" alt="snapchat" src="https://unicovoit.fr/icons/snapchat.png"></img>`,
-    instagram: `<img style="width: 20px" alt="instagram" src="https://unicovoit.fr/icons/instagram.png"></img>`,
-    facebook: `<img style="width: 20px" alt="facebook" src="https://unicovoit.fr/icons/facebook.png"></img>`,
-    email: `<img style="width: 20px" alt="email" src="https://unicovoit.fr/icons/email.png"></img>`,
-    phone: `<img style="width: 20px" alt="phone" src="https://unicovoit.fr/icons/phone.png"></img>`
+    snapchat: `<img style="width: 20px" alt="snapchat" src="https://unicovoit.fr/icons/snapchat.png">`,
+    instagram: `<img style="width: 20px" alt="instagram" src="https://unicovoit.fr/icons/instagram.png">`,
+    facebook: `<img style="width: 20px" alt="facebook" src="https://unicovoit.fr/icons/facebook.png">`,
+    email: `<img style="width: 20px" alt="email" src="https://unicovoit.fr/icons/email.png">`,
+    phone: `<img style="width: 20px" alt="phone" src="https://unicovoit.fr/icons/phone.png">`
 }
 
 
@@ -32,7 +32,7 @@ const transporter = nodemailer.createTransport({
 })
 
 const readTemplate = (name: string) => readFileSync(path.join(__dirname, '..', 'mail', `${name}.html`), 'utf8')
-const templates: any = {
+const templates: object = {
     generic: String(readTemplate('generic')),
     confirm_address: String(readTemplate('confirm_address')),
 }
@@ -54,12 +54,14 @@ const toLocaleDateString: Function = (date: Date): string => {
 /**
  * Test the connection to the email server
  */
-export function test() {
+export function test(fnct?: Function | undefined) {
     transporter.verify(error => {
         if (error)
             logger.error(error)
         else
             logger.success('Mail server connected')
+        if (fnct)
+            fnct()
     })
 }
 
@@ -70,7 +72,7 @@ export function test() {
  * @param subject The subject of the email
  * @param data The data to use in the mail
  */
-export async function send(template: string, to: string, subject: string, data: any) {
+export async function send(template: string, to: string, subject: string, data: {code: string} | GenericEmailData) {
     const mailOptions = {
         from: {
             name: "UniCovoit",
