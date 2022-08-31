@@ -1,4 +1,4 @@
-import {initDB, removeOldTrips} from "./util/db";
+import {initDB} from "./util/db"
 import express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
@@ -79,16 +79,6 @@ if (process.env.NODE_ENV !== 'production') {
         })
     }, 1000)
 }
-
-// remove old trips every hour
-/*setInterval(() => {
-        logger.time('remove old trips')
-        removeOldTrips().then(() => {
-            logger.timeEnd('remove old trips')
-        })
-    },
-    3600000 // 1 hour in milliseconds
-)*/
 
 
 export default app
