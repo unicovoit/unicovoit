@@ -323,7 +323,7 @@ router.get('/isVerified', originCheck, async (req, res, next) => {
     try {
         const auth = req.auth as unknown as VerificationJWT
         // check if the user is verified and save it if doesn't exist
-        const verified: boolean | undefined = await db.verifiedOrSave(auth)
+        const verified: boolean = await db.verifiedOrSave(auth)
         const token = jwt.sign({
             sub: auth.sub,
         }, VERIFICATION_SECRET, {expiresIn: '15m'})
@@ -356,7 +356,7 @@ router.post('/sendVerificationCode', originCheck, async (req, res) => {
                     let code = String(parseInt(bytes, 16)).substring(0, 6)
 
                     await db.saveVerificationCode(auth.sub, req.body.email, code)
-                    await mail.send('confirm_address', req.body.email, 'Confirmation de votre adresse universitaire', {code})
+                    await mail.send('confirm_address', req.body.email, `Utilisez ${code} pour vérifier votre adresse universitaire`, {code})
 
                     await db.updateUserUniversity(auth.sub, uni)
 
