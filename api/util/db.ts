@@ -11,6 +11,9 @@ import {Verification} from "../models/Verification"
 import IVerification from "../interfaces/VerificationJWT"
 import {Contact} from "../models/Contact"
 
+import * as mail from './mail'
+import GenericEmailData from "../interfaces/GenericEmailData"
+
 import {v4} from "uuid"
 import {Error} from "mongoose"
 import {BookingError} from "../errors/BookingError"
@@ -709,10 +712,10 @@ export const saveUserContactBySub = async (id: string, info: any) => {
  * @param   user user to check
  * @returns true if verified, false otherwise
  */
-export const verifiedOrSave = async (user: IVerification): Promise<boolean | undefined> => {
+export const verifiedOrSave = async (user: IVerification): Promise<boolean> => {
     const u = await getUserBySub(user.sub)
     if (u) {
-        return u.verified
+        return u.verified && !u.isBlocked
     } else {
         const id = v4()
         user.picture = await image.download(String(user.picture), id)
@@ -728,6 +731,18 @@ export const verifiedOrSave = async (user: IVerification): Promise<boolean | und
             picture: user.picture,
             verified: false
         })
+        await mail.send('generic', String(user.email), 'Bienvenue sur UniCovoit !', {
+            title: 'Bienvenue sur UniCovoit !',
+            body: `<p>
+                        Merci d'avoir rejoint UniCovoit !
+                  </p>
+                  <p>
+                      Vous pouvez dès à présent renseigner vos informations de contact et préférences de trajet sur votre profil !<br>
+                      Cela permettra aux autres usagers de vous contacter plus facilement après une réservation.
+                  </p>`,
+            url: 'https://unicovoit.fr/profile#contact',
+            urlText: 'Compléter mes informations de contact'
+        } as GenericEmailData)
         return false
     }
 }
