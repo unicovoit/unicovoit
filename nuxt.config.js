@@ -64,7 +64,10 @@ export default {
     loading: {color: "#4A6DD9"},
 
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: ['@mdi/font/css/materialdesignicons.min.css'],
+    css: [
+        '@mdi/font/css/materialdesignicons.min.css',
+        './assets/vuetify.css'
+    ],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [],
@@ -200,7 +203,8 @@ export default {
                 current: 'fr'
             },
             themes: {
-                dark: {
+                disable: true
+                /*dark: {
                     primary: "#4A6DD9",
                     accent: colors.grey.darken3,
                     secondary: colors.grey.darken3,
@@ -217,7 +221,7 @@ export default {
                     warning: colors.amber.accent3,
                     error: colors.red.base,
                     success: colors.green.base
-                }
+                }*/
             }
         }
     },
@@ -227,5 +231,7 @@ export default {
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
-    build: {}
+    build: {
+        extractCSS: true
+    }
 }
