@@ -29,6 +29,11 @@ const universities: University[] = [
         name: 'INSA Rennes',
         country: 'France',
         format: /^[A-Za-z\-.\d]+@insa-rennes\.fr$/
+    }, {
+        id: 'univBrest',
+        name: 'Université de Bretagne Occidentale',
+        country: 'France',
+        format: /^[A-Za-z\-]+\.[A-Za-z\-]+@etudiant\.univ-brest\.fr$/
     }
 ]
 
