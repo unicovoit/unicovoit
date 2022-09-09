@@ -60,6 +60,7 @@ app.use(limiter) // Set the rate limit
 
 app.use('/v1/trips', require('./routes/trips').router)
 app.use('/v1/users', require('./routes/users').router)
+app.use('/v1/stats', require('./routes/stats').router)
 app.get('/v1/universities', (req, res) => {
     res.json({
         universities: universities.map(uni => {
