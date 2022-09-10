@@ -9,6 +9,7 @@ import {auth} from "express-oauth2-jwt-bearer"
 import {Router} from "express"
 import * as jwt from 'jsonwebtoken'
 import * as crypto from "crypto"
+import axios from "axios"
 
 const router: Router = Router()
 
@@ -319,7 +320,7 @@ function verifyContact(contact: any) {
  * @desc    Check if user is verified
  * @access  Private
  */
-router.get('/isVerified', originCheck, async (req, res, next) => {
+router.get('/isVerified', originCheck, async (req, res) => {
     try {
         const auth = req.auth as unknown as VerificationJWT
         // check if the user is verified and save it if doesn't exist
@@ -440,6 +441,31 @@ router.put('/picture', checkJwt, async (req, res) => {
             } else {
                 res.sendStatus(400)
             }
+        } else {
+            res.sendStatus(404)
+        }
+    } catch (e) {
+        logger.error(e)
+        res.status(500).json({
+            error: 'Server error'
+        })
+    }
+})
+
+
+/**
+ * @route   DELETE /api/v1/users
+ * @desc    Delete user
+ * @access  Private
+ */
+router.delete('/', checkJwt, async (req, res) => {
+    try {
+        const user = await db.getUserBySub(String(req.auth?.payload.sub))
+        if (user) {
+            await db.deleteUser(user)
+            //await axios.delete(`https://login.auth0.com/api/v2/users/${user.sub}`)
+            await mail.sendAccountDeletion(user)
+            res.sendStatus(200)
         } else {
             res.sendStatus(404)
         }

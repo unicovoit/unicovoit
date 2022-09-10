@@ -809,3 +809,13 @@ export const verifyCode = async (id: string, email: string, code: string): Promi
     }
     return false
 }
+
+
+/**
+ * Delete a user
+ * @param   user the user to delete
+ */
+export const deleteUser = async (user: IUser) => {
+    await User.findByIdAndDelete(user._id)
+    await Contact.findByIdAndDelete(user.contact)
+}
