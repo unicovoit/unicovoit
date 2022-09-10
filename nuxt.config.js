@@ -198,13 +198,13 @@ export default {
         defaultAssets: false,
         treeShake: true,
         theme: {
-            dark: false,
+            disable: true
+            /*dark: false,
             lang: {
                 current: 'fr'
             },
             themes: {
-                disable: true
-                /*dark: {
+                dark: {
                     primary: "#4A6DD9",
                     accent: colors.grey.darken3,
                     secondary: colors.grey.darken3,
@@ -221,8 +221,8 @@ export default {
                     warning: colors.amber.accent3,
                     error: colors.red.base,
                     success: colors.green.base
-                }*/
-            }
+                }
+            }*/
         }
     },
 
