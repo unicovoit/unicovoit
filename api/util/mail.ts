@@ -31,10 +31,11 @@ const transporter = nodemailer.createTransport({
     },
 })
 
-const readTemplate = (name: string) => readFileSync(path.join(__dirname, '..', 'mail', `${name}.html`), 'utf8')
+const readTemplate: Function = (name: string): string => readFileSync(path.join(__dirname, '..', 'mail', `${name}.html`), 'utf8')
 const templates: object = {
-    generic: String(readTemplate('generic')),
-    confirm_address: String(readTemplate('confirm_address')),
+    generic: readTemplate('generic'),
+    confirm_address: readTemplate('confirm_address'),
+    user_deleted: readTemplate('user_deleted'),
 }
 
 
@@ -71,8 +72,9 @@ export function test(fnct?: Function | undefined) {
  * @param to The email address of the user
  * @param subject The subject of the email
  * @param data The data to use in the mail
+ * @param replyTo The email address to reply to
  */
-export async function send(template: string, to: string, subject: string, data: {code: string} | GenericEmailData) {
+export async function send(template: string, to: string, subject: string, data: {code: string} | {name: string} | GenericEmailData, replyTo: string = 'support@unicovoit.fr') {
     const mailOptions = {
         from: {
             name: "UniCovoit",
@@ -80,6 +82,7 @@ export async function send(template: string, to: string, subject: string, data: 
         },
         to,
         subject,
+        replyTo,
         html: templates[template].replace(/\$\{([^}]+)}/g, (match, key) => data[key])
     }
     await transporter.sendMail(mailOptions)
@@ -209,6 +212,20 @@ export async function sendTripCancellation(trip: Trip, users: User[], driver: Us
             urlText: 'Trouver un trajet similaire',
         } as GenericEmailData)
     }
+}
+
+
+/**
+ * Send an email to the user when his account is deleted
+ * @param user The user who deleted his account
+ */
+export async function sendAccountDeletion(user: User) {
+    await send('user_deleted', String(user.contact?.email), 'Suppression de votre compte UniCovoit', {
+        name: user.nickname,
+    })
+    await send('user_deleted', 'support@unicovoit.fr', 'Suppression de votre compte UniCovoit', {
+        name: user.nickname,
+    }, String(user.contact?.email))
 }
 
 
