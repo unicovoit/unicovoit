@@ -18,7 +18,7 @@ export default {
     name: "legal",
     auth: false,
     head: {
-        title: "Conditions Générales d'utilisation - UniCovoit",
+        title: "Conditions Générales d'utilisation",
     },
     async asyncData({$content, error}) {
         const page = await $content("legal")

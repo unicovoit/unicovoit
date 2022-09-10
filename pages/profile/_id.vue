@@ -123,6 +123,11 @@
 <script>
 export default {
     name: "profile",
+    head() {
+        return {
+            title: `Profil Public de ${this.user.nickname || this.user.name}`,
+        };
+    },
     auth: false,
     async validate({ params, store }) {
         // Must be a uuid v4

@@ -77,6 +77,9 @@ import TripCard from "../../components/TripCard"
 
 export default {
     name: 'Trips',
+    head: {
+        title: 'Trajets'
+    },
     auth: false,
     components: {
         TripCard

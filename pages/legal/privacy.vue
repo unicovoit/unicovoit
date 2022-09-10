@@ -16,6 +16,9 @@
 <script>
 export default {
     name: "legal",
+    head: {
+        title: "Politique de confidentialité"
+    },
     auth: false,
     async asyncData({$content, error}) {
         const page = await $content("privacy-policy")

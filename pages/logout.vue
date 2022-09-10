@@ -11,6 +11,9 @@
 <script>
 export default {
     name: "logout",
+    head: {
+        title: "Déconnexion",
+    },
     mounted() {
         this.$auth.logout()
         this.$router.go(-1)

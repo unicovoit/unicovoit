@@ -72,6 +72,11 @@
 <script>
 export default {
     name: "contact",
+    head() {
+        return {
+            title: "Contact",
+        }
+    },
     auth: false,
     data() {
         return {
