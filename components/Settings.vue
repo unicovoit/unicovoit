@@ -48,7 +48,10 @@
                 <v-row class="d-flex justify-space-around">
                     <v-col
                         cols="5"
-                        class="secondary"
+                        :class="{
+                            'grey lighten-4': !dark,
+                            'grey darken-3': dark,
+                        }"
                         @click.prevent="toggleTheme"
                     >
                         <v-switch
@@ -61,7 +64,10 @@
                     </v-col>
                     <v-col
                         cols="5"
-                        class="secondary"
+                        :class="{
+                            'grey lighten-4': !dark,
+                            'grey darken-3': dark,
+                        }"
                         @click="logout"
                     >
                         <v-btn
@@ -75,7 +81,10 @@
                 <v-row class="d-flex justify-space-around">
                     <v-col
                         cols="5"
-                        class="secondary"
+                        :class="{
+                            'grey lighten-4': !dark,
+                            'grey darken-3': dark,
+                        }"
                         @click="$router.push('/legal')"
                     >
                         <v-btn
@@ -87,7 +96,10 @@
                     </v-col>
                     <v-col
                         cols="5"
-                        class="secondary"
+                        :class="{
+                            'grey lighten-4': !dark,
+                            'grey darken-3': dark,
+                        }"
                         @click="$router.push('/legal/privacy')"
                     >
                         <v-btn
@@ -107,7 +119,10 @@
                     <v-col
                         id="danger"
                         cols="5"
-                        class="secondary"
+                        :class="{
+                            'grey lighten-4': !dark,
+                            'grey darken-3': dark,
+                        }"
                         @click="confirmDeletion = true"
                     >
                         <v-btn
@@ -171,6 +186,7 @@
                             color="error"
                             depressed
                             @click="deleteAccount"
+                            :loading="deletionLoading"
                         >
                             Supprimer
                         </v-btn>
@@ -194,7 +210,13 @@ export default {
         return {
             dialog: false,
             confirmDeletion: false,
+            deletionLoading: false,
         };
+    },
+    computed: {
+        dark () {
+            return this.$vuetify.theme.dark;
+        },
     },
     methods: {
         logout() {
@@ -220,6 +242,16 @@ export default {
         },
         deleteAccount() {
             console.log('delete account')
+            this.deletionLoading = true
+            this.$axios.delete('/api/v1/users')
+                .then(() => {
+                    this.deletionLoading = false
+                    this.$auth.logout()
+                })
+                .catch((e) => {
+                    console.error(e)
+                    this.deletionLoading = false
+                })
         }
     },
 }
