@@ -59,6 +59,9 @@ import universities from "../api/universities"
 
 export default {
     name: "login",
+    head: {
+        title: "Connexion",
+    },
     data() {
         return {
             loading: false,

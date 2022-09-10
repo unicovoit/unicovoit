@@ -290,6 +290,9 @@ import TimeSelector from "../../components/TimeSelector";
 
 export default {
     name: "add",
+    head: {
+        title: "Ajouter un trajet"
+    },
     components: {
         TimeSelector,
         DateSelector,

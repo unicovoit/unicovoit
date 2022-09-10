@@ -73,6 +73,11 @@
 
 export default {
     name: "activity",
+    head() {
+        return {
+            title: 'Mon activité',
+        }
+    },
     data() {
         return {
             dialog: false,

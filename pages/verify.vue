@@ -155,6 +155,11 @@
 <script>
 export default {
     name: "verify",
+    head() {
+        return {
+            title: "Vérification"
+        }
+    },
     auth: false,
     data() {
         return {

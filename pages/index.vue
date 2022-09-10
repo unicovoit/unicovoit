@@ -160,6 +160,9 @@
 <script>
 export default {
     name: 'Accueil',
+    head: {
+        title: 'Accueil',
+    },
     auth: false,
     data: () => ({
         snackbar: false,

@@ -364,6 +364,11 @@
 <script>
 export default {
     name: "trip",
+    head() {
+        return {
+            title: `${this.trip?.fromCity} - ${this.trip?.toCity}`,
+        }
+    },
     auth: false,
     data() {
         return {

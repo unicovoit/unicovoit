@@ -152,6 +152,9 @@
 <script>
 export default {
     name: "account",
+    head: {
+        title: "Mon compte"
+    },
     auth: true,
     data() {
         return {
