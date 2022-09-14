@@ -40,7 +40,7 @@
         "express-fileupload-validator": "^2.0.1",
         "express-oauth2-jwt-bearer": "^1.1.0",
         "express-rate-limit": "^6.6.0",
-        "fast-xml-parser": "^4.0.9",
+        "fast-xml-parser": "^4.0.10",
         "helmet": "^6.0.0",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.6.1",
