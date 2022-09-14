@@ -34,7 +34,7 @@ mongoose.connection.once('open', function () {
 
 // Exit if the JWT secret is not set
 if (!process.env.VERIFICATION_SECRET) {
-    logger.error('JWT_SECRET is not set')
+    logger.error('VERIFICATION_SECRET for student status verification is not set')
     process.exit(1)
 }
 
@@ -51,7 +51,7 @@ let limiter: any = rateLimit({
 app.disable('x-powered-by') // Disable Express header
 
 app.use(bodyParser.json({
-    limit: '50mb'
+    limit: '20mb'
 }))
 app.use(cookieParser())
 app.use(helmet()) // Add security headers
