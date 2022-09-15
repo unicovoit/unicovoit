@@ -38,7 +38,7 @@ const universities: University[] = [
         id: 'esiea',
         name: 'ESIEA Paris/Laval',
         country: 'France',
-        format: /^[A-Za-z\-]@et.esiea.fr$/
+        format: /^[A-Za-z\-]+@et\.esiea\.fr$/
     }
 ]
 
