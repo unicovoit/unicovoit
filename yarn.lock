@@ -4685,10 +4685,10 @@ fast-text-encoding@^1.0.4:
   resolved "https://registry.yarnpkg.com/fast-text-encoding/-/fast-text-encoding-1.0.6.tgz#0aa25f7f638222e3396d72bf936afcf1d42d6867"
   integrity sha512-VhXlQgj9ioXCqGstD37E/HBeqEGV/qOD/kmbVG8h5xKBYvM1L3lR1Zn4555cQ8GkYbJa8aJSipLPndE1k6zK2w==
 
-fast-xml-parser@^4.0.9:
-  version "4.0.9"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.0.9.tgz#3a81dab7b4952b8d38f0136d28bd055b80ed6512"
-  integrity sha512-4G8EzDg2Nb1Qurs3f7BpFV4+jpMVsdgLVuG1Uv8O2OHJfVCg7gcA53obuKbmVqzd4Y7YXVBK05oJG7hzGIdyzg==
+fast-xml-parser@^4.0.10:
+  version "4.0.10"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.0.10.tgz#72c81f74a0ef98af77ef37dd19d227533aae2994"
+  integrity sha512-mYMMIk7Ho1QOiedyvafdyPamn1Vlda+5n95lcn0g79UiCQoLQ2xfPQ8m3pcxBMpVaftYXtoIE2wrNTjmLQnnkg==
   dependencies:
     strnum "^1.0.5"
 
@@ -6940,10 +6940,10 @@ mongodb@4.9.1:
   optionalDependencies:
     saslprep "^1.0.3"
 
-mongoose@^6.6.0:
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.6.0.tgz#40cfef85e34fb6903fa5fc246d534bbd80da226e"
-  integrity sha512-5sS0D7qbmfT4G/nODkJhx5l2qvhqLMplhMlp08Wea8eoi6O/B6b+o1ukUEKjjm1MV8dAS3w8kx47R/klYKLPpQ==
+mongoose@^6.6.1:
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.6.1.tgz#8aec30924b1a524924d9de4eb4746951f6aadd26"
+  integrity sha512-hPDamnn6quL9TjIrOudqUS5sMilENmP/gfxoCIb+rDmlzawtM7+MVCAWrM9930fzD20N7qAema/zE9QIDuifhQ==
   dependencies:
     bson "^4.6.5"
     kareem "2.4.1"
@@ -10577,10 +10577,10 @@ vuetify-loader@^1.7.3, vuetify-loader@^1.9.2:
     file-loader "^6.2.0"
     loader-utils "^2.0.0"
 
-vuetify@^2.6, vuetify@^2.6.9:
-  version "2.6.9"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.6.9.tgz#abd3884bee9947c4a5b1dd560ad832bc4d8fccbf"
-  integrity sha512-f4jy/DWCwyrkgbbArg0ugSX70aHfv7oO3zz2nuXqoD3W0X8AgunrakzKkt0H+BnuZgesoit9NzLoJNj1GY5DWw==
+vuetify@^2.6, vuetify@^2.6.10:
+  version "2.6.10"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.6.10.tgz#b86cd7a97bf8cd3828a72c349795b5b3c539ebc2"
+  integrity sha512-fgUeRDDCwYkwu6WGEEKGe7IdfzOsXJCZGrqkn1pcS2ycuoDL8mR2/dejH5iFNnBY6MnsT365PAGn0J+9otjfQg==
 
 vuex@^3.6.2:
   version "3.6.2"
