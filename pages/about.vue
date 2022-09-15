@@ -29,7 +29,9 @@
                     to="/contact"
                     class="text--secondary"
                 >
-                    formulaire de contact</NuxtLink>.
+                    formulaire de contact
+                </NuxtLink>
+                .
             </p>
             <p>
                 Créé par
@@ -50,12 +52,23 @@
                 >Enora Couloigner</a>.
             </p>
 
-            <div
-                id="wcb"
-                class="carbonbadge mt-10"
-                :class="{'wcb-d': $vuetify.theme.dark}"
-            ></div>
-            <script src="https://cdn.jsdelivr.net/gh/unicovoit/website-carbon-badges/public/b.min.js" defer></script>
+            <v-alert
+                class="mx-auto mt-9 mt-md-14"
+                color="green"
+                icon="mdi-leaf"
+                outlined
+            >
+                <span
+                >
+                    UniCovoit est plus propre que {{ cleanerThan }}% des pages testées par
+                    <a
+                        href="https://websitecarbon.com/fr/pages-web-optimiser/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        Website Carbon</a>.
+                </span>
+            </v-alert>
         </div>
     </v-container>
 </template>
@@ -67,10 +80,11 @@ export default {
     name: "about",
     auth: false,
     head: {
-        title: "A Propos - UniCovoit",
+        title: "A Propos",
     },
     data: () => ({
-        universities
+        universities,
+        cleanerThan: "79",
     }),
 }
 </script>
