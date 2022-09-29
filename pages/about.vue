@@ -64,7 +64,8 @@
                     Merci aux donateurs :
                 </span>
                 Raven,
-                Liam
+                Liam,
+                Azgulute
                 <br>
                 <span
                     class="body-2"
