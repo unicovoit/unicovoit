@@ -966,10 +966,10 @@
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-4.2.0.tgz#f06539694adbaf189cf38cb039f079bde4f7422b"
   integrity sha512-LWZhM31DoQuNSW8ZGslJ8gZfOAZS2A5TLq30HP1bn0OQTJGvOFIizQysraVRSOOq5FRptykf2nZWu6WEwoKMlA==
 
-"@capacitor/cli@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-4.2.0.tgz#626b8ea447a210d38d77eedf3d0dc629bf19beaa"
-  integrity sha512-34L/BoDe3BmWBdrXRoF7lszT27ho6ikMdCeMePohU+cEn4ceqiURN7tnPZRyUlpc/1TO+d8d+qb1QQQSTq2oPA==
+"@capacitor/cli@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-4.3.0.tgz#e1515536f8e28b65df9e0ef45bd519fe62102cd9"
+  integrity sha512-+IBIJvxpHWSrtfb6XxPSh5m5h5ijLBqh0aGPxvj0nm7mXUwkT/fuQbeEUVCwIoImmYZCuUAFIkQFB0nWd74bEg==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.5"
     "@ionic/utils-fs" "^3.1.6"
@@ -2185,10 +2185,10 @@
     "@vue/compiler-core" "3.2.38"
     "@vue/shared" "3.2.38"
 
-"@vue/compiler-sfc@2.7.10":
-  version "2.7.10"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-2.7.10.tgz#3fe08e780053a3bbf41328c65ae5dfdee0385206"
-  integrity sha512-55Shns6WPxlYsz4WX7q9ZJBL77sKE1ZAYNYStLs6GbhIOMrNtjMvzcob6gu3cGlfpCR4bT7NXgyJ3tly2+Hx8Q==
+"@vue/compiler-sfc@2.7.12":
+  version "2.7.12"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-2.7.12.tgz#9b62e75d57d461cdbd62f16d9d20e46c73b4c053"
+  integrity sha512-7FOITA2+4ND7lMAfegljHBpNSG3X9mVzgQwcS3g928QZM1EADedUw2JLKcgOm1ZEJEkvyDHh6lwa08vrLmoCOA==
   dependencies:
     "@babel/parser" "^7.18.4"
     postcss "^8.4.14"
@@ -6940,10 +6940,10 @@ mongodb@4.9.1:
   optionalDependencies:
     saslprep "^1.0.3"
 
-mongoose@^6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.6.1.tgz#8aec30924b1a524924d9de4eb4746951f6aadd26"
-  integrity sha512-hPDamnn6quL9TjIrOudqUS5sMilENmP/gfxoCIb+rDmlzawtM7+MVCAWrM9930fzD20N7qAema/zE9QIDuifhQ==
+mongoose@^6.6.5:
+  version "6.6.5"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.6.5.tgz#fcc7ba9594db711b3d4d7a1b3522c5dbc8f0bf52"
+  integrity sha512-iA/oDpWOc+K2QYzA4Eq7Z1oUBQOz9FGDmUwPLgw872Bfs/qizA5Db+gJorAn+TnnGu3VoCK8iP4Y+TECUelwjA==
   dependencies:
     bson "^4.6.5"
     kareem "2.4.1"
@@ -9110,10 +9110,10 @@ sass-loader@^10.1.1, sass-loader@^10.2.0:
     schema-utils "^3.0.0"
     semver "^7.3.2"
 
-sass@^1.54.9:
-  version "1.54.9"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.54.9.tgz#b05f14ed572869218d1a76961de60cd647221762"
-  integrity sha512-xb1hjASzEH+0L0WI9oFjqhRi51t/gagWnxLiwUNMltA0Ab6jIDkAacgKiGYKM9Jhy109osM7woEEai6SXeJo5Q==
+sass@^1.55.0:
+  version "1.55.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.55.0.tgz#0c4d3c293cfe8f8a2e8d3b666e1cf1bff8065d1c"
+  integrity sha512-Pk+PMy7OGLs9WaxZGJMn7S96dvlyVBwwtToX895WmCpAOr5YiJYEUJfiJidMuKb613z2xNWcXCHEuOvjZbqC6A==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
@@ -10534,10 +10534,18 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.3:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.6.12, vue-template-compiler@^2.6.14, vue-template-compiler@^2.7.10:
+vue-template-compiler@^2.6.12, vue-template-compiler@^2.6.14:
   version "2.7.10"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.7.10.tgz#9e20f35b2fdccacacf732dd7dedb49bf65f4556b"
   integrity sha512-QO+8R9YRq1Gudm8ZMdo/lImZLJVUIAM8c07Vp84ojdDAf8HmPJc7XB556PcXV218k2AkKznsRz6xB5uOjAC4EQ==
+  dependencies:
+    de-indent "^1.0.2"
+    he "^1.2.0"
+
+vue-template-compiler@^2.7.12:
+  version "2.7.12"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.7.12.tgz#762476971b13eb5ea5c786886be28395f345c1e1"
+  integrity sha512-6rhJAuo2vRzJMs8X/pd9yqtsJmnPEnv4E0cb9KCu0sfGhoDt8roCCa/6qbrvpc1b38zYgdmY/xrk4qfNWZIjwA==
   dependencies:
     de-indent "^1.0.2"
     he "^1.2.0"
@@ -10547,12 +10555,12 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.6.12, vue@^2.7.9:
-  version "2.7.10"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.7.10.tgz#ae516cc6c88e1c424754468844218fdd5e280f40"
-  integrity sha512-HmFC70qarSHPXcKtW8U8fgIkF6JGvjEmDiVInTkKZP0gIlEPhlVlcJJLkdGIDiNkIeA2zJPQTWJUI4iWe+AVfg==
+vue@^2.6.12, vue@^2.7.12:
+  version "2.7.12"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.7.12.tgz#895162c258dc1f88d2accf3cae4824a51c1d4988"
+  integrity sha512-yRS44vPsCj6b5IZQHdEYqIwnay8stCnL8RsaVsm5aGtOhka00aoG+3ybaBAELDsXtNlzECe8myb2ukdzn19IOg==
   dependencies:
-    "@vue/compiler-sfc" "2.7.10"
+    "@vue/compiler-sfc" "2.7.12"
     csstype "^3.1.0"
 
 vue@^3.2.35:
