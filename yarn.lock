@@ -961,10 +961,10 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@capacitor/android@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-4.2.0.tgz#f06539694adbaf189cf38cb039f079bde4f7422b"
-  integrity sha512-LWZhM31DoQuNSW8ZGslJ8gZfOAZS2A5TLq30HP1bn0OQTJGvOFIizQysraVRSOOq5FRptykf2nZWu6WEwoKMlA==
+"@capacitor/android@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-4.3.0.tgz#d0c6cf909db822ef095e2304e9322baf9370a88a"
+  integrity sha512-JnyQsxq44wLFPQ1sN1sMISNbVuNVHXdUdseil1mNsag3JOKu1BkLCyC3aqI4ioce63fK6VtoUIvzR4YzqBn1yg==
 
 "@capacitor/cli@^4.3.0":
   version "4.3.0"
