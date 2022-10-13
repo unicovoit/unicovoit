@@ -966,10 +966,10 @@
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-4.3.0.tgz#d0c6cf909db822ef095e2304e9322baf9370a88a"
   integrity sha512-JnyQsxq44wLFPQ1sN1sMISNbVuNVHXdUdseil1mNsag3JOKu1BkLCyC3aqI4ioce63fK6VtoUIvzR4YzqBn1yg==
 
-"@capacitor/cli@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-4.2.0.tgz#626b8ea447a210d38d77eedf3d0dc629bf19beaa"
-  integrity sha512-34L/BoDe3BmWBdrXRoF7lszT27ho6ikMdCeMePohU+cEn4ceqiURN7tnPZRyUlpc/1TO+d8d+qb1QQQSTq2oPA==
+"@capacitor/cli@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-4.3.0.tgz#e1515536f8e28b65df9e0ef45bd519fe62102cd9"
+  integrity sha512-+IBIJvxpHWSrtfb6XxPSh5m5h5ijLBqh0aGPxvj0nm7mXUwkT/fuQbeEUVCwIoImmYZCuUAFIkQFB0nWd74bEg==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.5"
     "@ionic/utils-fs" "^3.1.6"
@@ -6940,10 +6940,10 @@ mongodb@4.9.1:
   optionalDependencies:
     saslprep "^1.0.3"
 
-mongoose@^6.6.1:
-  version "6.6.1"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.6.1.tgz#8aec30924b1a524924d9de4eb4746951f6aadd26"
-  integrity sha512-hPDamnn6quL9TjIrOudqUS5sMilENmP/gfxoCIb+rDmlzawtM7+MVCAWrM9930fzD20N7qAema/zE9QIDuifhQ==
+mongoose@^6.6.5:
+  version "6.6.5"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.6.5.tgz#fcc7ba9594db711b3d4d7a1b3522c5dbc8f0bf52"
+  integrity sha512-iA/oDpWOc+K2QYzA4Eq7Z1oUBQOz9FGDmUwPLgw872Bfs/qizA5Db+gJorAn+TnnGu3VoCK8iP4Y+TECUelwjA==
   dependencies:
     bson "^4.6.5"
     kareem "2.4.1"
@@ -9110,10 +9110,10 @@ sass-loader@^10.1.1, sass-loader@^10.2.0:
     schema-utils "^3.0.0"
     semver "^7.3.2"
 
-sass@^1.54.9:
-  version "1.54.9"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.54.9.tgz#b05f14ed572869218d1a76961de60cd647221762"
-  integrity sha512-xb1hjASzEH+0L0WI9oFjqhRi51t/gagWnxLiwUNMltA0Ab6jIDkAacgKiGYKM9Jhy109osM7woEEai6SXeJo5Q==
+sass@^1.55.0:
+  version "1.55.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.55.0.tgz#0c4d3c293cfe8f8a2e8d3b666e1cf1bff8065d1c"
+  integrity sha512-Pk+PMy7OGLs9WaxZGJMn7S96dvlyVBwwtToX895WmCpAOr5YiJYEUJfiJidMuKb613z2xNWcXCHEuOvjZbqC6A==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"

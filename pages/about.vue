@@ -52,6 +52,34 @@
                 >Enora Couloigner</a>.
             </p>
 
+            <p>
+                <span
+                    class="red--text"
+                >
+                    ❤
+                </span>
+                <span
+                    class="font-weight-bold"
+                >
+                    Merci aux donateurs :
+                </span>
+                Raven,
+                Liam,
+                Azgulute,
+                François
+                <br>
+                <span
+                    class="body-2"
+                >
+                    Faites un don pour soutenir le projet sur <a
+                        class="text--secondary"
+                        href="https://ko-fi.com/unicovoit"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >Ko-Fi</a>.
+                </span>
+            </p>
+
             <v-alert
                 class="mx-auto mt-9 mt-md-14"
                 color="green"
