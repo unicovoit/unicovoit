@@ -27,7 +27,7 @@ mongoose.connect(`mongodb://${mongoUrl}:${mongoPort}/unicovoit`, {
     pass: process.env.MONGO_PASSWORD,
 })
 mongoose.connection.once('open', function () {
-    logger.info('Mongo connected Successfully')
+    logger.success('Mongo connected Successfully')
 }).on('error', function (err) {
     logger.error('Error', err)
 })
