@@ -10,10 +10,10 @@
         hide-spin-buttons
         no-filter
         outlined
-        placeholder="Adresse précise"
+        :placeholder="$t('form.preciseAddress')"
         :prepend-icon="inner ? '' : 'mdi-map-marker'"
         :prepend-inner-icon="inner ? 'mdi-map-marker' : ''"
-        required
+        :required="req"
         :rounded="rounded"
     ></v-autocomplete>
 </template>

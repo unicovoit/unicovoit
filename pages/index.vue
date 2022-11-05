@@ -6,14 +6,16 @@
             elevation="1"
             timeout="-1"
         >
-            UniCovoit utilise des cookies.
-            Pour en savoir plus, consultez notre
-            <NuxtLink
-                to="/legal/privacy"
-                style="color: inherit"
-            >
-                Politique de Confidentialité
-            </NuxtLink>
+            <i18n path="home.cookieWarning" tag="span">
+                <template #privacyPolicy>
+                    <NuxtLink
+                        :to="localePath('/legal/privacy')"
+                        style="color: inherit"
+                    >
+                        {{ $t("privacyPolicy") }}
+                    </NuxtLink>
+                </template>
+            </i18n>
             <template v-slot:action="{ attrs }">
                 <v-btn
                     color="info"
@@ -37,7 +39,7 @@
                 <h2
                     class="text-h2 my-5"
                 >
-                    On va où ?
+                    {{ $t("home.title") }}
                 </h2>
             </v-sheet>
             <div
@@ -67,7 +69,7 @@
                 src="/car-rental.svg"
             ></v-img>
             <v-row
-                v-for="advantage in advantages"
+                v-for="advantage,i in advantages"
                 :key="advantage.title"
                 :class="advantage.colour"
                 class="d-flex align-start mb-2"
@@ -82,12 +84,12 @@
                     cols="9"
                 >
                     <h6 class="text-h6 font-weight-bold">
-                        {{ advantage.title }}
+                        {{ $t(`home.advantages[${i}].title`) }}
                     </h6>
                     <p
                         class="mb-0"
                     >
-                        {{ advantage.content }}
+                        {{ $t(`home.advantages[${i}].content`) }}
                     </p>
                 </v-col>
             </v-row>
@@ -95,10 +97,10 @@
             <NuxtLink
                 v-if="$device.isMobileOrTablet"
                 class="mt-2 text-decoration-none text--secondary"
-                to="/about"
+                :to="localePath('/about')"
             >
                 <v-icon>mdi-information</v-icon>
-                En savoir plus
+                {{ $t("learnMore") }}
             </NuxtLink>
         </v-container>
 
@@ -111,18 +113,12 @@
             <v-card-title
                 class="text-h5"
             >
-                UniCovoit, c'est quoi ?
+                {{ $t("home.presentation.title") }}
             </v-card-title>
             <v-card-text
                 class="text-body-1"
+                v-html="$t('home.presentation.description')"
             >
-                <p>
-                    UniCovoit est une plateforme de covoiturage pour les étudiants.
-                </p>
-                <p>
-                    L'objectif est d'encourager le covoiturage entre étudiants, sans prendre de commission sur le prix
-                    du trajet.
-                </p>
             </v-card-text>
         </v-card>
 
@@ -136,7 +132,7 @@
                     size="18"
                 >mdi-image-outline
                 </v-icon>
-                Illustration de la collection
+                {{ $t("credits.illustrations") }}
                 <a class="text--secondary" href="https://icons8.com/illustrations" rel="noreferrer noopener"
                    target="_blank">
                     Ouch!
@@ -147,7 +143,7 @@
                     size="18"
                 >mdi-image-outline
                 </v-icon>
-                Logo par
+                {{ $t("credits.logo") }}
                 <a class="text--secondary" href="https://www.instagram.com/feun_art/" rel="noreferrer noopener"
                    target="_blank">
                     Enora Couloigner
@@ -169,18 +165,12 @@ export default {
         advantages: [{
             colour: 'yellow--text text--darken-3',
             icon: 'mdi-piggy-bank',
-            title: 'Petits Prix',
-            content: `UniCovoit contribue à maintenir des prix bas en ne prenant aucune commission sur les trajets.`
         }, {
             colour: 'primary--text',
             icon: 'mdi-lock',
-            title: 'Sécurité',
-            content: `Profitez de trajets exclusivement entre étudiants.`
         }, {
             colour: 'light-green--text text--darken-2',
             icon: 'mdi-account-multiple-check',
-            title: 'Transparence',
-            content: `UniCovoit est conçu pour des étudiants, par des étudiants. Le code de l'application est entièrement ouvert.`
         }]
     }),
     computed: {

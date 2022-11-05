@@ -12,24 +12,24 @@
         >
             <CitySelector
                 :inner="mobile"
-                :req="true"
-                :rounded="mobile"
+                :req="!!search.to"
+                rounded
                 class="mr-md-4"
                 error="Merci de renseigner un lieu"
-                label="Lieu de départ"
+                :label="$t('form.departureCity')"
                 @changeCity="changeFrom"
             ></CitySelector>
             <CitySelector
                 :inner="mobile"
-                :req="true"
-                :rounded="mobile"
+                :req="!!search.from"
+                rounded
                 class="mr-md-4"
                 error="Merci de renseigner un lieu"
-                label="Lieu d'arrivée"
+                :label="$t('form.arrivalCity')"
                 @changeCity="changeTo"
             ></CitySelector>
             <DateSelector
-                :rounded="mobile"
+                rounded
                 @changeDate="changeDate"
             ></DateSelector>
             <div
@@ -37,13 +37,13 @@
             >
                 <v-spacer class="d-sm-block d-md-none"></v-spacer>
                 <v-btn
-                    class="mt-sm-4 mt-md-2 ml-md-4"
+                    class="mt-sm-4 mt-md-0 ml-md-4"
                     color="primary"
                     rounded
                     x-large
                     @click="validate"
                 >
-                    Rechercher
+                    {{ $t('form.search') }}
                 </v-btn>
             </div>
         </v-form>
