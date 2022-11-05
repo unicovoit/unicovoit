@@ -69,7 +69,7 @@ export async function download(url: string, user_id: string): Promise<string> {
     const hash = crypto.createHash('sha1')
         .update(crypto.randomBytes(20))
         .digest('hex')
-    const type: RegExpMatchArray | null = response.headers['content-type'].match(/\/(.*?)$/)
+    const type: RegExpMatchArray | null | undefined = response.headers['content-type']?.match(/\/(.*?)$/)
     if (type) {
         const name = `${user_id}_${hash}.${type[1]}`
         await save(image, name)
