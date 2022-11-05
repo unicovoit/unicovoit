@@ -17,8 +17,8 @@ jobs:
             -   uses: christophebedard/tag-version-commit@v1
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
-                    version_tag_prefix: 'chor(release): v'
-                    version_regex: 'v[0-9]+\.[0-9]+\.[0-9]+'
+                    version_tag_prefix: 'chore(release): v'
+                    version_regex: '[0-9]+\.[0-9]+\.[0-9]+'
 
     release:
         runs-on: ubuntu-latest
