@@ -3,54 +3,56 @@
         <h2
             class="text-h2"
         >
-            A Propos
+            {{ $t("appBar.about") }}
         </h2>
 
         <div
             class="mt-6"
         >
-            <p>
-                UniCovoit est une initiative étudiante pour encourager le covoiturage entre étudiants.
-            </p>
-            <p>
-                Ce service se base sur la confiance entre étudiants.
-                Les paiements ne se font pas par UniCovoit, mais directement entre passager et conducteur.
-            </p>
-            <p>
-                Les
-                <NuxtLink class="text--secondary" to="/legal">Conditions Générales d'Utilisation</NuxtLink>
-                et la
-                <NuxtLink class="text--secondary" to="/legal/privacy">Politique de Confidentialité</NuxtLink>
-                sont disponibles sur le site.
-            </p>
-            <p>
-                Pour prendre contact avec nous, veuillez utiliser le
-                <NuxtLink
-                    to="/contact"
-                    class="text--secondary"
-                >
-                    formulaire de contact
-                </NuxtLink>
-                .
-            </p>
-            <p>
-                Créé par
-                <a
-                    class="text--secondary"
-                    href="https://github.com/unicovoit/unicovoit"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >finxol</a>.
-            </p>
-            <p>
-                Logo par
-                <a
-                    class="text--secondary"
-                    href="https://www.instagram.com/feun_art/"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >Enora Couloigner</a>.
-            </p>
+            <i18n
+                v-for="item,i in $t('aboutPage.content')"
+                :key="i"
+                :path="`aboutPage.content[${i}]`"
+                tag="p"
+            >
+                <template #privacyPolicy>
+                    <NuxtLink
+                        :to="localePath('/legal/privacy')"
+                        style="color: inherit"
+                    >
+                        {{ $t("privacyPolicy") }}</NuxtLink>
+                </template>
+                <template #termsOfUse>
+                    <NuxtLink
+                        :to="localePath('/legal')"
+                        style="color: inherit"
+                    >
+                        {{ $t("termsOfUse") }}</NuxtLink>
+                </template>
+                <template #contactForm>
+                    <NuxtLink
+                        :to="localePath('/contact')"
+                        style="color: inherit"
+                    >
+                        {{ $t("contactForm") }}</NuxtLink>
+                </template>
+                <template #finxol>
+                    <a
+                        class="text--secondary"
+                        href="https://github.com/unicovoit/unicovoit"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >finxol</a>
+                </template>
+                <template #logoDesigner>
+                    <a
+                        class="text--secondary"
+                        href="https://www.instagram.com/feun_art/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >Enora Couloigner</a>
+                </template>
+            </i18n>
 
             <p>
                 <span
@@ -61,17 +63,19 @@
                 <span
                     class="font-weight-bold"
                 >
-                    Merci aux donateurs :
+                    {{ $t("aboutPage.thankYouDonors") }} :
                 </span>
                 Raven,
+                Tanguy,
                 Liam,
                 Azgulute,
-                François
+                François,
+                Elouann
                 <br>
                 <span
                     class="body-2"
                 >
-                    Faites un don pour soutenir le projet sur <a
+                    {{ $t('aboutPage.makeADonation') }} <a
                         class="text--secondary"
                         href="https://ko-fi.com/unicovoit"
                         rel="noopener noreferrer"
@@ -88,9 +92,11 @@
             >
                 <span
                 >
-                    UniCovoit est plus propre que {{ cleanerThan }}% des pages testées par
+                    <i18n path="aboutPage.unicovoitIsGreen">
+                        <template #cleanerThan>{{ cleanerThan }}</template>
+                    </i18n>
                     <a
-                        href="https://websitecarbon.com/fr/pages-web-optimiser/"
+                        href="https://www.websitecarbon.com/website/unicovoit-fr/"
                         rel="noopener noreferrer"
                         target="_blank"
                     >
@@ -102,8 +108,6 @@
 </template>
 
 <script>
-import universities from "../api/universities"
-
 export default {
     name: "about",
     auth: false,
@@ -111,8 +115,7 @@ export default {
         title: "A Propos",
     },
     data: () => ({
-        universities,
-        cleanerThan: "79",
+        cleanerThan: "82",
     }),
 }
 </script>

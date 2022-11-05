@@ -7,8 +7,7 @@
         >
             <v-row>
                 <v-col>
-                    UniCovoit est optimisé pour les appareils mobiles.
-                    En utilisant un ordinateur, vous pouvez avoir des problèmes de performances.
+                    {{ $t("builtForMobileWarning") }}
                 </v-col>
                 <v-col cols="2">
                     <v-btn
@@ -36,7 +35,7 @@
                 tile
                 class="mx-md-auto d-flex align-center"
             >
-                <NuxtLink to="/">
+                <NuxtLink :to="localePath('/')">
                     <v-img
                         alt="UniCovoit"
                         contain
@@ -67,10 +66,10 @@
                         exact
                         router
                         text
-                        to="/about"
+                        :to="localePath('/about')"
                     >
                         <v-icon>mdi-information</v-icon>
-                        À propos
+                        {{ $t("appBar.about") }}
                     </v-btn>
                 </div>
                 <v-spacer></v-spacer>
@@ -84,10 +83,10 @@
                         exact
                         router
                         text
-                        to="/login"
+                        :to="localePath('/login')"
                     >
                         <v-icon>mdi-account-circle</v-icon>
-                        Connexion
+                        {{ $t("appBar.login") }}
                     </v-btn>
                     <v-btn
                         v-for="item in menu2"
@@ -104,6 +103,10 @@
                         {{ item.title }}
                     </v-btn>
                 </div>
+                <LangSwitcher
+                    :languages="languages"
+                    :current-language="$i18n.locale"
+                />
                 <v-tooltip
                     :left="$device.isMobileOrTablet"
                     :right="!$device.isMobileOrTablet"
@@ -111,7 +114,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <NuxtLink
                             class="text-decoration-none"
-                            to="/trips/add"
+                            :to="localePath('/trips/add')"
                         >
                             <v-icon
                                 size="30"
@@ -170,7 +173,7 @@
                 v-if="!isLoggedIn"
                 exact
                 router
-                to="/login"
+                :to="localePath('/login')"
             >
                 <span>Connexion</span>
 
@@ -202,22 +205,34 @@ export default {
             menu1: [
                 {
                     icon: 'mdi-home',
-                    title: 'Accueil',
-                    to: '/',
+                    title: this.$t('appBar.home'),
+                    to: this.localePath('/'),
                     id: '0'
                 }
             ],
             menu2: [
                 {
                     icon: 'mdi-car',
-                    title: 'Mon activité',
-                    to: '/activity',
+                    title: this.$t('appBar.myActivity'),
+                    to: this.localePath('/activity'),
                     id: '2'
                 }, {
                     icon: 'mdi-account-circle',
-                    title: 'Mon Compte',
-                    to: '/profile',
+                    title: this.$t('appBar.myProfile'),
+                    to: this.localePath('/profile'),
                     id: '3'
+                }
+            ],
+            languages: [
+                {
+                    id: 'en',
+                    title: 'English',
+                    flagSrc: '/flags/english.jpg'
+                },
+                {
+                    id: 'fr',
+                    title: 'Français',
+                    flagSrc: '/flags/french.png'
                 }
             ],
             title: 'UniCovoit',

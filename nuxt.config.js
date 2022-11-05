@@ -115,7 +115,9 @@ export default {
             }
         ],
         // https://www.npmjs.com/package/@nuxt/content
-        "@nuxt/content"
+        "@nuxt/content",
+        // https://i18n.nuxtjs.org/
+        '@nuxtjs/i18n'
     ],
 
     auth: {
@@ -131,6 +133,42 @@ export default {
     axios: {
         https: isProd,
         proxy: true
+    },
+
+    i18n: {
+        locales: [
+            {
+                code: 'fr',
+                iso: 'fr-FR',
+                name: 'Français',
+                file: 'fr-FR.ts'
+            },
+            {
+                code: 'en',
+                iso: 'en-GB',
+                name: 'English (GB)',
+                file: 'en-GB.ts'
+            }
+        ],
+        defaultLocale: 'fr',
+        lazy: true,
+        langDir: '~/locales/',
+        defaultDirection: 'ltr',
+        vueI18n: {
+            fallbackLocale: 'fr'
+        },
+        detectBrowserLanguage: false /*{
+            alwaysRedirect: false,
+            fallbackLocale: 'fr',
+            redirectOn: 'root',
+            useCookie: true,
+            cookieAge: 365,
+            cookieCrossOrigin: false,
+            cookieKey: 'i18n_redirected',
+            cookieSecure: true
+        }*/,
+        seo: true,
+        strategy: 'prefix_and_default'
     },
 
     render: {

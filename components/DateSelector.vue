@@ -14,8 +14,7 @@
                 v-model="dateFormatted"
                 :rules="rules"
                 color="primary"
-                hint="Au format JJ/MM/AAAA"
-                label="Date de départ"
+                :label="$t('form.departureDate')"
                 outlined
                 persistent-hint
                 prepend-icon="mdi-calendar"
@@ -33,7 +32,7 @@
             :max="maxDate"
             :min="minDate"
             color="primary"
-            locale="fr-fr"
+            :locale="$i18n.locale"
             no-title
             required
             @input="dateMenu = false"
