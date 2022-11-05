@@ -12,6 +12,6 @@ updates:
     assignees:
       - "finxol"
     commit-message:
-      prefix: "yarn prod"
-      prefix-development: "yarn dev"
+      prefix: "chore"
+      prefix-development: "chore"
       include: "scope"
