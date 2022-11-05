@@ -11,7 +11,7 @@ export interface University {
 const universities: University[] = [
     {
         id: 'ubs',
-        name: 'Université de Bretagne Sud',
+        name: 'Université Bretagne Sud',
         country: 'France',
         format: /^[A-Za-z\-]+\.e\d{7}@etud\.univ-ubs\.fr$/
     }, {
