@@ -4,7 +4,7 @@ Carpool platform for students
 
 [![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&label=unicovoit&up_color=green&up_message=online&url=https%3A%2F%2Fcovoit.ozna.me)](https://status.unicovoit.fr)
 [![GitHub package.json version](https://img.shields.io/github/package-json/v/finxol/unicovoit)](https://github.com/finxol/unicovoit/releases/)
-[![Docker Build Status](https://github.com/finxol/unicovoit/actions/workflows/docker-image.yml/badge.svg)](https://github.com/finxol/unicovoit/actions/workflows/docker-image.yml)
+[![Docker Build Status](https://github.com/finxol/unicovoit/actions/workflows/auto-release.yml/badge.svg)](https://github.com/finxol/unicovoit/actions/workflows/auto-release.yml)
 ![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fcovoit.ozna.me)
 [![GitHub license](https://img.shields.io/github/license/finxol/unicovoit)](https://github.com/finxol/unicovoit/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/finxol/unicovoit)](https://github.com/finxol/unicovoit/issues)
