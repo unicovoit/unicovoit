@@ -108,6 +108,13 @@ export default <Locale>{
                         <p>L'objectif est d'encourager le covoiturage entre étudiants, sans prendre de commission sur le prix du trajet. </p>`
         },
     },
+    login: {
+        title: 'Connexion',
+        description: 'En vous inscrivant, vous acceptez les {termsOfUse} et la {privacyPolicy}.',
+        universitiesList: 'Pour vous inscrire, vous devez être étudiant de l\'une des universités suivantes :',
+        addUniversityRequest: 'Si vous souhaitez ajouter votre université, prenez contact avec nous sur {email} ou le {contactForm}.',
+        login: 'Me connecter',
+    },
     learnMore: 'En savoir plus',
     privacyPolicy: 'Politique de Confidentialité',
     termsOfUse: "Conditions d'Utilisation",

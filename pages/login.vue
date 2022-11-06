@@ -3,19 +3,33 @@
         <h2
             class="text-h2 mt-2 pr-md-15"
         >
-            Connexion
+            {{ $t("login.title") }}
         </h2>
-        <p
+        <i18n
+            path="login.description"
+            tag="p"
             class="text-justify mt-5"
         >
-            En vous inscrivant, vous acceptez les <NuxtLink to="/legal" class="text--secondary">Conditions Générales d'Utilisation</NuxtLink>
-            et la <NuxtLink to="/legal/privacy" class="text--secondary">Politique de Confidentialité</NuxtLink>.
-        </p>
+            <template #privacyPolicy>
+                <NuxtLink
+                    :to="localePath('/legal/privacy')"
+                    style="color: inherit"
+                >
+                    {{ $t("privacyPolicy") }}</NuxtLink>
+            </template>
+            <template #termsOfUse>
+                <NuxtLink
+                    :to="localePath('/legal')"
+                    style="color: inherit"
+                >
+                    {{ $t("termsOfUse") }}</NuxtLink>
+            </template>
+        </i18n>
 
         <p
             class="pt-8"
         >
-            Pour vous inscrire, vous devez être étudiant de l'une des universités suivantes :
+            {{ $t("login.universitiesList") }}
         </p>
         <v-simple-table
             fixed-header
@@ -32,11 +46,22 @@
                 </tbody>
             </template>
         </v-simple-table>
-        <p
+        <i18n
+            path="login.addUniversityRequest"
+            tag="p"
             class="mt-4 text-subtitle-2 text--secondary"
         >
-            Si vous souhaitez ajouter votre université, prenez contact avec nous sur <EmailAddress/>
-        </p>
+            <template #email>
+                <EmailAddress />
+            </template>
+            <template #contactForm>
+                <NuxtLink
+                    :to="localePath('/contact')"
+                    style="color: inherit"
+                >
+                    {{ $t("contactForm") }}</NuxtLink>
+            </template>
+        </i18n>
 
         <v-btn
             block
@@ -49,7 +74,7 @@
             width="100%"
             @click="auth0Login"
         >
-            Me connecter
+            {{ $t("login.login") }}
         </v-btn>
     </div>
 </template>
@@ -59,6 +84,7 @@ import universities from "../api/universities"
 
 export default {
     name: "login",
+    auth: false,
     head: {
         title: "Connexion",
     },

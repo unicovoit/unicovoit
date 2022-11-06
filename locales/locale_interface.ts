@@ -59,6 +59,13 @@ export default interface Locale {
             description: string
         },
     },
+    login: {
+        title: string,
+        description: string,
+        universitiesList: string,
+        addUniversityRequest: string,
+        login: string,
+    },
     learnMore: string,
     privacyPolicy: string,
     termsOfUse: string,
