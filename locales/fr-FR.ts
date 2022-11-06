@@ -29,6 +29,12 @@ export default <Locale>{
         illustrations: 'Illustration de la collection',
         logo: 'Logo par'
     },
+    error: {
+        genericError: 'Une erreur est survenue',
+        notFound: 'Page non trouvée',
+        details: 'Voir plus de détails',
+        backToPrevious: 'Retour à la page précédente',
+    },
     faq: {
         title: 'FAQ',
         content: [

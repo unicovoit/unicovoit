@@ -5,10 +5,10 @@
                 class="text-h2"
             >
                 <span v-if="error.statusCode === 404">
-                    {{ pageNotFound }}
+                    {{ $t("error.notFound") }}
                 </span>
                 <span v-else>
-                    {{ otherError }}
+                    {{ $t("error.genericError") }}
                 </span>
             </h2>
             <v-card
@@ -23,7 +23,7 @@
                     >
                         <v-icon>mdi-chevron-{{ details ? 'down' : 'right' }}</v-icon>
                     </v-btn>
-                    Voir plus de détails
+                    {{ $t('error.details') }}
                 </v-card-actions>
                 <v-expand-transition>
                     <div
@@ -47,20 +47,20 @@
             text
             @click="$router.go(-1)"
         >
-            Retour à la page précédente
+            {{ $t('error.backToPrevious') }}
         </v-btn>
 
         <v-container
             class="text--secondary text-caption ma-0 pa-0 mt-5"
         >
-                <v-icon
-                    size="18"
-                >mdi-image-outline</v-icon>
-                Illustration de la collection
-                <a class="text--secondary" target="_blank" rel="noreferrer noopener"
-                   href="https://icons8.com/illustrations">
-                    Ouch!
-                </a>
+            <v-icon
+                size="18"
+            >mdi-image-outline
+            </v-icon>
+            {{ $t("credits.illustrations") }}
+            <a class="text--secondary" target="_blank" rel="noreferrer noopener"
+               href="https://icons8.com/illustrations">
+                Ouch!</a>
         </v-container>
     </v-app>
 </template>
@@ -82,8 +82,6 @@ export default {
     },
     data() {
         return {
-            pageNotFound: 'Page introuvable',
-            otherError: 'Une erreur est survenue',
             details: false
         }
     },
@@ -93,7 +91,7 @@ export default {
         }
     },
     activated() {
-        if(!this.$config.isProd) {
+        if (!this.$config.isProd) {
             console.error(this.error)
         }
     }
