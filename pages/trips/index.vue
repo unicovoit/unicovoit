@@ -26,7 +26,7 @@
             border="left"
             type="warning"
         >
-            La recherche de trajets n'est pas disponible en mode hors-ligne. Veuillez vous connecter à internet.
+            {{ $t('trips.offline') }}
         </v-alert>
 
         <!-- Show items are loading -->
@@ -44,7 +44,7 @@
                 outlined
             >
                 <v-card-title>
-                    Aucun trajet disponible
+                    {{ $t('trips.noTrips') }}
                 </v-card-title>
             </v-card>
         </v-container>
@@ -67,25 +67,23 @@
             :timeout="4000"
             color="error"
         >
-            Une erreur est survenue. Merci de réessayer plus tard.
+            {{ $t('error.genericError') + $t('error.tryAgain') }}
         </v-snackbar>
     </div>
 </template>
 
 <script>
-import TripCard from "../../components/TripCard"
-
 export default {
     name: 'Trips',
-    head: {
-        title: 'Trajets'
+    head() {
+        return {
+            title: this.$t('trips.title'),
+        }
     },
     auth: false,
-    components: {
-        TripCard
-    },
     data() {
         return {
+            title: this.$t('trips.title'),
             trips: [],
             query: {
                 from: "",
@@ -134,13 +132,12 @@ export default {
                 })
                 this.query.to = toData.features[0].properties.city
 
-                let options = {
+                this.query.date = new Date(this.$route.query.date).toLocaleDateString(this.$i18n.locale, {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
-                }
-                this.query.date = new Date(this.$route.query.date).toLocaleDateString('fr-FR', options)
+                })
             }
         } catch (e) {
             console.error(e.response.data.message)

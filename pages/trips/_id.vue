@@ -7,7 +7,7 @@
             v-if="$fetchState.error"
             type="error"
         >
-            Une erreur est survenue. Merci de réessayer plus tard.
+            {{ $t('error.genericError') + ' ' + $t('error.tryAgain') }}
         </v-alert>
         <v-container
             v-touch="{
@@ -18,7 +18,7 @@
             <h2
                 class="text-h2"
             >
-                Trajet
+                {{ $t('trip.title') }}
             </h2>
 
             <v-alert
@@ -125,7 +125,7 @@
                 </v-card-text>
                 <v-card-text
                     class="cursor-pointer d-flex flex-row"
-                    @click="$router.push(`/profile/${trip.driver?.id}`)"
+                    @click="$router.push(localePath(`/profile/${trip.driver?.id}`))"
                 >
                     <v-avatar
                         class="mr-2"
@@ -198,7 +198,7 @@
                     <v-list-item-content>
                         <v-list-item-title>
                             <v-icon class="mr-3">mdi-flash</v-icon>
-                            Acceptation automatique
+                            {{ $t('trip.autoBook') }}
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -394,7 +394,7 @@ export default {
                 hour: 'numeric',
                 minute: '2-digit'
             }
-            return date.toLocaleDateString('fr-FR', options)
+            return date.toLocaleDateString(this.$i18n.locale, options)
         },
         startTime() {
             return this.parseTime(this.trip.departure_time)
@@ -417,7 +417,7 @@ export default {
             return this.bookings.some(b => !b.confirmed)
         },
         remainingPlaces() {
-            return this.trip.places === 1 ? 'place restante' : 'places restantes'
+            return this.trip.places === 1 ? this.$t('trip.placesRemaining.singular') : this.$t('trip.placesRemaining.plural')
         },
     },
     async fetch() {
@@ -440,7 +440,7 @@ export default {
                 hour: 'numeric',
                 minute: '2-digit'
             }
-            return date.toLocaleTimeString('fr-FR', options)
+            return date.toLocaleTimeString(this.$i18n.locale, options)
         },
         async confirmBooking(booking) {
             try {

@@ -7,7 +7,7 @@
             outlined
             lazy
             rounded="lg"
-            :to="`/trips/${trip.id}`"
+            :to="localePath(`/trips/${trip.id}`)"
         >
             <v-row
                 align="center"
@@ -145,7 +145,7 @@ export default {
                 hour: 'numeric',
                 minute: '2-digit'
             }
-            return date.toLocaleDateString('fr-FR', options)
+            return date.toLocaleDateString(this.$i18n.locale, options)
         },
     },
 }

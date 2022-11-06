@@ -34,6 +34,7 @@ export default <Locale>{
         notFound: 'Page not found',
         details: 'See more details',
         backToPrevious: 'Go back to the previous page',
+        tryAgain: 'Please try again later',
     },
     faq: {
         title: 'FAQ',
@@ -123,6 +124,37 @@ export default <Locale>{
         login: 'Log In',
     },
     learnMore: 'Learn More',
+    profile: {
+        title: 'My Profile',
+        preferences: {
+            title: 'Preferences',
+            smokePref: {
+                yes: 'Smoke does not bother me',
+                no: 'I prefer traveling smoke-free',
+            },
+            petsPref: {
+                yes: 'Pets are welcome!',
+                no: 'I prefer traveling without pets',
+            },
+            musicPref: {
+                yes: 'I like to listen to music!',
+                no: 'I prefer traveling without music',
+            },
+        }
+    },
     privacyPolicy: 'Privacy Policy',
     termsOfUse: 'Terms of Use',
+    trips: {
+        title: 'Trips',
+        noTrips: 'No trips found',
+        offline: 'Trip search isn\'t available offline. Please connect to the internet and try again.',
+    },
+    trip: {
+        title: 'Trip',
+        placesRemaining: {
+            singular: 'place remaining',
+            plural: 'places remaining',
+        },
+        autoBook: 'Automatic booking confirmation',
+    }
 }
