@@ -21,6 +21,7 @@ export default <Locale>{
         login: 'Log in',
         myActivity: 'My activities',
         myProfile: 'My profile',
+        publishTrip: 'Publish a trip',
     },
     builtForMobileWarning: 'UniCovoit is optimized for mobile devices. Using a computer may cause performance issues.',
     contactForm: 'contact form',
@@ -37,7 +38,7 @@ export default <Locale>{
                         You can also search for trips to join.<br>
                         No commission is taken by UniCovoit.`
             }, {
-                title: "Are users students?",
+                title: "Are all users students?",
                 content: `Yes, it is required to verify your student status before making a reservation or placing an offer.
                         This verification is done through your student email address.`
             }, {
