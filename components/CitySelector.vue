@@ -2,7 +2,7 @@
     <v-autocomplete
         v-model="query"
         :items="suggestions"
-        :label="label"
+        :label="label || $t('form.city')"
         :rules="rules"
         :search-input.sync="input"
         hide-no-data
@@ -32,7 +32,7 @@ export default {
         },
         label: {
             type: String,
-            default: "Ville"
+            default: undefined
         },
         rounded: {
             type: Boolean,
@@ -47,7 +47,7 @@ export default {
         return {
             city: "",
             rules: [
-                v => !this.req || (!!v || 'Merci de renseigner ce champ'),
+                v => !this.req || (!!v || this.$t('error.required')),
             ],
             searchSuggestions: [],
             query: '',
