@@ -18,6 +18,10 @@ export default interface Locale {
         illustrations: string,
         logo: string
     },
+    faq: {
+        title: string,
+        content: {title: string, content: string}[],
+    },
     form: {
         submit: string,
         cancel: string,

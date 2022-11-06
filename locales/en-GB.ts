@@ -28,6 +28,48 @@ export default <Locale>{
         illustrations: 'Illustration from the collection',
         logo: 'Logo by'
     },
+    faq: {
+        title: 'FAQ',
+        content: [
+            {
+                title: "How does UniCovoit work?",
+                content: `With UniCovoit, you can offer your trips to other students, wether they are long or short.
+                        You can also search for trips to join.<br>
+                        No commission is taken by UniCovoit.`
+            }, {
+                title: "Are users students?",
+                content: `Yes, it is required to verify your student status before making a reservation or placing an offer.
+                        This verification is done through your student email address.`
+            }, {
+                title: "What payment method is used on UniCovoit?",
+                content: `UniCovoit does not handle payments so you need to arrange a payment method with your driver or passenger.`
+            }, {
+                title: "How do I contact my driver/passenger?",
+                content: `Each person's contact information will be shared by UniCovoit at the time of booking.`
+            }, {
+                title: "Can I book more than one seat on a trip?",
+                content: `No. Trips are for students only, so you must have a UniCovoit account and verify your student status before you can book a trip.`
+            }, {
+                title: "How is UniCovoit funded?",
+                content: `UniCovoit does not take any commission on the price of the journey and does not sell any data.
+                        Funding is provided solely through donations. If you wish to support UniCovoit, you can do so on <a href="https://ko-fi.com/unicovoit" target="_blank" rel="noopener noreferrer">Ko-Fi</a>.`
+            }, {
+                title: "How do you manage my data?",
+                content: `Trip and user information is stored on UniCovoit servers in Germany. This information isn't shared with third parties.<br>
+                        Login information (login and password) are handled by Auth0 on European servers.<br>
+                        You'll find more information in our <a href='/legal/privacy'>Privacy Policy</a>.`
+            }, {
+                title: "Who developed this app?",
+                content: "This app was developed by finxol, a student from the IUT in Vannes (Brittany)."
+            }, {
+                icon: "mdi-message-processing-outline",
+                title: "How can I reach UniCovoit?",
+                content: `You can send an email to <a href="mailto:support@unicovoit.fr" target="_blank" rel="noopener noreferrer">support@unicovoit.fr</a>,
+                        use the <a href="/contact">contact form</a>,
+                        or contact send us a message on <a href="https://instagram.com/unicovoit" target="_blank" rel="noopener noreferrer">Instagram</a>.`
+            }
+        ],
+    },
     form: {
         submit: 'Submit',
         cancel: 'Cancel',

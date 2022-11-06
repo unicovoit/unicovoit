@@ -3,7 +3,7 @@
         <h2
             class="text-h2 mb-3"
         >
-            Conditions Générales d'utilisation
+            {{ $t("termsOfUse") }}
         </h2>
 
         <nuxt-content
@@ -20,8 +20,8 @@ export default {
     head: {
         title: "Conditions Générales d'utilisation",
     },
-    async asyncData({$content, error}) {
-        const page = await $content("legal")
+    async asyncData({$content, error, i18n}) {
+        const page = await $content(`${i18n.locale}/legal`)
             .fetch()
             .catch(err => {
                 error({statusCode: 404, message: "Page not found"})
