@@ -11,6 +11,7 @@
 !components/
 !content/
 !layouts/
+!locales/
 !pages/
 !static/
 !store/
