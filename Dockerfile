@@ -5,7 +5,7 @@ RUN chown -R node:node /home/node/build
 
 # Only copy the lockfile to install dependencies
 COPY --chown=node:node package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # Copy all files, and build the app
 COPY --chown=node:node . ./
