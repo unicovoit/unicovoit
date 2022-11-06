@@ -29,6 +29,12 @@ export default <Locale>{
         illustrations: 'Illustration from the collection',
         logo: 'Logo by'
     },
+    error: {
+        genericError: 'An error occurred',
+        notFound: 'Page not found',
+        details: 'See more details',
+        backToPrevious: 'Go back to the previous page',
+    },
     faq: {
         title: 'FAQ',
         content: [

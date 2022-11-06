@@ -19,6 +19,12 @@ export default interface Locale {
         illustrations: string,
         logo: string
     },
+    error: {
+        genericError: string,
+        notFound: string,
+        details: string,
+        backToPrevious: string,
+    },
     faq: {
         title: string,
         content: {title: string, content: string}[],
