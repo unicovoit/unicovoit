@@ -108,6 +108,13 @@ export default <Locale>{
                         <p>The goal is to encourage carpooling between students, without taking any commission on the price of the ride. </p>`
         },
     },
+    login: {
+        title: 'Log In',
+        description: 'By logging in, you agree to our {termsOfUse} and {privacyPolicy}.',
+        universitiesList: 'To sign up, you must be a student at one of the following universities:',
+        addUniversityRequest: 'If you wish to add your university, please contact us via {email} or using the {contactForm}.',
+        login: 'Log In',
+    },
     learnMore: 'Learn More',
     privacyPolicy: 'Privacy Policy',
     termsOfUse: 'Terms of Use',

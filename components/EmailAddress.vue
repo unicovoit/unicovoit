@@ -2,9 +2,7 @@
     <a
         href="mailto:support@unicovoit.fr"
         class="text--secondary text-decoration-underline"
-    >
-        support@unicovoit.fr
-    </a>
+    >support@unicovoit.fr</a>
 </template>
 
 <script>
