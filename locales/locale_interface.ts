@@ -11,6 +11,7 @@ export default interface Locale {
         login: string,
         myActivity: string,
         myProfile: string,
+        publishTrip: string,
     },
     builtForMobileWarning: string,
     contactForm: string,

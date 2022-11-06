@@ -125,7 +125,7 @@
                             </v-icon>
                         </NuxtLink>
                     </template>
-                    <span>Publier un trajet</span>
+                    <span>{{ $t('appBar.publishTrip') }}</span>
                 </v-tooltip>
             </v-sheet>
         </v-app-bar>
@@ -175,7 +175,7 @@
                 router
                 :to="localePath('/login')"
             >
-                <span>Connexion</span>
+                <span>{{ $t('appBar.login') }}</span>
 
                 <v-icon>mdi-account-circle</v-icon>
             </v-btn>

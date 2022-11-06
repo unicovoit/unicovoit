@@ -21,6 +21,7 @@ export default <Locale>{
         login: 'Connexion',
         myActivity: 'Mes activités',
         myProfile: 'Mon profil',
+        publishTrip: 'Publier un trajet',
     },
     builtForMobileWarning: 'UniCovoit est optimisé pour les appareils mobiles. En utilisant un ordinateur, vous pouvez avoir des problèmes de performances.',
     contactForm: 'formulaire de contact',
