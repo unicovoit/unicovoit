@@ -3,7 +3,7 @@
         <h2
             class="text-h2"
         >
-            Proposer un trajet
+            {{ $t('tripAdd.title') }}
         </h2>
 
         <v-alert
@@ -12,7 +12,7 @@
             class="mx-2 my-4"
             type="warning"
         >
-            Vous n'êtes pas connecté à internet. Vous ne pouvez pas enregistrer de nouveaux trajet.
+            {{ $t('tripAdd.offline') }}
         </v-alert>
 
         <div
@@ -23,15 +23,15 @@
                 class="mx-2 my-4"
                 type="success"
             >
-                Trajet ajouté !
+                {{ $t('tripAdd.added') }}
             </v-alert>
             <v-btn
                 class="mt-8"
                 text
                 block
-                @click="$router.push({path: '/activity', query: {trips: 1}})"
+                @click="$router.push({path: localePath('/activity'), query: {trips: 1}})"
             >
-                Voir mes trajets
+                {{ $t('tripAdd.seeTrips') }}
             </v-btn>
         </div>
         <v-alert
@@ -40,7 +40,7 @@
             class="mx-2 my-4"
             type="error"
         >
-            Une erreur est survenue. Merci de réessayer plus tard.
+            {{ $t('error.genericError') + '. ' + $t('error.tryAgain') }}
         </v-alert>
 
         <v-stepper
@@ -56,7 +56,7 @@
                 :complete="steps > 1"
                 step="1"
             >
-                Lieu de départ
+                {{ $t('tripAdd.departureCity.title') }}
                 <small>{{ details.from }}</small>
             </v-stepper-step>
             <v-stepper-content step="1">
@@ -73,7 +73,7 @@
                     color="primary"
                     @click="nextStep"
                 >
-                    Suivant
+                    {{ $t("tripAdd.next") }}
                 </v-btn>
             </v-stepper-content>
 
@@ -82,31 +82,31 @@
                 :complete="steps > 2"
                 step="2"
             >
-                Lieu d'arrivée
+                {{ $t('tripAdd.arrivalCity.title') }}
                 <small>{{ details.to }}</small>
             </v-stepper-step>
             <v-stepper-content
                 step="2"
             >
-                <CitySelector
+                <LazyCitySelector
                     :cityProp="trip.to"
                     :req="true"
                     @changeCity="changeTo"
                     @submit="nextStep"
                     @changeCityName="val => {toCityName = val}"
-                ></CitySelector>
+                ></LazyCitySelector>
 
                 <v-btn
                     color="primary"
                     @click="nextStep"
                 >
-                    Suivant
+                    {{ $t("tripAdd.next") }}
                 </v-btn>
                 <v-btn
                     text
                     @click="prevStep"
                 >
-                    Retour
+                    {{ $t("tripAdd.back") }}
                 </v-btn>
             </v-stepper-content>
 
@@ -115,13 +115,13 @@
                 :complete="steps > 3"
                 step="3"
             >
-                Date et heure de départ
+                {{ $t('tripAdd.departureDate.title') }}
                 <small>{{ details.date }}</small>
             </v-stepper-step>
             <v-stepper-content step="3">
-                <DateSelector
+                <LazyDateSelector
                     @changeDate="changeDate"
-                ></DateSelector>
+                ></LazyDateSelector>
                 <TimeSelector
                     @changeTime="changeTime"
                 ></TimeSelector>
@@ -129,13 +129,13 @@
                     color="primary"
                     @click="nextStep"
                 >
-                    Suivant
+                    {{ $t("tripAdd.next") }}
                 </v-btn>
                 <v-btn
                     text
                     @click="prevStep"
                 >
-                    Retour
+                    {{ $t("tripAdd.back") }}
                 </v-btn>
             </v-stepper-content>
 
@@ -144,14 +144,14 @@
                 :complete="steps > 4"
                 step="4"
             >
-                Nombre de places
+                {{ $t('tripAdd.seats.title') }}
                 <small>{{ details.places }}</small>
             </v-stepper-step>
             <v-stepper-content step="4">
                 <v-text-field
                     v-model="trip.places"
                     :rules="rules.places"
-                    label="Places"
+                    :label="$t('tripAdd.seats.short')"
                     placeholder="2"
                     @keyup.native.enter="nextStep"
                 ></v-text-field>
@@ -159,13 +159,13 @@
                     color="primary"
                     @click="nextStep"
                 >
-                    Suivant
+                    {{ $t("tripAdd.next") }}
                 </v-btn>
                 <v-btn
                     text
                     @click="prevStep"
                 >
-                    Retour
+                    {{ $t("tripAdd.back") }}
                 </v-btn>
             </v-stepper-content>
 
@@ -174,7 +174,7 @@
                 :complete="steps > 5"
                 step="5"
             >
-                Prix
+                {{ $t('tripAdd.price.title') }}
                 <small>{{ details.price }}</small>
             </v-stepper-step>
             <v-stepper-content step="5">
@@ -186,7 +186,8 @@
                     colored-border
                     icon="mdi-information"
                 >
-                    Nous estimons que ce trajet vous coutera environ {{ estimatedPrice }}€
+                    {{ $t('tripAdd.priceExplanation.short') }}
+                    {{ estimatedPrice }}€
                     <v-icon
                         dense
                         @click="priceExplanation = true"
@@ -197,7 +198,7 @@
                     v-model="trip.price"
                     :rules="rules.price"
                     label="Prix"
-                    :placeholder="String(Math.round(estimatedPrice/trip.places))"
+                    :placeholder="String(Math.ceil(estimatedPrice/trip.places))"
                     suffix="€"
                     @keyup.native.enter="nextStep"
                 ></v-text-field>
@@ -205,13 +206,13 @@
                     color="primary"
                     @click="nextStep"
                 >
-                    Suivant
+                    {{ $t("tripAdd.next") }}
                 </v-btn>
                 <v-btn
                     text
                     @click="prevStep"
                 >
-                    Retour
+                    {{ $t("tripAdd.back") }}
                 </v-btn>
             </v-stepper-content>
             <!-- Explain the price suggestion -->
@@ -221,15 +222,14 @@
             >
                 <v-card>
                     <v-card-title>
-                        Comment le prix est-il estimé ?
+                        {{ $t('tripAdd.priceExplanation.title') }}
                     </v-card-title>
                     <v-card-text
                         class="py-0"
                     >
-                        Nous basons notre estimation sur la consommation moyenne d'une voiture, ici 6 L/100km,
-                        et la distance du trajet,
-                        en prenant en compte le prix moyen du SP95-E10 en France.<br>
-                        Les péages ne sont pas pris en compte.
+                        <i18n path="tripAdd.priceExplanation.description" tag="span">
+                            <br>
+                        </i18n>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -249,7 +249,7 @@
                 :complete="steps > 6"
                 step="6"
             >
-                Description
+                {{ $t('tripAdd.description.title') }}
                 <small>
                     {{ details.description }}
                 </small>
@@ -259,7 +259,7 @@
                     v-model="trip.description"
                     auto-grow
                     :counter="150"
-                    label="Facultatif"
+                    :label="$t('form.optional')"
                     name="description"
                     value=""
                     outlined
@@ -270,13 +270,13 @@
                     :loading="loading"
                     @click="submit"
                 >
-                    Envoyer
+                    {{ $t("tripAdd.send") }}
                 </v-btn>
                 <v-btn
                     text
                     @click="prevStep"
                 >
-                    Retour
+                    {{ $t("tripAdd.back") }}
                 </v-btn>
             </v-stepper-content>
         </v-stepper>
@@ -284,19 +284,12 @@
 </template>
 
 <script>
-import CitySelector from "../../components/CitySelector"
-import DateSelector from "../../components/DateSelector";
-import TimeSelector from "../../components/TimeSelector";
-
 export default {
     name: "add",
-    head: {
-        title: "Ajouter un trajet"
-    },
-    components: {
-        TimeSelector,
-        DateSelector,
-        CitySelector
+    head() {
+        return {
+            title: this.$t("tripAdd.title")
+        }
     },
     data() {
         return {
@@ -307,12 +300,12 @@ export default {
             priceExplanation: false,
             loading: false,
             details: {
-                from: "Sélectionnez une adresse",
-                to: "Sélectionnez une adresse",
+                from: this.$t('tripAdd.departureCity.subtitle'),
+                to: this.$t('tripAdd.arrivalCity.subtitle'),
                 date: "",
-                price: "Fixez le prix par passager",
-                places: "Le nombre de passagers que vous pouvez transporter",
-                description: "(Exemples: flexibilité des horaires, flexibilité des points de rencontre et de dépose, taille des bagages, etc.)"
+                price: this.$t('tripAdd.price.subtitle'),
+                places: this.$t('tripAdd.seats.subtitle'),
+                description: this.$t('tripAdd.description.subtitle')
             },
             trip: {
                 from: [],
@@ -328,31 +321,31 @@ export default {
             steps: 1,
             rules: {
                 price: [
-                    v => !!v || "Merci de renseigner le prix",
-                    v => v >= 0 || "Prix trop bas",
-                    v => v <= 100 || "Prix trop élevé",
-                    v => /^\d{1,3}$/.test(v) || "Prix invalide",
+                    v => !!v || this.$t('error.required'),
+                    v => v >= 0 || this.$t('error.tooLow'),
+                    v => v <= 100 || this.$t('error.tooHigh'),
+                    v => /^\d{1,3}$/.test(v) || this.$t('error.invalid')
                 ],
                 places: [
-                    v => !!v || "Merci de renseigner le nombre de places",
-                    v => /^[1-5]$/.test(v) || "Merci d'entrer un nombre entier entre 1 et 5",
+                    v => !!v || this.$t('error.required'),
+                    v => /^[1-5]$/.test(v) || this.$t('error.invalid'),
                 ],
                 city: [
-                    v => !!v || "Merci de renseigner un lieu",
+                    v => !!v || this.$t('error.required'),
                     v => {
                         if (v.length !== 2) {
-                            return "Merci de renseigner un lieu valide"
+                            return this.$t('error.invalid')
                         } else {
                             if (/\d+(.\d+)?/.test(v[0]) || /\d+(.\d+)?/.test(v[1])) {
                                 return true
                             } else {
-                                return "Merci de renseigner un lieu valide"
+                                return this.$t('error.invalid')
                             }
                         }
                     },
                 ],
                 description: [
-                    v => v.length <= 150 || 'La description ne doit pas dépasser 150 caractères',
+                    v => v.length <= 150 || this.$t('error.tooLong'),
                 ],
             },
         }
@@ -374,12 +367,12 @@ export default {
                     places: "",
             }
             this.details = {
-                from: "Sélectionnez une adresse",
-                to: "Sélectionnez une adresse",
+                from: this.$t('tripAdd.departureCity.subtitle'),
+                to: this.$t('tripAdd.arrivalCity.subtitle'),
                 date: "",
-                price: "Fixez le prix par passager",
-                places: "Le nombre de passagers que vous pouvez transporter",
-                description: "(Exemples: flexibilité des horaires, flexibilité des points de rencontre et de dépose, taille des bagages, etc.)"
+                price: this.$t('tripAdd.price.subtitle'),
+                places: this.$t('tripAdd.seats.subtitle'),
+                description: this.$t('tripAdd.description.subtitle')
             }
             this.success = false
             this.steps = 1
@@ -397,7 +390,7 @@ export default {
                 hour: 'numeric',
                 minute: '2-digit'
             }
-            return date.toLocaleDateString('fr-FR', options)
+            return date.toLocaleDateString(this.$i18n.locale, options)
         },
         async nextStep() {
             const verifyRules = (rules, value) => {
@@ -482,8 +475,7 @@ export default {
         },
         async estimatePrice() {
             const litrePerKm = 6 / 100
-            let price = await this.getPetrolPrice()
-            let distance = await this.getDistance()
+            let [price, distance] = await Promise.all([this.getPetrolPrice(), this.getDistance()])
             this.estimatedPrice = Math.round(distance * litrePerKm * price)
         },
         submit() {

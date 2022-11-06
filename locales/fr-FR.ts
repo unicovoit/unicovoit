@@ -39,6 +39,7 @@ export default <Locale>{
         required: 'Requis',
         tooLong: 'Trop long',
         tooShort: 'Trop court',
+        invalid: 'Invalide',
     },
     faq: {
         title: 'FAQ',
@@ -86,6 +87,7 @@ export default <Locale>{
         submit: 'Envoyer',
         cancel: 'Annuler',
         required: 'Requis',
+        optional: 'Facultatif',
         errors: {
             invalid: 'Invalide',
             invalidEmail: 'Email invalide',
@@ -95,6 +97,7 @@ export default <Locale>{
         arrivalCity: 'Lieu d\'arrivée',
         departureDate: 'Date de départ',
         preciseAddress: 'Adresse précise',
+        city: 'Ville',
         search: 'Rechercher',
     },
     home: {
@@ -159,6 +162,46 @@ export default <Locale>{
     },
     privacyPolicy: 'Politique de Confidentialité',
     termsOfUse: "Conditions d'Utilisation",
+    tripAdd: {
+        title: 'Proposer un trajet',
+        offline: 'Vous n\'êtes pas connecté à internet. Vous ne pouvez pas enregistrer de nouveaux trajet.',
+        added: 'Trajet ajouté',
+        seeTrips: 'Voir les trajets',
+        next: 'Suivant',
+        back: 'Retour',
+        send: 'Envoyer',
+        departureCity: {
+            title: 'Lieu de départ',
+            subtitle: 'Sélectionnez un lieu précis ou une ville',
+        },
+        arrivalCity: {
+            title: 'Lieu d\'arrivée',
+            subtitle: 'Sélectionnez un lieu précis ou une ville',
+        },
+        departureDate: {
+            title: 'Date et heure de départ',
+        },
+        seats: {
+            title: 'Nombre de places',
+            subtitle: 'Le nombre de passagers que vous pouvez transporter',
+            short: 'Places',
+        },
+        price: {
+            title: 'Prix',
+            subtitle: 'Fixez le prix par passager',
+        },
+        description: {
+            title: 'Description',
+            subtitle: '(Exemples: flexibilité des horaires, flexibilité des points de rencontre et de dépose, taille des bagages, etc.)',
+        },
+        priceExplanation: {
+            short: 'Nous estimons que ce trajet vous coutera environ',
+            title: 'Comment le prix est-il estimé ?',
+            description: `Nous basons notre estimation sur la consommation moyenne d'une voiture, ici 6 L/100km,
+                        et la distance du trajet, en prenant en compte le prix moyen du SP95-E10 en France.{0}
+                        Les péages ne sont pas pris en compte.`,
+        },
+    },
     trips: {
         title: 'Trajets',
         noTrips: 'Aucun trajet disponible',

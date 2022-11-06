@@ -29,6 +29,7 @@ export default interface Locale {
         required: string,
         tooLong: string,
         tooShort: string,
+        invalid: string,
     },
     faq: {
         title: string,
@@ -38,6 +39,7 @@ export default interface Locale {
         submit: string,
         cancel: string,
         required: string,
+        optional: string,
         errors: {
             invalid: string,
             invalidEmail: string,
@@ -47,6 +49,7 @@ export default interface Locale {
         arrivalCity: string,
         departureDate: string,
         preciseAddress: string,
+        city: string,
         search: string,
     },
     home: {
@@ -108,6 +111,44 @@ export default interface Locale {
     },
     privacyPolicy: string,
     termsOfUse: string,
+    tripAdd: {
+        title: string,
+        offline: string,
+        added: string,
+        seeTrips: string,
+        next: string,
+        back: string,
+        send: string,
+        departureCity: {
+            title: string,
+            subtitle: string,
+        },
+        arrivalCity: {
+            title: string,
+            subtitle: string,
+        },
+        departureDate: {
+            title: string,
+        },
+        seats: {
+            title: string,
+            subtitle: string,
+            short: string,
+        },
+        price: {
+            title: string,
+            subtitle: string,
+        },
+        description: {
+            title: string,
+            subtitle: string,
+        },
+        priceExplanation: {
+            short: string,
+            title: string,
+            description: string,
+        },
+    },
     trips: {
         title: string,
         noTrips: string,

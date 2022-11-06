@@ -34,11 +34,12 @@ export default <Locale>{
         notFound: 'Page not found',
         details: 'See more details',
         backToPrevious: 'Go back to the previous page',
-        tryAgain: 'Please try again later',
+        tryAgain: 'Please try again later.',
         unknown: 'Unknown',
         required: 'Required',
         tooLong: 'Too long',
         tooShort: 'Too short',
+        invalid: 'Invalid',
     },
     faq: {
         title: 'FAQ',
@@ -86,6 +87,7 @@ export default <Locale>{
         submit: 'Submit',
         cancel: 'Cancel',
         required: 'Required',
+        optional: 'Optional',
         errors: {
             invalid: 'Invalid',
             invalidEmail: 'Invalid email',
@@ -95,6 +97,7 @@ export default <Locale>{
         arrivalCity: 'Arrival place',
         departureDate: 'Departure date',
         preciseAddress: 'Precise address',
+        city: 'City',
         search: 'Search',
     },
     home: {
@@ -159,6 +162,46 @@ export default <Locale>{
     },
     privacyPolicy: 'Privacy Policy',
     termsOfUse: 'Terms of Use',
+    tripAdd: {
+        title: 'Add a trip',
+        offline: 'You are offline. You cannot add a new trip.',
+        added: 'Your trip has been added!',
+        seeTrips: 'See my trips',
+        next: 'Next',
+        back: 'Back',
+        send: 'Send',
+        departureCity: {
+            title: 'Departure place',
+            subtitle: 'Select a precise location',
+        },
+        arrivalCity: {
+            title: 'Arrival place',
+            subtitle: 'Select a precise location',
+        },
+        departureDate: {
+            title: 'Departure date and time',
+        },
+        seats: {
+            title: 'Number of seats',
+            subtitle: 'The number of passangers you can take with you',
+            short: 'Seats',
+        },
+        price: {
+            title: 'Price',
+            subtitle: 'Set the price per seat',
+        },
+        description: {
+            title: 'Description',
+            subtitle: '(Examples: time flexibility, meeting and drop-off point flexibility, luggage size, etc.)',
+        },
+        priceExplanation: {
+            short: 'We estimate that the trip will cost you',
+            title: 'How is the price calculated?',
+            description: `We base our estimate on the average consumption of a car, here 6 L/100km, the distance of the
+                        journey, and the average price of SP95-E10 in France.{0}
+                        Tolls are not taken into account.`,
+        },
+    },
     trips: {
         title: 'Trips',
         noTrips: 'No trips found',
