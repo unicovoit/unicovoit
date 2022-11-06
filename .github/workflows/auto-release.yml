@@ -18,16 +18,11 @@ jobs:
         if: "startsWith(github.event.head_commit.message, 'chore(release): v')"
         steps:
             -   uses: actions/checkout@v2
-            -   name: Retrieve version
-                id: version
-                run: |
-                    echo "VERSION_NUMBER=$(echo '${{ github.event.head_commit.message }}' | grep -Po '[0-9]+\.[0-9]+\.[0-9]+')" >> $GITHUB_OUTPUT
-            -   name: Bump version and push tag
-                id: tag_version
-                uses: mathieudutour/github-tag-action@v6.1
+            -   uses: christophebedard/tag-version-commit@v1
                 with:
-                    github_token: ${{ secrets.GITHUB_TOKEN }}
-                    custom_tag: ${{ steps.version.outputs.VERSION_NUMBER }}
+                    token: ${{ secrets.GITHUB_TOKEN }}
+                    version_regex: 'chore\(release\): v([0-9]+\.[0-9]+\.[0-9]+)'
+                    version_tag_prefix: 'v'
 
     release:
         needs: tag
