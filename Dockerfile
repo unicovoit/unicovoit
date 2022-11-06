@@ -13,6 +13,7 @@ RUN --mount=type=secret,id=AUTH0_CLIENTID \
     --mount=type=secret,id=AUTH0_DOMAIN \
     export AUTH0_CLIENTID=$(cat /run/secrets/AUTH0_CLIENTID) && \
     export AUTH0_DOMAIN=$(cat /run/secrets/AUTH0_DOMAIN) && \
+    export NODE_OPTIONS="--openssl-legacy-provider" && \
     yarn build
 
 # Now we remove the node_modules, as we only need production dependencies in the docker image
