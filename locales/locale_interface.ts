@@ -77,6 +77,9 @@ export default interface Locale {
     learnMore: string,
     profile: {
         title: string,
+        publicProfile: string,
+        university: string,
+        bio: string,
         preferences: {
             title: string,
             smokePref: {

@@ -126,6 +126,9 @@ export default <Locale>{
     learnMore: 'En savoir plus',
     profile: {
         title: 'Mon profil',
+        publicProfile: 'Profil public',
+        university: 'Université',
+        bio: 'Présentation',
         preferences: {
             title: 'Préférences',
             smokePref: {

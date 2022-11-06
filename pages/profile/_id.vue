@@ -40,7 +40,7 @@
             <v-list-item class="px-0">
                 <v-list-item-content>
                     <v-list-item-subtitle>
-                        Université
+                        {{ $t('profile.university') }}
                     </v-list-item-subtitle>
                     <v-list-item-title>
                         {{ user.university || 'Non précisé' }}
@@ -54,7 +54,7 @@
             outlined
         >
             <v-card-title>
-                Présentation
+                {{ $t('profile.bio') }}
             </v-card-title>
             <v-card-text>
                 {{ user.bio }}
@@ -125,7 +125,7 @@ export default {
     name: "profile",
     head() {
         return {
-            title: `Profil Public de ${this.user.nickname || this.user.name}`,
+            title: `${this.user.nickname || this.user.name} - ${this.$t('profile.publicProfile')}`,
         };
     },
     auth: false,
