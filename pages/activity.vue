@@ -91,13 +91,13 @@ export default {
             return new Date()
         },
         oldTrips() {
-            return this.trips.filter(trip => new Date(trip.departure_time) < this.now)
+            return this.trips.filter(trip => new Date(trip.departure_time) < this.now).reverse()
         },
         upcomingTrips() {
             return this.trips.filter(trip => new Date(trip.departure_time) >= this.now)
         },
         oldBookings() {
-            return this.bookings.filter(booking => new Date(booking.trip.departure_time) < this.now)
+            return this.bookings.filter(booking => new Date(booking.trip.departure_time) < this.now).reverse()
         },
         upcomingBookings() {
             return this.bookings.filter(booking => new Date(booking.trip.departure_time) >= this.now)
