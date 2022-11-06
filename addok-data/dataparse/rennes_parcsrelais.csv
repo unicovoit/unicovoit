@@ -1,9 +1,0 @@
-idparc;code;nom;adressenumero;adressevoie;codeinseecommune;nomcommune;idstationmetrocorrespondance;datemiseservice;capaciteparc;nbplacesclassiquestotal;nbplacescovoituragetotal;nbplacespmrtotal;nbplacesvetotal;nbplacesreservesservicetotal;coordonnees
-VU;VU;Villejean-Université;;Rue d'Alsace;35238;Rennes;15002;2004-01-21;387;354;20;10;0;3;48.121906,-1.704182
-JFK;JFK;J.F. Kennedy;;Boulevard d'Anjou;35238;Rennes;15001;2005-01-21;397;362;20;12;0;3;48.12108,-1.713631
-PRE;PRE;Les Préales;;Rue Django Reinhardt;35238;Rennes;;2015-09-21;262;254;15;6;0;2;48.11356,-1.64025
-PRO;PRO;Cesson-Viasilva Provisoire;878;Avenue des Champs Blancs;35051;Cesson-Sévigné;;2022-09-20;300;294;0;6;0;0;48.13421,-1.619023
-HFR;HFR;Henri Fréville;;Avenue Henri Fréville;35238;Rennes;15011;2007-01-21;418;386;15;9;0;8;48.087537,-1.674555
-POT;POT;La Poterie;211;Rue de Vern;35238;Rennes;15015;2002-03-16;688;679;0;6;0;3;48.08682,-1.64342
-LGA;LGA;Les Gayeulles;;Rue Guy Ropartz;35238;Rennes;;2022-09-20;395;373;0;9;10;3;48.129565,-1.657108
-SJG;SJG;Saint-Jacques - Gaîté;;Boulevard Jean Mermoz;35281;Saint-Jacques-de-la-Lande;;2022-09-20;775;737;0;16;19;3;48.091038,-1.703637
