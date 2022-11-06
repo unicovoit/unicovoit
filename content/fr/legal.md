@@ -14,7 +14,7 @@ loi "Informatique et Libertés", du 6 janvier 1978, les données à caractère p
 sont destinées à UniCovoit et ne sauraient être transmises à des tiers pour un usage à des fins commerciales.
 UniCovoit s'engage à ne pas céder, à titre gratuit ou onéreux, les informations recueillies via son site. Toutefois,
 compte tenu des caractéristiques du réseau Internet, certaines informations, à savoir le nom, ainsi que la photo de
-profil sont accessibles à tous les autres étudiants inscrits.
+profil sont accessibles à tous les autres utilisateurs, inscrits ou non.
 Les informations de contact renseignées sont également transmises au passager ou conducteur concerné par une
 réservation.
 

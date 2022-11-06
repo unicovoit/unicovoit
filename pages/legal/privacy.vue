@@ -3,7 +3,7 @@
         <h2
             class="text-h2"
         >
-            Politique de confidentialité
+            {{ $t("privacyPolicy") }}
         </h2>
 
         <nuxt-content
@@ -20,8 +20,8 @@ export default {
         title: "Politique de confidentialité"
     },
     auth: false,
-    async asyncData({$content, error}) {
-        const page = await $content("privacy-policy")
+    async asyncData({$content, error, i18n}) {
+        const page = await $content(`${i18n.locale}/privacy-policy`)
             .fetch()
             .catch(err => {
                 error({statusCode: 404, message: "Page not found"})
