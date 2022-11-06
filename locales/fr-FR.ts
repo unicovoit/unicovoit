@@ -34,6 +34,7 @@ export default <Locale>{
         notFound: 'Page non trouvée',
         details: 'Voir plus de détails',
         backToPrevious: 'Retour à la page précédente',
+        tryAgain: 'Merci de réessayer plus tard.',
     },
     faq: {
         title: 'FAQ',
@@ -123,6 +124,37 @@ export default <Locale>{
         login: 'Me connecter',
     },
     learnMore: 'En savoir plus',
+    profile: {
+        title: 'Mon profil',
+        preferences: {
+            title: 'Préférences',
+            smokePref: {
+                yes: 'La fumée ne me dérange pas',
+                no: 'Je préfère voyager non fumeur',
+            },
+            petsPref: {
+                yes: 'Les animaux de compagnie sont les bienvenus !',
+                no: 'Je préfère voyager sans animaux de compagnie',
+            },
+            musicPref: {
+                yes: 'Je fais le trajet en musique !',
+                no: 'Je préfère voyager sans musique',
+            },
+        }
+    },
     privacyPolicy: 'Politique de Confidentialité',
     termsOfUse: "Conditions d'Utilisation",
+    trips: {
+        title: 'Trajets',
+        noTrips: 'Aucun trajet disponible',
+        offline: 'La recherche de trajets n\'est pas disponible en mode hors-ligne. Veuillez vous connecter à internet.',
+    },
+    trip: {
+        title: 'Trajet',
+        placesRemaining: {
+            singular: 'place restante',
+            plural: 'places restantes',
+        },
+        autoBook: 'Acceptation automatique',
+    }
 }

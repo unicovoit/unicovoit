@@ -24,6 +24,7 @@ export default interface Locale {
         notFound: string,
         details: string,
         backToPrevious: string,
+        tryAgain: string,
     },
     faq: {
         title: string,
@@ -74,6 +75,37 @@ export default interface Locale {
         login: string,
     },
     learnMore: string,
+    profile: {
+        title: string,
+        preferences: {
+            title: string,
+            smokePref: {
+                yes: string,
+                no: string,
+            },
+            petsPref: {
+                yes: string,
+                no: string,
+            },
+            musicPref: {
+                yes: string,
+                no: string,
+            },
+        }
+    },
     privacyPolicy: string,
     termsOfUse: string,
+    trips: {
+        title: string,
+        noTrips: string,
+        offline: string,
+    },
+    trip: {
+        title: string,
+        placesRemaining: {
+            singular: string,
+            plural: string,
+        },
+        autoBook: string,
+    }
 }

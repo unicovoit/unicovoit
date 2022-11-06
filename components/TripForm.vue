@@ -69,7 +69,7 @@ export default {
     methods: {
         validate() {
             this.$router.push({
-                path: '/trips',
+                path: this.localePath('/trips'),
                 query: {
                     from: this.search.from?.join(','),
                     to: this.search.to?.join(','),

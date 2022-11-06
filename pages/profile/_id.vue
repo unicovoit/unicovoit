@@ -69,14 +69,14 @@
                         class="text-body-1"
                     >
                         <v-icon left>mdi-smoking</v-icon>
-                        La fumée ne me dérange pas
+                        {{ $t('profile.preferences.smokePref.yes') }}
                     </v-list-item-group>
                     <v-list-item-group
                         v-else
                         class="text-body-1"
                     >
                         <v-icon left>mdi-smoking-off</v-icon>
-                        Je préfère voyager non fumeur
+                        {{ $t('profile.preferences.smokePref.no') }}
                     </v-list-item-group>
                 </v-list-item-content>
             </v-list-item>
@@ -87,14 +87,14 @@
                         class="text-body-1"
                     >
                         <v-icon left>mdi-paw</v-icon>
-                        Les animaux de compagnie sont les bienvenus !
+                        {{ $t('profile.preferences.petsPref.yes') }}
                     </v-list-item-group>
                     <v-list-item-group
                         v-else
                         class="text-body-1"
                     >
                         <v-icon left>mdi-paw-off</v-icon>
-                        Je préfère voyager sans animaux de compagnie
+                        {{ $t('profile.preferences.petsPref.no') }}
                     </v-list-item-group>
                 </v-list-item-content>
             </v-list-item>
@@ -105,14 +105,14 @@
                         class="text-body-1"
                     >
                         <v-icon left>mdi-music-note</v-icon>
-                        Je fais le trajet en musique !
+                        {{ $t('profile.preferences.musicPref.yes') }}
                     </v-list-item-group>
                     <v-list-item-group
                         v-else
                         class="text-body-1"
                     >
                         <v-icon left>mdi-music-note-off</v-icon>
-                        Je préfère voyager sans musique
+                        {{ $t('profile.preferences.musicPref.no') }}
                     </v-list-item-group>
                 </v-list-item-content>
             </v-list-item>
