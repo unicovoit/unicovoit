@@ -35,6 +35,10 @@ export default <Locale>{
         details: 'See more details',
         backToPrevious: 'Go back to the previous page',
         tryAgain: 'Please try again later',
+        unknown: 'Unknown',
+        required: 'Required',
+        tooLong: 'Too long',
+        tooShort: 'Too short',
     },
     faq: {
         title: 'FAQ',
@@ -129,6 +133,7 @@ export default <Locale>{
         publicProfile: 'Public profile',
         university: 'University',
         bio: 'Presentation',
+        nickname: 'Nickname',
         preferences: {
             title: 'Preferences',
             smokePref: {
@@ -143,7 +148,14 @@ export default <Locale>{
                 yes: 'I like to listen to music!',
                 no: 'I prefer traveling without music',
             },
-        }
+        },
+        confirmEmail: {
+            short: 'Click on the link sent to you by email to confirm your address.',
+            title: 'Why do I need to confirm my email address?',
+            description: `Verifying your email address allows us to ensure that you are the owner of the account,
+                    and that the address does not contain any errors.{0}
+                    If the address is incorrect, you will not receive our confirmation and notification emails.`
+        },
     },
     privacyPolicy: 'Privacy Policy',
     termsOfUse: 'Terms of Use',

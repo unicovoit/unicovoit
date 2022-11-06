@@ -7,7 +7,7 @@
             border="left"
             text
         >
-            Cliquez sur le lien reçu pour vérifier votre adresse mail
+            {{ $t('profile.confirmEmail.short') }}
             <v-icon
                 dense
                 color="error"
@@ -22,12 +22,12 @@
         >
             <v-card>
                 <v-card-title>
-                    Pourquoi vérifier votre adresse mail ?
+                    {{ $t('profile.confirmEmail.title') }}
                 </v-card-title>
                 <v-card-text>
-                    Vérifier votre adresse mail nous permet de nous assurer que vous êtes bien le propriétaire du compte,
-                    et que l'adresse ne contient pas d'erreur.<br>
-                    Si l'adresse est incorrecte, vous ne recevrez pas nos mails de confirmation et de notification.
+                    <i18n path="profile.confirmEmail.description" tag="span">
+                        <br>
+                    </i18n>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -63,7 +63,7 @@
                         v-model="user.nickname"
                         :rules="nameRules"
                         :counter="30"
-                        label="Nom d'utilisateur"
+                        :label="$t('profile.nickname')"
                         style="width: 80%"
                         required
                         @keydown.enter="updateNickname"
@@ -123,10 +123,10 @@
             <v-list-item class="px-0">
                 <v-list-item-content>
                     <v-list-item-subtitle>
-                        Université
+                        {{ $t('profile.university') }}
                     </v-list-item-subtitle>
                     <v-list-item-title>
-                        {{ user.university || 'Non précisé' }}
+                        {{ user.university || $t('error.unknown') }}
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
@@ -152,8 +152,10 @@
 <script>
 export default {
     name: "account",
-    head: {
-        title: "Mon compte"
+    head() {
+        return {
+            title: this.$t('profile.title'),
+        }
     },
     auth: true,
     data() {
@@ -166,8 +168,8 @@ export default {
     computed: {
         nameRules() {
             return [
-                v => !!v || 'Nom requis',
-                v => v.length <= 30 || 'Nom trop long',
+                v => !!v || this.$t('error.required'),
+                v => v.length <= 30 || this.$t('error.tooLong'),
             ]
         },
         contact() {

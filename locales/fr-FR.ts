@@ -35,6 +35,10 @@ export default <Locale>{
         details: 'Voir plus de détails',
         backToPrevious: 'Retour à la page précédente',
         tryAgain: 'Merci de réessayer plus tard.',
+        unknown: 'Non précisé',
+        required: 'Requis',
+        tooLong: 'Trop long',
+        tooShort: 'Trop court',
     },
     faq: {
         title: 'FAQ',
@@ -129,6 +133,7 @@ export default <Locale>{
         publicProfile: 'Profil public',
         university: 'Université',
         bio: 'Présentation',
+        nickname: 'Nom d\'utilisateur',
         preferences: {
             title: 'Préférences',
             smokePref: {
@@ -143,7 +148,14 @@ export default <Locale>{
                 yes: 'Je fais le trajet en musique !',
                 no: 'Je préfère voyager sans musique',
             },
-        }
+        },
+        confirmEmail: {
+            short: 'Cliquez sur le lien reçu pour vérifier votre adresse mail.',
+            title: 'Pourquoi vérifier votre adresse mail ?',
+            description: `Vérifier votre adresse mail nous permet de nous assurer que vous êtes bien le propriétaire du compte,
+                    et que l'adresse ne contient pas d'erreur.{0}
+                    Si l'adresse est incorrecte, vous ne recevrez pas nos mails de confirmation et de notification.`
+        },
     },
     privacyPolicy: 'Politique de Confidentialité',
     termsOfUse: "Conditions d'Utilisation",

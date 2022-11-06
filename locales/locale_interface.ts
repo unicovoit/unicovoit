@@ -25,6 +25,10 @@ export default interface Locale {
         details: string,
         backToPrevious: string,
         tryAgain: string,
+        unknown: string,
+        required: string,
+        tooLong: string,
+        tooShort: string,
     },
     faq: {
         title: string,
@@ -80,6 +84,7 @@ export default interface Locale {
         publicProfile: string,
         university: string,
         bio: string,
+        nickname: string,
         preferences: {
             title: string,
             smokePref: {
@@ -94,7 +99,12 @@ export default interface Locale {
                 yes: string,
                 no: string,
             },
-        }
+        },
+        confirmEmail: {
+            short: string,
+            title: string,
+            description: string,
+        },
     },
     privacyPolicy: string,
     termsOfUse: string,
