@@ -25,6 +25,16 @@ export default <Locale>{
     },
     builtForMobileWarning: 'UniCovoit is optimized for mobile devices. Using a computer may cause performance issues.',
     contactForm: 'contact form',
+    contact: {
+        title: 'Contact',
+        subtitle: `Use this form to reach us.{0}
+                Provide us with an email address so that we can respond to you.`,
+        name: 'Name',
+        email: 'Email address',
+        message: 'Message',
+        send: 'Send',
+        sent: 'Message sent',
+    },
     credits: {
         illustrations: 'Illustration from the collection',
         logo: 'Logo by'

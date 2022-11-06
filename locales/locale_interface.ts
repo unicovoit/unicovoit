@@ -15,6 +15,15 @@ export default interface Locale {
     },
     builtForMobileWarning: string,
     contactForm: string,
+    contact: {
+        title: string,
+        subtitle: string,
+        name: string,
+        email: string,
+        message: string,
+        send: string,
+        sent: string,
+    },
     credits: {
         illustrations: string,
         logo: string
