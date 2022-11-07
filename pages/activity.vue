@@ -3,8 +3,8 @@
         v-model="tab"
         grow
     >
-        <v-tab>Réservations</v-tab>
-        <v-tab>Mes annonces</v-tab>
+        <v-tab>{{ $t('activityPage.bookings') }}</v-tab>
+        <v-tab>{{ $t('activityPage.offers') }}</v-tab>
 
         <v-tab-item
             key="0"
@@ -15,7 +15,7 @@
                 <h5
                     class="text-h5 font-weight-bold"
                 >
-                    Trajets à venir
+                    {{ $t('activityPage.upcomingTrips') }}
                 </h5>
                 <DisplayBookedTrips
                     :bookings="upcomingBookings"
@@ -28,7 +28,7 @@
                 <h5
                     class="text-h5 font-weight-bold"
                 >
-                    Trajets passés
+                    {{ $t('activityPage.pastTrips') }}
                 </h5>
                 <DisplayBookedTrips
                     :bookings="oldBookings"
@@ -46,7 +46,7 @@
                 <h5
                     class="text-h5 font-weight-bold"
                 >
-                    Trajets à venir
+                    {{ $t('activityPage.upcomingTrips') }}
                 </h5>
                 <LazyDisplayTrips
                     :trips="upcomingTrips"
@@ -58,7 +58,7 @@
                 <h5
                     class="text-h5 font-weight-bold"
                 >
-                    Trajets passés
+                    {{ $t('activityPage.pastTrips') }}
                 </h5>
                 <LazyDisplayTrips
                     :trips="oldTrips"
@@ -75,7 +75,7 @@ export default {
     name: "activity",
     head() {
         return {
-            title: 'Mon activité',
+            title: this.$t("activityPage.title"),
         }
     },
     data() {
@@ -128,7 +128,10 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.v-tab
+.v-tab,
+.v-tab::before
     border-radius: .4rem
+
+.v-tab
     margin: .2rem .2rem .29rem
 </style>

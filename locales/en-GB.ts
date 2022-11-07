@@ -15,6 +15,13 @@ export default <Locale>{
         makeADonation: 'Make a donation to support the project on',
         unicovoitIsGreen: "UniCovoit is greener than {cleanerThan}% of the pages tested by",
     },
+    activityPage: {
+        title: 'My activity',
+        bookings: 'Bookings',
+        offers: 'My Offers',
+        upcomingTrips: 'Upcoming trips',
+        pastTrips: 'Past trips',
+    },
     appBar: {
         home: 'Home',
         about: 'About',

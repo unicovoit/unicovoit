@@ -15,6 +15,13 @@ export default <Locale>{
         makeADonation: 'Faites un don pour soutenir le projet sur',
         unicovoitIsGreen: "UniCovoit est plus propre que {cleanerThan}% des pages testées par",
     },
+    activityPage: {
+        title: 'Mon activité',
+        bookings: 'Réservations',
+        offers: 'Mes annonces',
+        upcomingTrips: 'Trajets à venir',
+        pastTrips: 'Trajets passés',
+    },
     appBar: {
         home: 'Accueil',
         about: 'À propos',

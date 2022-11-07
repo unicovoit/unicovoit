@@ -4,7 +4,14 @@ export default interface Locale {
         thankYouDonors: string,
         makeADonation: string,
         unicovoitIsGreen: string,
-    }
+    },
+    activityPage: {
+        title: string,
+        bookings: string,
+        offers: string,
+        upcomingTrips: string,
+        pastTrips: string,
+    },
     appBar: {
         home: string,
         about: string,
