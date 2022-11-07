@@ -234,5 +234,23 @@ export default <Locale>{
         confirmRefusal: 'Are you sure you want to refuse this booking request?',
         seatBooked: 'You have booked a seat on this trip.',
         seatBookedPending: 'Your booking request is pending.',
-    }
+    },
+    verify: {
+        title: 'Verification',
+        subtitle: 'Before you can use UniCovoit, you must verify that you are a student.',
+        description: `We use your student email address to verify your student profile.
+                    This verification is renewed every year.{0}
+                    We will not use this address in the future.`,
+        enterEmail: 'Enter your student email address',
+        verify: 'Verify',
+        enterCode: 'Enter the verification code sent to you by email',
+        notReceived: 'Didn\'t receive the email?',
+        resend: 'Resend the code',
+        incorrectCode: 'Incorrect code',
+        correctEmail: 'Correct the email address?',
+        emailAlreadyUsed: 'This email address is already used by another account.',
+        emailNotRecognised: `The format of your email address is not recognised.
+                    Your university may not yet be supported by UniCovoit.`,
+        success: 'Student status verified!',
+    },
 }

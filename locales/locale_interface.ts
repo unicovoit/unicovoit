@@ -180,5 +180,20 @@ export default interface Locale {
         confirmRefusal: string,
         seatBooked: string,
         seatBookedPending: string,
-    }
+    },
+    verify: {
+        title: string,
+        subtitle: string,
+        description: string,
+        enterEmail: string,
+        verify: string,
+        enterCode: string,
+        notReceived: string,
+        resend: string,
+        incorrectCode: string,
+        correctEmail: string,
+        emailAlreadyUsed: string,
+        emailNotRecognised: string,
+        success: string,
+    },
 }

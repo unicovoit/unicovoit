@@ -3,7 +3,7 @@
         <h2
             class="text-h2"
         >
-            Vérification
+            {{ $t('verify.title') }}
         </h2>
 
 
@@ -16,7 +16,7 @@
                 text
                 type="success"
             >
-                Statut étudiant vérifié
+                {{ $t('verify.success') }}
             </v-alert>
         </div>
 
@@ -36,27 +36,26 @@
                     <p
                         class="text-body-1 mt-3 mb-2"
                     >
-                        Avant de pouvoir utiliser UniCovoit, vous devez vérifier votre statut étudiant.
+                        {{ $t('verify.subtitle') }}
                     </p>
-                    <p
+                    <i18n
+                        path="verify.description"
+                        tag="p"
                         class="text-caption text--secondary mb-10"
                     >
-                        Nous utilisons la vérification de votre adresse mail étudiante afin de valider votre profil
-                        étudiant.
-                        Cette vérification est renouvelée chaque année.<br>
-                        Nous n'utiliserons pas cette adresse à l'avenir.
-                    </p>
+                        <br>
+                    </i18n>
                     <h6
                         class="text-h6 font-weight-regular justify-space-between"
                     >
-                        Entrez votre adresse mail universitaire
+                        {{ $t('verify.enterEmail') }}
                     </h6>
                     <v-text-field
                         ref="email"
                         v-model="email"
                         :rules="rules"
-                        label="Adresse mail"
-                        placeholder="nom.e2111111@etud.univ-ubs.fr"
+                        :label="$t('contact.email')"
+                        placeholder="e2111111@university.com"
                     ></v-text-field>
                     <span class="text-caption grey--text text--darken-1"></span>
 
@@ -72,7 +71,7 @@
                             rounded
                             @click="sendCode"
                         >
-                            Vérifier
+                            {{ $t('verify.verify') }}
                         </v-btn>
                     </div>
 
@@ -94,7 +93,7 @@
                     <h6
                         class="text-h6 font-weight-regular justify-space-between"
                     >
-                        Entrez le code reçu par mail
+                        {{ $t('verify.enterCode') }}
                     </h6>
                     <p
                         ref="timer"
@@ -121,12 +120,12 @@
                         v-if="resend"
                         class="text-body-2"
                     >
-                        Vous n'avez rien reçu ?
+                        {{ $t('verify.notReceived') }}
                         <span
                             class="text--secondary text-decoration-underline cursor-pointer"
                             @click="sendCode"
                         >
-                            Renvoyer le code
+                            {{ $t('verify.resend') }}
                         </span>
                     </div>
 
@@ -138,12 +137,12 @@
                         text
                         type="error"
                     >
-                        Le code entré est incorrect.<br>
+                        {{ $t('verify.incorrectCode') }}<br>
                         <span
                             class="text-decoration-underline cursor-pointer"
                             @click="firstStep"
                         >
-                            Corriger l'adresse mail ?
+                            {{ $t('verify.correctEmail') }}
                         </span>
                     </v-alert>
                 </v-window-item>
@@ -173,10 +172,9 @@ export default {
             code: "",
             email: "",
             errorMessages: {
-                teapot: `Le format de votre adresse mail n'est pas reconnu.
-                    Votre université n'est peut-être pas encore prise en charge par UniCovoit.`,
-                exists: `L'adresse mail entrée est déjà utilisée.`,
-                generic: `Une erreur est survenue. Merci de réessayer plus tard.`
+                teapot: this.$t('verify.emailNotRecognised'),
+                exists: this.$t('verify.emailAlreadyUsed'),
+                generic: this.$t('error.genericError') + '. ' + this.$t('error.tryAgain')
             },
             countdownInterval: setInterval(() => {}, 0),
             countdownDate: new Date(),
@@ -185,8 +183,8 @@ export default {
     computed: {
         rules() {
             return [
-                v => !!v || "L'adresse mail est obligatoire",
-                v => /^[\dA-Za-z\-.]+@[\da-z\-.]+\.[a-z]+$/.test(v) || "L'adresse mail doit être valide",
+                v => !!v || this.$t('error.required'),
+                v => /^[\dA-Za-z\-.]+@[\da-z\-.]+\.[a-z]+$/.test(v) || this.$t('error.invalid'),
             ]
         }
     },

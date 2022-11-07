@@ -234,5 +234,23 @@ export default <Locale>{
         confirmRefusal: 'Voulez-vous vraiment refuser cette réservation ?',
         seatBooked: 'Vous avez réservé une place sur ce trajet.',
         seatBookedPending: 'Vous avez une réservation en attente sur ce trajet.',
-    }
+    },
+    verify: {
+        title: 'Vérification',
+        subtitle: 'Avant de pouvoir utiliser UniCovoit, vous devez vérifier votre statut étudiant.',
+        description: `Nous utilisons la vérification de votre adresse mail étudiante afin de valider votre profil étudiant.
+                        Cette vérification est renouvelée chaque année.{0}
+                        Nous n'utiliserons pas cette adresse à l'avenir.`,
+        enterEmail: 'Entrez votre adresse mail universitaire',
+        verify: 'Vérifier',
+        enterCode: 'Entrez le code reçu par mail',
+        notReceived: 'Vous n\'avez rien reçu ?',
+        resend: 'Renvoyer le code',
+        incorrectCode: 'Le code entré est incorrect.',
+        correctEmail: 'Corriger l\'adresse mail ?',
+        emailAlreadyUsed: 'L\'adresse mail entrée est déjà utilisée.',
+        emailNotRecognised: `Le format de votre adresse mail n'est pas reconnu.
+                    Votre université n'est peut-être pas encore prise en charge par UniCovoit.`,
+        success: 'Statut étudiant vérifié !',
+    },
 }
