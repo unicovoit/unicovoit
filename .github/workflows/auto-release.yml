@@ -80,6 +80,8 @@ jobs:
                 with:
                     images: ${{ steps.string.outputs.lowercase }}
                     tags: |
+                        type=raw,value=latest
+                        type=match,pattern=v(\d.\d.\d),group=1
                         type=semver,pattern={{version}}
                         type=semver,pattern={{major}}
 
