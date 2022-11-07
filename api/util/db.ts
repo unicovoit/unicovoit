@@ -496,7 +496,7 @@ export const getBookings = async (id: string, driver_id: string) => {
             })
         } else {
             const user = await getUserBySub(driver_id)
-            return Booking.find({user: {$eq: user._id}, trip: {$eq: trip._id}}, {
+            return Booking.find({user: {$eq: user?._id}, trip: {$eq: trip._id}}, {
                 _id: 0,
                 __v: 0,
                 created_at: 0,
