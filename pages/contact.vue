@@ -75,7 +75,7 @@ export default {
     name: "contact",
     head() {
         return {
-            title: "Contact",
+            title: this.$t('contact.title'),
         }
     },
     auth: false,

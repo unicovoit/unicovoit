@@ -6,7 +6,7 @@
 export default {
     name: "error",
     head: {
-        title: "Erreur",
+        title: "Error",
     },
     auth: false,
     async asyncData({ error }) {
