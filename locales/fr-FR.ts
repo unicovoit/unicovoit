@@ -50,6 +50,7 @@ export default <Locale>{
         tooLong: 'Trop long',
         tooShort: 'Trop court',
         invalid: 'Invalide',
+        tripDoesntExist: 'Ce trajet n\'existe pas',
     },
     faq: {
         title: 'FAQ',
@@ -143,6 +144,7 @@ export default <Locale>{
     learnMore: 'En savoir plus',
     profile: {
         title: 'Mon profil',
+        user: 'Utilisateur',
         publicProfile: 'Profil public',
         university: 'Université',
         bio: 'Présentation',
@@ -224,5 +226,13 @@ export default <Locale>{
             plural: 'places restantes',
         },
         autoBook: 'Acceptation automatique',
+        pendingRequests: 'Vous avez une demande de réservation en attente',
+        noBookings: 'Aucune demande de réservation',
+        bookings: 'Réservations',
+        acceptOrRejectBookings: 'Acceptez ou refusez les demandes de réservation',
+        refuse: 'Refuser',
+        confirmRefusal: 'Voulez-vous vraiment refuser cette réservation ?',
+        seatBooked: 'Vous avez réservé une place sur ce trajet.',
+        seatBookedPending: 'Vous avez une réservation en attente sur ce trajet.',
     }
 }

@@ -50,6 +50,7 @@ export default <Locale>{
         tooLong: 'Too long',
         tooShort: 'Too short',
         invalid: 'Invalid',
+        tripDoesntExist: 'This trip does not exist',
     },
     faq: {
         title: 'FAQ',
@@ -143,6 +144,7 @@ export default <Locale>{
     learnMore: 'Learn More',
     profile: {
         title: 'My Profile',
+        user: 'User',
         publicProfile: 'Public profile',
         university: 'University',
         bio: 'Presentation',
@@ -224,5 +226,13 @@ export default <Locale>{
             plural: 'places remaining',
         },
         autoBook: 'Automatic booking confirmation',
+        pendingRequests: 'You have pending booking requests',
+        noBookings: 'No booking requests',
+        bookings: 'Bookings',
+        acceptOrRejectBookings: 'Accept or reject booking requests',
+        refuse: 'Refuse',
+        confirmRefusal: 'Are you sure you want to refuse this booking request?',
+        seatBooked: 'You have booked a seat on this trip.',
+        seatBookedPending: 'Your booking request is pending.',
     }
 }

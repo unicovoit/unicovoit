@@ -39,6 +39,7 @@ export default interface Locale {
         tooLong: string,
         tooShort: string,
         invalid: string,
+        tripDoesntExist: string,
     },
     faq: {
         title: string,
@@ -93,6 +94,7 @@ export default interface Locale {
     learnMore: string,
     profile: {
         title: string,
+        user: string,
         publicProfile: string,
         university: string,
         bio: string,
@@ -170,5 +172,13 @@ export default interface Locale {
             plural: string,
         },
         autoBook: string,
+        pendingRequests: string,
+        noBookings: string,
+        bookings: string,
+        acceptOrRejectBookings: string,
+        refuse: string,
+        confirmRefusal: string,
+        seatBooked: string,
+        seatBookedPending: string,
     }
 }

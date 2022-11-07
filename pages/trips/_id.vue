@@ -29,7 +29,7 @@
                 icon="mdi-alert-circle"
                 color="warning"
             >
-                Vous avez une demande de réservation en attente
+                {{ $t('trip.pendingRequests') }}
             </v-alert>
 
             <v-timeline
@@ -132,16 +132,16 @@
                         size="60"
                     >
                         <v-img
-                            :alt="trip.driver?.nickname || 'Utilisateur'"
+                            :alt="trip.driver?.nickname || $t('profile.user')"
                             :src="trip.driver?.picture || '/account_circle.svg'"
                         ></v-img>
                     </v-avatar>
                     <v-list>
                         <v-list-item-title style="font-size: 120%">
-                            {{ trip.driver?.nickname || trip.driver?.name || 'Utilisateur' }}
+                            {{ trip.driver?.nickname || trip.driver?.name || $t('profile.user') }}
                         </v-list-item-title>
                         <v-list-item-subtitle>
-                            {{ trip.driver?.university || 'Non précisé' }}
+                            {{ trip.driver?.university || $t('error.unknown') }}
                         </v-list-item-subtitle>
                     </v-list>
                     <v-spacer></v-spacer>
@@ -216,20 +216,20 @@
                         v-if="bookings.length === 0"
                     >
                         <v-card-title>
-                            Aucune demande de réservation
+                            {{ $t('trip.noBookings') }}
                         </v-card-title>
                     </div>
                     <div
                         v-else
                     >
                         <v-card-title>
-                            Réservations
+                            {{ $t('trip.bookings') }}
                         </v-card-title>
                         <v-card-subtitle
                             v-if="pendingRequests"
                             class="red--text"
                         >
-                            Acceptez ou refusez les demandes de réservation
+                            {{ $t('trip.acceptOrRejectBookings') }}
                         </v-card-subtitle>
                         <v-list>
                             <v-list-item
@@ -246,11 +246,11 @@
                                             size="40"
                                         >
                                             <v-img
-                                                :alt="booking.user?.nickname || 'Utilisateur'"
+                                                :alt="booking.user?.nickname || $t('profile.user')"
                                                 :src="booking.user?.picture || '/account_circle.svg'"
                                             ></v-img>
                                         </v-avatar>
-                                        {{ booking.user?.nickname || booking.user?.name || 'Utilisateur' }}
+                                        {{ booking.user?.nickname || booking.user?.name || $t('profile.user') }}
                                     </v-list-item-title>
                                 </v-list-item-content>
                                 <v-list-item-action>
@@ -285,7 +285,7 @@
                                         >
                                             <v-card>
                                                 <v-card-title>
-                                                    Voulez-vous vraiment refuser cette réservation ?
+                                                    {{ $t('trip.confirmRefusal') }}
                                                 </v-card-title>
                                                 <v-card-actions>
                                                     <v-spacer></v-spacer>
@@ -295,7 +295,7 @@
                                                         text
                                                         @click.prevent="confirmCancel = false"
                                                     >
-                                                        Annuler
+                                                        {{ $t('form.cancel') }}
                                                     </v-btn>
 
                                                     <v-btn
@@ -305,7 +305,7 @@
                                                         :loading="cancelLoading"
                                                         @click="cancelBooking(booking)"
                                                     >
-                                                        Refuser
+                                                        {{ $t('trip.refuse') }}
                                                     </v-btn>
                                                 </v-card-actions>
                                             </v-card>
@@ -342,13 +342,13 @@
                     v-if="bookingConfirmed"
                     class="text--primary"
                 >
-                    Vous avez réservé une place sur ce trajet.
+                    {{ $t('trip.seatBooked') }}
                 </v-card-text>
                 <v-card-text
                     v-else
                     class="text--primary"
                 >
-                    Vous avez une réservation en attente sur ce trajet.
+                    {{ $t('trip.seatBookedPending') }}
                 </v-card-text>
             </v-card>
 
@@ -429,7 +429,7 @@ export default {
             console.error(`Trip ${this.$route.params.id}: ${error.message}`)
             this.$nuxt.error({
                 statusCode: error.response.status,
-                message: error.response.status === 404 ? "Ce trajet n'existe pas" : error.response.data
+                message: error.response.status === 404 ? this.$t('error.tripDoesntExist') : error.response.data
             })
         }
     },
