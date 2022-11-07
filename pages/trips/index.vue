@@ -67,7 +67,7 @@
             :timeout="4000"
             color="error"
         >
-            {{ $t('error.genericError') + $t('error.tryAgain') }}
+            {{ $t('error.genericError') + '. ' + $t('error.tryAgain') }}
         </v-snackbar>
     </div>
 </template>
