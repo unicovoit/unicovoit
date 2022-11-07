@@ -142,8 +142,7 @@ export default {
                 iso: 'fr-FR',
                 name: 'Français',
                 file: 'fr-FR.ts'
-            },
-            {
+            }, {
                 code: 'en',
                 iso: 'en-GB',
                 name: 'English (GB)',
