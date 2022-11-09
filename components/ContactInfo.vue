@@ -5,17 +5,17 @@
         <h5
             class="text-h5"
         >
-            Contact
+            {{ $t('profile.contactInfo.title') }}
         </h5>
         <p class="text-subtitle-2">
-            Ces informations seront transmises à vos conducteurs ou passagers une fois la réservation confirmée.
+            {{ $t('profile.contactInfo.description') }}
         </p>
         <v-list-item
             class="px-0"
         >
             <v-list-item-content>
                 <v-list-item-subtitle>
-                    Email
+                    {{ $t('profile.contactInfo.email') }}
                 </v-list-item-subtitle>
                 <div class="d-flex flex-row mt-1">
                     <v-icon left color="primary">
@@ -32,7 +32,7 @@
         >
             <v-list-item-content class="pb-0">
                 <v-list-item-subtitle>
-                    Téléphone
+                    {{ $t('profile.contactInfo.phone') }}
                 </v-list-item-subtitle>
                 <div class="d-flex flex-row align-start">
                     <v-icon class="mt-2" left color="primary">
@@ -43,7 +43,7 @@
                         v-model="contact.phone"
                         clearable
                         :rules="rules.phone"
-                        placeholder="Ajouter un numéro de téléphone"
+                        :placeholder="$t('profile.contactInfo.addPhone')"
                     ></v-text-field>
                 </div>
             </v-list-item-content>
@@ -53,7 +53,7 @@
         >
             <v-list-item-content class="py-0">
                 <v-list-item-subtitle>
-                    Snapchat
+                    {{ $t('profile.contactInfo.snapchat') }}
                 </v-list-item-subtitle>
                 <div class="d-flex flex-row align-start">
                     <v-icon class="mt-2" left color="rgb(201, 198, 19)">
@@ -64,7 +64,7 @@
                         v-model="contact.snapchat"
                         clearable
                         :rules="rules.social"
-                        placeholder="Ajouter un compte Snapchat"
+                        :placeholder="$t('profile.contactInfo.addSnapchat')"
                     ></v-text-field>
                 </div>
             </v-list-item-content>
@@ -74,7 +74,7 @@
         >
             <v-list-item-content class="py-0">
                 <v-list-item-subtitle>
-                    Instagram
+                    {{ $t('profile.contactInfo.instagram') }}
                 </v-list-item-subtitle>
                 <div class="d-flex flex-row align-start">
                     <v-icon class="mt-2" left color="rgb(220, 11, 66)">
@@ -85,7 +85,7 @@
                         v-model="contact.instagram"
                         clearable
                         :rules="rules.social"
-                        placeholder="Ajouter un compte Instagram"
+                        :placeholder="$t('profile.contactInfo.addInstagram')"
                     ></v-text-field>
                 </div>
             </v-list-item-content>
@@ -95,7 +95,7 @@
         >
             <v-list-item-content class="py-0">
                 <v-list-item-subtitle>
-                    Facebook Messenger
+                    {{ $t('profile.contactInfo.messenger') }}
                 </v-list-item-subtitle>
                 <div class="d-flex flex-row align-start">
                     <v-icon class="mt-2" left color="#3e6efed6">
@@ -106,7 +106,7 @@
                         v-model="contact.facebook"
                         clearable
                         :rules="rules.social"
-                        placeholder="Ajouter un compte Facebook"
+                        :placeholder="$t('profile.contactInfo.addMessenger')"
                     ></v-text-field>
                 </div>
             </v-list-item-content>
@@ -128,10 +128,10 @@ export default {
             sendContact: setTimeout(() => {}, 0),
             rules: {
                 phone: [
-                    v => !v || /^\+?[\d]{10,}$/.test(v) || 'Merci de renseigner un numéro de téléphone valide',
+                    v => !v || /^\+?[\d]{10,}$/.test(v) || this.$t('error.invalid'),
                 ],
                 social: [
-                    v => !v || /^[\w\-.éèà]+$/.test(v) || 'Merci de renseigner un compte valide',
+                    v => !v || /^[\w\-.éèà]+$/.test(v) || this.$t('error.invalid'),
                 ],
             },
         }

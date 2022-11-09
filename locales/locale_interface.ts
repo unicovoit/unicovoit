@@ -122,6 +122,19 @@ export default interface Locale {
         university: string,
         bio: string,
         nickname: string,
+        contactInfo: {
+            title: string,
+            description: string,
+            email: string,
+            phone: string,
+            addPhone: string,
+            snapchat: string,
+            addSnapchat: string,
+            instagram: string,
+            addInstagram: string,
+            messenger: string,
+            addMessenger: string,
+        },
         preferences: {
             title: string,
             smokePref: {

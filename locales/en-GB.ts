@@ -172,6 +172,19 @@ export default <Locale>{
         university: 'University',
         bio: 'Presentation',
         nickname: 'Nickname',
+        contactInfo: {
+            title: 'Contact',
+            description: 'Your contact information will be shared with your driver or passenger at the time of booking.',
+            email: 'Email address',
+            phone: 'Phone number',
+            addPhone: 'Add a phone number',
+            snapchat: 'Snapchat',
+            addSnapchat: 'Add a Snapchat username',
+            instagram: 'Instagram',
+            addInstagram: 'Add an Instagram username',
+            messenger: 'Facebook Messenger',
+            addMessenger: 'Add a Facebook Messenger username',
+        },
         preferences: {
             title: 'Preferences',
             smokePref: {
