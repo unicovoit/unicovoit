@@ -17,7 +17,7 @@
         >
             <v-card>
                 <v-card-title>
-                    Voulez-vous vraiment annuler cette réservation ?
+                    {{ $t('trip.confirmBookingCancellation') }}
                 </v-card-title>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -27,7 +27,7 @@
                         text
                         @click.prevent="confirmDeletion = false"
                     >
-                        Annuler
+                        {{ $t('form.cancel') }}
                     </v-btn>
 
                     <v-btn
@@ -37,7 +37,7 @@
                         :loading="loading"
                         @click="cancelBooking(id)"
                     >
-                        Supprimer
+                        {{ $t('form.delete') }}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -47,7 +47,7 @@
 
 <script>
 export default {
-    name: "EditOrDelete",
+    name: "Delete",
     props: {
         trip: {
             type: Object,

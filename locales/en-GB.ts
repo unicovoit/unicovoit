@@ -104,6 +104,8 @@ export default <Locale>{
     form: {
         submit: 'Submit',
         cancel: 'Cancel',
+        delete: 'Delete',
+        ok: 'OK',
         required: 'Required',
         optional: 'Optional',
         errors: {
@@ -232,6 +234,17 @@ export default <Locale>{
             singular: 'place remaining',
             plural: 'places remaining',
         },
+        deleteTrip: {
+            short: 'Delete trip',
+            confirmation: {
+                title: 'Are you sure you want to delete this trip?',
+                description: `We will notify all passengers that the trip has been canceled.`,
+            },
+            success: {
+                title: 'Trip deleted',
+                description: 'We have notified all passengers.',
+            },
+        },
         autoBook: 'Automatic booking confirmation',
         pendingRequests: 'You have pending booking requests',
         noBookings: 'No booking requests',
@@ -241,6 +254,7 @@ export default <Locale>{
         confirmRefusal: 'Are you sure you want to refuse this booking request?',
         seatBooked: 'You have booked a seat on this trip.',
         seatBookedPending: 'Your booking request is pending.',
+        confirmBookingCancellation: 'Are you sure you want to cancel your booking?',
     },
     verify: {
         title: 'Verification',

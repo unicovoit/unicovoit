@@ -55,6 +55,8 @@ export default interface Locale {
     form: {
         submit: string,
         cancel: string,
+        delete: string,
+        ok: string,
         required: string,
         optional: string,
         errors: {
@@ -178,6 +180,17 @@ export default interface Locale {
             singular: string,
             plural: string,
         },
+        deleteTrip: {
+            short: string,
+            confirmation: {
+                title: string,
+                description: string,
+            },
+            success: {
+                title: string,
+                description: string,
+            }
+        },
         autoBook: string,
         pendingRequests: string,
         noBookings: string,
@@ -187,6 +200,7 @@ export default interface Locale {
         confirmRefusal: string,
         seatBooked: string,
         seatBookedPending: string,
+        confirmBookingCancellation: string,
     },
     verify: {
         title: string,

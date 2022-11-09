@@ -20,7 +20,7 @@
             @click.prevent="confirmDeletion = true"
         >
             <v-icon class="mr-2">mdi-delete</v-icon>
-            Supprimer le trajet
+            {{ $t('trip.deleteTrip.short') }}
         </v-btn>
 
         <!-- Confirm trip deletion -->
@@ -30,10 +30,10 @@
         >
             <v-card>
                 <v-card-title>
-                    Voulez-vous vraiment supprimer ce trajet ?
+                    {{ $t('trip.deleteTrip.confirmation.title') }}
                 </v-card-title>
                 <v-card-text>
-                    Nous notifierons tous les utilisateurs qui ont réservé une place sur ce trajet.
+                    {{ $t('trip.deleteTrip.confirmation.description') }}
                     <!--                    <br><br>
                                         Si vous souhaitez seulement modifier le trajet, cliquez sur l'icône <v-icon dense>mdi-circle-edit-outline</v-icon>.-->
                 </v-card-text>
@@ -45,7 +45,7 @@
                         text
                         @click.prevent="confirmDeletion = false"
                     >
-                        Annuler
+                        {{ $t('form.cancel') }}
                     </v-btn>
 
                     <v-btn
@@ -55,7 +55,7 @@
                         outlined
                         @click="deleteTrip(trip.id)"
                     >
-                        Supprimer
+                        {{ $t('form.delete') }}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -67,10 +67,10 @@
         >
             <v-card>
                 <v-card-title>
-                    Trajet supprimé
+                    {{ $t('trip.deleteTrip.success.title') }}
                 </v-card-title>
                 <v-card-text>
-                    Nous avons notifié tous les utilisateurs qui avaient réservé une place sur ce trajet.
+                    {{ $t('trip.deleteTrip.success.description') }}
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -80,7 +80,7 @@
                         text
                         @click="ok"
                     >
-                        OK
+                        {{ $t('form.ok') }}
                     </v-btn>
                 </v-card-actions>
             </v-card>

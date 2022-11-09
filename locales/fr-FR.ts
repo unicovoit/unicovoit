@@ -104,6 +104,8 @@ export default <Locale>{
     form: {
         submit: 'Envoyer',
         cancel: 'Annuler',
+        delete: 'Supprimer',
+        ok: 'OK',
         required: 'Requis',
         optional: 'Facultatif',
         errors: {
@@ -232,6 +234,17 @@ export default <Locale>{
             singular: 'place restante',
             plural: 'places restantes',
         },
+        deleteTrip: {
+            short: 'Supprimer le trajet',
+            confirmation: {
+                title: 'Voulez-vous vraiment supprimer ce trajet ?',
+                description: `Nous notifierons tous les utilisateurs qui ont réservé une place sur ce trajet.`,
+            },
+            success: {
+                title: 'Trajet supprimé',
+                description: 'Nous avons notifié tous les passagers.',
+            },
+        },
         autoBook: 'Acceptation automatique',
         pendingRequests: 'Vous avez une demande de réservation en attente',
         noBookings: 'Aucune demande de réservation',
@@ -241,6 +254,7 @@ export default <Locale>{
         confirmRefusal: 'Voulez-vous vraiment refuser cette réservation ?',
         seatBooked: 'Vous avez réservé une place sur ce trajet.',
         seatBookedPending: 'Vous avez une réservation en attente sur ce trajet.',
+        confirmBookingCancellation: 'Voulez-vous vraiment annuler votre réservation ?',
     },
     verify: {
         title: 'Vérification',
