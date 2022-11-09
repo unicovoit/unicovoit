@@ -62,7 +62,7 @@ export default {
             })(),
             dateMenu: false,
             rules: [
-                v => !!v || 'Merci de renseigner ce champ',
+                v => !!v || this.$t('form.required'),
             ],
         }
     },
