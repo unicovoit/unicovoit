@@ -22,27 +22,6 @@ const today: Date = new Date()
 export const testTrips = [{
     from: {
         type: "Point",
-        coordinates: [-2.737387, 47.972292]
-    },
-    to: {
-        type: "Point",
-        coordinates: [-1.52818191449501, 48.1110706956896]
-    },
-    price: 6,
-    description: "on a fait de l'escalade à réguiny",
-    departure_time: new Date().setDate(today.getDate() + 1),
-    driver_id: 'google-oauth2|101534163227018751576',
-    places: 3,
-    id: '4a8c12f3-48e9-4b14-9522-69f0bbb067fb',
-    distance: 114,
-    duration: 80,
-    fromName: 'Bel Air',
-    fromCity: 'Réguiny',
-    toName: 'Espace Nominoë, Rue Julien Neveu',
-    toCity: 'undefined'
-}, {
-    from: {
-        type: "Point",
         coordinates: [-1.53536, 48.138244]
     },
     to: {
