@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <div class="text-h4 ml-1">
-            FAQ
+            {{ $t("faq.title") }}
         </div>
         <v-row
             class="my-2"
