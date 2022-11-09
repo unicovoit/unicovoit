@@ -15,7 +15,6 @@
                 :req="!!search.to"
                 rounded
                 class="mr-md-4"
-                error="Merci de renseigner un lieu"
                 :label="$t('form.departureCity')"
                 @changeCity="changeFrom"
             ></CitySelector>
@@ -24,7 +23,6 @@
                 :req="!!search.from"
                 rounded
                 class="mr-md-4"
-                error="Merci de renseigner un lieu"
                 :label="$t('form.arrivalCity')"
                 @changeCity="changeTo"
             ></CitySelector>
@@ -62,7 +60,7 @@ export default {
                 date: null,
             },
             rules: [
-                v => !!v || 'Merci de renseigner ce champ',
+                v => !!v || this.$t('error.required'),
             ],
         }
     },
