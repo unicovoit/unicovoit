@@ -66,11 +66,11 @@
                         class="mr-3"
                     >
                         <v-img
-                            :alt="trip.driver?.nickname || 'Utilisateur'"
+                            :alt="trip.driver?.nickname || $t('profile.user')"
                             :src="trip.driver?.picture || '/account_circle.svg'"
                         ></v-img>
                     </v-avatar>
-                    {{ trip.driver?.nickname || trip.driver?.name || 'Utilisateur' }}
+                    {{ trip.driver?.nickname || trip.driver?.name || $t('profile.user') }}
                 </v-list-item-title>
                 <v-spacer></v-spacer>
                 <v-icon
