@@ -156,16 +156,16 @@ export default {
         vueI18n: {
             fallbackLocale: 'fr'
         },
-        detectBrowserLanguage: false /*{
-            alwaysRedirect: false,
+        detectBrowserLanguage: {
+            alwaysRedirect: true,
             fallbackLocale: 'fr',
             redirectOn: 'root',
             useCookie: true,
             cookieAge: 365,
             cookieCrossOrigin: false,
-            cookieKey: 'i18n_redirected',
+            cookieKey: 'i18n_lang_pref',
             cookieSecure: true
-        }*/,
+        },
         seo: true,
         strategy: 'prefix_and_default'
     },
