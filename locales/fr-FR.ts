@@ -186,16 +186,21 @@ export default <Locale>{
             addMessenger: 'Ajouter un compte Facebook Messenger',
         },
         preferences: {
-            title: 'Préférences',
+            title: 'Préférences de trajet',
+            description: `Vous pouvez définir ici si vous préférez voyager avec des fumeurs, animaux, musique ou non.
+                    Définissez également si vous voulez accepter automatiquement les réservations.`,
             smokePref: {
+                title: 'Trajet fumeur',
                 yes: 'La fumée ne me dérange pas',
                 no: 'Je préfère voyager non fumeur',
             },
             petsPref: {
+                title: 'Trajet avec animaux',
                 yes: 'Les animaux de compagnie sont les bienvenus !',
                 no: 'Je préfère voyager sans animaux de compagnie',
             },
             musicPref: {
+                title: 'Trajet en musique',
                 yes: 'Je fais le trajet en musique !',
                 no: 'Je préfère voyager sans musique',
             },

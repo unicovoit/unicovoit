@@ -3,11 +3,10 @@
         id="preferences"
     >
         <h5 class="text-h5">
-            Préférences de trajet
+            {{ $t('profile.preferences.title') }}
         </h5>
         <p class="text-subtitle-2">
-            Vous pouvez définir ici si vous préférez voyager avec des fumeurs, animaux, musique ou non.
-            Définissez également si vous voulez accepter automatiquement les réservations.
+            {{ $t('profile.preferences.description') }}
         </p>
         <v-list-item>
             <v-list-item-action>
@@ -20,7 +19,7 @@
             <v-list-item-action-text
                 class="text-body-1">
                 <v-icon>mdi-smoking</v-icon>
-                Trajet fumeur
+                {{ $t('profile.preferences.smokePref.title') }}
             </v-list-item-action-text>
         </v-list-item>
         <v-list-item>
@@ -34,7 +33,7 @@
             <v-list-item-action-text
                 class="text-body-1">
                 <v-icon>mdi-paw</v-icon>
-                Trajet avec animaux
+                {{ $t('profile.preferences.petsPref.title') }}
             </v-list-item-action-text>
         </v-list-item>
         <v-list-item>
@@ -48,7 +47,7 @@
             <v-list-item-action-text
                 class="text-body-1">
                 <v-icon>mdi-music-note</v-icon>
-                Trajet en musique
+                {{ $t('profile.preferences.musicPref.title') }}
             </v-list-item-action-text>
         </v-list-item>
         <v-list-item>
@@ -62,7 +61,7 @@
             <v-list-item-action-text
                 class="text-body-1">
                 <v-icon>mdi-flash</v-icon>
-                Acceptation automatique
+                {{ $t('trip.autoBook') }}
             </v-list-item-action-text>
         </v-list-item>
     </v-list>

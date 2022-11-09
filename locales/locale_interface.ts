@@ -137,15 +137,19 @@ export default interface Locale {
         },
         preferences: {
             title: string,
+            description: string,
             smokePref: {
+                title: string,
                 yes: string,
                 no: string,
             },
             petsPref: {
+                title: string,
                 yes: string,
                 no: string,
             },
             musicPref: {
+                title: string,
                 yes: string,
                 no: string,
             },

@@ -186,16 +186,21 @@ export default <Locale>{
             addMessenger: 'Add a Facebook Messenger username',
         },
         preferences: {
-            title: 'Preferences',
+            title: 'Travelling preferences',
+            description: `You can define here if you prefer traveling with smokers, pets, music or not.
+                    Also define whether you want to automatically accept bookings.`,
             smokePref: {
+                title: 'Smoke',
                 yes: 'Smoke does not bother me',
                 no: 'I prefer traveling smoke-free',
             },
             petsPref: {
+                title: 'Travelling with pets',
                 yes: 'Pets are welcome!',
                 no: 'I prefer traveling without pets',
             },
             musicPref: {
+                title: 'Trip with music',
                 yes: 'I like to listen to music!',
                 no: 'I prefer traveling without music',
             },
