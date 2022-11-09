@@ -214,6 +214,20 @@ export default <Locale>{
         },
     },
     privacyPolicy: 'Politique de Confidentialité',
+    settings: {
+        title: 'Paramètres',
+        changeTheme: 'Passer en mode {0}',
+        lightTheme: 'clair',
+        darkTheme: 'sombre',
+        logout: 'Se déconnecter',
+        deleteAccount: {
+            short: 'Supprimer mon compte',
+            title: 'Voulez-vous vraiment supprimer votre compte ?',
+            description: 'Cela supprimera tous vos trajets, réservations, et vos informations personnelles.',
+            warning: 'Cette action est irréversible.',
+        },
+        version: 'Version {0}',
+    },
     termsOfUse: "Conditions d'Utilisation",
     tripAdd: {
         title: 'Proposer un trajet',

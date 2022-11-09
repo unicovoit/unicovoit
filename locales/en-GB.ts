@@ -214,6 +214,20 @@ export default <Locale>{
         },
     },
     privacyPolicy: 'Privacy Policy',
+    settings: {
+        title: 'Settings',
+        changeTheme: 'Switch to {0} theme',
+        lightTheme: 'light',
+        darkTheme: 'dark',
+        logout: 'Log Out',
+        deleteAccount: {
+            short: 'Delete my account',
+            title: 'Are you sure you want to delete your account?',
+            description: 'This will delete all your trips, bookings, and personal information.',
+            warning: 'This action cannot be undone.',
+        },
+        version: 'Version {0}',
+    },
     termsOfUse: 'Terms of Use',
     tripAdd: {
         title: 'Add a trip',

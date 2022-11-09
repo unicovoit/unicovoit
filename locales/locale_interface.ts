@@ -161,6 +161,20 @@ export default interface Locale {
         },
     },
     privacyPolicy: string,
+    settings: {
+        title: string,
+        changeTheme: string,
+        lightTheme: string,
+        darkTheme: string,
+        logout: string,
+        deleteAccount: {
+            short: string,
+            title: string,
+            description: string,
+            warning: string,
+        },
+        version: string,
+    },
     termsOfUse: string,
     tripAdd: {
         title: string,

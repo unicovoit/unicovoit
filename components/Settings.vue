@@ -15,7 +15,7 @@
                 depressed
             >
                 <v-icon class="mr-2">mdi-cog</v-icon>
-                Paramètres
+                {{ $t('settings.title') }}
             </v-btn>
         </template>
 
@@ -39,7 +39,7 @@
                 <v-toolbar-title
                     class="text-h5"
                 >
-                    Paramètres
+                    {{ $t('settings.title') }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-divider></v-divider>
@@ -60,7 +60,12 @@
                             color="primary"
                             inset
                         ></v-switch>
-                        Passer en mode {{ $vuetify.theme.dark ? 'clair' : 'sombre' }}
+                        <i18n
+                            path="settings.changeTheme"
+                            tag="span"
+                        >
+                            {{ $vuetify.theme.dark ? $t('settings.lightTheme') : $t('settings.darkTheme') }}
+                        </i18n>
                     </v-col>
                     <v-col
                         cols="5"
@@ -75,7 +80,7 @@
                         >
                             <v-icon size="30">mdi-logout</v-icon>
                         </v-btn>
-                        Déconnexion
+                        {{ $t('settings.logout') }}
                     </v-col>
                 </v-row>
                 <v-row class="d-flex justify-space-around">
@@ -92,7 +97,7 @@
                         >
                             <v-icon size="30">mdi-scale-balance</v-icon>
                         </v-btn>
-                        Conditions Générales d'Utilisation
+                        {{ $t('termsOfUse') }}
                     </v-col>
                     <v-col
                         cols="5"
@@ -107,7 +112,7 @@
                         >
                             <v-icon size="30">mdi-scale-balance</v-icon>
                         </v-btn>
-                        Politique de Confidentialité
+                        {{ $t('privacyPolicy') }}
                     </v-col>
                 </v-row>
             </v-container>
@@ -131,7 +136,7 @@
                         >
                             <v-icon size="30">mdi-trash-can-outline</v-icon>
                         </v-btn>
-                        Supprimer mon compte
+                        {{ $t('settings.deleteAccount.short') }}
                     </v-col>
                     <v-col
                         cols="5"
@@ -151,7 +156,12 @@
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Version {{ $store.getters.displayVersion }}
+                            <i18n
+                                path="settings.version"
+                                tag="span"
+                            >
+                                {{ $store.getters.displayVersion }}
+                            </i18n>
                         </a>
                     </v-list-item-subtitle>
                 </v-list-item>
@@ -164,11 +174,14 @@
             >
                 <v-card>
                     <v-card-title>
-                        Voulez-vous vraiment supprimer votre compte ?
+                        {{ $t('settings.deleteAccount.title') }}
                     </v-card-title>
                     <v-card-text>
-                        Cela supprimera tous vos trajets, réservations, et vos informations personnelles.<br>
-                        <span class="font-weight-black text--primary">Cette action est irréversible.</span>
+                        {{ $t('settings.deleteAccount.description') }}
+                        <br>
+                        <span class="font-weight-black text--primary">
+                            {{ $t('settings.deleteAccount.warning') }}
+                        </span>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -178,7 +191,7 @@
                             color="primary"
                             @click.prevent="confirmDeletion = false"
                         >
-                            Annuler
+                            {{ $t('form.cancel') }}
                         </v-btn>
 
                         <v-btn
@@ -188,7 +201,7 @@
                             @click="deleteAccount"
                             :loading="deletionLoading"
                         >
-                            Supprimer
+                            {{ $t('form.delete') }}
                         </v-btn>
                     </v-card-actions>
                 </v-card>
