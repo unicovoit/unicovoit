@@ -8,7 +8,7 @@ on:
             - main
 
 env:
-    REGISTRY: registry.ozna.me
+    REGISTRY: registry.finxol.io
     IMAGE_NAME: unicovoit
 
 # create a new github release
