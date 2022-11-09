@@ -119,10 +119,9 @@
             </v-container>
 
             <v-container
-                v-if="!trip.autoBook"
-                class="text-caption text--secondary mb-10"
+                class="text-caption text--secondary mb-10 text-center"
             >
-                Une fois la réservation confirmée, vos informations de contact seront envoyées à votre conducteur et vous recevrez les leurs.
+                    Une fois la réservation confirmée, vos informations de contact seront envoyées à votre conducteur et vous recevrez les leurs.
             </v-container>
         </v-card>
     </v-dialog>
