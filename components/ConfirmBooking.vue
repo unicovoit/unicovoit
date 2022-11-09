@@ -15,7 +15,7 @@
                 color="primary"
                 x-large
             >
-                Réserver
+                {{ $t('book.title') }}
             </v-btn>
         </template>
         <v-card
@@ -36,7 +36,7 @@
                 >
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
-                <v-toolbar-title>Réserver une place</v-toolbar-title>
+                <v-toolbar-title>{{ $t('book.title') }}</v-toolbar-title>
             </v-toolbar>
 
             <v-alert
@@ -45,7 +45,7 @@
                 border="left"
                 type="success"
             >
-                Trajet réservé !
+                {{ trip.autoBook ? $t('book.booked') : $t('book.requestSent') }}
             </v-alert>
             <v-alert
                 v-if="error"
@@ -63,42 +63,56 @@
                 border="left"
                 text
             >
-                UniCovoit ne gère pas les paiements en ligne.
-                C'est à vous de convenir d'un moyen de paiement avec le conducteur.
+                <i18n
+                    path="book.warning"
+                    tag="span"
+                >
+                    <br>
+                </i18n>
             </v-alert>
 
             <v-list
                 subheader
             >
-                <v-subheader>Trajet</v-subheader>
+                <v-subheader>{{ $t('trip.title') }}</v-subheader>
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title>{{ trip.fromName }}, {{ trip.fromCity }}</v-list-item-title>
-                        <v-list-item-subtitle>Départ</v-list-item-subtitle>
+                        <v-list-item-subtitle>
+                            {{ $t('book.departure') }}
+                        </v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title>{{ trip.toName }}, {{ trip.toCity }}</v-list-item-title>
-                        <v-list-item-subtitle>Arrivée</v-list-item-subtitle>
+                        <v-list-item-subtitle>
+                            {{ $t('book.arrival') }}
+                        </v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title>{{ date }}</v-list-item-title>
-                        <v-list-item-subtitle>Date et Heure</v-list-item-subtitle>
+                        <v-list-item-subtitle>
+                            {{ $t('book.dateAndTime') }}
+                        </v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title>{{ trip.price }} €</v-list-item-title>
-                        <v-list-item-subtitle>Prix du trajet</v-list-item-subtitle>
+                        <v-list-item-subtitle>
+                            {{ $t('book.price') }}
+                        </v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title>{{ this.trip.distance }} km</v-list-item-title>
-                        <v-list-item-subtitle>Distance</v-list-item-subtitle>
+                        <v-list-item-subtitle>
+                            {{ $t('book.distance') }}
+                        </v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -114,14 +128,14 @@
                     :loading="loading"
                     @click="confirm"
                 >
-                    Envoyer la réservation
+                    {{ $t('book.sendBooking') }}
                 </v-btn>
             </v-container>
 
             <v-container
                 class="text-caption text--secondary mb-10 text-center"
             >
-                    Une fois la réservation confirmée, vos informations de contact seront envoyées à votre conducteur et vous recevrez les leurs.
+                {{ $t('book.afterConfirmationContactExchanged') }}
             </v-container>
         </v-card>
     </v-dialog>

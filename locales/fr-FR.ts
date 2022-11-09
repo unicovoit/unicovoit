@@ -30,6 +30,20 @@ export default <Locale>{
         myProfile: 'Mon profil',
         publishTrip: 'Publier un trajet',
     },
+    book: {
+        title: 'Réserver une place',
+        booked: 'Trajet réservé !',
+        requestSent: 'Demande de réservation envoyée !',
+        warning: `UniCovoit ne gère pas les paiements en ligne.{0}
+                C'est à vous de convenir d'un moyen de paiement avec le conducteur.`,
+        departure: 'Départ',
+        arrival: 'Arrivée',
+        dateAndTime: 'Date et Heure',
+        price: 'Prix du trajet',
+        distance: 'Distance',
+        sendBooking: 'Envoyer la réservation',
+        afterConfirmationContactExchanged: 'Une fois la réservation confirmée, vos informations de contact seront envoyées à votre conducteur et vous recevrez les leurs.',
+    },
     builtForMobileWarning: 'UniCovoit est optimisé pour les appareils mobiles. En utilisant un ordinateur, vous pouvez avoir des problèmes de performances.',
     contactForm: 'formulaire de contact',
     contact: {

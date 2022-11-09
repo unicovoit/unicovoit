@@ -30,6 +30,20 @@ export default <Locale>{
         myProfile: 'My profile',
         publishTrip: 'Publish a trip',
     },
+    book: {
+        title: 'Book a seat',
+        booked: 'Trip booked!',
+        requestSent: 'Booking request sent!',
+        warning: `UniCovoit doesn't handle payments online.{0}
+                It is up to you to agree on a payment method with the driver.`,
+        departure: 'Departure',
+        arrival: 'Arrival',
+        dateAndTime: 'Date and time',
+        price: 'Price',
+        distance: 'Distance',
+        sendBooking: 'Send booking request',
+        afterConfirmationContactExchanged: 'Once the booking is confirmed, your contact information will be sent to your driver and you will receive theirs.',
+    },
     builtForMobileWarning: 'UniCovoit is optimized for mobile devices. Using a computer may cause performance issues.',
     contactForm: 'contact form',
     contact: {
