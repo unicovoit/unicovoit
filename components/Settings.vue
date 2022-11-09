@@ -90,7 +90,7 @@
                             'grey lighten-4': !dark,
                             'grey darken-3': dark,
                         }"
-                        @click="$router.push('/legal')"
+                        @click="$router.push(localePath('/legal'))"
                     >
                         <v-btn
                             icon
@@ -105,7 +105,7 @@
                             'grey lighten-4': !dark,
                             'grey darken-3': dark,
                         }"
-                        @click="$router.push('/legal/privacy')"
+                        @click="$router.push(localePath('/legal/privacy'))"
                     >
                         <v-btn
                             icon

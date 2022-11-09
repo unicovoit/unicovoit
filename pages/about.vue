@@ -10,7 +10,7 @@
             class="mt-6"
         >
             <i18n
-                v-for="item,i in $t('aboutPage.content')"
+                v-for="(item,i) in $t('aboutPage.content')"
                 :key="i"
                 :path="`aboutPage.content[${i}]`"
                 tag="p"

@@ -239,7 +239,7 @@
                             >
                                 <v-list-item-content>
                                     <v-list-item-title
-                                        @click.prevent="$router.push(`/profile/${booking.user?.id}`)"
+                                        @click.prevent="$router.push(localePath(`/profile/${booking.user?.id}`))"
                                     >
                                         <v-avatar
                                             class="mr-3"

@@ -156,7 +156,7 @@ export default {
     name: "verify",
     head() {
         return {
-            title: "Vérification"
+            title: this.$t('verify.title')
         }
     },
     auth: false,
