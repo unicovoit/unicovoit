@@ -4,7 +4,7 @@
             v-if="noTrips"
             class="text-subtitle-1"
         >
-            Rien à afficher pour le moment !
+            {{ $t('trips.nothingToShow') }}
         </h4>
 
         <v-list

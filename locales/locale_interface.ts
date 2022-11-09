@@ -199,6 +199,7 @@ export default interface Locale {
     trips: {
         title: string,
         noTrips: string,
+        nothingToShow: string,
         offline: string,
     },
     trip: {

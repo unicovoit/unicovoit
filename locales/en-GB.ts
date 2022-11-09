@@ -253,6 +253,7 @@ export default <Locale>{
     trips: {
         title: 'Trips',
         noTrips: 'No trips found',
+        nothingToShow: 'Nothing to show for the moment!',
         offline: 'Trip search isn\'t available offline. Please connect to the internet and try again.',
     },
     trip: {

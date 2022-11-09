@@ -253,6 +253,7 @@ export default <Locale>{
     trips: {
         title: 'Trajets',
         noTrips: 'Aucun trajet disponible',
+        nothingToShow: 'Rien à afficher pour le moment !',
         offline: 'La recherche de trajets n\'est pas disponible en mode hors-ligne. Veuillez vous connecter à internet.',
     },
     trip: {
