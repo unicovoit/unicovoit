@@ -1,4 +1,4 @@
-FROM registry.ozna.me/build-tools:main as builder
+FROM registry.finxol.io/build-tools:main as builder
 
 WORKDIR /home/node/build
 RUN chown -R node:node /home/node/build

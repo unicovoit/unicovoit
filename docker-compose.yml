@@ -13,7 +13,7 @@ services:
             - unicovoit
 
     unicovoit:
-        image: registry.ozna.me/unicovoit:latest
+        image: registry.finxol.io/unicovoit:latest
         restart: always
         ports:
             - "3000:3000"
