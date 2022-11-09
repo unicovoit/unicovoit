@@ -131,6 +131,7 @@ export default <Locale>{
         arrivalCity: 'Arrival place',
         departureDate: 'Departure date',
         preciseAddress: 'Precise address',
+        time: 'Time',
         city: 'City',
         search: 'Search',
     },

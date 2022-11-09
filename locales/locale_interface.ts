@@ -82,6 +82,7 @@ export default interface Locale {
         arrivalCity: string,
         departureDate: string,
         preciseAddress: string,
+        time: string,
         city: string,
         search: string,
     },

@@ -15,7 +15,7 @@
                 v-model="time"
                 :rules="rules"
                 outlined
-                label="Heure de départ"
+                :label="$t('form.time')"
                 prepend-icon="mdi-clock-outline"
                 readonly
                 rounded
@@ -44,7 +44,7 @@ export default {
             timeMenu: false,
             time: "00:00",
             rules: [
-                v => !!v || 'Merci de renseigner ce champ',
+                v => !!v || this.$t('form.required'),
             ],
         }
     },
