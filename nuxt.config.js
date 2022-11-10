@@ -121,6 +121,15 @@ export default {
     ],
 
     auth: {
+        plugins: [
+            '~/plugins/auth-lang-redirect.ts'
+        ],
+        redirect: {
+            login: '/login',
+            logout: '/',
+            home: '/',
+            callback: '/login'
+        },
         strategies: {
             auth0: {
                 domain: AUTH0_DOMAIN,
