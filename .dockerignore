@@ -15,6 +15,7 @@
 !pages/
 !static/
 !store/
+!plugins/
 
 # Server files
 !api/
