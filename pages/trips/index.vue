@@ -117,19 +117,22 @@ export default {
                 const to = this.$route.query.to.split(',')
                 const req = this.$axios.create()
                 delete req.defaults.headers.common['Authorization']
-                let {data: fromData} = await req.get(`https://${this.$config.ADDOK_DOMAIN}/reverse`, {
-                    params: {
-                        lon: from[0],
-                        lat: from[1]
-                    }
-                })
+
+                let [{data: fromData}, {data: toData}] = await Promise.all([
+                    req.get(`https://${this.$config.ADDOK_DOMAIN}/reverse`, {
+                        params: {
+                            lon: from[0],
+                            lat: from[1]
+                        }
+                    }),
+                    req.get(`https://${this.$config.ADDOK_DOMAIN}/reverse`, {
+                        params: {
+                            lon: to[0],
+                            lat: to[1]
+                        }
+                    })
+                ])
                 this.query.from = fromData.features[0].properties.city
-                let {data: toData} = await req.get(`https://${this.$config.ADDOK_DOMAIN}/reverse`, {
-                    params: {
-                        lon: to[0],
-                        lat: to[1]
-                    }
-                })
                 this.query.to = toData.features[0].properties.city
 
                 this.query.date = new Date(this.$route.query.date).toLocaleDateString(this.$i18n.locale, {
