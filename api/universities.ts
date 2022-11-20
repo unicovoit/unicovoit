@@ -39,7 +39,12 @@ const universities: University[] = [
         name: 'ESIEA Paris/Laval',
         country: 'France',
         format: /^[A-Za-z\-]+@et\.esiea\.fr$/
-    }
+    }, {
+        id: 'sorbonneNouvelle',
+        name: 'Sorbonne Nouvelle - Paris 3',
+        country: 'France',
+        format: /^[\dA-Za-z\-.]+@sorbonne-nouvelle\.fr$/
+    },
 ]
 
 export default universities
