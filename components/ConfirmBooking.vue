@@ -1,7 +1,7 @@
 <template>
     <v-dialog
         v-model="dialog"
-        fullscreen
+        :fullscreen="$vuetify.breakpoint.mobile"
         hide-overlay
         transition="dialog-bottom-transition"
     >
