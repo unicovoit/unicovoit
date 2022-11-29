@@ -351,6 +351,7 @@ export const getPublicProfile = async (id: string) => {
         picture: 1,
         nickname: 1,
         name: 1,
+        bio: 1,
     })
 }
 

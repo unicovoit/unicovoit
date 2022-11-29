@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
         },
         bio: {
             type: String,
-            default: ""
+            default: null
         },
         smokePref: {
             type: Boolean,
