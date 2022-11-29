@@ -53,7 +53,7 @@ export default {
     name: "TripForm",
     data() {
         return {
-            mobile: this.$device.isMobileOrTablet,
+            mobile: this.$vuetify.breakpoint.mobile,
             search: {
                 from: null,
                 to: null,

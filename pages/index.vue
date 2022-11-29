@@ -46,7 +46,7 @@
                 class="d-md-flex flex-md-column justify-center align-center"
             >
                 <div
-                    v-if="!$device.isMobileOrTablet"
+                    v-if="!$vuetify.breakpoint.mobile"
                     class="d-md-block"
                     style="height: 1rem; width: 1rem"
                 ></div>
@@ -69,7 +69,7 @@
                 src="/car-rental.svg"
             ></v-img>
             <v-row
-                v-for="advantage,i in advantages"
+                v-for="(advantage,i) in advantages"
                 :key="advantage.title"
                 :class="advantage.colour"
                 class="d-flex align-start mb-2"
@@ -95,7 +95,7 @@
             </v-row>
 
             <NuxtLink
-                v-if="$device.isMobileOrTablet"
+                v-if="$vuetify.breakpoint.mobile"
                 class="mt-2 text-decoration-none text--secondary"
                 :to="localePath('/about')"
             >

@@ -22,8 +22,8 @@
         </v-snackbar>
 
         <v-app-bar
-            :absolute="$device.isMobileOrTablet"
-            :fixed="!$device.isMobileOrTablet"
+            :absolute="$vuetify.breakpoint.mobile"
+            :fixed="!$vuetify.breakpoint.mobile"
             clipped-left
             flat
             class="mx-md-auto"
@@ -45,7 +45,7 @@
                     ></v-img>
                 </NuxtLink>
                 <div
-                    v-if="!$device.isMobileOrTablet"
+                    v-if="!$vuetify.breakpoint.mobile"
                     class="ml-4"
                 >
                     <v-btn
@@ -61,7 +61,7 @@
                         {{ item.title }}
                     </v-btn>
                     <v-btn
-                        v-if="!$device.isMobileOrTablet"
+                        v-if="!$vuetify.breakpoint.mobile"
                         color="primary"
                         exact
                         router
@@ -74,7 +74,7 @@
                 </div>
                 <v-spacer></v-spacer>
                 <div
-                    v-if="!$device.isMobileOrTablet"
+                    v-if="!$vuetify.breakpoint.mobile"
                     class="mr-4"
                 >
                     <v-btn
@@ -108,8 +108,8 @@
                     :current-language="$i18n.locale"
                 />
                 <v-tooltip
-                    :left="$device.isMobileOrTablet"
-                    :right="!$device.isMobileOrTablet"
+                    :left="$vuetify.breakpoint.mobile"
+                    :right="!$vuetify.breakpoint.mobile"
                 >
                     <template v-slot:activator="{ on, attrs }">
                         <NuxtLink
@@ -131,26 +131,22 @@
         </v-app-bar>
 
         <v-main
-            class="mt-15"
+            class="mt-14"
         >
             <v-sheet
-                class="mx-md-auto mt-md-5 transparent"
+                class="mx-3 mx-md-auto mt-0 mt-md-5 transparent"
                 max-width="1080"
             >
-                <v-container
-                    class="pt-0"
-                >
-                    <Nuxt
-                        :keep-alive-props="{exclude: ['pages/trips/index.vue']}"
-                        class="px-md-16"
-                        keep-alive
-                    />
-                </v-container>
+                <Nuxt
+                    :keep-alive-props="{exclude: ['pages/trips/index.vue']}"
+                    class="px-0 px-md-16"
+                    keep-alive
+                />
             </v-sheet>
         </v-main>
 
         <v-bottom-navigation
-            v-if="$device.isMobileOrTablet"
+            v-if="$vuetify.breakpoint.mobile"
             v-model="activeBtn"
             :dark="$vuetify.theme.dark"
             app
