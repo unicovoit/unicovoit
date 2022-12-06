@@ -35,6 +35,9 @@ export default interface Locale {
         afterConfirmationContactExchanged: string,
     },
     builtForMobileWarning: string,
+    chat: {
+        recentChats: string,
+    },
     contactForm: string,
     contact: {
         title: string,
@@ -59,6 +62,7 @@ export default interface Locale {
         required: string,
         tooLong: string,
         tooShort: string,
+        tooHigh: string,
         invalid: string,
         tripDoesntExist: string,
     },

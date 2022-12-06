@@ -45,6 +45,9 @@ export default <Locale>{
         afterConfirmationContactExchanged: 'Une fois la réservation confirmée, vos informations de contact seront envoyées à votre conducteur et vous recevrez les leurs.',
     },
     builtForMobileWarning: 'UniCovoit est optimisé pour les appareils mobiles. En utilisant un ordinateur, vous pouvez avoir des problèmes de performances.',
+    chat: {
+        recentChats: 'Recent chats',
+    },
     contactForm: 'formulaire de contact',
     contact: {
         title: 'Contact',
@@ -70,6 +73,7 @@ export default <Locale>{
         required: 'Requis',
         tooLong: 'Trop long',
         tooShort: 'Trop court',
+        tooHigh: 'Trop élevé',
         invalid: 'Invalide',
         tripDoesntExist: 'Ce trajet n\'existe pas',
     },
