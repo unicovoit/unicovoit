@@ -2452,10 +2452,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdi/font@npm:^7.0.96":
-  version: 7.0.96
-  resolution: "@mdi/font@npm:7.0.96"
-  checksum: 3bc71dc45e784af98fc41ff58eedd77b7ec93fdd5ad2ea599914efd7eff0412db97e4d1766ae3abb55d90a39e5e6dbc550ffe36c72fa504d5b2b021b5aa16f8e
+"@mdi/font@npm:^7.1.96":
+  version: 7.1.96
+  resolution: "@mdi/font@npm:7.1.96"
+  checksum: db6dce72f553e844d049cc563cf89ae58dfd0f55f99f743ccbf1ca6ab644c940f50fbd78ecd91290a67ebb58fa5bae4983bbab782a6611456bd87566825c1ca4
   languageName: node
   linkType: hard
 
@@ -14638,7 +14638,7 @@ __metadata:
     "@capacitor/cli": ^4.3.0
     "@capacitor/core": ^4.3.0
     "@dansmaculotte/nuxt-security": ^0.0.6
-    "@mdi/font": ^7.0.96
+    "@mdi/font": ^7.1.96
     "@nuxt/content": ^1.15.1
     "@nuxt/types": ^2.15.8
     "@nuxt/typescript-build": ^2.1.0
