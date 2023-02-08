@@ -14676,7 +14676,7 @@ __metadata:
     vue-plausible: ^1.3.2
     vue-server-renderer: ^2.6.14
     vue-template-compiler: ^2.7.10
-    vuetify: ^2.6.12
+    vuetify: ^2.6.14
     vuetify-loader: ^1.9.2
     webpack: ^4.46.0
     xss: ^1.0.14
@@ -15270,12 +15270,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vuetify@npm:^2.6, vuetify@npm:^2.6.12":
+"vuetify@npm:^2.6":
   version: 2.6.12
   resolution: "vuetify@npm:2.6.12"
   peerDependencies:
     vue: ^2.6.4
   checksum: 29b4b0c2af278bd8e8c455b30da635305fbe1327e6337f5c3dadc5272a2f50e3447eb653b298330f34e5b00614f34d0ef70bf74d63c35a428017beaad3a73a5c
+  languageName: node
+  linkType: hard
+
+"vuetify@npm:^2.6.14":
+  version: 2.6.14
+  resolution: "vuetify@npm:2.6.14"
+  peerDependencies:
+    vue: ^2.6.4
+  checksum: edeb8c55a7b6b315de7464bd3e0e9aa12a4894b873289aa8a8ae0fa37c7481b16229351658e5d7fba559ba4f6a6b84a1681e40bc0d8b17f074edd9832bd4d5db
   languageName: node
   linkType: hard
 
