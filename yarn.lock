@@ -7025,12 +7025,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-oauth2-jwt-bearer@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "express-oauth2-jwt-bearer@npm:1.2.0"
+"express-oauth2-jwt-bearer@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "express-oauth2-jwt-bearer@npm:1.3.0"
   dependencies:
     jose: ^4.9.2
-  checksum: 1dd7ffb902c15ac85e3ca4f94ee00eccf87a32b5f03267a86b0f095d12444efd40a2e600d0921f461f395a62ac4278c2fc3165c17e8832464610f903cfb856a1
+  checksum: a45c6d42750cd010b7d78e82a40103706f3939653eb2647044d22a007e3b25937616dc4cdb62256f24a3519575df5fa80a22bc9f95d0b8f6c054a99325395629
   languageName: node
   linkType: hard
 
@@ -14656,7 +14656,7 @@ __metadata:
     cors: ^2.8.5
     express: ^4.18.2
     express-fileupload-validator: ^2.0.1
-    express-oauth2-jwt-bearer: ^1.2.0
+    express-oauth2-jwt-bearer: ^1.3.0
     express-rate-limit: ^6.7.0
     fast-xml-parser: ^4.0.13
     helmet: ^6.0.0
