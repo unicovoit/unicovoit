@@ -67,7 +67,7 @@
         "@capacitor/cli": "^4.3.0",
         "@capacitor/core": "^4.3.0",
         "@mdi/font": "^7.1.96",
-        "@nuxt/types": "^2.15.8",
+        "@nuxt/types": "^2.16.0",
         "@nuxt/typescript-build": "^2.1.0",
         "@nuxtjs/vuetify": "^1.12.3",
         "@types/uuid": "^8.3.4",
