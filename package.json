@@ -68,7 +68,7 @@
         "@capacitor/core": "^4.7.1",
         "@mdi/font": "^7.2.96",
         "@nuxt/types": "^2.16.3",
-        "@nuxt/typescript-build": "^2.1.0",
+        "@nuxt/typescript-build": "^3.0.0",
         "@nuxtjs/vuetify": "^1.12.3",
         "@types/uuid": "^9.0.1",
         "sass": "^1.59.3",
