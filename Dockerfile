@@ -5,6 +5,10 @@ RUN chown -R node:node /home/node/build
 
 # Only copy the lockfile to install dependencies
 COPY --chown=node:node package.json yarn.lock ./
+COPY --chown=node:node .yarnrc.prod.yml .yarnrc.yml
+RUN corepack prepare yarn@stable --activate
+RUN yarn set version stable
+RUN yarn plugin import workspace-tools
 RUN yarn install
 
 # Copy all files, and build the app
@@ -24,7 +28,7 @@ RUN chown -R node:node /home/node/build
 
 USER node
 
-RUN yarn install --prod
+RUN yarn workspaces focus --production --all
 
 # Remove useless files and directories
 RUN clean-modules --yes --exclude "**/*.mustache" --exclude "**/.cache/pwa/**"
