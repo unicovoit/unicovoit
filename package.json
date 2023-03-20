@@ -47,7 +47,7 @@
         "mongoose": "^6.9.2",
         "nodemailer": "^6.8.0",
         "nuxt": "^2.15.8",
-        "nuxt-start": "^2.15.8",
+        "nuxt-start": "^2.16.3",
         "sharp": "^0.31.2",
         "signale": "^1.4.0",
         "socket.io": "^4.6.1",
@@ -64,8 +64,8 @@
     },
     "devDependencies": {
         "@capacitor/android": "^4.3.0",
-        "@capacitor/cli": "^4.3.0",
         "@capacitor/core": "^4.7.1",
+        "@capacitor/cli": "^4.7.1",
         "@mdi/font": "^7.1.96",
         "@nuxt/types": "^2.16.0",
         "@nuxt/typescript-build": "^2.1.0",
