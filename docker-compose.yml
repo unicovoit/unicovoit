@@ -9,8 +9,6 @@ services:
             - "./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/1-init-db.sh:Z"
         env_file:
             - .mongo.env
-        networks:
-            - unicovoit
 
     unicovoit:
         image: registry.finxol.io/unicovoit:latest
@@ -25,9 +23,3 @@ services:
             - MONGO_URL=mongo
             - MONGO_PORT=27017
             - ADDOK_DOMAIN=addok.unicovoit.fr
-        networks:
-            - unicovoit
-
-networks:
-    unicovoit:
-        driver: bridge
