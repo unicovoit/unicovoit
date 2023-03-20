@@ -4,6 +4,7 @@
 # Modules
 !package.json
 !yarn.lock
+!.yarnrc.prod.yml
 
 # UI files
 !nuxt.config.js
