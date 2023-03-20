@@ -24,7 +24,7 @@
         "docker:kill": "sudo docker kill unicovoit"
     },
     "dependencies": {
-        "@auth0/auth0-vue": "^1.0.3",
+        "@auth0/auth0-vue": "^2.1.0",
         "@dansmaculotte/nuxt-security": "^0.0.6",
         "@nuxt/content": "^1.15.1",
         "@nuxtjs/auth-next": "^5.0.0-1667386184.dfbbb54",
