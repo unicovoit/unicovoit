@@ -1,24 +1,24 @@
 <template>
     <v-menu offset-y>
         <template v-slot:activator="{ on: menu }">
-                <v-btn
-                    class="d-flex justify-center align-center mr-2"
-                    icon
-                    v-on="{ ...menu }"
+            <v-btn
+                class="d-flex justify-center align-center mr-2"
+                icon
+                v-on="{ ...menu }"
+            >
+                <v-list-item-avatar
+                    v-if="currentLanguageIcon"
+                    class="ma-0"
+                    size="24"
                 >
-                    <v-list-item-avatar
-                        v-if="currentLanguageIcon"
-                        class="ma-0"
-                        size="24"
-                    >
-                        <v-img
-                            :src="currentLanguageIcon"
-                            max-width="30"
-                            max-height="30"
-                        />
-                    </v-list-item-avatar>
-                    <v-icon v-else>mdi-earth</v-icon>
-                </v-btn>
+                    <v-img
+                        :src="currentLanguageIcon"
+                        max-height="30"
+                        max-width="30"
+                    />
+                </v-list-item-avatar>
+                <v-icon v-else>mdi-earth</v-icon>
+            </v-btn>
         </template>
         <v-list>
             <v-list-item
@@ -58,8 +58,9 @@ export default {
     },
     methods: {
         async changeLanguage(id) {
-            await this.$router.push(this.switchLocalePath(id))
+            await this.$i18n.setLocale(id)
             console.log(this.$i18n.locale)
+            location.pathname = this.localePath(this.$route.path)
         }
     }
 };
