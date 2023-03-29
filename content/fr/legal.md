@@ -11,7 +11,7 @@ inscrits et utilisant cette plateforme.
 
 En vertu du Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016 (ci-après « RGPD ») et de la
 loi "Informatique et Libertés", du 6 janvier 1978, les données à caractère personnel recueillies auprès des utilisateurs
-sont destinées à UniCovoit et ne sauraient être transmises à des tiers pour un usage à des fins commerciales.
+sont destinés à UniCovoit et ne sauraient être transmises à des tiers pour un usage à des fins commerciales.
 UniCovoit s'engage à ne pas céder, à titre gratuit ou onéreux, les informations recueillies via son site. Toutefois,
 compte tenu des caractéristiques du réseau Internet, certaines informations, à savoir le nom, ainsi que la photo de
 profil sont accessibles à tous les autres utilisateurs, inscrits ou non.
@@ -78,7 +78,7 @@ direct ou indirect pouvant survenir de l'utilisation ou au contraire de l'imposs
 ## Conditions d’inscription à la Plateforme
 
 L’utilisation de UniCovoit est destinée exclusivement aux étudiants. Lors de l’inscription, l'utilisateur déclare et
-garantis être scolarisée dans un établissement de l’enseignement supérieur pour l’année en cours. Une vérification
+garantit être scolarisée dans un établissement de l’enseignement supérieur pour l’année en cours. Une vérification
 nécessitant l'adresse mail étudiante sera réalisée systématiquement. Ensuite seulement le compte sera créé et l'accès à
 UniCovoit autorisé.
 
