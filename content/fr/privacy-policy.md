@@ -38,7 +38,7 @@ de facilitation du covoiturage :
     - Discord Inc. pour l'inscription avec Discord<br>
       444 De Haro Street #200 - San Francisco, CA 94107, USA
 
-    - Miicrosoft Corp. pour l'inscription avec Microsoft<br>
+    - Microsoft Corp. pour l'inscription avec Microsoft<br>
       One Microsoft Way - Redmond, Washington, USA
 
 ## ARTICLE 2 : PRINCIPES RELATIFS À LA COLLECTE ET AU TRAITEMENT DES DONNÉES PERSONNELLES
@@ -174,11 +174,12 @@ application du règlement européen 2016/679 et de la Loi Informatique et Libert
 - Droit de ne pas faire l’objet d’une décision fondée exclusivement sur un procédé automatisé ;
 - Droit de déterminer le sort des données après la mort ;
 - Droit de saisir l’autorité de contrôle compétente (article 77 du RGPD).  
-  Pour exercer vos droits, veuillez adresser votre mail à [dpo@unicovoit.fr](mailto:dpo@unicovoit.fr)
-  Afin que le responsable du traitement des données puisse faire droit à sa demande, l’utilisateur peut être tenu de lui
-  communiquer certaines informations telles que : ses noms et prénoms, son adresse e-mail ainsi que son numéro de
-  compte, d’espace personnel ou d’abonné.  
-  Consultez le site [cnil.fr](https://cnil.fr) pour plus d’informations sur vos droits.
+
+Pour exercer vos droits, veuillez adresser votre mail à [dpo@unicovoit.fr](mailto:dpo@unicovoit.fr)
+Afin que le responsable du traitement des données puisse faire droit à sa demande, l’utilisateur peut être tenu de lui
+communiquer certaines informations telles que : ses noms et prénoms, son adresse e-mail ainsi que son numéro de
+compte, d’espace personnel ou d’abonné.  
+Consultez le site [cnil.fr](https://cnil.fr) pour plus d’informations sur vos droits.
 
 ## ARTICLE 6 : CONDITIONS DE MODIFICATION DE LA POLITIQUE DE CONFIDENTIALITÉ
 
