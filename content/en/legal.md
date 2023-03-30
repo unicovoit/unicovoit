@@ -1,145 +1,132 @@
-## Introduction
+## Presentation
 
-This website, exclusively intended for students, is aimed at connecting drivers going to a given destination on their
-own account with passengers going to the same destination in order to allow them to
-share the journey and therefore the associated costs.
+This website, exclusively for students, is designed to connect drivers traveling to a specific destination on their own
+behalf with passengers heading in the same direction in order to share the journey and its associated costs.
 
-The purpose of these terms of use is to govern access to and usage of the service. We invite you to read them carefully.
-You understand and acknowledge that UniCovoit is not
-party to any agreement, contract or contractual relationship of any kind whatsoever between students
-registered and using this platform.
+These general terms and conditions of use aim to regulate access to and usage of this website. We kindly invite you to
+carefully read them. You understand and acknowledge that UniCovoit is not party to any agreement, contract, or
+contractual relationship of any kind between registered students using this platform.
 
-Pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council dated 27 April 2016 (hereinafter "
-RGPD") and the
-French Data Protection Act (Loi Informatique et Libertés), of January 6, 1978, the personal data collected from users is
-intended for UniCovoit
-and will not shared with third parties for commercial purposes.
-UniCovoit will not sell, either free of charge or in exchange for payment, the information collected via its site.
-However, given the characteristics of the Internet, certain information, namely the name and profile picture, are made
-accessible to all users, registered or not.
-The contact information entered will also be forwarded to the passenger or driver associated with a
+In accordance with Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 (
+hereinafter "GDPR") and the "Data Processing and Liberties" law of 6 January 1978, personal data collected from users is
+intended for UniCovoit and may not be transferred to third parties for commercial purposes. UniCovoit commits to not
+sell or give away, whether free of charge or for a fee, the information collected through its website. However, due to
+the nature of the Internet, some information, such as names and profile pictures, is accessible to all other users,
+whether registered or not. Contact information provided is also shared with the passenger or driver involved in a
 reservation.
 
 ## Definitions
 
-- **TOS**: these Terms and Conditions of Use
-- **User**: the individual who uses the site or any of its services.
-- **Registration**: all the actions required to create a user account on the site.
-- **Login**: all the actions required to log in to your user account on the site.
-- **Trip**: the offer published by a user on the site.
+- **T&Cs**: these General Terms and Conditions of Use
+- **User**: the individual who uses the website or any of its services.
+- **Registration**: the set of actions necessary to create a user account on the website.
+- **Connection**: the set of actions necessary to log in to a user account on the website.
+- **Trip**: the advertisement posted by a user on the website.
 - **Passenger**: the user who books a trip.
 - **Driver**: the user who publishes a trip.
 
-## User liability
+## User Responsibilities
 
-Students visiting this site agree not to use information about other students that is available on UniCovoit and to
-which they have no rights for purposes other than the organisation of the proposed friendly carpooling service. A
-registered person also undertakes not to contact other people for purposes other than to make a carpooling trip
-(commercial offers, dating sites, etc.)
+Students visiting this website agree not to use the information of other students accessible on UniCovoit, over which
+they have no rights, for purposes other than organizing the friendly carpooling service offered. A registered person
+also agrees not to contact other people for purposes other than carpooling (commercial offers, dating sites, etc.)
 
-Students who have submitted a trip agree to respond to any carpooling requests they receive through the site. through
-the site. Should there be an excessive number of unanswered requests, UniCovoit reserves the right to suspend
-the User's account.
+Students who have proposed a trip agree to respond to carpooling requests they receive through the website. In case of
+accumulated non-responses to requests, UniCovoit reserves the right to suspend the User's account.
 
-## Driver liability
+## Driver Commitments
 
-Le conducteur s’engage à être titulaire d’un permis de conduire valide et d’une assurance couvrant les passagers. Il
-déclare aussi utiliser son véhicule personnel ou un véhicule qu'il utilise avec l’autorisation expresse du
-propriétaire, et dans tous les cas, que vous êtes autorisés à utiliser à des fins de covoiturage. Dans les deux
-cas, le véhicule doit se trouver en parfait état de fonctionnement et le contrôle technique doit être à jour.
+The driver agrees to hold a valid driver's license and insurance that covers passengers. They also declare to use their
+personal vehicle or a vehicle used with the express authorization of the owner, and in all cases, that they are
+authorized to use it for carpooling purposes. In both cases, the vehicle must be in perfect working condition, and the
+technical inspection must be up-to-date.
 
-Le conducteur s'engage à se rendre au point de rendez-vous défini au préalable avec le passager et le déposer au point
-d’arrivée convenu. En cas d’incapacité à se rendre au point de rendez-vous à l’heure prévue, il doit
-informer les passagers immédiatement du retard prévu ou de l’annulation du trajet. Le conducteur doit ne pas réaliser de
-bénéfices sur les trajets réalisés, sous peine de sanctions prévues à l’article L.132-2 du Code de la consommation.
+The driver commits to arriving at the prearranged meeting point with the passenger and dropping them off at the
+agreed-upon destination. If unable to reach the meeting point at the scheduled time, they must inform passengers
+immediately of the expected delay or trip cancellation. The driver must not make profits from the trips made, under
+penalty of sanctions provided for in Article L.132-2 of the Consumer Code.
 
-Les passagers peuvent signaler un utilisateur au comportement non approprié aux équipes d’UniCovoit qui sera alors en
-mesure de prendre des mesures de restriction de l’accès au service pour le conducteur.
+Passengers can report inappropriate user behavior to UniCovoit teams, who will then be able to implement access
+restrictions to the service for the driver.
 
-## Engagement des passagers
+## Passenger Commitments
 
-Les passagers doivent respecter le point et l’heure de rendez-vous définis avec le conducteur, ainsi que le lieu
-d'arrivée convenu. Également, adopter une attitude responsable pendant la durée du trajet, qui ne compromettrait pas la
-capacité du Conducteur à conduire en toute sécurité. Il doit aussi respecter l’état de propreté et l’intégrité du
-véhicule.
+Passengers must respect the meeting point and time agreed upon with the driver, as well as the agreed-upon destination.
+They must also adopt responsible behavior during the trip that does not compromise the driver's ability to drive safely.
+They must also respect the cleanliness and integrity of the vehicle.
 
-Le passager est tenu d’informer immédiatement le conducteur si le rendez-vous prévu ne peut plus être tenu dans les
-conditions préalablement convenues (annulation, retard…). Il doit aussi s’engager à payer le conducteur au prix qui
-était convenu lors de la réservation.
+The passenger must inform the driver immediately if the scheduled meeting can no longer be held under the previously
+agreed-upon conditions (cancellation, delay, etc.). They must also commit to paying the driver the agreed-upon price at
+the time of booking.
 
-Les conducteurs peuvent signaler un utilisateur au comportement non approprié aux équipes d’UniCovoit qui seraient alors
-en capacité d'appliquer des mesures de restriction de l’accès au service pour le passager.
+Drivers can report inappropriate user behavior to UniCovoit teams, who will then be able to implement access
+restrictions to the service for the passenger.
 
-## Responsabilité d’UniCovoit
+## UniCovoit's Responsibility
 
-Compte tenu du volume d’information déposé par les utilisateurs, le contrôle exercé dessus par UniCovoit ne peut être
-que limité. En conséquence, l'utilisateur est seul responsable du contenu qu'il publie et UniCovoit ne garantit pas la
-véracité ou l’honnêteté de ce contenu. Plus généralement, UniCovoit ne pourra être tenu pour responsable de tout dommage
-direct ou indirect pouvant survenir de l'utilisation ou au contraire de l'impossibilité d'utiliser ce site.
+Given the volume of information provided by users, the control exercised by UniCovoit can only be limited. Consequently,
+the user is solely responsible for the content they publish, and UniCovoit does not guarantee the truthfulness or
+honesty of this content. More generally, UniCovoit cannot be held responsible for any direct or indirect damage that may
+arise from the use or, conversely, the inability to use this website.
 
-## Conditions d’inscription à la Plateforme
+## Registration Conditions for the Platform
 
-L’utilisation de UniCovoit est destinée exclusivement aux étudiants. Lors de l’inscription, l'utilisateur déclare et
-garantis être scolarisée dans un établissement de l’enseignement supérieur pour l’année en cours. Une vérification
-nécessitant l'adresse mail étudiante sera réalisée systématiquement. Ensuite seulement le compte sera créé et l'accès à
-UniCovoit autorisé.
+The use of UniCovoit is intended exclusively for students. Upon registration, the user declares and guarantees to be
+enrolled in a higher education institution for the current year. Verification requiring a student email address will be
+systematically carried out. Only after this will the account be created and access to UniCovoit authorized.
 
-## Création de Compte
+## Account Creation
 
-UniCovoit permet à chaque étudiant de publier des annonces et de réserver des trajets. Les utilisateurs peuvent
-consulter les trajets sans être inscrit ou connecté sur le site. En revanche, ils ne peuvent ni publier une annonce de
-covoiturage ni réserver de place sans avoir, au préalable, créé un compte.
+UniCovoit allows each student to post advertisements and book trips. Users can view trips without being registered or
+logged in on the website. However, they cannot post a carpooling ad or book a seat without first creating an account.
 
-Pour créer un Compte, l'utilisateur peut se connecter avec Auth0, Microsoft, Google ou Discord. En se connectant avec
-l’une des trois dernières méthodes, UniCovoit aura accès, publiera sur son site et conservera certaines informations du
-compte.
+To create an account, the user can log in with Auth0, Microsoft, Google, or Discord. By logging in with one of the
+latter three methods, UniCovoit will have access to, publish on its site, and store certain account information.
 
-Pour s'inscrire sur UniCovoit, l'utilisateur doit avoir lu et accepté les présentes CGU.
+To register on UniCovoit, the user must have read and accepted these T&Cs.
 
-À l’occasion de la création du compte, et ce quelle que soit la méthode choisie, l'utilisateur s'engage à
-fournir des informations personnelles exactes et conformes à la réalité et à les mettre à jour, par l’intermédiaire du
-profil afin d’en garantir la pertinence et l’exactitude tout au long de l'utilisation de la plateforme.
+When creating an account, regardless of the method chosen, the user agrees to provide accurate personal information that
+reflects reality and to update it through their profile to ensure its relevance and accuracy throughout their use of the
+platform.
 
-Vous vous engagez à ne pas créer ou utiliser, sous votre propre identité ou celle d’un tiers, d’autre compte que celui
-initialement créé.
+You agree not to create or use, under your own identity or that of a third party, any other account than the one
+initially created.
 
-## Prix du trajet
+## Trip Pricing
 
-Dans le cadre d’un trajet en covoiturage, le montant de la participation aux frais est déterminé par le conducteur, sous
-sa seule responsabilité. Le prix du trajet est à mentionner lors de la publication d’une offre de covoiturage. Il est
-strictement interdit de tirer un bénéfice du fait de l’utilisation d’UniCovoit. Par conséquent, le conducteur
-s'engage à limiter le montant de la participation demandée aux passagers aux frais que vous
-supportez réellement pour effectuer le trajet en covoiturage.
+In the context of a carpooling trip, the amount of participation in costs is determined by the driver, under their sole
+responsibility. The price of the trip must be mentioned when posting a carpooling offer. It is strictly forbidden to
+make a profit from using UniCovoit. Therefore, the driver commits to limiting the amount of participation requested from
+passengers to the actual costs they incur for the carpooling trip.
 
-UniCovoit ne prend pas en charge le paiement des trajets. L’étudiant passager s’engage à respecter le montant mentionné
-lorsqu’il a confirmé sa réservation. La méthode de paiement est à définir entre les utilisateurs. UniCovoit ne saurait
-être tenu responsable en cas de manquement de paiement. Cependant, si une infraction venait être signalé à plusieurs
-reprises, UniCovoit se réserve le droit de suspendre pendant une durée déterminée ou supprimer un compte.
+UniCovoit does not handle trip payments. The passenger student agrees to respect the amount mentioned when confirming
+their reservation. The payment method is to be determined between users. UniCovoit cannot be held responsible in case of
+non-payment. However, if an offense is repeatedly reported, UniCovoit reserves the right to suspend for a determined
+period or delete an account.
 
-## Frais de Service
+## Service Fees
 
-UniCovoit ne prend aucune commission sur le prix des trajets.
+UniCovoit does not take any commission on trip prices.
 
-## Modification des CGU
+## Modification of T&Cs
 
-UniCovoit peut, à tout moment et sans préavis, modifier ces CGU afin de les adapter aux évolutions du site.
+UniCovoit may, at any time and without notice, modify these T&Cs to adapt them to the evolution of the website.
 
-## Droit applicable
+## Applicable Law
 
-Tant le présent site que les modalités et conditions de son utilisation sont régis par le droit français, quel que soit
-le lieu d’utilisation. En cas de contestation éventuelle, et après l’échec de toute tentative de recherche d’une
-solution amiable, les tribunaux français seront seuls compétents pour connaître de ce litige.
+Both this website and the terms and conditions of its use are governed by French law, regardless of the place of use. In
+the event of any dispute and after the failure of any attempt to find an amicable solution, French courts will have sole
+jurisdiction to hear the dispute.
 
-Pour toute question relative aux présentes conditions d’utilisation du site, vous pouvez nous écrire à l’adresse
-suivante : [contact@unicovoit.fr](mailto:contact@unicovoit.fr)
+For any questions regarding these terms of use of the website, you can write to us at the following address:
+contact@unicovoit.fr
 
-## Droits d'auteur
+## Copyright
 
-Le code source de ce site est librement disponible sur GitHub.
-Il est cependant obligatoire de respecter les termes de la licence AGPL-v3 utilisée.
+The source code for this site is freely available on GitHub. However, it is mandatory to respect the terms of the
+AGPL-v3 license used.
 
-Les graphiques, images, sons et vidéos composant UniCovoit, sont la propriété de l'éditeur ou de ses partenaires. Toute
-représentation et/ou reproduction et/ou exploitation partielle ou totale des contenus graphiques de UniCovoit, par
-quelque procédé que ce soit, sans l'autorisation préalable et par écrit de UniCovoit et/ou de ses partenaires est
-strictement interdite et serait susceptible de constituer une contrefaçon au sens des articles L 335-2 et suivants du
-Code de la propriété intellectuelle.
+The graphics, images, sounds, and videos composing UniCovoit are the property of the publisher or its partners. Any
+representation and/or reproduction and/or partial or total exploitation of UniCovoit's graphic content, by any process
+whatsoever, without prior written authorization from UniCovoit and/or its partners is strictly prohibited and may
+constitute an infringement under Articles L 335-2 and following of the Intellectual Property Code.

@@ -1,192 +1,186 @@
-## ARTICLE 1 : PRÉAMBULE
+## ARTICLE 1: PREAMBLE
 
-La présente politique de confidentialité a pour but d’informer les utilisateurs du site :
+This privacy policy aims to inform users of the site:
 
-- Sur la manière dont sont collectées leurs données personnelles. Sont considérées comme des données personnelles, toute
-  information permettant d’identifier un utilisateur. A ce titre, il peut s’agir : de ses noms et prénoms, de son âge,
-  de son adresse postale ou email, de sa localisation ou encore de son adresse IP (liste non-exhaustive) ;
-- Sur les droits dont ils disposent concernant ces données ;
-- Sur la personne responsable du traitement des données à caractère personnel collectées et traitées ;
-- Sur les destinataires de ces données personnelles ;
-- Sur la politique du site en matière de cookies.
+- About how their personal data is collected. Personal data is considered any information that allows the identification
+  of a user. As such, this may include: their first and last names, age, postal or email address, location, or IP
+  address (non-exhaustive list);
+- About the rights they have concerning this data;
+- About the person responsible for processing the collected and processed personal data;
+- About the recipients of this personal data;
+- About the site's cookie policy.
 
-Cette politique complète les mentions légales et les Conditions Générales d’Utilisation consultables par les
-utilisateurs à l’adresse suivante :
+This policy complements the legal notices and General Terms of Use that can be consulted by users at the following
+address:
 [https://unicovoit.fr/legal](https://unicovoit.fr/legal)
 
-### Article 1.1 : Destinataires des données à caractère personnel
+### Article 1.1: Recipients of personal data
 
-Les partenaires suivants peuvent avoir un accès partiel aux données personnelles collectées en réponse à leurs besoins
-de facilitation du covoiturage :
+The following partners may have partial access to the personal data collected in response to their carpooling
+facilitation needs:
 
-- Fournisseur de la plateforme :
+- Platform provider:
     - UniCovoit
 
-- Partenaires techniques :
-    - Société Contabo GmbH, pour l'hébergement<br>
-      Aschauer Straße 32a - 81549 Munich, Allemagne
+- Technical partners:
 
-    - Service Auth0 de la société Okta Inc, pour l'authentification<br>
+    - Contabo GmbH, for hosting<br>
+      Aschauer Straße 32a - 81549 Munich, Germany
+
+    - Auth0 service from Okta Inc, for authentication<br>
       3rd Floor Union House 182-194 Union Street - London SE1 0LH, UK
 
-    - Société MapBox Inc., pour le calcul d'itinéraires<br>
+    - MapBox Inc., for route calculation<br>
       740 15th St Nw 5th Floor - Washington, DC 20005 United States
 
-    - Google LLC pour l'inscription avec Google<br>
+    - Google LLC for registration with Google<br>
       1600 Amphitheatre Parkway - Mountain View, California, USA
 
-    - Discord Inc. pour l'inscription avec Discord<br>
+    - Discord Inc. for registration with Discord<br>
       444 De Haro Street #200 - San Francisco, CA 94107, USA
 
-    - Miicrosoft Corp. pour l'inscription avec Microsoft<br>
+    - Microsoft Corp. for registration with Microsoft<br>
       One Microsoft Way - Redmond, Washington, USA
 
-## ARTICLE 2 : PRINCIPES RELATIFS À LA COLLECTE ET AU TRAITEMENT DES DONNÉES PERSONNELLES
+## ARTICLE 2: PRINCIPLES RELATING TO THE COLLECTION AND PROCESSING OF PERSONAL DATA
 
-Conformément à l’article 5 du Règlement européen 2016/679, les données à caractère personnel sont :
+In accordance with Article 5 of European Regulation 2016/679, personal data is:
 
-- Traitées de manière licite, loyale et transparente au regard de la personne concernée ;
-- Collectées pour des finalités déterminées (cf. Article 3.1 des présentes), explicites et légitimes, et ne pas être
-  traitées ultérieurement d'une manière incompatible avec ces finalités ;
-- Adéquates, pertinentes et limitées à ce qui est nécessaire au regard des finalités pour lesquelles elles sont traitées
-  ;
-- Exactes et, si nécessaire, tenues à jour. Toutes les mesures raisonnables doivent être prises pour que les données à
-  caractère personnel qui sont inexactes, eu égard aux finalités pour lesquelles elles sont traitées, soient effacées ou
-  rectifiées sans tarder ;
-- Conservées sous une forme permettant l'identification des personnes concernées pendant une durée n'excédant pas celle
-  nécessaire au regard des finalités pour lesquelles elles sont traitées ;
-- Traitées de façon à garantir une sécurité appropriée des données collectées, y compris la protection contre le
-  traitement non autorisé ou illicite et contre la perte, la destruction ou les dégâts d'origine accidentelle, à l'aide
-  de mesures techniques ou organisationnelles appropriées.
+- Processed lawfully, fairly, and transparently concerning the individual;
+- Collected for specified, explicit, and legitimate purposes (see Article 3.1 below) and not further processed in a
+  manner incompatible with these purposes;
+- Adequate, relevant, and limited to what is necessary for the purposes for which they are processed;
+- Accurate and, if necessary, kept up to date. All reasonable measures must be taken to ensure that personal data that
+  is inaccurate, having regard to the purposes for which they are processed, is erased or rectified without delay;
+- Kept in a form that allows the identification of individuals for no longer than necessary for the purposes for which
+  they are processed;
+- Processed in a way that ensures appropriate security of the collected data, including protection against unauthorized
+  or unlawful processing and against loss, destruction, or damage of accidental origin, using appropriate technical or
+  organizational measures.
 
-Le traitement n'est licite que si, et dans la mesure où, au moins une des conditions suivantes est remplie :
+Processing is lawful only if, and to the extent that, at least one of the following conditions is met:
 
-- La personne concernée a consenti au traitement de ses données à caractère personnel pour une ou plusieurs finalités
-  spécifiques ;
-- Le traitement est nécessaire à l'exécution d'un contrat auquel la personne concernée est partie ou à l'exécution de
-  mesures précontractuelles prises à la demande de celle-ci ;
-- Le traitement est nécessaire au respect d'une obligation légale à laquelle le responsable du traitement est soumis ;
-- Le traitement est nécessaire à la sauvegarde des intérêts vitaux de la personne concernée ou d'une autre personne
-  physique ;
-- Le traitement est nécessaire à l'exécution d'une mission d'intérêt public ou relevant de l'exercice de l'autorité
-  publique dont est investi le responsable du traitement ;
-- Le traitement est nécessaire aux fins des intérêts légitimes poursuivis par le responsable du traitement ou par un
-  tiers, à moins que ne prévalent les intérêts ou les libertés et droits fondamentaux de la personne concernée qui
-  exigent une protection des données à caractère personnel, notamment lorsque la personne concernée est un enfant.
+- The individual has consented to the processing of their personal data for one or more specific purposes;
+- The processing is necessary for the performance of a contract to which the individual is a party or for the execution
+  of pre-contractual measures taken at their request;
+- The processing is necessary for compliance with a legal obligation to which the data controller is subject;
+- The processing is necessary to protect the vital interests of the individual or another natural person;
+- The processing is necessary for the performance of a task carried out in the public interest or in the exercise of
+  official authority vested in the data controller;
+- The processing is necessary for the purposes of the legitimate interests pursued by the data controller or by a third
+  party, unless the interests or the fundamental rights and freedoms of the data subject that require the protection of
+  personal data prevail, especially when the data subject is a child.
 
-## ARTICLE 3 : DONNÉES À CARACTÈRE PERSONNEL COLLECTÉES ET TRAITÉES DANS LE CADRE DE LA NAVIGATION SUR LE SITE
+## ARTICLE 3: PERSONAL DATA COLLECTED AND PROCESSED IN THE CONTEXT OF NAVIGATION ON THE SITE
 
-### Article 3.1 : Données collectées
+### Article 3.1: Data collected
 
-Les données personnelles collectées dans le cadre de notre activité sont les suivantes :
+The personal data collected in the context of our activity are as follows:
 
-- Adresse email
-- Adresse mail universitaire
-- Nom d'utilisateur fourni dans le profil public
-- Photo de profil fournie dans le profil public
-- Nom d'utilisateur des comptes Instagram, Snapchat ou Facebook fournis dans le profil public
-- Numéro de téléphone fourni dans le profil public
-- Profil public en cas de connexion avec Google, Microsoft ou Discord
+- Email address
+- University email address
+- Username provided in the public profile
+- Profile picture provided in the public profile
+- Instagram, Snapchat, or Facebook account usernames provided in the public profile
+- Phone number provided in the public profile
+- Public profile in case of connection with Google, Microsoft, or Discord
 
-La collecte et le traitement de ces données répond à la (aux) finalité(s) suivante(s) :
+The collection and processing of this data serve the following purpose(s):
 
-- La publication et la réservation de trajets
-- La mise en relation des utilisateurs en cas de réservation
+- The publication and reservation of rides
+- Connecting users in case of reservation
 
-Cette collecte est nécessaire au bon fonctionnement du site.
+This collection is necessary for the proper functioning of the site.
 
-### Article 3.2 : Mode de collecte des données
+### Article 3.2: Method of data collection
 
-Lorsque vous utilisez notre site, sont automatiquement collectées les données suivantes :  
+When you use our site, the following data are automatically collected:
 
-- Adresse IP
-- Date et heure de la visite
-- Type d'appareil (mobile, tablette, ordinateur)
-- Provenance
+- IP address
+- Date and time of visit
+- Type of device (mobile, tablet, computer)
+- Origin
 
-Ces données servent à produire une analyse statistique de l'utilisation d'UniCovoit.
-L'outil d'analyse statistique utilisé est [Plausible](https://plausible.io), hébergé sur des serveurs en Allemagne opérés par [Linode](https://www.linode.com).
+These data are used to produce a statistical analysis of UniCovoit usage.
+The statistical analysis tool used is Plausible, hosted on servers in Germany operated by Linode.
 
-D’autres données personnelles sont collectées lorsque vous effectuez les opérations suivantes sur la plateforme :
+Other personal data are collected when you perform the following operations on the platform:
 
-- Inscription:
-    - Nom d'utilisateur
-    - Mot de passe
-    - Adresse mail universitaire
-    - Adresse mail
-    - Photo de profil
-    - Profil public en cas de connexion avec Google, Microsoft ou Discord
-    - Date de création du compte
-    - Date de dernière modification du compte
-- Publication d'un trajet:
-    - Lieux de départ et d'arrivée
-    - Date et heure de début du trajet
-    - Date de publication
-    - Date de modification
+- Registration:
+    - Username
+    - Password
+    - University email address
+    - Email address
+    - Profile picture
+    - Public profile in case of connection with Google, Microsoft, or Discord
+    - Account creation date
+    - Account last modification date
+- Ride publication:
+    - Departure and arrival locations
+    - Start date and time of the ride
+    - Publication date
+    - Modification date
 
-Elles sont conservées par le responsable du traitement dans des conditions raisonnables de sécurité, pour une durée
-de : 2 ans.
-La société est susceptible de conserver certaines données à caractère personnel au-delà des délais annoncés ci-dessus
-afin de remplir ses obligations légales ou réglementaires.
+They are stored by the data controller under reasonable security conditions, for a duration of: 2 years.
+The company may keep some personal data beyond the deadlines announced above in order to fulfill its legal or regulatory
+obligations.
 
-### Article 3.3 : Hébergement des données
+### Article 3.3: Data hosting
 
-Le site UniCovoit est hébergé par :  
+The UniCovoit site is hosted by:
 
 > Contabo GmbH<br>
-> Aschauer Straße 32a - 81549 Munich, Allemagne<br>
+> Aschauer Straße 32a - 81549 Munich, Germany<br>
 > [+4989356471770](tel:+4989356471770)
 
-### Article 3.4 : Transmission des données à des tiers
-Les données peuvent être transmises à nos partenaires, ci-après énumérés :
+### Article 3.4: Transmission of data to third parties
 
-- Pour l'authentification des utilisateurs : Service Auth0 de la société Okta Inc<br>
+The data may be transmitted to our partners, listed below:
+
+- For user authentication: Auth0 Service from Okta Inc<br>
   3rd Floor Union House 182-194 Union Street - London SE1 0LH, UK
 
-### Article 3.5 : Politique en matière de “cookies”
+### Article 3.5: Cookie policy
 
-Des cookies sont utilisés pour l'authentification, et le thème s'il est changé.
+Cookies are used for authentication and for the theme, if it is changed.
 
-## ARTICLE 4 : RESPONSABLE DU TRAITEMENT DES DONNÉES ET DÉLÉGUÉ À LA PROTECTION DES DONNÉES
+## ARTICLE 4: DATA CONTROLLER AND DATA PROTECTION OFFICER
 
-### Article 4.1 : Le responsable du traitement des données
+Article 4.1: The data controller
+The personal data are collected by UniCovoit.
+The data controller can be contacted in the following way:
+By email: [dpo@unicovoit.fr](mailto:dpo@unicovoit.fr).
 
-Les données à caractère personnelles sont collectées par UniCovoit.  
-Le responsable du traitement des données à caractère personnel peut être contacté de la manière suivante :  
-Par mail : [dpo@unicovoit.fr](mailto:dpo@unicovoit.fr).
+### Article 4.2: The data protection officer
 
-### Article 4.2 : Le délégué à la protection des données
-
-Le délégué à la protection des données de l’entreprise ou du responsable est :
+The data protection officer of the company or the data controller is:
 Colin Ozanne, [dpo@unicovoit.fr](mailto:dpo@unicovoit.fr)
-Si vous estimez, après nous avoir contactés, que vos droits “Informatique et Libertés”, ne sont pas respectés, vous
-pouvez adresser une information à la CNIL.
+If you believe, after contacting us, that your "Data Protection and Freedom" rights are not being respected, you can
+report the matter to the CNIL.
 
-## ARTICLE 5 : LES DROITS DE L’UTILISATEUR EN MATIÈRE DE COLLECTE ET DE TRAITEMENT DES DONNÉES
+## ARTICLE 5: USER RIGHTS REGARDING THE COLLECTION AND PROCESSING
 
-Tout utilisateur concerné par le traitement de ses données personnelles peut se prévaloir des droits suivants, en
-application du règlement européen 2016/679 et de la Loi Informatique et Liberté (Loi 78-17 du 6 janvier 1978) :
+Any user concerned by the processing of their personal data can assert the following rights, in accordance with European
+Regulation 2016/679 and the Data Protection and Freedom of Information Act (Law 78-17 of January 6, 1978):
 
-- Droit d’accès, de rectification et droit à l’effacement des données (posés respectivement aux articles 15, 16 et 17 du
-  RGPD) ;
-- Droit à la portabilité des données (article 20 du RGPD) ;
-- Droit à la limitation (article 18 du RGPD) et à l’opposition du traitement des données (article 21 du RGPD) ;
-- Droit de ne pas faire l’objet d’une décision fondée exclusivement sur un procédé automatisé ;
-- Droit de déterminer le sort des données après la mort ;
-- Droit de saisir l’autorité de contrôle compétente (article 77 du RGPD).  
-  Pour exercer vos droits, veuillez adresser votre mail à [dpo@unicovoit.fr](mailto:dpo@unicovoit.fr)
-  Afin que le responsable du traitement des données puisse faire droit à sa demande, l’utilisateur peut être tenu de lui
-  communiquer certaines informations telles que : ses noms et prénoms, son adresse e-mail ainsi que son numéro de
-  compte, d’espace personnel ou d’abonné.  
-  Consultez le site [cnil.fr](https://cnil.fr) pour plus d’informations sur vos droits.
+- Right of access, rectification, and right to erasure of data (set out respectively in Articles 15, 16, and 17 of the
+  GDPR);
+- Right to data portability (Article 20 of the GDPR);
+- Right to restriction (Article 18 of the GDPR) and opposition to data processing (Article 21 of the GDPR);
+- Right not to be subject to a decision based solely on automated processing;
+- Right to determine the fate of data after death;
+- Right to lodge a complaint with the competent supervisory authority (Article 77 of the GDPR).
 
-## ARTICLE 6 : CONDITIONS DE MODIFICATION DE LA POLITIQUE DE CONFIDENTIALITÉ
+To exercise your rights, please send your email to [dpo@unicovoit.fr](mailto:dpo@unicovoit.fr)
+In order for the data controller to comply with the user's request, the user may be required to provide certain
+information such as: their first and last name, email address, and account number, personal space, or subscriber number.
+Visit [cnil.fr](https://cnil.fr) for more information on your rights.
 
-L’éditeur du site UniCovoit se réserve le droit de pouvoir modifier la présente Politique à tout moment afin d’assurer
-aux utilisateurs du site sa conformité avec le droit en vigueur.  
-Les éventuelles modifications ne sauraient avoir d’incidence sur les achats antérieurement effectués sur le site,
-lesquels restent soumis à la Politique en vigueur au moment de l’achat et telle qu’acceptée par l’utilisateur lors de la
-validation de l’achat.  
-L’utilisateur est invité à prendre connaissance de cette Politique à chaque fois qu’il utilise nos services, sans qu’il
-soit nécessaire de l’en prévenir formellement.  
-La présente politique, éditée le 22 août 2022, a été mise à jour le 30 août 2022.
+## ARTICLE 6: TERMS OF MODIFYING THE PRIVACY POLICY
+
+The publisher of the UniCovoit site reserves the right to modify this Policy at any time to ensure its compliance with
+the applicable law for users of the site.
+Any changes will not affect purchases previously made on the site, which remain subject to the Policy in effect at the
+time of purchase and as accepted by the user when validating the purchase.
+The user is invited to review this Policy each time they use our services, without the need for formal notification.
+This policy, published on August 22, 2022, was updated on August 30, 2022.
