@@ -64,7 +64,7 @@
     },
     "devDependencies": {
         "@capacitor/android": "^4.7.1",
-        "@capacitor/cli": "^4.7.1",
+        "@capacitor/cli": "^4.7.3",
         "@capacitor/core": "^4.7.1",
         "@mdi/font": "^7.2.96",
         "@nuxt/types": "^2.16.3",

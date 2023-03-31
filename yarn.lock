@@ -1355,9 +1355,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/cli@npm:^4.7.1":
-  version: 4.7.1
-  resolution: "@capacitor/cli@npm:4.7.1"
+"@capacitor/cli@npm:^4.7.3":
+  version: 4.7.3
+  resolution: "@capacitor/cli@npm:4.7.3"
   dependencies:
     "@ionic/cli-framework-output": ^2.2.5
     "@ionic/utils-fs": ^3.1.6
@@ -1379,7 +1379,7 @@ __metadata:
   bin:
     cap: bin/capacitor
     capacitor: bin/capacitor
-  checksum: 0775848608a14583290048a913733027009529a25368f86de63f80431fc4c0848fe1f199a0aafe3849c7772bdac0c21ae446019613961c2e70b992dbe7cb76e7
+  checksum: 07a09decfc465e7bfdec5e8f5436468eea562c7d44a0ed2941354cfb599259ebc8955da6d2ba555dfab87a4eacd6a71b3700828a20d3de118f81b55097290e45
   languageName: node
   linkType: hard
 
@@ -13874,7 +13874,7 @@ __metadata:
   dependencies:
     "@auth0/auth0-vue": ^1.0.3
     "@capacitor/android": ^4.7.1
-    "@capacitor/cli": ^4.7.1
+    "@capacitor/cli": ^4.7.3
     "@capacitor/core": ^4.7.1
     "@dansmaculotte/nuxt-security": ^0.0.6
     "@mdi/font": ^7.2.96
