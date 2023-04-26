@@ -1355,14 +1355,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/cli@npm:^4.7.1":
-  version: 4.7.1
-  resolution: "@capacitor/cli@npm:4.7.1"
+"@capacitor/cli@npm:^4.8.0":
+  version: 4.8.0
+  resolution: "@capacitor/cli@npm:4.8.0"
   dependencies:
-    "@ionic/cli-framework-output": ^2.2.5
-    "@ionic/utils-fs": ^3.1.6
-    "@ionic/utils-subprocess": ^2.1.11
-    "@ionic/utils-terminal": ^2.3.3
+    "@ionic/cli-framework-output": 2.2.5
+    "@ionic/utils-fs": 3.1.6
+    "@ionic/utils-subprocess": 2.1.11
+    "@ionic/utils-terminal": 2.3.3
     commander: ^9.3.0
     debug: ^4.3.4
     env-paths: ^2.2.0
@@ -1375,11 +1375,11 @@ __metadata:
     semver: ^7.3.7
     tar: ^6.1.11
     tslib: ^2.4.0
-    xml2js: ^0.4.23
+    xml2js: ^0.5.0
   bin:
     cap: bin/capacitor
     capacitor: bin/capacitor
-  checksum: 0775848608a14583290048a913733027009529a25368f86de63f80431fc4c0848fe1f199a0aafe3849c7772bdac0c21ae446019613961c2e70b992dbe7cb76e7
+  checksum: b9e20a7fd7c82c909b7c5d2c017d9e42335179495708f9c5f6a2d661f2b8c9a0df1f4b529b8e54b863bd5305ab48baf59e70b771e19203ec3aa1d7acd6d9adc6
   languageName: node
   linkType: hard
 
@@ -1728,7 +1728,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ionic/cli-framework-output@npm:^2.2.5":
+"@ionic/cli-framework-output@npm:2.2.5":
   version: 2.2.5
   resolution: "@ionic/cli-framework-output@npm:2.2.5"
   dependencies:
@@ -1795,7 +1795,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ionic/utils-subprocess@npm:^2.1.11":
+"@ionic/utils-subprocess@npm:2.1.11":
   version: 2.1.11
   resolution: "@ionic/utils-subprocess@npm:2.1.11"
   dependencies:
@@ -13874,7 +13874,7 @@ __metadata:
   dependencies:
     "@auth0/auth0-vue": ^1.0.3
     "@capacitor/android": ^4.7.1
-    "@capacitor/cli": ^4.7.1
+    "@capacitor/cli": ^4.8.0
     "@capacitor/core": ^4.7.1
     "@dansmaculotte/nuxt-security": ^0.0.6
     "@mdi/font": ^7.2.96
@@ -14829,6 +14829,16 @@ __metadata:
     sax: ">=0.6.0"
     xmlbuilder: ~11.0.0
   checksum: ca0cf2dfbf6deeaae878a891c8fbc0db6fd04398087084edf143cdc83d0509ad0fe199b890f62f39c4415cf60268a27a6aed0d343f0658f8779bd7add690fa98
+  languageName: node
+  linkType: hard
+
+"xml2js@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "xml2js@npm:0.5.0"
+  dependencies:
+    sax: ">=0.6.0"
+    xmlbuilder: ~11.0.0
+  checksum: 1aa71d62e5bc2d89138e3929b9ea46459157727759cbc62ef99484b778641c0cd21fb637696c052d901a22f82d092a3e740a16b4ce218e81ac59b933535124ea
   languageName: node
   linkType: hard
 
