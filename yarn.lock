@@ -1346,12 +1346,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/android@npm:^4.7.1":
-  version: 4.7.1
-  resolution: "@capacitor/android@npm:4.7.1"
+"@capacitor/android@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "@capacitor/android@npm:5.1.0"
   peerDependencies:
-    "@capacitor/core": ^4.7.0
-  checksum: d2cb170f3de262d6c1cabef921cd27b2201740a7330b70726cf757984929e5d3bedb28090348b5ea1cf54973fc3603862ad805bcb6730f8732a5f384aa1b08b0
+    "@capacitor/core": ^5.1.0
+  checksum: 391f2a40d26bf4909d2a569c6b11ff6dce216238c65cf32450a4942d77467f5309b05efbd8193d90066f6cfdb9d24743213afb430113bc126e5c2dd61511baef
   languageName: node
   linkType: hard
 
@@ -13880,7 +13880,7 @@ __metadata:
   resolution: "unicovoit@workspace:."
   dependencies:
     "@auth0/auth0-vue": ^1.0.3
-    "@capacitor/android": ^4.7.1
+    "@capacitor/android": ^5.1.0
     "@capacitor/cli": ^4.7.1
     "@capacitor/core": ^4.7.1
     "@dansmaculotte/nuxt-security": ^0.0.6
