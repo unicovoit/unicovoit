@@ -1383,12 +1383,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/core@npm:^4.7.1":
-  version: 4.7.1
-  resolution: "@capacitor/core@npm:4.7.1"
+"@capacitor/core@npm:^5.2.2":
+  version: 5.2.2
+  resolution: "@capacitor/core@npm:5.2.2"
   dependencies:
     tslib: ^2.1.0
-  checksum: 326b588f9c5cf338ca9198e6a2d7713618c34807427c869fa64103976532579b42b95fa2da0a96847b7f6f0ff4b289e10379c42fc6676d2e3aaaa9bfe69c9eb2
+  checksum: f14d8c32fbb10a8c0579bce25558eae05e8574cbee7c2547b8fbc1567bd3e660871c0e4d844ac0eca3cb4406159b8e2d6cb32846059584fd7abe23f2923a664a
   languageName: node
   linkType: hard
 
@@ -13882,7 +13882,7 @@ __metadata:
     "@auth0/auth0-vue": ^1.0.3
     "@capacitor/android": ^4.7.1
     "@capacitor/cli": ^4.7.1
-    "@capacitor/core": ^4.7.1
+    "@capacitor/core": ^5.2.2
     "@dansmaculotte/nuxt-security": ^0.0.6
     "@mdi/font": ^7.2.96
     "@nuxt/content": ^1.15.1
