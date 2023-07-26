@@ -31,7 +31,7 @@ USER node
 RUN yarn workspaces focus --production --all
 
 # Remove useless files and directories
-RUN clean-modules --yes --exclude "**/*.mustache" --exclude "**/.cache/pwa/**"
+# RUN clean-modules --yes --exclude "**/*.mustache" --exclude "**/.cache/pwa/**"
 
 
 FROM node:18-alpine as runtime
