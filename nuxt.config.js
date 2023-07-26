@@ -72,9 +72,6 @@ export default {
                 sizes: '180x180',
                 href: '/apple-touch-icon.png?v=2'
             }, {
-                rel: 'manifest',
-                href: '/site.webmanifest?v=2'
-            }, {
                 rel: 'mask-icon',
                 href: '/safari-pinned-tab.svg?v=2',
                 color: '#4A6DD9'
