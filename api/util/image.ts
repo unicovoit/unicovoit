@@ -16,12 +16,15 @@ interface DecodedImage {
  * @returns The compressed image.
  */
 export async function compress(image: Buffer): Promise<Buffer> {
-    return await sharp(image)
+    let compressed: Buffer | void = await sharp(image)
         .resize(600, 600, { fit: 'inside' })
         .toBuffer()
         .catch(err => {
             logger.error('Error while compressing image', err)
         })
+    if (!compressed)
+        throw new Error('Error while compressing image')
+    return compressed as Buffer
 }
 
 
