@@ -43,7 +43,7 @@
         "express-rate-limit": "^6.7.0",
         "fast-xml-parser": "^4.2.5",
         "helmet": "^6.0.1",
-        "jsonwebtoken": "^9.0.0",
+        "jsonwebtoken": "^9.0.1",
         "mongoose": "^7.4.1",
         "nodemailer": "^6.9.4",
         "nuxt": "^2.16.3",
