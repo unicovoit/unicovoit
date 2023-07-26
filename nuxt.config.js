@@ -57,7 +57,34 @@ export default {
             {property: 'twitter:image', content: BANNER}
         ],
         link: [
-            {rel: 'icon', type: 'image/png', href: '/icon.png'}
+            {
+                rel: 'icon',
+                type: 'image/png',
+                sizes: '32x32',
+                href: '/favicon-32x32.png?v=2'
+            }, {
+                rel: 'icon',
+                type: 'image/png',
+                sizes: '16x16',
+                href: '/favicon-16x16.png?v=2'
+            }, {
+                rel: 'apple-touch-icon',
+                sizes: '180x180',
+                href: '/apple-touch-icon.png?v=2'
+            }, {
+                rel: 'manifest',
+                href: '/site.webmanifest?v=2'
+            }, {
+                rel: 'mask-icon',
+                href: '/safari-pinned-tab.svg?v=2',
+                color: '#4A6DD9'
+            }, {
+                rel: 'shortcut icon',
+                href: '/favicon.ico?v=2'
+            }, {
+                rel: 'msapplication-TileColor',
+                content: '#4A6DD9'
+            }
         ]
     },
 
@@ -117,7 +144,7 @@ export default {
         // https://www.npmjs.com/package/@nuxt/content
         "@nuxt/content",
         // https://i18n.nuxtjs.org/
-        '@nuxtjs/i18n'
+        '@nuxtjs/i18n',
     ],
 
     auth: {
