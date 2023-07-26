@@ -111,8 +111,10 @@
 export default {
     name: "about",
     auth: false,
-    head: {
-        title: "A Propos",
+    head() {
+        return {
+            title: this.$t("appBar.about"),
+        }
     },
     data: () => ({
         cleanerThan: "82",
