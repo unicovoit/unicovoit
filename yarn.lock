@@ -2428,12 +2428,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxtjs/device@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "@nuxtjs/device@npm:2.2.0"
+"@nuxtjs/device@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@nuxtjs/device@npm:2.3.0"
   dependencies:
     defu: ^3.2.2
-  checksum: e016cbe155cedc9dde0dfab17dcc39f5db59d6dee82a64a10dc0d321a8d6ab7cab8fc180dfe8042340ffff28e568932db4c704388a81fec5129a1f068bda0ff3
+  checksum: d4856a7573f5221c2cd1575b36062f26c21e63fa916590e4129b4bb3719573630286d84310195a487a59534ac19d528909467f3072b0c7600dfe41d2b3a972c1
   languageName: node
   linkType: hard
 
@@ -13826,7 +13826,7 @@ __metadata:
     "@nuxt/typescript-build": ^2.1.0
     "@nuxtjs/auth-next": ^5.0.0-1667386184.dfbbb54
     "@nuxtjs/axios": ^5.13.6
-    "@nuxtjs/device": ^2.2.0
+    "@nuxtjs/device": ^2.3.0
     "@nuxtjs/i18n": ^7.3.1
     "@nuxtjs/pwa": ^3.3.5
     "@nuxtjs/vuetify": ^1.12.3
