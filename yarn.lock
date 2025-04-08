@@ -9900,10 +9900,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemailer@npm:^6.9.4":
-  version: 6.9.4
-  resolution: "nodemailer@npm:6.9.4"
-  checksum: 1a61039c9c6041ee9ed423c7fa3685cb300679f1ef8dcfd912fc58d9b8c429c34ac1187eebd4d86baf7158222f6e3a1ea2b4fd2a29630fb9ef0027cef46e90bb
+"nodemailer@npm:^6.10.0":
+  version: 6.10.0
+  resolution: "nodemailer@npm:6.10.0"
+  checksum: 6d7fb0db8ceb521180a5346f2fbe84e9cf0872e9331e99ca4e420bd262407a92c34a17b0b921f17069daca50e908a099d463fcaa3a544b12564bf802574fa13f
   languageName: node
   linkType: hard
 
@@ -13844,7 +13844,7 @@ __metadata:
     helmet: ^6.0.1
     jsonwebtoken: ^9.0.2
     mongoose: ^7.4.1
-    nodemailer: ^6.9.4
+    nodemailer: ^6.10.0
     nuxt: ^2.16.3
     nuxt-start: ^2.16.3
     sass: ^1.60.0
