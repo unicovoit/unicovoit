@@ -5090,10 +5090,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.30.2":
-  version: 3.30.2
-  resolution: "core-js@npm:3.30.2"
-  checksum: 73d47e2b9d9f502800973982d08e995bbf04832e20b04e04be31dd7607247158271315e9328788a2408190e291c7ffbefad141167b1e57dea9f983e1e723541e
+"core-js@npm:^3.41.0":
+  version: 3.41.0
+  resolution: "core-js@npm:3.41.0"
+  checksum: 05331e92f354d3b92fa296fb3fc90c7b25d1a65230046c68651be29d67245bb156bdde7bf5c8cf8b3ecddfff93273a9ba6567f5e4ee6ceb70f39cee430693509
   languageName: node
   linkType: hard
 
@@ -13834,7 +13834,7 @@ __metadata:
     axios: ^0.28.0
     cookie-parser: ^1.4.6
     cookie-universal-nuxt: ^2.2.2
-    core-js: ^3.30.2
+    core-js: ^3.41.0
     cors: ^2.8.5
     express: ^4.20.0
     express-fileupload-validator: ^2.0.1
